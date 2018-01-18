@@ -1,0 +1,198 @@
+﻿$PBExportHeader$fun_a_sz_nr_ln_up.srf
+global type fun_a_sz_nr_ln_up from function_object
+end type
+
+forward prototypes
+global subroutine fun_a_sz_nr_ln_up ()
+end prototypes
+
+global subroutine fun_a_sz_nr_ln_up ();long ls_count = 0
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//ÒªÏÈÉ¾³ý1096Ö®ºóµÄjytype,È»ºó²Å¸üÐÂÉý¼¶
+
+
+string ll_jymlid,ll_jylbid,jytype_temp
+string jytype_bgbh,jytype_jyal,jytype_jyjl
+long ll_num
+///////////////////////////////Éý¼¶Ö®Ç°ÇåÀía_bgbhÖÐ²»·ûºÏ±ê×¼µÄ////////////////////////////
+DECLARE ltemp_bgbh CURSOR FOR
+SELECT jymlid,jylbid
+FROM a_bgbh order by jymlid; 
+OPEN ltemp_bgbh;
+FETCH ltemp_bgbh INTO :ll_jymlid,:ll_jylbid;
+do while sqlca.sqlcode = 0
+	if isnull(ll_jymlid) or ll_jymlid = '' then
+	else
+		jytype_temp = ll_jymlid + ll_jylbid
+		select count(*) into :ll_num from a_bgml where jytype like :jytype_temp;
+		if ll_num = 0 then
+			if jytype_bgbh = '' or isnull(jytype_bgbh) then
+				jytype_bgbh = jytype_temp + ','
+			else
+				jytype_bgbh = jytype_bgbh + jytype_temp + ','
+			end if
+			delete a_bgbh where jymlid like :ll_jymlid and jylbid like :ll_jylbid;
+		end if
+	end if
+FETCH ltemp_bgbh INTO :ll_jymlid,:ll_jylbid;
+LOOP
+CLOSE ltemp_bgbh;
+///////////////////////////////Éý¼¶Ö®Ç°ÇåÀía_jyalbhÖÐ²»·ûºÏ±ê×¼µÄ////////////////////////////
+DECLARE ltemp_jyalbh CURSOR FOR
+SELECT jymlid,jylbid
+FROM a_jyalbh order by jymlid; 
+OPEN ltemp_jyalbh;
+FETCH ltemp_jyalbh INTO :ll_jymlid,:ll_jylbid;
+do while sqlca.sqlcode = 0
+	if isnull(ll_jymlid) or ll_jymlid = '' then
+	else
+		jytype_temp = ll_jymlid + ll_jylbid
+		select count(*) into :ll_num from a_bgml where jytype like :jytype_temp;
+		if ll_num = 0 then
+			if jytype_jyal = '' or isnull(jytype_jyal) then
+				jytype_jyal = jytype_temp + ','
+			else
+				jytype_jyal = jytype_jyal + jytype_temp + ','
+			end if
+			delete a_jyalbh where jymlid like :ll_jymlid and jylbid like :ll_jylbid;
+		end if
+	end if
+FETCH ltemp_jyalbh INTO :ll_jymlid,:ll_jylbid;
+LOOP
+CLOSE ltemp_jyalbh;
+///////////////////////////////Éý¼¶Ö®Ç°ÇåÀía_jyjlÖÐ²»·ûºÏ±ê×¼µÄ////////////////////////////
+DECLARE ltemp_jyjl CURSOR FOR
+SELECT jymlid,jylbid
+FROM a_jyjl order by jymlid; 
+OPEN ltemp_jyjl;
+FETCH ltemp_jyjl INTO :ll_jymlid,:ll_jylbid;
+do while sqlca.sqlcode = 0
+	if isnull(ll_jymlid) or ll_jymlid = '' then
+	else
+		jytype_temp = ll_jymlid + ll_jylbid
+		select count(*) into :ll_num from a_bgml where jytype like :jytype_temp;
+		if ll_num = 0 then
+			if jytype_jyjl = '' or isnull(jytype_jyjl) then
+				jytype_jyjl = jytype_temp + ','
+			else
+				jytype_jyjl = jytype_jyjl + jytype_temp + ','
+			end if
+			delete a_jyjl where jymlid like :ll_jymlid and jylbid like :ll_jylbid;
+		end if
+	end if
+FETCH ltemp_jyjl INTO :ll_jymlid,:ll_jylbid;
+LOOP
+CLOSE ltemp_jyjl;
+///////////////////////////////É¾³ý1096Ö®ºójytypeÎªÇåÀíjytype/////////////////////////////////////////
+string id 
+DECLARE temp1 CURSOR FOR
+SELECT id
+FROM a_bgml where id > '1096' ORDER BY id; 
+OPEN temp1;
+FETCH temp1 INTO :id;
+do while sqlca.sqlcode = 0
+	DELETE FROM a_bgml WHERE id = :id;
+FETCH temp1 INTO :id;
+LOOP
+CLOSE temp1;
+//Òª¸üÐÂµÄµÄjytype
+update a_bgml set jytype = '',typename = '',jymk = '' where id = '1001';
+///////////////////////////////////////////////////////////////////ÌúÂ·¹Þ³µÈ«Ãæ¼ìÑé(1002)
+update a_bgml set jytype = 'Js',typename = 'ÌúÂ·¹Þ³µÈ«Ãæ¼ìÑé' where jytype = 'Jc';
+///////////////////////////////////////////////////////////////////Ñ¹Á¦ÈÝÆ÷È«Ãæ¼ìÑé(1004)
+update a_bgml set jytype = '6s',typename = 'Ñ¹Á¦ÈÝÆ÷È«Ãæ¼ìÑé' where jytype like '6c';
+///////////////////////////////////////////////////////////////////Ñ¹Á¦ÈÝÆ÷Äê¶È¼ìÑé(1005)
+update a_bgml set typename = 'Ñ¹Á¦ÈÝÆ÷Äê¶È¼ìÑé' where jytype like '6n';
+///////////////////////////////////////////////////////////////////Æû³µ²Û³µÈ«Ãæ¼ìÑé(1013)
+update a_bgml set jytype = 'Ks',typename = 'Æû³µ¹Þ³µÈ«Ãæ¼ìÑé' where jytype = 'Kc';
+///////////////////////////////////////////////////////////////////ÓÐ»úÈÈÔØÌåÂ¯ÄÚ²¿¼ìÑé(1017)
+update a_bgml set typename = 'ÓÐ»úÈÈÔØÌåÂ¯ÄÚ²¿¼ìÑé' where jytype = 'Fa';
+///////////////////////////////////////////////////////////////////ÓÐ»úÈÈÔØÌåÂ¯Íâ²¿¼ìÑé(1018)
+update a_bgml set typename = 'ÓÐ»úÈÈÔØÌåÂ¯Íâ²¿¼ìÑé' where jytype = 'Fb';
+///////////////////////////////////////////////////////////////////ÇÅ(ÃÅ)Ê½ÆðÖØ»ú¶¨ÆÚ¼ìÑé(1025)
+update a_bgml set typename = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú¶¨ÆÚ¼ìÑé' where jytype = 'Vc';
+///////////////////////////////////////////////////////////////////ÇÅ(ÃÅ)Ê½ÆðÖØ»ú¶¨ÆÚ¼ìÑé(1046)
+update a_bgml set typename = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»úÑéÊÕ¼ìÑé' where jytype = 'Vo';
+///////////////////////////////////////////////////////////////////ÃÅ×ùÊ½ÆðÖØ»ú¶¨ÆÚ¼ìÑé(1026)
+update a_bgml set typename = 'ÃÅ×ùÊ½ÆðÖØ»ú¶¨ÆÚ¼ìÑé' where jytype = 'Wc';
+///////////////////////////////////////////////////////////////////ÃÅ×ùÊ½ÆðÖØ»úÑéÊÕ¼ìÑé(1047)
+update a_bgml set typename = 'ÃÅ×ùÊ½ÆðÖØ»úÑéÊÕ¼ìÑé' where jytype = 'Wo';
+///////////////////////////////////////////////////////////////////Ñ¹Á¦ÈÝÆ÷°²×°¼ìÑé(1037)
+update a_bgml set jytype = '6d' where typename = 'Ñ¹Á¦ÈÝÆ÷°²×°¼ìÑé';
+///////////////////////////////////////////////////////////////////Ñ¹Á¦ÈÝÆ÷¼à¼ìÏîÄ¿±í(1058)
+update a_bgml set jytype = '6p' where typename = 'Ñ¹Á¦ÈÝÆ÷¼à¼ìÏîÄ¿±í';
+///////////////////////////////////////////////////////////////////Ñ¹Á¦ÈÝÆ÷¼à¼ìÁªÂçµ¥(1063)
+update a_bgml set typename = 'Ñ¹Á¦ÈÝÆ÷¼à¼ìÁªÂçµ¥' where jytype = '6u';
+///////////////////////////////////////////////////////////////////Ñ¹Á¦ÈÝÆ÷¼à¼ìÏîÄ¿±í(1065)
+update a_bgml set jymk = 'aj',jytype = '9@',typename = 'ÌØÖÖÉè±¸Òâ¼ûÍ¨ÖªÊé' where id = '1065'
+///////////////////////////////////////////////////////////////////Ñ¹Á¦ÈÝÆ÷¼à¼ìÒâ¼ûÊé(1070)
+update a_bgml set jytype = '6v' where typename = 'Ñ¹Á¦ÈÝÆ÷¼à¼ìÒâ¼ûÊé';
+///////////////////////////////////////////////////////////////////Ñ¹Á¦ÈÝÆ÷¼à¼ìÒâ¼ûÊé(1075)
+update a_bgml set jytype = '6w' where typename = 'Ñ¹Á¦ÈÝÆ÷¼à¼ìÖ¤Êé';
+///////////////////////////////////////////////////////////////////³ö¿ÚÈÝÆ÷²úÆ·¼à¼ìÖ¤Êé(1083)
+update a_bgml set typename = '³ö¿ÚÈÝÆ÷²úÆ·¼à¼ìÖ¤Êé' where jytype = '4w';
+/////////////////////////////////////////////////////////////////////ÌØÖÖÉè±¸¼à¼ìÁªÂçµ¥(1094)
+update a_bgml set jymk ='aj' where id = '1094';
+///////////////////////////////////////////////////////////////////////
+string jytype,ll_jytype,condstr,cs1
+string temp
+temp = '1c,2c,4w,5s,5t,61,6c,6n,6u,7w,8d,8w,9v,Aa,Ap,Au,Av,Aw,D3,Da,Db,Dc,Di,Dj,Dk,Dm,Dp,Dr,Du,Dv,Dw,Ec,Eo,Fa,Fb,Ge,H,eIc,Id,Ip,Iu,Iw,Jc,Kc,Le,Oc,Od,On,Op,Os,Ou,Ov,Ow,Z9,Zf,Zg,Zh,Zl'
+DECLARE temp6 CURSOR FOR
+SELECT jytype
+FROM a_sz_nr where xh = '' or xh is null ORDER BY jytype ; 
+OPEN temp6;
+FETCH temp6 INTO :jytype;
+do while sqlca.sqlcode = 0
+	if jytype = '' or isnull(jytype) then
+	else
+		if pos(temp,jytype) > 0 then
+			if ll_jytype = '' or isnull(ll_jytype) then
+				condstr = " where (jytype like '" + jytype + "'" + "' or"
+				ll_jytype = jytype + ','
+			else
+				condstr = condstr +  " jytype like '" + jytype + "'" + "' or"
+				ll_jytype = ll_jytype + jytype + ','
+			end if
+		end if
+	end if
+FETCH temp6 INTO :jytype;
+LOOP
+CLOSE temp6;
+if right(condstr,2) = 'or' then 
+	 condstr = replace(condstr,len(condstr) - 1,2,") and xh = '01' ORDER BY jytype")
+end if
+if condstr <> '' then
+	cs1 =  "select jytype from a_bgml " + condstr
+	declare shjb1_qc dynamic cursor for sqlsa;
+	prepare sqlsa from :cs1;
+	open dynamic shjb1_qc;
+	fetch shjb1_qc into :jytype;
+	do while sqlca.sqlcode = 0
+	if isnull(jytype) then jytype = ''
+	if pos(temp,jytype) > 0 then
+	else
+		DELETE FROM a_sz_nr WHERE jytype = :jytype;
+	end if
+	fetch shjb1_qc into :jytype;
+	loop
+	close shjb1_qc;
+else
+	DECLARE temp7 CURSOR FOR
+	SELECT jytype
+	FROM a_sz_nr where xh = '01' ORDER BY jytype ; 
+	OPEN temp7;
+	FETCH temp7 INTO :jytype;
+	do while sqlca.sqlcode = 0
+	if pos(temp,jytype) > 0 then
+	else
+		DELETE FROM a_sz_nr WHERE jytype = :jytype;
+	end if
+	FETCH temp7 INTO :jytype;
+	LOOP
+	CLOSE temp7;
+end if
+end subroutine
+

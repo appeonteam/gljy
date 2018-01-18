@@ -1,0 +1,62 @@
+﻿$PBExportHeader$fun_a_sz_nr_ln_sduptable.srf
+global type fun_a_sz_nr_ln_sduptable from function_object
+end type
+
+forward prototypes
+global subroutine fun_a_sz_nr_ln_sduptable ()
+end prototypes
+
+global subroutine fun_a_sz_nr_ln_sduptable ();long ls_count = 0
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+string typename,lbid,sh
+string ll_jymlid,ll_jylbid,jytype_temp
+
+/////////////////////////////////////////¸üÐÂ³õÊ¼»¯±¨¸æ±àºÅ////////////////////////////////////////
+update a_bgbh set jymlid = '6',jylbid = 's' where jymlid = 'I' and jylbid = 'c';
+update a_bgbh set jymlid = 'K',jylbid = 's' where jymlid = 'K' and jylbid = 'c';
+update a_bgbh set jymlid = 'J',jylbid = 's' where jymlid = 'J' and jylbid = 'c';
+DECLARE temp_bgbh_up CURSOR FOR
+SELECT jymlid,jylbid
+FROM a_bgbh ORDER BY jymlid; 
+OPEN temp_bgbh_up;
+FETCH temp_bgbh_up INTO :ll_jymlid,:ll_jylbid;
+do while sqlca.sqlcode = 0
+	if isnull(ll_jymlid) then ll_jymlid = ''
+	if isnull(ll_jylbid) then ll_jylbid = ''
+	jytype_temp = ll_jymlid + ll_jylbid
+	select typename,lbid,sh into :typename,:lbid,:sh from view_bgml_total where jytype like :jytype_temp;
+	update a_bgbh set typename = :typename,lbid = :lbid,sh = :sh where jymlid = :ll_jymlid and jylbid = :ll_jylbid;
+FETCH temp_bgbh_up INTO :ll_jymlid,:ll_jylbid;
+LOOP
+CLOSE temp_bgbh_up;
+update a_jyjl set jymlid = '6',jylbid = 's' where jymlid = 'I' and jylbid = 'c';
+update a_jyjl set jymlid = 'K',jylbid = 's' where jymlid = 'K' and jylbid = 'c';
+update a_jyjl set jymlid = 'J',jylbid = 's' where jymlid = 'J' and jylbid = 'c';
+delete from a_djbh where jymlid = 'J' or jymlid = 'K';
+update a_djbh set jymlid = '6' where jymlid = 'I';
+
+delete from a_zdsh_zdmc where jytype = 'Ic';
+update a_zdsh_zdmc set jytype = '6s' where jytype = '6c';
+update a_zdsh_zdmc set jytype = 'Ks' where jytype = 'Kc';
+update a_zdsh_zdmc set jytype = 'Js' where jytype = 'Jc';
+
+DECLARE temp_jyalbh_up CURSOR FOR
+SELECT jymlid,jylbid
+FROM a_jyalbh ORDER BY jymlid; 
+OPEN temp_jyalbh_up;
+FETCH temp_jyalbh_up INTO :ll_jymlid,:ll_jylbid;
+do while sqlca.sqlcode = 0
+	if isnull(ll_jymlid) then ll_jymlid = ''
+	if isnull(ll_jylbid) then ll_jylbid = ''
+	jytype_temp = ll_jymlid + ll_jylbid
+	select typename,lbid,sh into :typename,:lbid,:sh from view_bgml_total where jytype like :jytype_temp;
+	update a_jyalbh set typename = :typename,lbid = :lbid,sh = :sh where jymlid = :ll_jymlid and jylbid = :ll_jylbid;
+FETCH temp_jyalbh_up INTO :ll_jymlid,:ll_jylbid;
+LOOP
+CLOSE temp_jyalbh_up;
+
+end subroutine
+

@@ -1,0 +1,37 @@
+﻿$PBExportHeader$fun_qj_xsq.srf
+global type fun_qj_xsq from function_object
+end type
+
+forward prototypes
+global subroutine fun_qj_xsq ()
+end prototypes
+
+global subroutine fun_qj_xsq ();long ls_count = 0
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+// ´´½¨ÏÞËÙÆ÷²âÊÔ±¨¸æÊé
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.b_xsqcs(jyid varchar(20) NOT NULL ,bgbh varchar(20) null,sjdw varchar(40) NULL,"+&
+            "dtzcdm varchar(30) null,xsqxh varchar(40) null,edsd varchar(20) null,dzsd varchar(20) null,"+&
+				"kgsd varchar(20) NULL,csyq varchar(60) NULL,jyyj varchar(60) NULL,jyjl varchar(6) NULL,"+&
+            "csyear varchar(4) NULL,csmonth varchar(2) NULL,csday varchar(2) NULL,yxyear varchar(4) null,"+&
+            "yxmonth varchar(2) NULL,yxday varchar(2) NULL,jyy varchar(8) NULL,pzname varchar(8) NULL,"+&
+            "shname varchar(8) NULL,jyz1 varchar(8) NULL,jyz2 varchar(8) NULL,jyz3 varchar(8) NULL,"+&
+				"jyz4 varchar(8) NULL,jyz5 varchar(8) NULL);"
+		execute immediate :mysql using sqlca ;	
+		myindex = "CREATE UNIQUE INDEX B_XSQCS_X ON DJYLRQ.B_XSQCS (jyid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE b_xsqcs(jyid varchar(20) NOT NULL ,bgbh varchar(20) null,sjdw varchar(40) NULL,"+&
+            "dtzcdm varchar(30) null,xsqxh varchar(40) null,edsd varchar(20) null,dzsd varchar(20) null,"+&
+				"kgsd varchar(20) NULL,csyq varchar(60) NULL,jyyj varchar(60) NULL,jyjl varchar(6) NULL,"+&
+            "csyear varchar(4) NULL,csmonth varchar(2) NULL,csday varchar(2) NULL,yxyear varchar(4) null,"+&
+            "yxmonth varchar(2) NULL,yxday varchar(2) NULL,jyy varchar(8) NULL,pzname varchar(8) NULL,"+&
+            "shname varchar(8) NULL,jyz1 varchar(8) NULL,jyz2 varchar(8) NULL,jyz3 varchar(8) NULL,"+&
+				"jyz4 varchar(8) NULL,jyz5 varchar(8) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;	
+END IF
+end subroutine
+

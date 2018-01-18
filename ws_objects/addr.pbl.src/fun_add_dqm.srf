@@ -1,0 +1,62 @@
+﻿$PBExportHeader$fun_add_dqm.srf
+global type fun_add_dqm from function_object
+end type
+
+forward prototypes
+global subroutine fun_add_dqm ()
+end prototypes
+
+global subroutine fun_add_dqm ();long ll_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.a_ry_dqm(id varchar(20) not NULL ,ryid varchar(10)  NULL,jytype varchar(10)  NULL,"+&
+            "typename varchar(40) null,jyid varchar(10) null,addrid varchar(6) null,addrname varchar(50) null,mark varchar(5) NULL);"
+		execute immediate :mysql using sqlca;	
+		myindex = "CREATE UNIQUE INDEX a_ry_dqm_X ON DJYLRQ.a_ry_dqm (id)"
+	   execute immediate :myindex using sqlca;
+	else
+		mysql="CREATE TABLE a_ry_dqm(id varchar(20) not NULL ,ryid varchar(10)  NULL,jytype varchar(10)  NULL,"+&
+            "typename varchar(40) null,jyid varchar(10) null,addrid varchar(6) null,addrname varchar(50) null,mark varchar(5) NULL,PRIMARY KEY (id));"
+		execute immediate :mysql using sqlca;
+END IF		
+
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.a_dqm_init(ryid varchar(10) NULL,addrid varchar(6) null,addrname varchar(50) null,mark varchar(5) NULL);"
+		execute immediate :mysql using sqlca;	
+		myindex = "CREATE UNIQUE INDEX a_ry_dqm_X ON DJYLRQ.a_ry_dqm"
+	   execute immediate :myindex using sqlca;
+	else
+		mysql="CREATE TABLE a_dqm_init(ryid varchar(10)  NULL,addrid varchar(6) null,addrname varchar(50) null,mark varchar(5) NULL,PRIMARY KEY (addrid));"
+		execute immediate :mysql using sqlca;
+END IF
+
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.a_dqm_bgbh(addrname varchar(50) NULL,addrid varchar(6) null,addrbg varchar(4) null);"
+		execute immediate :mysql using sqlca;	
+		myindex = "CREATE UNIQUE INDEX a_ry_dqm_X ON DJYLRQ.a_ry_dqm"
+	   execute immediate :myindex using sqlca;
+	else
+		mysql="CREATE TABLE a_dqm_bgbh(addrname varchar(50) NULL,addrid varchar(6) null,addrbg varchar(4) null,PRIMARY KEY (addrid));"
+		execute immediate :mysql using sqlca;
+END IF
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.a_bgbh add l4 varchar(1) null;"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table a_bgbh add l4 varchar(1) null;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.a_bmcode add addrbg varchar(4) null;"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table a_bmcode add addrbg varchar(4) null;"
+	execute immediate :modsql using sqlca;
+end if
+end subroutine
+

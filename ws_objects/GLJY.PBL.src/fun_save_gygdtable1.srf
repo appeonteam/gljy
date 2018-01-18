@@ -1,0 +1,783 @@
+﻿$PBExportHeader$fun_save_gygdtable1.srf
+$PBExportComments$³Âê»
+global type fun_save_gygdtable1 from function_object
+end type
+
+forward prototypes
+global subroutine fun_save_gygdtable1 (string cs1)
+end prototypes
+
+global subroutine fun_save_gygdtable1 (string cs1);if cs1 <> 'OK' then return
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//select count(*) into :ls_count from djylrq.a_rycode;
+//if ls_count > 0 and sqlca.sqlcode = 0 then mark = 'sqlserver'
+// END
+
+ls_count = 0
+// ´´½¨ ÉäÏß¼ì²â
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_sxjcbg;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_sxjcbg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_gygd_sxjcbg(jyid varchar(20) NOT NULL ,yzl varchar(20) NULL,"+&
+            "jcbw varchar(20) NULL,jcbl varchar(10) NULL,zxbz varchar(50) NULL,xqxh varchar(20) NULL,"+&
+            "zgh varchar(30) NULL,tdjlx varchar(20) NULL,yqgg varchar(20) NULL,gdy varchar(10) NULL,"+&
+            "gdl varchar(10) NULL,xzjzs varchar(10) NULL,tmfs varchar(20) NULL,bgsj varchar(10) NULL,"+&
+            "dplx varchar(20) NULL,jj varchar(10) NULL,hd varchar(10) NULL,dpcd varchar(10) NULL,"+&
+            "yxcd varchar(10) NULL,xh1 varchar(10) NULL,xh2 varchar(10) NULL,xh3 varchar(10) NULL,"+&
+            "xh4 varchar(10) NULL,xh5 varchar(10) NULL,xh6 varchar(10) NULL,xh7 varchar(10) NULL,"+&
+            "xh8 varchar(10) NULL,xh9 varchar(10) NULL,xh10 varchar(10) NULL,dpbh1 varchar(10) NULL,"+&
+            "dpbh2 varchar(10) NULL,dpbh3 varchar(10) NULL,dpbh4 varchar(10) NULL,dpbh5 varchar(10) NULL,"+&
+            "dpbh6 varchar(10) NULL,dpbh7 varchar(10) NULL,dpbh8 varchar(10) NULL,dpbh9 varchar(10) NULL,"+&
+            "dpbh10 varchar(10) NULL,qxwz1 varchar(20) NULL,qxwz2 varchar(20) NULL,qxwz3 varchar(20) NULL,"+&
+            "qxwz4 varchar(20) NULL,qxwz5 varchar(20) NULL,qxwz6 varchar(20) NULL,qxwz7 varchar(20) NULL,"+&
+            "qxwz8 varchar(20) NULL,qxwz9 varchar(20) NULL,qxwz10 varchar(20) NULL,qxxz1 varchar(20) NULL,"+&
+            "qxxz2 varchar(20) NULL,qxxz3 varchar(20) NULL,qxxz4 varchar(20) NULL,qxxz5 varchar(20) NULL,"+&
+            "qxxz6 varchar(20) NULL,qxxz7 varchar(20) NULL,qxxz8 varchar(20) NULL,qxxz9 varchar(20) NULL,"+&
+            "qxxz10 varchar(20) NULL,qxcd1 varchar(10) NULL,qxcd2 varchar(10) NULL,qxcd3 varchar(10) NULL,"+&
+            "qxcd4 varchar(10) NULL,qxcd5 varchar(10) NULL,qxcd6 varchar(10) NULL,qxcd7 varchar(10) NULL,"+&
+            "qxcd8 varchar(10) NULL,qxcd9 varchar(10) NULL,qxcd10 varchar(10) NULL,qxgd1 varchar(10) NULL,"+&
+            "qxgd2 varchar(10) NULL,qxgd3 varchar(10) NULL,qxgd4 varchar(10) NULL,qxgd5 varchar(10) NULL,"+&
+            "qxgd6 varchar(10) NULL,qxgd7 varchar(10) NULL,qxgd8 varchar(10) NULL,qxgd9 varchar(10) NULL,"+&
+            "qxgd10 varchar(10) NULL,pdjb1 varchar(10) NULL,pdjb2 varchar(10) NULL,pdjb3 varchar(10) NULL,"+&
+            "pdjb4 varchar(10) NULL,pdjb5 varchar(10) NULL,pdjb6 varchar(10) NULL,pdjb7 varchar(10) NULL,"+&
+            "pdjb8 varchar(10) NULL,pdjb9 varchar(10) NULL,pdjb10 varchar(10) NULL,bz1 varchar(30) NULL,"+&
+            "bz2 varchar(30) NULL,bz3 varchar(30) NULL,bz4 varchar(30) NULL,bz5 varchar(30) NULL,"+&
+            "bz6 varchar(30) NULL,bz7 varchar(30) NULL,bz8 varchar(30) NULL,bz9 varchar(30) NULL,"+&
+            "bz10 varchar(30) NULL,jyry varchar(20) NULL,jyyear varchar(4) NULL,jymonth varchar(2) NULL,"+&
+            "jyday varchar(2) NULL,jyyear1 varchar(4) NULL,jymonth1 varchar(2) NULL,jyday1 varchar(2) NULL,"+&
+            "jytoyear1 varchar(4) NULL,jytomonth1 varchar(2) NULL,jytoday1 varchar(2) NULL,"+&
+            "cpyear varchar(4) NULL,cpmonth varchar(2) NULL,cpday varchar(2) NULL,fpyear varchar(4) NULL,"+&
+            "fpmonth varchar(2) NULL,fpday varchar(2) NULL,xh varchar(5) NULL,cpry varchar(10) NULL,"+&
+            "fpry varchar(10) NULL,jcbl1 varchar(10) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_sxjcbg_x "&
+		        +"ON djylrq.b_jj_gygd_sxjcbg"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_sxjcbg;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_sxjcbg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_sxjcbg(jyid varchar(20) NOT NULL ,yzl varchar(20) NULL,"+&
+            "jcbw varchar(20) NULL,jcbl varchar(10) NULL,zxbz varchar(50) NULL,xqxh varchar(20) NULL,"+&
+            "zgh varchar(30) NULL,tdjlx varchar(20) NULL,yqgg varchar(20) NULL,gdy varchar(10) NULL,"+&
+            "gdl varchar(10) NULL,xzjzs varchar(10) NULL,tmfs varchar(20) NULL,bgsj varchar(10) NULL,"+&
+            "dplx varchar(20) NULL,jj varchar(10) NULL,hd varchar(10) NULL,dpcd varchar(10) NULL,"+&
+            "yxcd varchar(10) NULL,xh1 varchar(10) NULL,xh2 varchar(10) NULL,xh3 varchar(10) NULL,"+&
+            "xh4 varchar(10) NULL,xh5 varchar(10) NULL,xh6 varchar(10) NULL,xh7 varchar(10) NULL,"+&
+            "xh8 varchar(10) NULL,xh9 varchar(10) NULL,xh10 varchar(10) NULL,dpbh1 varchar(10) NULL,"+&
+            "dpbh2 varchar(10) NULL,dpbh3 varchar(10) NULL,dpbh4 varchar(10) NULL,dpbh5 varchar(10) NULL,"+&
+            "dpbh6 varchar(10) NULL,dpbh7 varchar(10) NULL,dpbh8 varchar(10) NULL,dpbh9 varchar(10) NULL,"+&
+            "dpbh10 varchar(10) NULL,qxwz1 varchar(20) NULL,qxwz2 varchar(20) NULL,qxwz3 varchar(20) NULL,"+&
+            "qxwz4 varchar(20) NULL,qxwz5 varchar(20) NULL,qxwz6 varchar(20) NULL,qxwz7 varchar(20) NULL,"+&
+            "qxwz8 varchar(20) NULL,qxwz9 varchar(20) NULL,qxwz10 varchar(20) NULL,qxxz1 varchar(20) NULL,"+&
+            "qxxz2 varchar(20) NULL,qxxz3 varchar(20) NULL,qxxz4 varchar(20) NULL,qxxz5 varchar(20) NULL,"+&
+            "qxxz6 varchar(20) NULL,qxxz7 varchar(20) NULL,qxxz8 varchar(20) NULL,qxxz9 varchar(20) NULL,"+&
+            "qxxz10 varchar(20) NULL,qxcd1 varchar(10) NULL,qxcd2 varchar(10) NULL,qxcd3 varchar(10) NULL,"+&
+            "qxcd4 varchar(10) NULL,qxcd5 varchar(10) NULL,qxcd6 varchar(10) NULL,qxcd7 varchar(10) NULL,"+&
+            "qxcd8 varchar(10) NULL,qxcd9 varchar(10) NULL,qxcd10 varchar(10) NULL,qxgd1 varchar(10) NULL,"+&
+            "qxgd2 varchar(10) NULL,qxgd3 varchar(10) NULL,qxgd4 varchar(10) NULL,qxgd5 varchar(10) NULL,"+&
+            "qxgd6 varchar(10) NULL,qxgd7 varchar(10) NULL,qxgd8 varchar(10) NULL,qxgd9 varchar(10) NULL,"+&
+            "qxgd10 varchar(10) NULL,pdjb1 varchar(10) NULL,pdjb2 varchar(10) NULL,pdjb3 varchar(10) NULL,"+&
+            "pdjb4 varchar(10) NULL,pdjb5 varchar(10) NULL,pdjb6 varchar(10) NULL,pdjb7 varchar(10) NULL,"+&
+            "pdjb8 varchar(10) NULL,pdjb9 varchar(10) NULL,pdjb10 varchar(10) NULL,bz1 varchar(30) NULL,"+&
+            "bz2 varchar(30) NULL,bz3 varchar(30) NULL,bz4 varchar(30) NULL,bz5 varchar(30) NULL,"+&
+            "bz6 varchar(30) NULL,bz7 varchar(30) NULL,bz8 varchar(30) NULL,bz9 varchar(30) NULL,"+&
+            "bz10 varchar(30) NULL,jyry varchar(20) NULL,jyyear varchar(4) NULL,jymonth varchar(2) NULL,"+&
+            "jyday varchar(2) NULL,jyyear1 varchar(4) NULL,jymonth1 varchar(2) NULL,jyday1 varchar(2) NULL,"+&
+            "jytoyear1 varchar(4) NULL,jytomonth1 varchar(2) NULL,jytoday1 varchar(2) NULL,"+&
+            "cpyear varchar(4) NULL,cpmonth varchar(2) NULL,cpday varchar(2) NULL,fpyear varchar(4) NULL,"+&
+            "fpmonth varchar(2) NULL,fpday varchar(2) NULL,xh varchar(5) NULL,cpry varchar(10) NULL,"+&
+            "fpry varchar(10) NULL,jcbl1 varchar(10) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ ¹¤Òµ¹ÜµÀ×Ü±í
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_total;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_total"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_gygd_total(jyid varchar(20) NOT NULL ,cpid varchar(20) NULL,"+&
+            "sydw varchar(50) NULL,djid varchar(20) NULL,zzmc varchar(30) NULL,sjdw varchar(50) NULL,"+&
+            "gdmc varchar(30) NULL,sjrq varchar(20) NULL,gdbh varchar(20) NULL,sjgf varchar(20) NULL,"+&
+            "gdjb varchar(10) NULL,azdw varchar(50) NULL,gdcd varchar(20) NULL,azysgf varchar(30) NULL,"+&
+            "qswz varchar(20) NULL,yrrq varchar(20) NULL,zzwz varchar(20) NULL,tyrq varchar(20) NULL,"+&
+            "fsfs varchar(30) NULL,sjsysj varchar(20) NULL,sjyl varchar(20) NULL,gzyl varchar(20) NULL,"+&
+            "sjwd varchar(20) NULL,gzwd char(20) NULL,gzclph char(20) NULL,gzjz char(20) NULL,"+&
+            "wj char(20) NULL,bh char(20) NULL,jrccl char(20) NULL,jrchd char(20) NULL,fsyl char(20) NULL,"+&
+            "ffccl char(20) NULL,list_id char(40) NULL,list_mc char(190) NULL,list_fu char(20) NULL,"+&
+            "list_s char(40) NULL,aqdj char(10) NULL,yldj char(10) NULL,zgbmid char(20) NULL,"+&
+            "zgfbmid char(20) NULL,pageup char(4) NULL,pagedown char(4) NULL,jydate char(20) NULL,"+&
+            "jydw char(50) NULL,bgid varchar(20) NULL,gdcz varchar(20) NULL,bmzk varchar(20) NULL,"+&
+            "djzh varchar(20) NULL,nextdate varchar(20) NULL,jydatea varchar(20) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_total_x "&
+		        +"ON djylrq.b_jj_gygd_total"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_total;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_total"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_total(jyid varchar(20) NOT NULL ,cpid varchar(20) NULL,"+&
+            "sydw varchar(50) NULL,djid varchar(20) NULL,zzmc varchar(30) NULL,sjdw varchar(50) NULL,"+&
+            "gdmc varchar(30) NULL,sjrq varchar(20) NULL,gdbh varchar(20) NULL,sjgf varchar(20) NULL,"+&
+            "gdjb varchar(10) NULL,azdw varchar(50) NULL,gdcd varchar(20) NULL,azysgf varchar(30) NULL,"+&
+            "qswz varchar(20) NULL,yrrq varchar(20) NULL,zzwz varchar(20) NULL,tyrq varchar(20) NULL,"+&
+            "fsfs varchar(30) NULL,sjsysj varchar(20) NULL,sjyl varchar(20) NULL,gzyl varchar(20) NULL,"+&
+            "sjwd varchar(20) NULL,gzwd char(20) NULL,gzclph char(20) NULL,gzjz char(20) NULL,"+&
+            "wj char(20) NULL,bh char(20) NULL,jrccl char(20) NULL,jrchd char(20) NULL,fsyl char(20) NULL,"+&
+            "ffccl char(20) NULL,list_id char(40) NULL,list_mc char(190) NULL,list_fu char(20) NULL,"+&
+            "list_s char(40) NULL,aqdj char(10) NULL,yldj char(10) NULL,zgbmid char(20) NULL,"+&
+            "zgfbmid char(20) NULL,pageup char(4) NULL,pagedown char(4) NULL,jydate char(20) NULL,"+&
+            "jydw char(50) NULL,bgid varchar(20) NULL,gdcz varchar(20) NULL,bmzk varchar(20) NULL,"+&
+            "djzh varchar(20) NULL,nextdate varchar(20) NULL,jydatea varchar(20) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ð¹Â¶ÐÔÊÔÑé
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_xlxsybg;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_xlxsybg"
+		execute immediate :delsql using sqlca ;
+		mysql= "CREATE TABLE djylrq.b_jj_gygd_xlxsybg(jyid varchar(20) NOT NULL ,zggzyk varchar(10) NULL,"+&
+             "syjz varchar(30) NULL,syyl varchar(10) NULL,jzwd varchar(10) NULL,hjwd varchar(10) NULL,"+&
+             "ylsbckylbgg varchar(10) NULL,ylsbckylbjd varchar(10) NULL,gxylbgg varchar(10) NULL,"+&
+             "gxylbjd varchar(10) NULL,ylsbxh varchar(20) NULL,zxbz varchar(50) NULL,sjsyqx image NULL,"+&
+             "jl1 varchar(50) NULL,jl2 varchar(50) NULL,jl3 varchar(50) NULL,syyear1 varchar(4) NULL,"+&
+             "symonth1 varchar(2) NULL,syday1 varchar(2) NULL,sytoyear1 varchar(4) NULL,"+&
+             "sytomonth1 varchar(2) NULL,sytoday1 varchar(2) NULL,jyry varchar(20) NULL,"+&
+             "jyyear varchar(4) NULL,jymonth varchar(2) NULL,jyday varchar(2) NULL,shry varchar(20) NULL,"+&
+             "shyear varchar(4) NULL,shmonth varchar(2) NULL,shday varchar(2) NULL,"+&
+             "xh varchar(5) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_xlxsybg_x "&
+		        +"ON djylrq.b_jj_gygd_xlxsybg"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_xlxsybg;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_xlxsybg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_xlxsybg(jyid varchar(20) NOT NULL ,zggzyk varchar(10) NULL,"+&
+            "syjz varchar(30) NULL,syyl varchar(10) NULL,jzwd varchar(10) NULL,hjwd varchar(10) NULL,"+&
+            "ylsbckylbgg varchar(10) NULL,ylsbckylbjd varchar(10) NULL,gxylbgg varchar(10) NULL,"+&
+            "gxylbjd varchar(10) NULL,ylsbxh varchar(20) NULL,zxbz varchar(50) NULL,sjsyqx long binary NULL,"+&
+            "jl1 varchar(50) NULL,jl2 varchar(50) NULL,jl3 varchar(50) NULL,syyear1 varchar(4) NULL,"+&
+            "symonth1 varchar(2) NULL,syday1 varchar(2) NULL,sytoyear1 varchar(4) NULL,"+&
+            "sytomonth1 varchar(2) NULL,sytoday1 varchar(2) NULL,jyry varchar(20) NULL,"+&
+            "jyyear varchar(4) NULL,jymonth varchar(2) NULL,jyday varchar(2) NULL,shry varchar(20) NULL,"+&
+            "shyear varchar(4) NULL,shmonth varchar(2) NULL,shday varchar(2) NULL,"+&
+            "xh varchar(5) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ó²¶È²â¶¨
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_ydcdbg;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_ydcdbg"
+		execute immediate :delsql using sqlca ;
+		mysql= "CREATE TABLE djylrq.b_jj_gygd_ydcdbg(jyid varchar(20) NOT NULL ,rclzt varchar(20) NULL,"+&
+             "pdbz varchar(30) NULL,cdbw varchar(20) NULL,xh1 varchar(10) NULL,xh2 varchar(10) NULL,"+&
+             "xh3 varchar(10) NULL,xh4 varchar(10) NULL,xh5 varchar(10) NULL,xh6 varchar(10) NULL,"+&
+             "xh7 varchar(10) NULL,xh8 varchar(10) NULL,xh9 varchar(10) NULL,xh10 varchar(10) NULL,"+&
+             "xh11 varchar(10) NULL,xh12 varchar(10) NULL,xh13 varchar(10) NULL,xh14 varchar(10) NULL,"+&
+             "xh15 varchar(10) NULL,xh16 varchar(10) NULL,ydz1 varchar(10) NULL,ydz2 varchar(10) NULL,"+&
+             "ydz3 varchar(10) NULL,ydz4 varchar(10) NULL,ydz5 varchar(10) NULL,ydz6 varchar(10) NULL,"+&
+             "ydz7 varchar(10) NULL,ydz8 varchar(10) NULL,ydz9 varchar(10) NULL,ydz10 varchar(10) NULL,"+&
+             "ydz11 varchar(10) NULL,ydd12 varchar(10) NULL,ydz13 varchar(10) NULL,ydz14 varchar(10) NULL,"+&
+             "ysz15 varchar(10) NULL,ydz16 varchar(10) NULL,ydcdbw1 varchar(30) NULL,ydcdbw2 varchar(30) NULL,"+&
+             "ydcdbw3 varchar(30) NULL,ydcdbw4 varchar(30) NULL,ydcdbw5 varchar(30) NULL,ydcdbw6 varchar(30) NULL,"+&
+             "ydcdbw7 varchar(30) NULL,ydcdbw8 varchar(30) NULL,ydcdbw9 varchar(30) NULL,ydcdbw10 varchar(30) NULL,"+&
+             "ydcdbw11 varchar(30) NULL,ydcdbw12 varchar(30) NULL,ydcdbw13 varchar(30) NULL,ydcdbw14 varchar(30) NULL,"+&
+             "ydcdbw15 varchar(30) NULL,ydcdbw16 varchar(30) NULL,yj1 varchar(50) NULL,yj2 varchar(50) NULL,"+&
+             "yj3 varchar(50) NULL,jyyear1 varchar(4) NULL,jymonth1 varchar(2) NULL,jyday1 varchar(2) NULL,"+&
+             "jytoyear1 varchar(4) NULL,jytomonth1 varchar(2) NULL,jytoday1 varchar(2) NULL,jyry varchar(20) NULL,"+&
+             "jyyear varchar(4) NULL,jymonth varchar(2) NULL,jyday varchar(2) NULL,shry varchar(20) NULL,"+&
+             "shyear varchar(4) NULL,shmonth varchar(2) NULL,shday varchar(2) NULL,yqxh varchar(20) NULL,"+&
+             "xh varchar(5) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_ydcdbg_x "&
+		        +"ON djylrq.b_jj_gygd_ydcdbg"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_ydcdbg;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_ydcdbg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_ydcdbg(jyid varchar(20) NOT NULL ,rclzt varchar(20) NULL,"+&
+            "pdbz varchar(30) NULL,cdbw varchar(20) NULL,xh1 varchar(10) NULL,xh2 varchar(10) NULL,"+&
+            "xh3 varchar(10) NULL,xh4 varchar(10) NULL,xh5 varchar(10) NULL,xh6 varchar(10) NULL,"+&
+            "xh7 varchar(10) NULL,xh8 varchar(10) NULL,xh9 varchar(10) NULL,xh10 varchar(10) NULL,"+&
+            "xh11 varchar(10) NULL,xh12 varchar(10) NULL,xh13 varchar(10) NULL,xh14 varchar(10) NULL,"+&
+            "xh15 varchar(10) NULL,xh16 varchar(10) NULL,ydz1 varchar(10) NULL,ydz2 varchar(10) NULL,"+&
+            "ydz3 varchar(10) NULL,ydz4 varchar(10) NULL,ydz5 varchar(10) NULL,ydz6 varchar(10) NULL,"+&
+            "ydz7 varchar(10) NULL,ydz8 varchar(10) NULL,ydz9 varchar(10) NULL,ydz10 varchar(10) NULL,"+&
+            "ydz11 varchar(10) NULL,ydd12 varchar(10) NULL,ydz13 varchar(10) NULL,ydz14 varchar(10) NULL,"+&
+            "ysz15 varchar(10) NULL,ydz16 varchar(10) NULL,ydcdbw1 varchar(30) NULL,ydcdbw2 varchar(30) NULL,"+&
+            "ydcdbw3 varchar(30) NULL,ydcdbw4 varchar(30) NULL,ydcdbw5 varchar(30) NULL,ydcdbw6 varchar(30) NULL,"+&
+            "ydcdbw7 varchar(30) NULL,ydcdbw8 varchar(30) NULL,ydcdbw9 varchar(30) NULL,ydcdbw10 varchar(30) NULL,"+&
+            "ydcdbw11 varchar(30) NULL,ydcdbw12 varchar(30) NULL,ydcdbw13 varchar(30) NULL,ydcdbw14 varchar(30) NULL,"+&
+            "ydcdbw15 varchar(30) NULL,ydcdbw16 varchar(30) NULL,yj1 varchar(50) NULL,yj2 varchar(50) NULL,"+&
+            "yj3 varchar(50) NULL,jyyear1 varchar(4) NULL,jymonth1 varchar(2) NULL,jyday1 varchar(2) NULL,"+&
+            "jytoyear1 varchar(4) NULL,jytomonth1 varchar(2) NULL,jytoday1 varchar(2) NULL,jyry varchar(20) NULL,"+&
+            "jyyear varchar(4) NULL,jymonth varchar(2) NULL,jyday varchar(2) NULL,shry varchar(20) NULL,"+&
+            "shyear varchar(4) NULL,shmonth varchar(2) NULL,shday varchar(2) NULL,yqxh varchar(20) NULL,"+&
+            "xh varchar(5) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ô­Ê¼×ÊÁÏ
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_cldj;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_cldj"
+		execute immediate :delsql using sqlca ;
+		mysql= "CREATE TABLE djylrq.b_jj_gygd_cldj(zzmc varchar(20) NULL,sjdw varchar(50) NULL,gdmc varchar(20) NULL,"+&
+             "sjrq varchar(16) NULL,jyid varchar(20) NOT NULL ,sjgh varchar(20) NULL,gdjb varchar(10) NULL,"+&
+             "azdw varchar(50) NULL,gdcd varchar(10) NULL,azysgh varchar(20) NULL,qzwz varchar(20) NULL,"+&
+             "ysrq varchar(16) NULL,fsfs varchar(20) NULL,tyrq varchar(16) NULL,sjyl varchar(10) NULL,"+&
+             "gzyl varchar(10) NULL,sjwd varchar(10) NULL,gzwd varchar(10) NULL,gzclph varchar(10) NULL,"+&
+             "gzjz varchar(20) NULL,wj varchar(10) NULL,bh varchar(10) NULL,jrccl varchar(20) NULL,"+&
+             "jrchd varchar(10) NULL,fsyl varchar(10) NULL,ffccl varchar(20) NULL,a1 varchar(15) NULL,"+&
+             "a2 varchar(15) NULL,a3 varchar(15) NULL,a4 varchar(15) NULL,a5 varchar(15) NULL,a6 varchar(15) NULL,"+&
+             "a7 varchar(15) NULL,a8 varchar(15) NULL,a9 varchar(15) NULL,a10 varchar(15) NULL,a11 varchar(15) NULL,"+&
+             "a12 varchar(15) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,bz4 varchar(30) NULL,"+&
+             "xh varchar(5) NULL,bgid varchar(20) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_cldj_x "&
+		        +"ON djylrq.b_jj_gygd_cldj"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_cldj;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_cldj"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_cldj(zzmc varchar(20) NULL,sjdw varchar(50) NULL,gdmc varchar(20) NULL,"+&
+            "sjrq varchar(16) NULL,jyid varchar(20) NOT NULL ,sjgh varchar(20) NULL,gdjb varchar(10) NULL,"+&
+            "azdw varchar(50) NULL,gdcd varchar(10) NULL,azysgh varchar(20) NULL,qzwz varchar(20) NULL,"+&
+            "ysrq varchar(16) NULL,fsfs varchar(20) NULL,tyrq varchar(16) NULL,sjyl varchar(10) NULL,"+&
+            "gzyl varchar(10) NULL,sjwd varchar(10) NULL,gzwd varchar(10) NULL,gzclph varchar(10) NULL,"+&
+            "gzjz varchar(20) NULL,wj varchar(10) NULL,bh varchar(10) NULL,jrccl varchar(20) NULL,"+&
+            "jrchd varchar(10) NULL,fsyl varchar(10) NULL,ffccl varchar(20) NULL,a1 varchar(15) NULL,"+&
+            "a2 varchar(15) NULL,a3 varchar(15) NULL,a4 varchar(15) NULL,a5 varchar(15) NULL,a6 varchar(15) NULL,"+&
+            "a7 varchar(15) NULL,a8 varchar(15) NULL,a9 varchar(15) NULL,a10 varchar(15) NULL,a11 varchar(15) NULL,"+&
+            "a12 varchar(15) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,bz4 varchar(30) NULL,"+&
+            "xh varchar(5) NULL,bgid varchar(20) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ô­Ê¼×ÊÁÏÉó²é±¨¸æ
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_yszlsc;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_yszlsc"
+		execute immediate :delsql using sqlca ;
+		mysql= "CREATE TABLE djylrq.b_jj_gygd_yszlsc(jyid varchar(20) NOT NULL ,bgid varchar(20) NULL,"+&
+             "zzmc varchar(20) NULL,sjdw varchar(50) NULL,gdmc varchar(20) NULL,gdbh varchar(20) NULL,"+&
+             "sjgh varchar(50) NULL,gdjb varchar(20) NULL,azdw varchar(50) NULL,gdcd varchar(10) NULL,"+&
+             "azysgh varchar(30) NULL,qswz varchar(20) NULL,zzwz varchar(20) NULL,fsfs varchar(20) NULL,"+&
+             "sjyl varchar(10) NULL,gzyl varchar(10) NULL,sjwd varchar(10) NULL,gzwd varchar(10) NULL,"+&
+             "gzclph varchar(20) NULL,gzjz varchar(20) NULL,wj varchar(10) NULL,bh varchar(10) NULL,"+&
+             "jrccl varchar(30) NULL,jrchd varchar(10) NULL,fsyl varchar(10) NULL,ffccl varchar(30) NULL,"+&
+             "rsjyrq varchar(16) NULL,rcbgid varchar(20) NULL,zljljz varchar(100) NULL,jz1 varchar(100) NULL,"+&
+             "jz2 varchar(100) NULL,year varchar(4) NULL,month varchar(2) NULL,day varchar(2) NULL,"+&
+             "toyear varchar(4) NULL,tomonth varchar(2) NULL,today varchar(2) NULL,jyry varchar(20) NULL,"+&
+             "jyyear varchar(4) NULL,jymonth varchar(2) NULL,jyday varchar(2) NULL,shry varchar(20) NULL,"+&
+             "shyear varchar(4) NULL,shmonth varchar(2) NULL,shday varchar(2) NULL,sjrq varchar(20) NULL,"+&
+             "sjsyrq varchar(20) NULL,ysrq varchar(20) NULL,tyrq varchar(20) NULL,xh varchar(5) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_yszlsc_x "&
+		        +"ON djylrq.b_jj_gygd_yszlsc"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_yszlsc;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_yszlsc"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_yszlsc(jyid varchar(20) NOT NULL ,bgid varchar(20) NULL,"+&
+            "zzmc varchar(20) NULL,sjdw varchar(50) NULL,gdmc varchar(20) NULL,gdbh varchar(20) NULL,"+&
+            "sjgh varchar(50) NULL,gdjb varchar(20) NULL,azdw varchar(50) NULL,gdcd varchar(10) NULL,"+&
+            "azysgh varchar(30) NULL,qswz varchar(20) NULL,zzwz varchar(20) NULL,fsfs varchar(20) NULL,"+&
+            "sjyl varchar(10) NULL,gzyl varchar(10) NULL,sjwd varchar(10) NULL,gzwd varchar(10) NULL,"+&
+            "gzclph varchar(20) NULL,gzjz varchar(20) NULL,wj varchar(10) NULL,bh varchar(10) NULL,"+&
+            "jrccl varchar(30) NULL,jrchd varchar(10) NULL,fsyl varchar(10) NULL,ffccl varchar(30) NULL,"+&
+            "rsjyrq varchar(16) NULL,rcbgid varchar(20) NULL,zljljz varchar(100) NULL,jz1 varchar(100) NULL,"+&
+            "jz2 varchar(100) NULL,year varchar(4) NULL,month varchar(2) NULL,day varchar(2) NULL,"+&
+            "toyear varchar(4) NULL,tomonth varchar(2) NULL,today varchar(2) NULL,jyry varchar(20) NULL,"+&
+            "jyyear varchar(4) NULL,jymonth varchar(2) NULL,jyday varchar(2) NULL,shry varchar(20) NULL,"+&
+            "shyear varchar(4) NULL,shmonth varchar(2) NULL,shday varchar(2) NULL,sjrq varchar(20) NULL,"+&
+            "sjsyrq varchar(20) NULL,ysrq varchar(20) NULL,tyrq varchar(20) NULL,xh varchar(5) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ñ¹Á¦ÊÔÑé
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_ylsybg;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_ylsybg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_gygd_ylsybg(jyid varchar(20) NOT NULL ,zggzyl varchar(10) NULL,"+&
+            "syjz varchar(20) NULL,syyl varchar(10) NULL,jzwd varchar(10) NULL,hjwd varchar(10) NULL,"+&
+            "jbckylbgg varchar(10) NULL,jbckylbjd varchar(10) NULL,gxylbgg varchar(10) NULL,"+&
+            "gxylbjd varchar(10) NULL,jbxh varchar(20) NULL,zxbz varchar(50) NULL,sjsyqx image NULL,"+&
+            "jl1 varchar(50) NULL,jl2 varchar(50) NULL,jl3 varchar(50) NULL,syyear1 varchar(4) NULL,"+&
+            "symonth1 varchar(2) NULL,syday1 varchar(2) NULL,jyry varchar(20) NULL,jyyear varchar(4) NULL,"+&
+            "jymonth varchar(2) NULL,jyday varchar(2) NULL,sytoyear1 varchar(4) NULL,sytomonth1 varchar(2) NULL,"+&
+            "sytoday1 varchar(2) NULL,shry varchar(20) NULL,shyear varchar(4) NULL,shmonth varchar(2) NULL,"+&
+            "shday varchar(2) NULL,xh varchar(5) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_ylsybg_x "&
+		        +"ON djylrq.b_jj_gygd_ylsybg"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_ylsybg;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_ylsybg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_ylsybg(jyid varchar(20) NOT NULL ,zggzyl varchar(10) NULL,"+&
+            "syjz varchar(20) NULL,syyl varchar(10) NULL,jzwd varchar(10) NULL,hjwd varchar(10) NULL,"+&
+            "jbckylbgg varchar(10) NULL,jbckylbjd varchar(10) NULL,gxylbgg varchar(10) NULL,"+&
+            "gxylbjd varchar(10) NULL,jbxh varchar(20) NULL,zxbz varchar(50) NULL,sjsyqx long binary NULL,"+&
+            "jl1 varchar(50) NULL,jl2 varchar(50) NULL,jl3 varchar(50) NULL,syyear1 varchar(4) NULL,"+&
+            "symonth1 varchar(2) NULL,syday1 varchar(2) NULL,jyry varchar(20) NULL,jyyear varchar(4) NULL,"+&
+            "jymonth varchar(2) NULL,jyday varchar(2) NULL,sytoyear1 varchar(4) NULL,sytomonth1 varchar(2) NULL,"+&
+            "sytoday1 varchar(2) NULL,shry varchar(20) NULL,shyear varchar(4) NULL,shmonth varchar(2) NULL,"+&
+            "shday varchar(2) NULL,xh varchar(5) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ ÔÚÏß²âºñ¼ÇÂ¼
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_zxchjl;	
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_zxchjl"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_gygd_zxchjl(jyid varchar(20) NOT NULL ,nh1 varchar(20) NULL,"+&
+            "yqxhjd1 varchar(20) NULL,bmzk1 varchar(20) NULL,cdbh11 varchar(20) NULL,cdbh12 varchar(20) NULL,"+&
+            "cdbh13 varchar(20) NULL,cdbh14 varchar(20) NULL,cdbh15 varchar(20) NULL,cdbh16 varchar(20) NULL,"+&
+            "cdbh17 varchar(20) NULL,cdbh18 varchar(20) NULL,cdbh19 varchar(20) NULL,cdbh10 varchar(20) NULL,"+&
+            "hd11 varchar(10) NULL,hd12 varchar(10) NULL,hd13 varchar(10) NULL,hd14 varchar(10) NULL,"+&
+            "hd15 varchar(10) NULL,hd16 varchar(10) NULL,hd17 varchar(10) NULL,hd18 varchar(10) NULL,"+&
+            "hd19 varchar(10) NULL,hd10 varchar(10) NULL,jyr1 varchar(10) NULL,jyrn1 varchar(10) NULL,"+&
+            "jyry1 varchar(6) NULL,jyrr1 varchar(6) NULL,sh1 varchar(10) NULL,shn1 varchar(10) NULL,"+&
+            "shy1 varchar(6) NULL,shr1 varchar(6) NULL,nh2 varchar(20) NULL,yqxhjd2 varchar(20) NULL,"+&
+            "bmzk2 varchar(20) NULL,cdbh21 varchar(20) NULL,cdbh22 varchar(20) NULL,cdbh23 varchar(20) NULL,"+&
+            "cdbh24 varchar(20) NULL,cdbh25 varchar(20) NULL,cdbh26 varchar(20) NULL,cdbh27 varchar(20) NULL,"+&
+            "cdbh28 varchar(20) NULL,cdbh29 varchar(20) NULL,cdbh20 varchar(20) NULL,hd21 varchar(10) NULL,"+&
+            "hd22 varchar(10) NULL,hd23 varchar(10) NULL,hd24 varchar(10) NULL,hd25 varchar(10) NULL,"+&
+            "hd26 varchar(10) NULL,hd27 varchar(10) NULL,hd28 varchar(10) NULL,hd29 varchar(10) NULL,"+&
+            "hd20 varchar(10) NULL,jyr2 varchar(10) NULL,jyrn2 varchar(10) NULL,jyry2 varchar(6) NULL,"+&
+            "jyrr2 varchar(6) NULL,sh2 varchar(10) NULL,shn2 varchar(10) NULL,shy2 varchar(6) NULL,"+&
+            "shr2 varchar(6) NULL,nh3 varchar(20) NULL,yqxhjd3 varchar(20) NULL,bmzk3 varchar(20) NULL,"+&
+            "cdbh31 varchar(20) NULL,cdbh32 varchar(20) NULL,cdbh33 varchar(20) NULL,cdbh34 varchar(20) NULL,"+&
+            "cdbh35 varchar(20) NULL,cdbh36 varchar(20) NULL,cdbh37 varchar(20) NULL,cdbh38 varchar(20) NULL,"+&
+            "cdbh39 varchar(20) NULL,cdbh30 varchar(20) NULL,hd31 varchar(10) NULL,hd32 varchar(10) NULL,"+&
+            "hd33 varchar(10) NULL,hd34 varchar(10) NULL,hd35 varchar(10) NULL,hd36 varchar(10) NULL,"+&
+            "hd37 varchar(10) NULL,hd38 varchar(10) NULL,hd39 varchar(10) NULL,hd30 varchar(10) NULL,"+&
+            "jyr3 varchar(10) NULL,jyrn3 varchar(10) NULL,jyry3 varchar(6) NULL,jyrr3 varchar(6) NULL,"+&
+            "sh3 varchar(10) NULL,shn3 varchar(10) NULL,shy3 varchar(10) NULL,shr3 varchar(10) NULL,"+&
+            "nh4 varchar(20) NULL,yqxhjd4 varchar(20) NULL,bmzk4 varchar(20) NULL,cdbh41 varchar(20) NULL,"+&
+            "cdbh42 varchar(20) NULL,cdbh43 varchar(20) NULL,cdbh44 varchar(20) NULL,cdbh45 varchar(20) NULL,"+&
+            "cdbh46 varchar(20) NULL,cdbh47 varchar(20) NULL,cdbh48 varchar(20) NULL,cdbh49 varchar(20) NULL,"+&
+            "cdbh40 varchar(20) NULL,hd41 varchar(10) NULL,hd42 varchar(10) NULL,hd43 varchar(10) NULL,"+&
+            "hd44 varchar(10) NULL,hd45 varchar(10) NULL,hd46 varchar(10) NULL,hd47 varchar(10) NULL,"+&
+            "hd48 varchar(10) NULL,hd49 varchar(10) NULL,hd40 varchar(10) NULL,jyr4 varchar(10) NULL,"+&
+            "jyrn4 varchar(10) NULL,jyry4 varchar(6) NULL,jyrr4 varchar(6) NULL,sh4 varchar(10) NULL,"+&
+            "shn4 varchar(10) NULL,shy4 varchar(6) NULL,shr4 varchar(6) NULL,nh5 varchar(20) NULL,"+&
+            "yqxhjd5 varchar(20) NULL,bmzk5 varchar(20) NULL,cdbh51 varchar(20) NULL,cdbh52 varchar(20) NULL,"+&
+            "cdbh53 varchar(20) NULL,cdbh54 varchar(20) NULL,cdbh55 varchar(20) NULL,cdbh56 varchar(20) NULL,"+&
+            "cdbh57 varchar(20) NULL,cdbh58 varchar(20) NULL,cdbh59 varchar(20) NULL,cdbh50 varchar(20) NULL,"+&
+            "hd51 varchar(10) NULL,hd52 varchar(10) NULL,hd53 varchar(10) NULL,hd54 varchar(10) NULL,"+&
+            "hd55 varchar(10) NULL,hd56 varchar(10) NULL,hd57 varchar(10) NULL,hd58 varchar(10) NULL,"+&
+            "hd59 varchar(10) NULL,hd50 varchar(10) NULL,jyr5 varchar(10) NULL,jyrn5 varchar(10) NULL,"+&
+            "jyry5 varchar(6) NULL,jyrr5 varchar(6) NULL,sh5 varchar(10) NULL,shn5 varchar(10) NULL,"+&
+            "shy5 varchar(6) NULL,shr5 varchar(6) NULL,bz1 varchar(100) NULL,bz2 varchar(100) NULL,"+&
+            "bz3 varchar(100) NULL,bz4 varchar(100) NULL,bz5 varchar(100) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_zxchjl_x "&
+		        +"ON djylrq.b_jj_gygd_zxchjl"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_zxchjl;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_zxchjl"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_zxchjl(jyid varchar(20) NOT NULL ,nh1 varchar(20) NULL,"+&
+            "yqxhjd1 varchar(20) NULL,bmzk1 varchar(20) NULL,cdbh11 varchar(20) NULL,cdbh12 varchar(20) NULL,"+&
+            "cdbh13 varchar(20) NULL,cdbh14 varchar(20) NULL,cdbh15 varchar(20) NULL,cdbh16 varchar(20) NULL,"+&
+            "cdbh17 varchar(20) NULL,cdbh18 varchar(20) NULL,cdbh19 varchar(20) NULL,cdbh10 varchar(20) NULL,"+&
+            "hd11 varchar(10) NULL,hd12 varchar(10) NULL,hd13 varchar(10) NULL,hd14 varchar(10) NULL,"+&
+            "hd15 varchar(10) NULL,hd16 varchar(10) NULL,hd17 varchar(10) NULL,hd18 varchar(10) NULL,"+&
+            "hd19 varchar(10) NULL,hd10 varchar(10) NULL,jyr1 varchar(10) NULL,jyrn1 varchar(10) NULL,"+&
+            "jyry1 varchar(6) NULL,jyrr1 varchar(6) NULL,sh1 varchar(10) NULL,shn1 varchar(10) NULL,"+&
+            "shy1 varchar(6) NULL,shr1 varchar(6) NULL,nh2 varchar(20) NULL,yqxhjd2 varchar(20) NULL,"+&
+            "bmzk2 varchar(20) NULL,cdbh21 varchar(20) NULL,cdbh22 varchar(20) NULL,cdbh23 varchar(20) NULL,"+&
+            "cdbh24 varchar(20) NULL,cdbh25 varchar(20) NULL,cdbh26 varchar(20) NULL,cdbh27 varchar(20) NULL,"+&
+            "cdbh28 varchar(20) NULL,cdbh29 varchar(20) NULL,cdbh20 varchar(20) NULL,hd21 varchar(10) NULL,"+&
+            "hd22 varchar(10) NULL,hd23 varchar(10) NULL,hd24 varchar(10) NULL,hd25 varchar(10) NULL,"+&
+            "hd26 varchar(10) NULL,hd27 varchar(10) NULL,hd28 varchar(10) NULL,hd29 varchar(10) NULL,"+&
+            "hd20 varchar(10) NULL,jyr2 varchar(10) NULL,jyrn2 varchar(10) NULL,jyry2 varchar(6) NULL,"+&
+            "jyrr2 varchar(6) NULL,sh2 varchar(10) NULL,shn2 varchar(10) NULL,shy2 varchar(6) NULL,"+&
+            "shr2 varchar(6) NULL,nh3 varchar(20) NULL,yqxhjd3 varchar(20) NULL,bmzk3 varchar(20) NULL,"+&
+            "cdbh31 varchar(20) NULL,cdbh32 varchar(20) NULL,cdbh33 varchar(20) NULL,cdbh34 varchar(20) NULL,"+&
+            "cdbh35 varchar(20) NULL,cdbh36 varchar(20) NULL,cdbh37 varchar(20) NULL,cdbh38 varchar(20) NULL,"+&
+            "cdbh39 varchar(20) NULL,cdbh30 varchar(20) NULL,hd31 varchar(10) NULL,hd32 varchar(10) NULL,"+&
+            "hd33 varchar(10) NULL,hd34 varchar(10) NULL,hd35 varchar(10) NULL,hd36 varchar(10) NULL,"+&
+            "hd37 varchar(10) NULL,hd38 varchar(10) NULL,hd39 varchar(10) NULL,hd30 varchar(10) NULL,"+&
+            "jyr3 varchar(10) NULL,jyrn3 varchar(10) NULL,jyry3 varchar(6) NULL,jyrr3 varchar(6) NULL,"+&
+            "sh3 varchar(10) NULL,shn3 varchar(10) NULL,shy3 varchar(10) NULL,shr3 varchar(10) NULL,"+&
+            "nh4 varchar(20) NULL,yqxhjd4 varchar(20) NULL,bmzk4 varchar(20) NULL,cdbh41 varchar(20) NULL,"+&
+            "cdbh42 varchar(20) NULL,cdbh43 varchar(20) NULL,cdbh44 varchar(20) NULL,cdbh45 varchar(20) NULL,"+&
+            "cdbh46 varchar(20) NULL,cdbh47 varchar(20) NULL,cdbh48 varchar(20) NULL,cdbh49 varchar(20) NULL,"+&
+            "cdbh40 varchar(20) NULL,hd41 varchar(10) NULL,hd42 varchar(10) NULL,hd43 varchar(10) NULL,"+&
+            "hd44 varchar(10) NULL,hd45 varchar(10) NULL,hd46 varchar(10) NULL,hd47 varchar(10) NULL,"+&
+            "hd48 varchar(10) NULL,hd49 varchar(10) NULL,hd40 varchar(10) NULL,jyr4 varchar(10) NULL,"+&
+            "jyrn4 varchar(10) NULL,jyry4 varchar(6) NULL,jyrr4 varchar(6) NULL,sh4 varchar(10) NULL,"+&
+            "shn4 varchar(10) NULL,shy4 varchar(6) NULL,shr4 varchar(6) NULL,nh5 varchar(20) NULL,"+&
+            "yqxhjd5 varchar(20) NULL,bmzk5 varchar(20) NULL,cdbh51 varchar(20) NULL,cdbh52 varchar(20) NULL,"+&
+            "cdbh53 varchar(20) NULL,cdbh54 varchar(20) NULL,cdbh55 varchar(20) NULL,cdbh56 varchar(20) NULL,"+&
+            "cdbh57 varchar(20) NULL,cdbh58 varchar(20) NULL,cdbh59 varchar(20) NULL,cdbh50 varchar(20) NULL,"+&
+            "hd51 varchar(10) NULL,hd52 varchar(10) NULL,hd53 varchar(10) NULL,hd54 varchar(10) NULL,"+&
+            "hd55 varchar(10) NULL,hd56 varchar(10) NULL,hd57 varchar(10) NULL,hd58 varchar(10) NULL,"+&
+            "hd59 varchar(10) NULL,hd50 varchar(10) NULL,jyr5 varchar(10) NULL,jyrn5 varchar(10) NULL,"+&
+            "jyry5 varchar(6) NULL,jyrr5 varchar(6) NULL,sh5 varchar(10) NULL,shn5 varchar(10) NULL,"+&
+            "shy5 varchar(6) NULL,shr5 varchar(6) NULL,bz1 varchar(100) NULL,bz2 varchar(100) NULL,"+&
+            "bz3 varchar(100) NULL,bz4 varchar(100) NULL,bz5 varchar(100) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ ÔÚÏßµ¥ÏßÍ¼
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_dxt;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_dxt"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_gygd_dxt(jyid varchar(20) NOT NULL ,hzry varchar(10) NULL,"+&
+            "shry varchar(10) NULL,hzyear varchar(10) NULL,hzmonth varchar(4) NULL,hzday varchar(4) NULL,"+&
+            "shyear varchar(10) NULL,shmonth varchar(4) NULL,shday varchar(4) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_dxt_x "&
+		        +"ON djylrq.b_jj_gygd_dxt"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_dxt;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_dxt"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_dxt(jyid varchar(20) NOT NULL ,hzry varchar(10) NULL,"+&
+            "shry varchar(10) NULL,hzyear varchar(10) NULL,hzmonth varchar(4) NULL,hzday varchar(4) NULL,"+&
+            "shyear varchar(10) NULL,shmonth varchar(4) NULL,shday varchar(4) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ ÔÚÏß·âÆ¤
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_zxfp;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_zxfp"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_gygd_zxfp(jyid varchar(20) NOT NULL ,jydate1 varchar(20) NULL,"+&
+            "jydate2 varchar(20) NULL,jydatef3 varchar(20) NULL,jydate4 varchar(20) NULL,"+&
+            "jydate5 varchar(20) NULL,jydate6 varchar(20) NULL,jydate7 varchar(20) NULL,"+&
+            "jydate8 varchar(20) NULL,jyyear varchar(4) NULL,jymonth varchar(2) NULL,jyday varchar(2) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_zxfp_x "&
+		        +"ON djylrq.b_jj_gygd_zxfp"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_zxfp;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_zxfp"
+
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_zxfp(jyid varchar(20) NOT NULL ,jydate1 varchar(20) NULL,"+&
+            "jydate2 varchar(20) NULL,jydatef3 varchar(20) NULL,jydate4 varchar(20) NULL,"+&
+            "jydate5 varchar(20) NULL,jydate6 varchar(20) NULL,jydate7 varchar(20) NULL,"+&
+            "jydate8 varchar(20) NULL,jyyear varchar(4) NULL,jymonth varchar(2) NULL,jyday varchar(2) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ ÔÚÏß½áÂÛ±¨¸æ
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_zxjlbg;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_zxjlbg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_gygd_zxjlbg(jyid varchar(20) NOT NULL ,gdpmt varchar(5) NULL,"+&
+            "gdgyt varchar(5) NULL,dxt varchar(5) NULL,zxjybg varchar(5) NULL,qmjybg varchar(5) NULL,"+&
+            "cszl varchar(5) NULL,gdyxjl varchar(5) NULL,gdktjl varchar(5) NULL,gdyh varchar(5) NULL,"+&
+            "gdgzjl varchar(5) NULL,jxbg varchar(5) NULL,gdsgjl varchar(5) NULL,jyfa varchar(5) NULL,"+&
+            "wtjz1 varchar(100) NULL,wtjz2 varchar(150) NULL,gdbm varchar(20) NULL,hjjt varchar(20) NULL,"+&
+            "xl varchar(20) NULL,jyc varchar(20) NULL,ffc varchar(20) NULL,gdzd varchar(20) NULL,"+&
+            "zdj varchar(20) NULL,fm varchar(20) NULL,pzj varchar(20) NULL,fl varchar(20) NULL,"+&
+            "gdjg varchar(20) NULL,gdbs varchar(20) NULL,fljdz varchar(20) NULL,dddz varchar(20) NULL,"+&
+            "bhcd varchar(20) NULL,qt1 varchar(20) NULL,qt2 varchar(20) NULL,qt3 varchar(20) NULL,"+&
+            "qt4 varchar(20) NULL,qt5 varchar(20) NULL,ylb varchar(20) NULL,cwyb varchar(20) NULL,"+&
+            "bppzz varchar(20) NULL,qt6 varchar(20) NULL,qxqksm varchar(100) NULL,jyjg varchar(100) NULL,"+&
+            "xcjyrqn varchar(10) NULL,xcjyrqy varchar(6) NULL,jyr varchar(10) NULL,jyrn varchar(10) NULL,"+&
+            "jyry varchar(6) NULL,jyrr varchar(6) NULL,sh1 varchar(10) NULL,shn1 varchar(10) NULL,"+&
+            "shy1 varchar(6) NULL,shr1 varchar(6) NULL,qr varchar(10) NULL,qrn varchar(10) NULL,"+&
+            "qry varchar(6) NULL,qrr varchar(6) NULL,sh2 varchar(10) NULL,shn2 varchar(10) NULL,"+&
+            "shy2 varchar(6) NULL,shr2 varchar(6) NULL,sydwn varchar(10) NULL,sydwy varchar(6) NULL,"+&
+            "sydwr varchar(6) NULL,jydwn varchar(10) NULL,jydwy varchar(6) NULL,jydwr varchar(6) NULL,"+&
+            "qxclsm varchar(20) NULL,aqf varchar(20) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_zxjlbg_x "&
+		        +"ON djylrq.b_jj_gygd_zxjlbg"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_zxjlbg;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_zxjlbg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_zxjlbg(jyid varchar(20) NOT NULL ,gdpmt varchar(5) NULL,"+&
+            "gdgyt varchar(5) NULL,dxt varchar(5) NULL,zxjybg varchar(5) NULL,qmjybg varchar(5) NULL,"+&
+            "cszl varchar(5) NULL,gdyxjl varchar(5) NULL,gdktjl varchar(5) NULL,gdyh varchar(5) NULL,"+&
+            "gdgzjl varchar(5) NULL,jxbg varchar(5) NULL,gdsgjl varchar(5) NULL,jyfa varchar(5) NULL,"+&
+            "wtjz1 varchar(100) NULL,wtjz2 varchar(150) NULL,gdbm varchar(20) NULL,hjjt varchar(20) NULL,"+&
+            "xl varchar(20) NULL,jyc varchar(20) NULL,ffc varchar(20) NULL,gdzd varchar(20) NULL,"+&
+            "zdj varchar(20) NULL,fm varchar(20) NULL,pzj varchar(20) NULL,fl varchar(20) NULL,"+&
+            "gdjg varchar(20) NULL,gdbs varchar(20) NULL,fljdz varchar(20) NULL,dddz varchar(20) NULL,"+&
+            "bhcd varchar(20) NULL,qt1 varchar(20) NULL,qt2 varchar(20) NULL,qt3 varchar(20) NULL,"+&
+            "qt4 varchar(20) NULL,qt5 varchar(20) NULL,ylb varchar(20) NULL,cwyb varchar(20) NULL,"+&
+            "bppzz varchar(20) NULL,qt6 varchar(20) NULL,qxqksm varchar(100) NULL,jyjg varchar(100) NULL,"+&
+            "xcjyrqn varchar(10) NULL,xcjyrqy varchar(6) NULL,jyr varchar(10) NULL,jyrn varchar(10) NULL,"+&
+            "jyry varchar(6) NULL,jyrr varchar(6) NULL,sh1 varchar(10) NULL,shn1 varchar(10) NULL,"+&
+            "shy1 varchar(6) NULL,shr1 varchar(6) NULL,qr varchar(10) NULL,qrn varchar(10) NULL,"+&
+            "qry varchar(6) NULL,qrr varchar(6) NULL,sh2 varchar(10) NULL,shn2 varchar(10) NULL,"+&
+            "shy2 varchar(6) NULL,shr2 varchar(6) NULL,sydwn varchar(10) NULL,sydwy varchar(6) NULL,"+&
+            "sydwr varchar(6) NULL,jydwn varchar(10) NULL,jydwy varchar(6) NULL,jydwr varchar(6) NULL,"+&
+            "qxclsm varchar(20) NULL,aqf varchar(20) NULL, PRIMARY KEY (jyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ô­Ê¼×ÊÁÏµÇ¼Ç±í
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from glc_gygd;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.glc_gygd"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.glc_gygd(cpid varchar(20) NOT NULL ,sydw varchar(50) NULL,"+&
+            "djid varchar(30) NOT NULL ,zzmc varchar(30) NULL,sjdw varchar(50) NULL,gdmc varchar(30) NULL,"+&
+            "sjrq varchar(20) NULL,gdbh varchar(20) NULL,sjgf varchar(20) NULL,gdjb varchar(10) NULL,"+&
+            "azdw varchar(50) NULL,gdcd varchar(20) NULL,azysgf varchar(20) NULL,qswz varchar(20) NULL,"+&
+            "ysrq varchar(20) NULL,zzwz varchar(20) NULL,tyrq varchar(20) NULL,fsfs varchar(20) NULL,"+&
+            "sjsyrq varchar(20) NULL,sjyl varchar(20) NULL,gzyl varchar(20) NULL,sjwd varchar(20) NULL,"+&
+            "gzwd varchar(20) NULL,gzclph varchar(20) NULL,gzjz varchar(20) NULL,wj varchar(20) NULL,"+&
+            "bh varchar(20) NULL,jrccl varchar(20) NULL,jrchd varchar(20) NULL,aqdj varchar(20) NULL,"+&
+            "zgbmid varchar(20) NULL,zgfbmid varchar(20) NULL,glcmark varchar(20) NULL,"+&
+            "djid_old varchar(20) NULL,dwdz varchar(50) NULL,yzbm varchar(10) NULL,lxr varchar(20) NULL,"+&
+            "dh varchar(20) NULL,fsyl varchar(20) NULL,ffccl varchar(20) NULL,mark varchar(1) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX glc_gygd_x "&
+		        +"ON djylrq.glc_gygd"&
+		        +"(cpid,djid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from glc_gygd;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table glc_gygd"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE glc_gygd(cpid varchar(20) NOT NULL ,sydw varchar(50) NULL,"+&
+            "djid varchar(30) NOT NULL ,zzmc varchar(30) NULL,sjdw varchar(50) NULL,gdmc varchar(30) NULL,"+&
+            "sjrq varchar(20) NULL,gdbh varchar(20) NULL,sjgf varchar(20) NULL,gdjb varchar(10) NULL,"+&
+            "azdw varchar(50) NULL,gdcd varchar(20) NULL,azysgf varchar(20) NULL,qswz varchar(20) NULL,"+&
+            "ysrq varchar(20) NULL,zzwz varchar(20) NULL,tyrq varchar(20) NULL,fsfs varchar(20) NULL,"+&
+            "sjsyrq varchar(20) NULL,sjyl varchar(20) NULL,gzyl varchar(20) NULL,sjwd varchar(20) NULL,"+&
+            "gzwd varchar(20) NULL,gzclph varchar(20) NULL,gzjz varchar(20) NULL,wj varchar(20) NULL,"+&
+            "bh varchar(20) NULL,jrccl varchar(20) NULL,jrchd varchar(20) NULL,aqdj varchar(20) NULL,"+&
+            "zgbmid varchar(20) NULL,zgfbmid varchar(20) NULL,glcmark varchar(20) NULL,"+&
+            "djid_old varchar(20) NULL,dwdz varchar(50) NULL,yzbm varchar(10) NULL,lxr varchar(20) NULL,"+&
+            "dh varchar(20) NULL,fsyl varchar(20) NULL,ffccl varchar(20) NULL,mark varchar(1) NULL,"+&
+            "PRIMARY KEY (cpid,djid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ ±¨¸æÐøÒ³×Ü±í
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_gygd_xytotal;	
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_gygd_xytotal"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_gygd_xytotal(jyid varchar(20) NOT NULL ,bgxm varchar(40) NOT NULL ,"+&
+            "xyid varchar(10) NOT NULL ,jyry varchar(20) NULL,jyyear varchar(10) NULL,jymonth varchar(5) NULL,"+&
+            "jyday varchar(5) NULL,a1 varchar(20) NULL,a2 varchar(20) NULL,a3 varchar(20) NULL,"+&
+            "a4 varchar(20) NULL,a5 varchar(20) NULL,a6 varchar(20) NULL,a7 varchar(20) NULL,a8 varchar(20) NULL,"+&
+            "a9 varchar(20) NULL,a10 varchar(20) NULL,a11 varchar(20) NULL,a12 varchar(20) NULL,"+&
+            "a13 varchar(20) NULL,a14 varchar(20) NULL,a15 varchar(20) NULL,a16 varchar(20) NULL,a17 varchar(20) NULL,"+&
+            "a18 varchar(20) NULL,a19 varchar(20) NULL,a20 varchar(20) NULL,a21 varchar(20) NULL,a22 varchar(20) NULL,"+&
+            "a23 varchar(20) NULL,a24 varchar(20) NULL,a25 varchar(20) NULL,a26 varchar(20) NULL,a27 varchar(20) NULL,"+&
+            "a28 varchar(20) NULL,a29 varchar(20) NULL,a30 varchar(20) NULL,a31 varchar(20) NULL,a32 varchar(20) NULL,"+&
+            "a33 varchar(20) NULL,a34 varchar(20) NULL,a35 varchar(20) NULL,a36 varchar(20) NULL,a37 varchar(20) NULL,"+&
+            "a38 varchar(20) NULL,a39 varchar(20) NULL,a40 varchar(20) NULL,a41 varchar(20) NULL,a42 varchar(20) NULL,"+&
+            "a43 varchar(20) NULL,a44 varchar(20) NULL,a45 varchar(20) NULL,a46 varchar(20) NULL,a47 varchar(20) NULL,"+&
+            "a48 varchar(20) NULL,a49 varchar(20) NULL,a50 varchar(20) NULL,a51 varchar(20) NULL,a52 varchar(20) NULL,"+&
+            "a53 varchar(20) NULL,a54 varchar(20) NULL,a55 varchar(20) NULL,a56 varchar(20) NULL,a57 varchar(20) NULL,"+&
+            "a58 varchar(20) NULL,a59 varchar(20) NULL,a60 varchar(20) NULL,a61 varchar(20) NULL,a62 varchar(20) NULL,"+&
+            "a63 varchar(20) NULL,a64 varchar(20) NULL,a65 varchar(20) NULL,a66 varchar(20) NULL,a67 varchar(20) NULL,"+&
+            "a68 varchar(20) NULL,a69 varchar(20) NULL,a70 varchar(20) NULL,a71 varchar(20) NULL,a72 varchar(20) NULL,"+&
+            "a73 varchar(20) NULL,a74 varchar(20) NULL,a75 varchar(20) NULL,a76 varchar(20) NULL,a77 varchar(20) NULL,"+&
+            "a78 varchar(20) NULL,a79 varchar(20) NULL,a80 varchar(20) NULL,a81 varchar(20) NULL,a82 varchar(20) NULL,"+&
+            "a83 varchar(20) NULL,a84 varchar(20) NULL,a85 varchar(20) NULL,a86 varchar(20) NULL,a87 varchar(20) NULL,"+&
+            "a88 varchar(20) NULL,a89 varchar(20) NULL,a90 varchar(20) NULL,a91 varchar(20) NULL,a92 varchar(20) NULL,"+&
+            "a93 varchar(20) NULL,a94 varchar(20) NULL,a95 varchar(20) NULL,a96 varchar(20) NULL,a97 varchar(20) NULL,"+&
+            "a98 varchar(20) NULL,a99 varchar(20) NULL,a100 varchar(20) NULL,b1 varchar(20) NULL,b2 varchar(20) NULL,"+&
+            "b3 varchar(20) NULL,b4 varchar(20) NULL,b5 varchar(20) NULL,b6 varchar(20) NULL,b7 varchar(20) NULL,"+&
+            "b8 varchar(20) NULL,b9 varchar(20) NULL,b10 varchar(20) NULL,b11 varchar(20) NULL,b12 varchar(20) NULL,"+&
+            "b13 varchar(20) NULL,b14 varchar(20) NULL,b15 varchar(20) NULL,b16 varchar(20) NULL,b17 varchar(20) NULL,"+&
+            "b18 varchar(20) NULL,b19 varchar(20) NULL,b20 varchar(20) NULL,b21 varchar(20) NULL,b22 varchar(20) NULL,"+&
+            "b23 varchar(20) NULL,b24 varchar(20) NULL,b25 varchar(20) NULL,b26 varchar(20) NULL,b27 varchar(20) NULL,"+&
+            "b28 varchar(20) NULL,b29 varchar(20) NULL,b30 varchar(20) NULL,b31 varchar(20) NULL,b32 varchar(20) NULL,"+&
+            "b33 varchar(20) NULL,b34 varchar(20) NULL,b35 varchar(20) NULL,b36 varchar(20) NULL,b37 varchar(20) NULL,"+&
+            "b38 varchar(20) NULL,b39 varchar(20) NULL,b40 varchar(20) NULL,b41 varchar(20) NULL,b42 varchar(20) NULL,"+&
+            "b43 varchar(20) NULL,b44 varchar(20) NULL,b45 varchar(20) NULL,b46 varchar(20) NULL,b47 varchar(20) NULL,"+&
+            "b48 varchar(20) NULL,b49 varchar(20) NULL,b50 varchar(20) NULL,b51 varchar(20) NULL,b52 varchar(20) NULL,"+&
+            "b53 varchar(20) NULL,b54 varchar(20) NULL,b55 varchar(20) NULL,b56 varchar(20) NULL,b57 varchar(20) NULL,"+&
+            "b58 varchar(20) NULL,b59 varchar(20) NULL,b60 varchar(20) NULL,b61 varchar(20) NULL,b62 varchar(20) NULL,"+&
+            "b63 varchar(20) NULL,b64 varchar(20) NULL,b65 varchar(20) NULL,b66 varchar(20) NULL,b67 varchar(20) NULL,"+&
+            "b68 varchar(20) NULL,b69 varchar(20) NULL,b70 varchar(20) NULL,b71 varchar(20) NULL,b72 varchar(20) NULL,"+&
+            "b73 varchar(20) NULL,b74 varchar(20) NULL,b75 varchar(20) NULL,b76 varchar(20) NULL,b77 varchar(20) NULL,"+&
+            "b78 varchar(20) NULL,b79 varchar(20) NULL,b80 varchar(20) NULL,b81 varchar(20) NULL,b82 varchar(20) NULL,"+&
+            "b83 varchar(20) NULL,b84 varchar(20) NULL,b85 varchar(20) NULL,b86 varchar(20) NULL,b87 varchar(20) NULL,"+&
+            "b88 varchar(20) NULL,b89 varchar(20) NULL,b90 varchar(20) NULL,b91 varchar(20) NULL,b92 varchar(20) NULL,"+&
+            "b93 varchar(20) NULL,b94 varchar(20) NULL,b95 varchar(20) NULL,b96 varchar(20) NULL,b97 varchar(20) NULL,"+&
+            "b98 varchar(20) NULL,b99 varchar(20) NULL,b100 varchar(20) NULL,jyyear1 varchar(10) NULL,"+&
+            "jymonth1 varchar(5) NULL,jyday1 varchar(5) NULL,jytoyear1 varchar(10) NULL,jytomonth1 varchar(5) NULL,"+&
+            "jytoday1 varchar(5) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_gygd_xytotal_x "&
+		        +"ON djylrq.b_jj_gygd_xytotal"&
+		        +"(jyid,bgxm,xyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_gygd_xytotal;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_gygd_xytotal"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_gygd_xytotal(jyid varchar(20) NOT NULL ,bgxm varchar(40) NOT NULL ,"+&
+            "xyid varchar(10) NOT NULL ,jyry varchar(20) NULL,jyyear varchar(10) NULL,jymonth varchar(5) NULL,"+&
+            "jyday varchar(5) NULL,a1 varchar(20) NULL,a2 varchar(20) NULL,a3 varchar(20) NULL,"+&
+            "a4 varchar(20) NULL,a5 varchar(20) NULL,a6 varchar(20) NULL,a7 varchar(20) NULL,a8 varchar(20) NULL,"+&
+            "a9 varchar(20) NULL,a10 varchar(20) NULL,a11 varchar(20) NULL,a12 varchar(20) NULL,"+&
+            "a13 varchar(20) NULL,a14 varchar(20) NULL,a15 varchar(20) NULL,a16 varchar(20) NULL,a17 varchar(20) NULL,"+&
+            "a18 varchar(20) NULL,a19 varchar(20) NULL,a20 varchar(20) NULL,a21 varchar(20) NULL,a22 varchar(20) NULL,"+&
+            "a23 varchar(20) NULL,a24 varchar(20) NULL,a25 varchar(20) NULL,a26 varchar(20) NULL,a27 varchar(20) NULL,"+&
+            "a28 varchar(20) NULL,a29 varchar(20) NULL,a30 varchar(20) NULL,a31 varchar(20) NULL,a32 varchar(20) NULL,"+&
+            "a33 varchar(20) NULL,a34 varchar(20) NULL,a35 varchar(20) NULL,a36 varchar(20) NULL,a37 varchar(20) NULL,"+&
+            "a38 varchar(20) NULL,a39 varchar(20) NULL,a40 varchar(20) NULL,a41 varchar(20) NULL,a42 varchar(20) NULL,"+&
+            "a43 varchar(20) NULL,a44 varchar(20) NULL,a45 varchar(20) NULL,a46 varchar(20) NULL,a47 varchar(20) NULL,"+&
+            "a48 varchar(20) NULL,a49 varchar(20) NULL,a50 varchar(20) NULL,a51 varchar(20) NULL,a52 varchar(20) NULL,"+&
+            "a53 varchar(20) NULL,a54 varchar(20) NULL,a55 varchar(20) NULL,a56 varchar(20) NULL,a57 varchar(20) NULL,"+&
+            "a58 varchar(20) NULL,a59 varchar(20) NULL,a60 varchar(20) NULL,a61 varchar(20) NULL,a62 varchar(20) NULL,"+&
+            "a63 varchar(20) NULL,a64 varchar(20) NULL,a65 varchar(20) NULL,a66 varchar(20) NULL,a67 varchar(20) NULL,"+&
+            "a68 varchar(20) NULL,a69 varchar(20) NULL,a70 varchar(20) NULL,a71 varchar(20) NULL,a72 varchar(20) NULL,"+&
+            "a73 varchar(20) NULL,a74 varchar(20) NULL,a75 varchar(20) NULL,a76 varchar(20) NULL,a77 varchar(20) NULL,"+&
+            "a78 varchar(20) NULL,a79 varchar(20) NULL,a80 varchar(20) NULL,a81 varchar(20) NULL,a82 varchar(20) NULL,"+&
+            "a83 varchar(20) NULL,a84 varchar(20) NULL,a85 varchar(20) NULL,a86 varchar(20) NULL,a87 varchar(20) NULL,"+&
+            "a88 varchar(20) NULL,a89 varchar(20) NULL,a90 varchar(20) NULL,a91 varchar(20) NULL,a92 varchar(20) NULL,"+&
+            "a93 varchar(20) NULL,a94 varchar(20) NULL,a95 varchar(20) NULL,a96 varchar(20) NULL,a97 varchar(20) NULL,"+&
+            "a98 varchar(20) NULL,a99 varchar(20) NULL,a100 varchar(20) NULL,b1 varchar(20) NULL,b2 varchar(20) NULL,"+&
+            "b3 varchar(20) NULL,b4 varchar(20) NULL,b5 varchar(20) NULL,b6 varchar(20) NULL,b7 varchar(20) NULL,"+&
+            "b8 varchar(20) NULL,b9 varchar(20) NULL,b10 varchar(20) NULL,b11 varchar(20) NULL,b12 varchar(20) NULL,"+&
+            "b13 varchar(20) NULL,b14 varchar(20) NULL,b15 varchar(20) NULL,b16 varchar(20) NULL,b17 varchar(20) NULL,"+&
+            "b18 varchar(20) NULL,b19 varchar(20) NULL,b20 varchar(20) NULL,b21 varchar(20) NULL,b22 varchar(20) NULL,"+&
+            "b23 varchar(20) NULL,b24 varchar(20) NULL,b25 varchar(20) NULL,b26 varchar(20) NULL,b27 varchar(20) NULL,"+&
+            "b28 varchar(20) NULL,b29 varchar(20) NULL,b30 varchar(20) NULL,b31 varchar(20) NULL,b32 varchar(20) NULL,"+&
+            "b33 varchar(20) NULL,b34 varchar(20) NULL,b35 varchar(20) NULL,b36 varchar(20) NULL,b37 varchar(20) NULL,"+&
+            "b38 varchar(20) NULL,b39 varchar(20) NULL,b40 varchar(20) NULL,b41 varchar(20) NULL,b42 varchar(20) NULL,"+&
+            "b43 varchar(20) NULL,b44 varchar(20) NULL,b45 varchar(20) NULL,b46 varchar(20) NULL,b47 varchar(20) NULL,"+&
+            "b48 varchar(20) NULL,b49 varchar(20) NULL,b50 varchar(20) NULL,b51 varchar(20) NULL,b52 varchar(20) NULL,"+&
+            "b53 varchar(20) NULL,b54 varchar(20) NULL,b55 varchar(20) NULL,b56 varchar(20) NULL,b57 varchar(20) NULL,"+&
+            "b58 varchar(20) NULL,b59 varchar(20) NULL,b60 varchar(20) NULL,b61 varchar(20) NULL,b62 varchar(20) NULL,"+&
+            "b63 varchar(20) NULL,b64 varchar(20) NULL,b65 varchar(20) NULL,b66 varchar(20) NULL,b67 varchar(20) NULL,"+&
+            "b68 varchar(20) NULL,b69 varchar(20) NULL,b70 varchar(20) NULL,b71 varchar(20) NULL,b72 varchar(20) NULL,"+&
+            "b73 varchar(20) NULL,b74 varchar(20) NULL,b75 varchar(20) NULL,b76 varchar(20) NULL,b77 varchar(20) NULL,"+&
+            "b78 varchar(20) NULL,b79 varchar(20) NULL,b80 varchar(20) NULL,b81 varchar(20) NULL,b82 varchar(20) NULL,"+&
+            "b83 varchar(20) NULL,b84 varchar(20) NULL,b85 varchar(20) NULL,b86 varchar(20) NULL,b87 varchar(20) NULL,"+&
+            "b88 varchar(20) NULL,b89 varchar(20) NULL,b90 varchar(20) NULL,b91 varchar(20) NULL,b92 varchar(20) NULL,"+&
+            "b93 varchar(20) NULL,b94 varchar(20) NULL,b95 varchar(20) NULL,b96 varchar(20) NULL,b97 varchar(20) NULL,"+&
+            "b98 varchar(20) NULL,b99 varchar(20) NULL,b100 varchar(20) NULL,jyyear1 varchar(10) NULL,"+&
+            "jymonth1 varchar(5) NULL,jyday1 varchar(5) NULL,jytoyear1 varchar(10) NULL,jytomonth1 varchar(5) NULL,"+&
+            "jytoday1 varchar(5) NULL, PRIMARY KEY (jyid,bgxm,xyid));"
+     execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_Count = 0
+////ÐÞ¸Ä
+if mark = 'sqlserver' then   
+   select count(*) into :ls_Count from b_jj_gygd_jxfxbg ;
+	if sqlca.sqlcode = 0 then   
+		modsql= "Alter table djylrq.b_jj_gygd_jxfxbg add zpbw varchar(20) "
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ls_Count from b_jj_gygd_jxfxbg ;
+	if sqlca.sqlcode = 0 then   
+      modsql= "Alter table b_jj_gygd_jxfxbg add zpbw varchar(20) "
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+
+
+end subroutine
+

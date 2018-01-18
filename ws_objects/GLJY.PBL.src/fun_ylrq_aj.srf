@@ -1,0 +1,188 @@
+﻿$PBExportHeader$fun_ylrq_aj.srf
+global type fun_ylrq_aj from function_object
+end type
+
+forward prototypes
+global subroutine fun_ylrq_aj ()
+end prototypes
+
+global subroutine fun_ylrq_aj ();string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+// ´´½¨ Ñ¹Á¦ÈÝÆ÷°²×°¼à¶½¼ìÑé±¨¸æÊé
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.b_ylrq_jyjl(jyid varchar(20) NOT null , bgbh varchar(20) null,sb_zcdm varchar(20) null ,dm_bz varchar(10) null,cpid varchar(20) null,djid varchar(20) null,list_id varchar(50) null,"+&
+				"list_mc varchar(240) null,list_s varchar(40) null,rqmc varchar(50) null,ccbh varchar(30) null,jsdw varchar(50) null,azdw varchar(50) null,year1 varchar(4) null,"+&
+            "mm1 varchar(2) null,dd1 varchar(2) null,year2 varchar(4) null,mm2 varchar(2) null,dd2 varchar(2) null,jydw varchar(50) null,"+&
+            "xh1 varchar(2) null,xh2 varchar(2) null,xh3 varchar(2) null,xh4 varchar(2) null,xh5 varchar(2) null,xh6 varchar(2) null,"+&
+				"xm1 varchar(40) null,xm2 varchar(40) null,xm3 varchar(40) null,xm4 varchar(40) null,xm5 varchar(40) null,xm6 varchar(40) null,"+&
+				"sjyl varchar(10) null,sjwd varchar(10) null,rqlb varchar(10) null,ztcz varchar(30) null,jz varchar(20) null,sjsm varchar(4) null,"+&
+				"dwdz varchar(50) null,zzdw varchar(50) null,ccrq varchar(20) null,zzjjjg varchar(50) null,zsbh varchar(30) null,gzsbh varchar(30) null,yj varchar(80) null,"+&
+				"clyj1 varchar(80) null,clyj2 varchar(80) null,clyj3 varchar(80) null,clyj4 varchar(80) null,zywt1 varchar(80) null,zywt2 varchar(80) null,"+&
+				"jl varchar(8) null,dj varchar(8) null,yl varchar(16) null,wd varchar(12) null,jz2 varchar(20) null,xcjyy varchar(4) null,xcjym varchar(2) null,xcjyd varchar(2) null,"+&
+				"jyy varchar(10) null,jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null,"+&
+				"zsbh1 varchar(20) null,zsbh2 varchar(20) null,zsbh3 varchar(20) null,date1 varchar(20) null,date2 varchar(20) null,date3 varchar(20) null, "+&
+				"sh varchar(10) null,shdate varchar(20) null,pz varchar(10) null,qkpj varchar(20) null,pzdate varchar(20) null,"+&
+				"xh7 varchar(2) null,xh8 varchar(2) null,xh9 varchar(2) null,xh10 varchar(2) null,xh11 varchar(2) null,xm7 varchar(40) null,xm8 varchar(40) null,"+&
+				"xm9 varchar(40) null,xm10 varchar(40) null,xm11 varchar(40) null,yj1 varchar(80) null,yj2 varchar(80) null,yj3 varchar(80) null,gzrq varchar(20) null);"
+		execute immediate :mysql using sqlca;	
+		myindex = "CREATE UNIQUE INDEX B_YLRQ_JYJL_X ON DJYLRQ.B_YLRQ_JYJL (jyid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE b_ylrq_jyjl(jyid varchar(20) NOT null , bgbh varchar(20) null,sb_zcdm varchar(20) null ,dm_bz varchar(10) null,cpid varchar(20) null,djid varchar(20) null,list_id varchar(50) null,"+&
+				"list_mc varchar(240) null,list_s varchar(40) null,rqmc varchar(50) null,ccbh varchar(30) null,jsdw varchar(50) null,azdw varchar(50) null,year1 varchar(4) null,"+&
+            "mm1 varchar(2) null,dd1 varchar(2) null,year2 varchar(4) null,mm2 varchar(2) null,dd2 varchar(2) null,jydw varchar(50) null,"+&
+            "xh1 varchar(2) null,xh2 varchar(2) null,xh3 varchar(2) null,xh4 varchar(2) null,xh5 varchar(2) null,xh6 varchar(2) null,"+&
+				"xm1 varchar(40) null,xm2 varchar(40) null,xm3 varchar(40) null,xm4 varchar(40) null,xm5 varchar(40) null,xm6 varchar(40) null,"+&
+				"sjyl varchar(10) null,sjwd varchar(10) null,rqlb varchar(10) null,ztcz varchar(30) null,jz varchar(20) null,sjsm varchar(4) null,"+&
+				"dwdz varchar(50) null,zzdw varchar(50) null,ccrq varchar(20) null,zzjjjg varchar(50) null,zsbh varchar(30) null,gzsbh varchar(30) null,yj varchar(80) null,"+&
+				"clyj1 varchar(80) null,clyj2 varchar(80) null,clyj3 varchar(80) null,clyj4 varchar(80) null,zywt1 varchar(80) null,zywt2 varchar(80) null,"+&
+				"jl varchar(8) null,dj varchar(8) null,yl varchar(16) null,wd varchar(12) null,jz2 varchar(20) null,xcjyy varchar(4) null,xcjym varchar(2) null,xcjyd varchar(2) null,"+&
+				"jyy varchar(10) null,jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null,"+&
+				"zsbh1 varchar(20) null,zsbh2 varchar(20) null,zsbh3 varchar(20) null,date1 varchar(20) null,date2 varchar(20) null,date3 varchar(20) null, "+&
+				"sh varchar(10) null,shdate varchar(20) null,pz varchar(10) null,qkpj varchar(20) null,pzdate varchar(20) null,"+&
+				"xh7 varchar(2) null,xh8 varchar(2) null,xh9 varchar(2) null,xh10 varchar(2) null,xh11 varchar(2) null,xm7 varchar(40) null,xm8 varchar(40) null,"+&
+				"xm9 varchar(40) null,xm10 varchar(40) null,xm11 varchar(40) null,yj1 varchar(80) null,yj2 varchar(80) null,yj3 varchar(80) null,gzrq varchar(20) null,PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca;	
+END IF
+//×ÊÁÏÉó²é
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.b_ylrq_zlsc(jyid varchar(20) NOT NULL ,jcqk1 varchar(30) NULL,jcqk2 varchar(30) NULL,"+&
+            "jcqk3 varchar(30) NULL,jcqk4 varchar(30) NULL,jcqk5 varchar(30) NULL,jcqk6 varchar(30) NULL,jcqk7 varchar(30) NULL,"+&
+				"jcqk8 varchar(30) NULL,jcqk9 varchar(30) NULL,jcqk10 varchar(30) NULL,jcqk11 varchar(30) NULL,jcqk12 varchar(30) NULL,"+&
+            "jcqk13 varchar(30) NULL,jcqk14 varchar(30) NULL,jcqk15 varchar(30) NULL,jcqk16 varchar(30) NULL,jcqk17 varchar(30) NULL,"+&
+				 "scjg1 varchar(16) NULL,scjg2 varchar(16) NULL,scjg3 varchar(16) NULL,scjg4 varchar(16) NULL,scjg5 varchar(16) NULL,scjg6 varchar(16) NULL,"+&
+				"scjg7 varchar(16) NULL,scjg8 varchar(16) NULL,scjg9 varchar(16) NULL,scjg10 varchar(16) NULL,scjg11 varchar(16) NULL,scjg12 varchar(16) NULL,"+&
+            "scjg13 varchar(16) NULL,scjg14 varchar(16) NULL,scjg15 varchar(16) NULL,scjg16 varchar(16) NULL,scjg17 varchar(16) NULL,"+&
+				"jl1 varchar(80) null,jl2 varchar(80) null,jl3 varchar(80) null,jyy varchar(10) null,jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,"+&	
+		      "sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,shd varchar(2) null);"
+		execute immediate :mysql using sqlca ;	
+		myindex = "CREATE UNIQUE INDEX B_YLRQ_ZLSC_X ON DJYLRQ.B_YLRQ_ZLSC (jyid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE b_ylrq_zlsc(jyid varchar(20) NOT NULL ,jcqk1 varchar(30) NULL,jcqk2 varchar(30) NULL,"+&
+            "jcqk3 varchar(30) NULL,jcqk4 varchar(30) NULL,jcqk5 varchar(30) NULL,jcqk6 varchar(30) NULL,jcqk7 varchar(30) NULL,"+&
+				"jcqk8 varchar(30) NULL,jcqk9 varchar(30) NULL,jcqk10 varchar(30) NULL,jcqk11 varchar(30) NULL,jcqk12 varchar(30) NULL,"+&
+            "jcqk13 varchar(30) NULL,jcqk14 varchar(30) NULL,jcqk15 varchar(30) NULL,jcqk16 varchar(30) NULL,jcqk17 varchar(30) NULL,"+&
+				 "scjg1 varchar(16) NULL,scjg2 varchar(16) NULL,scjg3 varchar(16) NULL,scjg4 varchar(16) NULL,scjg5 varchar(16) NULL,scjg6 varchar(16) NULL,"+&
+				"scjg7 varchar(16) NULL,scjg8 varchar(16) NULL,scjg9 varchar(16) NULL,scjg10 varchar(16) NULL,scjg11 varchar(16) NULL,scjg12 varchar(16) NULL,"+&
+            "scjg13 varchar(16) NULL,scjg14 varchar(16) NULL,scjg15 varchar(16) NULL,scjg16 varchar(16) NULL,scjg17 varchar(16) NULL,"+&
+				"jl1 varchar(80) null,jl2 varchar(80) null,jl3 varchar(80) null,jyy varchar(10) null,jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,"+&	
+		      "sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,shd varchar(2) null, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;	
+END IF
+/////////////////////////////////////////////////////
+//°²×°ÖÊÁ¿¼ìÑé±¨¸æ
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.b_ylrq_zljy(jyid varchar(20) NOT NULL ,jcqk1 varchar(30) NULL,jcqk2 varchar(30) NULL,"+&
+            "jcqk3 varchar(30) NULL,jcqk4 varchar(30) NULL,jcqk5 varchar(30) NULL,jcqk6 varchar(30) NULL,jcqk7 varchar(30) NULL,"+&
+				"jcqk8 varchar(30) NULL,jcqk9 varchar(30) NULL,jcqk10 varchar(30) NULL,jcqk11 varchar(30) NULL,jcqk12 varchar(30) NULL,"+&
+            "jcqk13 varchar(30) NULL,jcqk14 varchar(30) NULL,jcqk15 varchar(30) NULL,jcqk16 varchar(30) NULL,jcqk17 varchar(30) NULL,jcqk18 varchar(30) NULL,"+&
+				 "scjg1 varchar(16) NULL,scjg2 varchar(16) NULL,scjg3 varchar(16) NULL,scjg4 varchar(16) NULL,scjg5 varchar(16) NULL,scjg6 varchar(16) NULL,"+&
+				"scjg7 varchar(16) NULL,scjg8 varchar(16) NULL,scjg9 varchar(16) NULL,scjg10 varchar(16) NULL,scjg11 varchar(16) NULL,scjg12 varchar(16) NULL,"+&
+            "scjg13 varchar(16) NULL,scjg14 varchar(16) NULL,scjg15 varchar(16) NULL,scjg16 varchar(16) NULL,scjg17 varchar(16) NULL,scjg18 varchar(16) NULL,"+&
+				"jl1 varchar(80) null,jl2 varchar(80) null,jl3 varchar(80) null,jyy varchar(10) null,jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,"+&	
+		      "sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,jcxm1 varchar(20) null,jcxm2 varchar(20) null,shd varchar(2) null,"+&
+				"jcxm3 varchar(20) null,jcxm4 varchar(20) null,jcqk19 varchar(30) NULL,jcqk20 varchar(30) NULL,scjg19 varchar(16) NULL,scjg20 varchar(16) NULL);"
+		execute immediate :mysql using sqlca ;	
+		myindex = "CREATE UNIQUE INDEX B_YLRQ_ZLJY_X ON DJYLRQ.B_YLRQ_ZLJY (jyid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE b_ylrq_zljy(jyid varchar(20) NOT NULL ,jcqk1 varchar(30) NULL,jcqk2 varchar(30) NULL,"+&
+            "jcqk3 varchar(30) NULL,jcqk4 varchar(30) NULL,jcqk5 varchar(30) NULL,jcqk6 varchar(30) NULL,jcqk7 varchar(30) NULL,"+&
+				"jcqk8 varchar(30) NULL,jcqk9 varchar(30) NULL,jcqk10 varchar(30) NULL,jcqk11 varchar(30) NULL,jcqk12 varchar(30) NULL,"+&
+            "jcqk13 varchar(30) NULL,jcqk14 varchar(30) NULL,jcqk15 varchar(30) NULL,jcqk16 varchar(30) NULL,jcqk17 varchar(30) NULL,jcqk18 varchar(30) NULL,"+&
+				 "scjg1 varchar(16) NULL,scjg2 varchar(16) NULL,scjg3 varchar(16) NULL,scjg4 varchar(16) NULL,scjg5 varchar(16) NULL,scjg6 varchar(16) NULL,"+&
+				"scjg7 varchar(16) NULL,scjg8 varchar(16) NULL,scjg9 varchar(16) NULL,scjg10 varchar(16) NULL,scjg11 varchar(16) NULL,scjg12 varchar(16) NULL,"+&
+            "scjg13 varchar(16) NULL,scjg14 varchar(16) NULL,scjg15 varchar(16) NULL,scjg16 varchar(16) NULL,scjg17 varchar(16) NULL,scjg18 varchar(16) NULL,"+&
+				"jl1 varchar(80) null,jl2 varchar(80) null,jl3 varchar(80) null,jyy varchar(10) null,jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,"+&	
+		      "sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,jcxm1 varchar(20) null,jcxm2 varchar(20) null,shd varchar(2) null,"+&
+				"jcxm3 varchar(20) null,jcxm4 varchar(20) null,jcqk19 varchar(30) NULL,jcqk20 varchar(30) NULL,scjg19 varchar(16) NULL,scjg20 varchar(16) NULL,PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;	
+END IF
+// ÐÔÄÜ²âÊÔ
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.b_ylrq_xncs(jyid varchar(20) NOT NULL ,rqmc varchar(50) NULL,rqlb varchar(10) NULL,"+&
+            "gzjz varchar(20) NULL,sjyl varchar(16) NULL,sjwd varchar(12) NULL,yqxh varchar(10) NULL,yqlc varchar(10) NULL,"+&
+				"cszt varchar(8) NULL,yq varchar(8) NULL,sjly varchar(20) NULL,scsj varchar(8) NULL,bz1 varchar(80) NULL,bz2 varchar(80) NULL,"+&
+            "jgpd1 varchar(60) NULL,syy1 varchar(10) NULL,csy1 varchar(4) NULL,csm1 varchar(2) NULL,csd1 varchar(2) NULL,yqxh1 varchar(10) NULL,"+&
+				 "yqjd varchar(10) NULL,csyjz varchar(10) NULL,rzyq varchar(8) NULL,ly varchar(20) NULL,bz3 varchar(80) NULL,bz4 varchar(80) NULL,"+&
+				"jgpd2 varchar(60) NULL,syy2 varchar(10) NULL,csy2 varchar(4) NULL,csm2 varchar(2) NULL,csd2 varchar(2) NULL,jyy varchar(10) NULL,"+&
+		      "jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,shd varchar(2) null,scsj2 varchar(8) NULL);"
+		execute immediate :mysql using sqlca ;	
+		myindex = "CREATE UNIQUE INDEX B_YLRQ_XNCS_X ON DJYLRQ.B_YLRQ_XNCS (jyid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE b_ylrq_xncs(jyid varchar(20) NOT NULL ,rqmc varchar(50) NULL,rqlb varchar(10) NULL,"+&
+            "gzjz varchar(20) NULL,sjyl varchar(16) NULL,sjwd varchar(12) NULL,yqxh varchar(10) NULL,yqlc varchar(10) NULL,"+&
+				"cszt varchar(8) NULL,yq varchar(8) NULL,sjly varchar(20) NULL,scsj varchar(8) NULL,bz1 varchar(80) NULL,bz2 varchar(80) NULL,"+&
+            "jgpd1 varchar(60) NULL,syy1 varchar(10) NULL,csy1 varchar(4) NULL,csm1 varchar(2) NULL,csd1 varchar(2) NULL,yqxh1 varchar(10) NULL,"+&
+				 "yqjd varchar(10) NULL,csyjz varchar(10) NULL,rzyq varchar(8) NULL,ly varchar(20) NULL,bz3 varchar(80) NULL,bz4 varchar(80) NULL,"+&
+				"jgpd2 varchar(60) NULL,syy2 varchar(10) NULL,csy2 varchar(4) NULL,csm2 varchar(2) NULL,csd2 varchar(2) NULL,jyy varchar(10) NULL,"+&
+		      "jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,shd varchar(2) null,scsj2 varchar(8) NULL,PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;	
+END IF
+//¸½´ø°²×°¼ìÑé
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.b_ylrq_fdaz(jyid varchar(20) NOT NULL ,gdbh varchar(30) null,gdlb varchar(20) null,"+&
+		      "gdgg varchar(25) null,gdcd varchar(16) null,sjdw varchar(50) null,tybh varchar(20) null,sjyl varchar(25) null,sjwd varchar(16) null,sjbz varchar(30) null,ztcl varchar(20) null,"+&
+            "jyxm1 varchar(26) NULL,jyxm2 varchar(26) NULL,cczs varchar(10) NULL, bl varchar(10) NULL,"+&
+				"jcqk1 varchar(30) NULL,jcqk2 varchar(30) NULL,jcqk3 varchar(30) NULL,jcqk4 varchar(30) NULL,jcqk5 varchar(30) NULL,jcqk6 varchar(30) NULL,jcqk7 varchar(30) NULL,"+&
+				"jcqk8 varchar(30) NULL,jcqk9 varchar(30) NULL,jcqk10 varchar(30) NULL,jcqk11 varchar(30) NULL,jcqk12 varchar(30) NULL,"+&
+            "jcqk13 varchar(30) NULL,jcqk14 varchar(30) NULL,jcqk15 varchar(30) NULL,"+&
+				 "scjg1 varchar(16) NULL,scjg2 varchar(16) NULL,scjg3 varchar(16) NULL,scjg4 varchar(16) NULL,scjg5 varchar(16) NULL,scjg6 varchar(16) NULL,"+&
+				"scjg7 varchar(16) NULL,scjg8 varchar(16) NULL,scjg9 varchar(16) NULL,scjg10 varchar(16) NULL,scjg11 varchar(16) NULL,scjg12 varchar(16) NULL,"+&
+            "scjg13 varchar(16) NULL,scjg14 varchar(16) NULL,scjg15 varchar(16) NULL,bz1 varchar(80) NULL,bz2 varchar(80) NULL,"+&
+				"jl1 varchar(80) null,jl2 varchar(80) null,jyy varchar(10) null,jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,"+&	
+		      "sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,shd varchar(2) null);"
+		execute immediate :mysql using sqlca ;	
+		myindex = "CREATE UNIQUE INDEX B_YLRQ_FDAZ_X ON DJYLRQ.B_YLRQ_FDAZ (jyid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE b_ylrq_fdaz(jyid varchar(20) NOT NULL ,gdbh varchar(30) null,gdlb varchar(20) null,"+&
+		      "gdgg varchar(25) null,gdcd varchar(16) null,sjdw varchar(50) null,tybh varchar(20) null,sjyl varchar(25) null,sjwd varchar(16) null,sjbz varchar(30) null,ztcl varchar(20) null,"+&
+            "jyxm1 varchar(26) NULL,jyxm2 varchar(26) NULL,cczs varchar(10) NULL, bl varchar(10) NULL,"+&
+				"jcqk1 varchar(30) NULL,jcqk2 varchar(30) NULL,jcqk3 varchar(30) NULL,jcqk4 varchar(30) NULL,jcqk5 varchar(30) NULL,jcqk6 varchar(30) NULL,jcqk7 varchar(30) NULL,"+&
+				"jcqk8 varchar(30) NULL,jcqk9 varchar(30) NULL,jcqk10 varchar(30) NULL,jcqk11 varchar(30) NULL,jcqk12 varchar(30) NULL,"+&
+            "jcqk13 varchar(30) NULL,jcqk14 varchar(30) NULL,jcqk15 varchar(30) NULL,"+&
+				 "scjg1 varchar(16) NULL,scjg2 varchar(16) NULL,scjg3 varchar(16) NULL,scjg4 varchar(16) NULL,scjg5 varchar(16) NULL,scjg6 varchar(16) NULL,"+&
+				"scjg7 varchar(16) NULL,scjg8 varchar(16) NULL,scjg9 varchar(16) NULL,scjg10 varchar(16) NULL,scjg11 varchar(16) NULL,scjg12 varchar(16) NULL,"+&
+            "scjg13 varchar(16) NULL,scjg14 varchar(16) NULL,scjg15 varchar(16) NULL,bz1 varchar(80) NULL,bz2 varchar(80) NULL,"+&
+				"jl1 varchar(80) null,jl2 varchar(80) null,jyy varchar(10) null,jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,"+&	
+		      "sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,shd varchar(2) null, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;	
+END IF
+//Ñ¹Á¦ÊÔÑé
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.b_ylrq_ylsy(jyid varchar(20) NOT NULL ,"+&
+		      "syjz varchar(8) null,syyl varchar(8) null,bysj varchar(6) null,hjwd varchar(6) null,ylbsl varchar(6) null,ylblc varchar(10) null,jzwd varchar(6) null,"+&
+            "jzyl varchar(6) null,syy varchar(10) null,syyear varchar(4) null,sym varchar(2) NULL,syd varchar(2) NULL,bz varchar(80) NULL,pj varchar(60) NULL,"+&
+				"syjz2 varchar(8) null,syyl2 varchar(8) null,bysj2 varchar(6) null,hjwd2 varchar(6) null,ylbsl2 varchar(6) null,ylblc2 varchar(10) null,jzwd2 varchar(6) null,"+&
+            "jzyl2 varchar(6) null,syy2 varchar(10) null,syyear2 varchar(4) null,sym2 varchar(2) NULL,syd2 varchar(2) NULL,bz2 varchar(80) NULL,pj2 varchar(60) NULL,"+&
+				"syjz3 varchar(8) null,syyl3 varchar(8) null,bysj3 varchar(6) null,hjwd3 varchar(6) null,ylbsl3 varchar(6) null,ylblc3 varchar(10) null,"+&
+            "syy3 varchar(10) null,syyear3 varchar(4) null,sym3 varchar(2) NULL,syd3 varchar(2) NULL,bz3 varchar(80) NULL,pj3 varchar(60) NULL,"+&
+				"jyy varchar(10) null,jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,"+&	
+		      "sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,shd varchar(2) null,jzylw1 varchar(12) null,jzylw2 varchar(12) null,"+&
+				"bz11 varchar(80) null,bz12 varchar(80) null,bz13 varchar(80) null,bz14 varchar(80) null,bz15 varchar(80) null,"+&
+				"bz16 varchar(80) null,bz17 varchar(80) null,bz18 varchar(80) null,bz19 varchar(80) null,bz20 varchar(80) null);"
+		execute immediate :mysql using sqlca ;	
+		myindex = "CREATE UNIQUE INDEX B_YLRQ_YLSY_X ON DJYLRQ.B_YLRQ_YLSY (jyid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE b_ylrq_ylsy(jyid varchar(20) NOT NULL ,"+&
+		      "syjz varchar(8) null,syyl varchar(8) null,bysj varchar(6) null,hjwd varchar(6) null,ylbsl varchar(6) null,ylblc varchar(10) null,jzwd varchar(6) null,"+&
+            "jzyl varchar(6) null,syy varchar(10) null,syyear varchar(4) null,sym varchar(2) NULL,syd varchar(2) NULL,bz varchar(80) NULL,pj varchar(60) NULL,"+&
+				"syjz2 varchar(8) null,syyl2 varchar(8) null,bysj2 varchar(6) null,hjwd2 varchar(6) null,ylbsl2 varchar(6) null,ylblc2 varchar(10) null,jzwd2 varchar(6) null,"+&
+            "jzyl2 varchar(6) null,syy2 varchar(10) null,syyear2 varchar(4) null,sym2 varchar(2) NULL,syd2 varchar(2) NULL,bz2 varchar(80) NULL,pj2 varchar(60) NULL,"+&
+				"syjz3 varchar(8) null,syyl3 varchar(8) null,bysj3 varchar(6) null,hjwd3 varchar(6) null,ylbsl3 varchar(6) null,ylblc3 varchar(10) null,"+&
+            "syy3 varchar(10) null,syyear3 varchar(4) null,sym3 varchar(2) NULL,syd3 varchar(2) NULL,bz3 varchar(80) NULL,pj3 varchar(60) NULL,"+&
+				"jyy varchar(10) null,jyyear varchar(4) null,jym varchar(2) null,jyd varchar(2) null,"+&	
+		      "sh varchar(10) null,shy varchar(4) null,shm varchar(2) null,shd varchar(2) null,jzylw1 varchar(12) null,jzylw2 varchar(12) null,"+&
+				"bz11 varchar(80) null,bz12 varchar(80) null,bz13 varchar(80) null,bz14 varchar(80) null,bz15 varchar(80) null,"+&
+				"bz16 varchar(80) null,bz17 varchar(80) null,bz18 varchar(80) null,bz19 varchar(80) null,bz20 varchar(80) null,PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;	
+END IF
+
+end subroutine
+

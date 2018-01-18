@@ -1,0 +1,483 @@
+﻿$PBExportHeader$fun_create_jcgl_view_import.srf
+global type fun_create_jcgl_view_import from function_object
+end type
+
+forward prototypes
+global subroutine fun_create_jcgl_view_import (string zt)
+end prototypes
+
+global subroutine fun_create_jcgl_view_import (string zt);long ls_count = 0
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+
+//if mark = 'sqlserver' then
+//	modsql = "alter table djylrq.sb_jy add sc varchar(1) NULL;"
+//	execute immediate :modsql using sqlca;
+//else
+//	modsql = "alter table sb_jy add sc varchar(1) NULL;"
+//	execute immediate :modsql using sqlca;
+//end if 
+
+//½«z_sbfl²¢³ÉÒ»ÁÐ
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jcgl_sbfl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_sbfl ( sbpz,sbflmc,qcml ) AS SELECT sbpz,lb,qcml from z_sbfl where substring(sbpz,2,3) = '000' union select sbpz,zl,qcml from z_sbfl where substring(sbpz,3,2) = '00' and substring(sbpz,2,3) <> '000' union select sbpz,zl,qcml from z_sbfl where substring(sbpz,1,1) = '5' and substring(sbpz,3,2) <> '00' and substring(sbpz,2,3) <> '000' union select sbpz,pz,qcml from z_sbfl where substring(sbpz,1,1) <> '5' and substring(sbpz,3,2) <> '00' and substring(sbpz,2,3) <> '000' "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jcgl_sbfl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jcgl_sbfl ( sbpz,sbflmc,qcml ) AS SELECT sbpz,lb,qcml from z_sbfl where substring(sbpz,2,3) = '000' union select sbpz,zl,qcml from z_sbfl where substring(sbpz,3,2) = '00' and substring(sbpz,2,3) <> '000' union select sbpz,zl,qcml from z_sbfl where substring(sbpz,1,1) = '5' and substring(sbpz,3,2) <> '00' and substring(sbpz,2,3) <> '000' union select sbpz,pz,qcml from z_sbfl where substring(sbpz,1,1) <> '5' and substring(sbpz,3,2) <> '00' and substring(sbpz,2,3) <> '000' "
+	execute immediate :mysql using sqlca;
+end if
+
+//µ¼¹øÂ¯Êý¾ÝÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jcgl_gl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_gl ( dwnbbh, glszdd, ddlxdh, glxh, gllb, zzdw, zzrq, ccbg, tyrq, sjgzyl, xksyyl, edcl, rrzl, glyt, jzckwd, sclfs, zcid, sbzcdm, sbmc, sblb, sbzl, sbpz, sydw, sbxh, ccbh, qydm, sbdm, sydwdz, dwyzbm, sbsf, sbds, sbqx, frdb1, sydwlxdh, zgfzr, fzrdh, aqglbm, aqglry, aqglbmdh, syzh ,sbflmc) AS SELECT djb_gl.dwnbbh, djb_gl.glszdd, djb_gl.ddlxdh, djb_gl.glxh, djb_gl.gllb, djb_gl.zzdw, djb_gl.zzrq, djb_gl.ccbg, djb_gl.tyrq, djb_gl.sjgzyl, djb_gl.xksyyl, djb_gl.edcl, djb_gl.rrzl, djb_gl.glyt, djb_gl.jzckwd, djb_gl.sclfs, djb_gl.zcid, sb_total.lssbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sbpz, sb_total.sydw, sb_total.sbxh, sb_total.ccbh, sb_total.qydm, sb_total.sbdm, sb_sydw.sydwdz, sb_sydw.dwyzbm, sb_sydw.sbsf, sb_sydw.sbds, sb_sydw.sbqx, sb_sydw.frdb1, sb_sydw.sydwlxdh, sb_sydw.zgfzr, sb_sydw.fzrdh, sb_sydw.aqglbm, sb_sydw.aqglry, sb_sydw.aqglbmdh, sb_syz.syzh,view_jcgl_sbfl.sbflmc FROM {oj sb_total LEFT OUTER JOIN sb_syz ON sb_total.zcid = sb_syz.zcid},djb_gl,sb_sydw,view_jcgl_sbfl WHERE ( sb_total.zcid = sb_sydw.zcid ) and ( sb_total.zcid = djb_gl.zcid ) and (sb_total.sbpz = view_jcgl_sbfl.sbpz) "//  and (sb_total.sbsyzt <> '20')sbzcdm¸Ä³Élssbzcdm
+   execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jcgl_gl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jcgl_gl ( dwnbbh, glszdd, ddlxdh, glxh, gllb, zzdw, zzrq, ccbg, tyrq, sjgzyl, xksyyl, edcl, rrzl, glyt, jzckwd, sclfs, zcid, sbzcdm, sbmc, sblb, sbzl, sbpz, sydw, sbxh, ccbh, qydm, sbdm, sydwdz, dwyzbm, sbsf, sbds, sbqx, frdb1, sydwlxdh, zgfzr, fzrdh, aqglbm, aqglry, aqglbmdh, syzh ,sbflmc) AS SELECT djb_gl.dwnbbh, djb_gl.glszdd, djb_gl.ddlxdh, djb_gl.glxh, djb_gl.gllb, djb_gl.zzdw, djb_gl.zzrq, djb_gl.ccbg, djb_gl.tyrq, djb_gl.sjgzyl, djb_gl.xksyyl, djb_gl.edcl, djb_gl.rrzl, djb_gl.glyt, djb_gl.jzckwd, djb_gl.sclfs, djb_gl.zcid, sb_total.lssbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sbpz, sb_total.sydw, sb_total.sbxh, sb_total.ccbh, sb_total.qydm, sb_total.sbdm, sb_sydw.sydwdz, sb_sydw.dwyzbm, sb_sydw.sbsf, sb_sydw.sbds, sb_sydw.sbqx, sb_sydw.frdb1, sb_sydw.sydwlxdh, sb_sydw.zgfzr, sb_sydw.fzrdh, sb_sydw.aqglbm, sb_sydw.aqglry, sb_sydw.aqglbmdh, sb_syz.syzh,view_jcgl_sbfl.sbflmc FROM {oj sb_total LEFT OUTER JOIN sb_syz ON sb_total.zcid = sb_syz.zcid},djb_gl,sb_sydw,view_jcgl_sbfl WHERE ( sb_total.zcid = sb_sydw.zcid ) and ( sb_total.zcid = djb_gl.zcid ) and (sb_total.sbpz = view_jcgl_sbfl.sbpz) "// and (sb_total.sbsyzt <> '20')
+   execute immediate :mysql using sqlca;
+end if
+//µ¼µçÕ¾¹øÂ¯Êý¾ÝÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jcgl_dzgl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_dzgl ( zcid, sbzcdb, zdlxzfl, gtgzyl, grqckyl, gswd, grqckwd, sxhfs, bgsclfs, dwnbbh, glxh, gllb, zzdw, zzrq, anzdw, anzjgrq, tyrq, syzh, sbzcdm, sbmc, sblb, sbzl, sydw, sbpz, sbxh, zzdw_a, qydm, sbdm, sbsf, sbds, sbqx, frdb1, sydwdz, dwyzbm, aqglbm ,sydwlxdh,sbflmc,zgfzr,fzrdh,rrfs,rrzl,ccbg) AS SELECT djb_gl_dzgl.zcid, djb_gl_dzgl.sbzcdb, djb_gl_dzgl.zdlxzfl, djb_gl_dzgl.gtgzyl, djb_gl_dzgl.grqckyl, djb_gl_dzgl.gswd, djb_gl_dzgl.grqckwd, djb_gl_dzgl.sxhfs, djb_gl_dzgl.bgsclfs, djb_gl.dwnbbh, djb_gl.glxh, djb_gl.gllb, djb_gl.zzdw, djb_gl.zzrq, djb_gl.anzdw, djb_gl.anzjgrq, djb_gl.tyrq, sb_syz.syzh, sb_total.lssbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.sbpz, sb_total.sbxh, sb_total.zzdw, sb_total.qydm, sb_total.sbdm, sb_sydw.sbsf, sb_sydw.sbds, sb_sydw.sbqx, sb_sydw.frdb1, sb_sydw.sydwdz, sb_sydw.dwyzbm, sb_sydw.aqglbm, sb_sydw.sydwlxdh,view_jcgl_sbfl.sbflmc, SB_SYDW.ZGFZR, SB_SYDW.FZRDH,DJB_GL.RRFS, DJB_GL.RRZL,DJB_GL.CCBG FROM {oj sb_total LEFT OUTER JOIN sb_syz ON sb_total.zcid = sb_syz.zcid},djb_gl,djb_gl_dzgl,sb_sydw,view_jcgl_sbfl  WHERE ( sb_total.zcid = djb_gl.zcid ) and ( sb_total.zcid = djb_gl_dzgl.zcid ) and ( sb_total.zcid = sb_sydw.zcid ) and (sb_total.sbpz = view_jcgl_sbfl.sbpz) "// and (sb_total.sbsyzt <> '20')
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jcgl_dzgl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jcgl_dzgl ( zcid, sbzcdb, zdlxzfl, gtgzyl, grqckyl, gswd, grqckwd, sxhfs, bgsclfs, dwnbbh, glxh, gllb, zzdw, zzrq, anzdw, anzjgrq, tyrq, syzh, sbzcdm, sbmc, sblb, sbzl, sydw, sbpz, sbxh, zzdw_a, qydm, sbdm, sbsf, sbds, sbqx, frdb1, sydwdz, dwyzbm, aqglbm ,sydwlxdh,sbflmc,zgfzr,fzrdh,rrfs,rrzl,ccbg) AS SELECT djb_gl_dzgl.zcid, djb_gl_dzgl.sbzcdb, djb_gl_dzgl.zdlxzfl, djb_gl_dzgl.gtgzyl, djb_gl_dzgl.grqckyl, djb_gl_dzgl.gswd, djb_gl_dzgl.grqckwd, djb_gl_dzgl.sxhfs, djb_gl_dzgl.bgsclfs, djb_gl.dwnbbh, djb_gl.glxh, djb_gl.gllb, djb_gl.zzdw, djb_gl.zzrq, djb_gl.anzdw, djb_gl.anzjgrq, djb_gl.tyrq, sb_syz.syzh, sb_total.lssbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.sbpz, sb_total.sbxh, sb_total.zzdw, sb_total.qydm, sb_total.sbdm, sb_sydw.sbsf, sb_sydw.sbds, sb_sydw.sbqx, sb_sydw.frdb1, sb_sydw.sydwdz, sb_sydw.dwyzbm, sb_sydw.aqglbm, sb_sydw.sydwlxdh,view_jcgl_sbfl.sbflmc, SB_SYDW.ZGFZR, SB_SYDW.FZRDH,DJB_GL.RRFS, DJB_GL.RRZL,DJB_GL.CCBG FROM {oj sb_total LEFT OUTER JOIN sb_syz ON sb_total.zcid = sb_syz.zcid},djb_gl,djb_gl_dzgl,sb_sydw,view_jcgl_sbfl  WHERE ( sb_total.zcid = djb_gl.zcid ) and ( sb_total.zcid = djb_gl_dzgl.zcid ) and ( sb_total.zcid = sb_sydw.zcid ) and (sb_total.sbpz = view_jcgl_sbfl.sbpz) "// and (sb_total.sbsyzt <> '20')
+	execute immediate :mysql using sqlca;
+end if
+
+//µ¼Ñ¹Á¦¹ÜµÀÊý¾ÝÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jcgl_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_ylgd ( zcid, sjdw, azdw, tyrq, gdmc, gdlb, gdjb, gdbh, gdzd, dgcd, gdcl, sjyl, sjwd, ssjz, zggzyl, zggzwd, fffs, gczzmc, sbsydw, sbsf, sbds, sbqx, sydwdz, aqglbm, aqglry, zgbmlxdh, sydwyb, sbzcdm, sbmc, sblb, sbzl, sbjb, sbpz, sbxh, ccbh, qydm, sbdm,sbflmc,aqglrydh, GDQD,GD_ZDGCZJ, GD_ZDBH,GDPSFS) AS SELECT djylrq.djb_ylgd.zcid,djylrq.djb_ylgd.sjdw,djylrq.djb_ylgd.azdw,djylrq.djb_ylgd.tyrq,djylrq.djb_ylgd.gdmc,djylrq.djb_ylgd.gdlb,djylrq.djb_ylgd.gdjb,djylrq.djb_ylgd.gdbh,djylrq.djb_ylgd.gdzd,djylrq.djb_ylgd.dgcd,djylrq.djb_ylgd.gdcl,djylrq.djb_ylgd.sjyl,djylrq.djb_ylgd.sjwd,djylrq.djb_ylgd.ssjz,djylrq.djb_ylgd.zggzyl,djylrq.djb_ylgd.zggzwd,djylrq.djb_ylgd.fffs,djylrq.djb_ylgd_hzb.gczzmc,djylrq.djb_ylgd_hzb.sbsydw,djylrq.djb_ylgd_hzb.sbsf,djylrq.djb_ylgd_hzb.sbds,djylrq.djb_ylgd_hzb.sbqx,djylrq.djb_ylgd_hzb.sydwdz,djylrq.djb_ylgd_hzb.aqglbm,djylrq.djb_ylgd_hzb.aqglry,djylrq.djb_ylgd_hzb.zgbmlxdh,djylrq.djb_ylgd_hzb.sydwyb, djylrq.sb_total.lssbzcdm,djylrq.sb_total.sbmc,djylrq.sb_total.sblb,djylrq.sb_total.sbzl,djylrq.sb_total.sbjb,djylrq.sb_total.sbpz,djylrq.sb_total.sbxh,djylrq.sb_total.ccbh,djylrq.sb_total.qydm,djylrq.sb_total.sbdm,djylrq.view_jcgl_sbfl.sbflmc,djylrq.djb_ylgd_hzb.aqglrydh, djylrq.DJB_YLGD.GDQD,djylrq.DJB_YLGD.GD_ZDGCZJ, djylrq.DJB_YLGD.GD_ZDBH,djylrq.DJB_YLGD.GDPSFS FROM djylrq.djb_ylgd,djylrq.djb_ylgd_hzb,djylrq.sb_total,djylrq.view_jcgl_sbfl WHERE (djylrq.djb_ylgd.zcid =djylrq.djb_ylgd_hzb.zcid ) and (djylrq.djb_ylgd_hzb.zcid =djylrq.sb_total.zcid ) and (djylrq.sb_total.sbpz = djylrq.view_jcgl_sbfl.sbpz) "//and (djylrq.sb_total.sbsyzt <> '20') 
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jcgl_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_ylgd ( zcid, sjdw, azdw, tyrq, gdmc, gdlb, gdjb, gdbh, gdzd, dgcd, gdcl, sjyl, sjwd, ssjz, zggzyl, zggzwd, fffs, gczzmc, sbsydw, sbsf, sbds, sbqx, sydwdz, aqglbm, aqglry, zgbmlxdh, sydwyb, sbzcdm, sbmc, sblb, sbzl, sbjb, sbpz, sbxh, ccbh, qydm, sbdm,sbflmc,aqglrydh, GDQD,GD_ZDGCZJ, GD_ZDBH,GDPSFS) AS SELECT djylrq.djb_ylgd.zcid,djylrq.djb_ylgd.sjdw,djylrq.djb_ylgd.azdw,djylrq.djb_ylgd.tyrq,djylrq.djb_ylgd.gdmc,djylrq.djb_ylgd.gdlb,djylrq.djb_ylgd.gdjb,djylrq.djb_ylgd.gdbh,djylrq.djb_ylgd.gdzd,djylrq.djb_ylgd.dgcd,djylrq.djb_ylgd.gdcl,djylrq.djb_ylgd.sjyl,djylrq.djb_ylgd.sjwd,djylrq.djb_ylgd.ssjz,djylrq.djb_ylgd.zggzyl,djylrq.djb_ylgd.zggzwd,djylrq.djb_ylgd.fffs,djylrq.djb_ylgd_hzb.gczzmc,djylrq.djb_ylgd_hzb.sbsydw,djylrq.djb_ylgd_hzb.sbsf,djylrq.djb_ylgd_hzb.sbds,djylrq.djb_ylgd_hzb.sbqx,djylrq.djb_ylgd_hzb.sydwdz,djylrq.djb_ylgd_hzb.aqglbm,djylrq.djb_ylgd_hzb.aqglry,djylrq.djb_ylgd_hzb.zgbmlxdh,djylrq.djb_ylgd_hzb.sydwyb, djylrq.sb_total.lssbzcdm,djylrq.sb_total.sbmc,djylrq.sb_total.sblb,djylrq.sb_total.sbzl,djylrq.sb_total.sbjb,djylrq.sb_total.sbpz,djylrq.sb_total.sbxh,djylrq.sb_total.ccbh,djylrq.sb_total.qydm,djylrq.sb_total.sbdm,djylrq.view_jcgl_sbfl.sbflmc,djylrq.djb_ylgd_hzb.aqglrydh, djylrq.DJB_YLGD.GDQD,djylrq.DJB_YLGD.GD_ZDGCZJ, djylrq.DJB_YLGD.GD_ZDBH,djylrq.DJB_YLGD.GDPSFS FROM djylrq.djb_ylgd,djylrq.djb_ylgd_hzb,djylrq.sb_total,djylrq.view_jcgl_sbfl WHERE (djylrq.djb_ylgd.zcid =djylrq.djb_ylgd_hzb.zcid ) and (djylrq.djb_ylgd_hzb.zcid =djylrq.sb_total.zcid ) and (djylrq.sb_total.sbpz = djylrq.view_jcgl_sbfl.sbpz) "//and (djylrq.sb_total.sbsyzt <> '20')
+	execute immediate :mysql using sqlca;
+end if
+///////////////////////////////////////////
+//delsql = "drop view djylrq.view_jcgl_ylgd"
+//execute immediate :delsql using sqlca;
+//CREATE VIEW djylrq.view_jcgl_ylgd ( zcid, sjdw, azdw, tyrq, gdmc, gdlb, gdjb, gdbh, gdzd, dgcd, gdcl, sjyl, sjwd, ssjz, zggzyl, zggzwd, fffs, gczzmc, sbsydw, sbsf, sbds, sbqx, sydwdz, aqglbm, aqglry, zgbmlxdh, sydwyb, sbzcdm, sbmc, sblb, sbzl, sbjb, sbpz, sbxh, ccbh, qydm, sbdm,sbflmc,aqglrydh, GDQD,GD_ZDGCZJ, GD_ZDBH,GDPSFS) as SELECT djylrq.DJB_YLGD.ZCID, djylrq.DJB_YLGD.SJDW, djylrq.DJB_YLGD.AZDW, djylrq.DJB_YLGD.TYRQ, djylrq.DJB_YLGD.GDMC, djylrq.DJB_YLGD.GDLB, djylrq.DJB_YLGD.GDJB, djylrq.DJB_YLGD.GDBH, djylrq.DJB_YLGD.GDZD, djylrq.DJB_YLGD.DGCD, djylrq.DJB_YLGD.GDCL, djylrq.DJB_YLGD.SJYL, djylrq.DJB_YLGD.SJWD, djylrq.DJB_YLGD.SSJZ, djylrq.DJB_YLGD.ZGGZYL, djylrq.DJB_YLGD.ZGGZWD, djylrq.DJB_YLGD.FFFS,djylrq.DJB_YLGD_HZB.GCZZMC, djylrq.DJB_YLGD_HZB.SBSYDW, djylrq.DJB_YLGD_HZB.SBSF, djylrq.DJB_YLGD_HZB.SBDS, djylrq.DJB_YLGD_HZB.SBQX, djylrq.DJB_YLGD_HZB.SYDWDZ, djylrq.DJB_YLGD_HZB.AQGLBM, djylrq.DJB_YLGD_HZB.AQGLRY, djylrq.DJB_YLGD_HZB.ZGBMLXDH, djylrq.DJB_YLGD_HZB.SYDWYB, djylrq.SB_TOTAL.SBZCDM, djylrq.SB_TOTAL.SBMC, djylrq.SB_TOTAL.SBLB, djylrq.SB_TOTAL.SBZL, djylrq.SB_TOTAL.SBJB, djylrq.SB_TOTAL.SBPZ, djylrq.SB_TOTAL.SBXH, djylrq.SB_TOTAL.CCBH, djylrq.SB_TOTAL.QYDM, djylrq.SB_TOTAL.SBDM, djylrq.view_jcgl_sbfl.sbflmc, djylrq.DJB_YLGD_HZB.AQGLRYDH, djylrq.DJB_YLGD.GD_ZDGCZJ, djylrq.DJB_YLGD.GD_ZDBH,djb_ylgd.GDPSFS FROM djylrq.DJB_YLGD INNER JOIN djylrq.DJB_YLGD_HZB ON djylrq.DJB_YLGD.ZCID = djylrq.DJB_YLGD_HZB.ZCID INNER JOIN djylrq.SB_TOTAL ON djylrq.DJB_YLGD_HZB.ZCID = djylrq.SB_TOTAL.ZCID INNER JOIN djylrq.view_jcgl_sbfl ON djylrq.SB_TOTAL.SBPZ = djylrq.view_jcgl_sbfl.sbpz WHERE (djylrq.SB_TOTAL.SBSYZT <> '20');
+///////////////////////////////////////////
+
+//Ñ¹Á¦ÈÝÆ÷»ù±¾ÐÅÏ¢(¹Þ³µ,³¤¹ÜÍÏ³µ,ÆøÆ¿,Ñõ²Õ,Ñ¹Á¦ÈÝÆ÷,¹ÞÊ½¼¯×°Ïä)
+//if mark = 'sqlserver' then 
+//   delsql = "drop view djylrq.view_jcgl_ylrq_union"
+//	execute immediate :delsql using sqlca;
+//	mysql = "CREATE view djylrq.view_jcgl_ylrq_union (zcid,rqmc,rqlb,ytdh,sjdw,zzdw,rqjg,tool3,sjyl1,sjwd1,czyl1,rqbh,aqdj,tyrq,gcbh1,tool1,"+&
+//				"jthd2,ztcz1,ztcz2,nccl,ccbh,azdw,gzjz1,jtcz1,gcbh2,sjwd2,jthd1,gzjz2,czyl2,tool2,sjyl2,zzrq,rqrj,qcsjwd,gcsjwd)as select zcid,rqmc,rqlb,rqfl,rqsjdw,"+&
+//				"rqzzdw,gc_jgxs,gc_gtrj,gc_gtsjyl,gc_gtsjwd,gc_syyl,gc_gtbh,sbjb,tyrq,gc_ntsjbh,gc_ftsjbh,gc_wtsjbh,gc_ftcl,gc_ntcl,"+&
+//				"gc_wtcl,'','','','',0,0,0,'',0,0,0,'','','','' from djb_ylrq_gc union select zcid,'',rqlb,'',rqsjdw,rqzzdw,'',0,0,0,0,'','',"+&
+//				"tyrq,0,0,0,'','','',ccbh,'','','',0,0,0,'',0,0,0,'','','','' from djb_ylrq_yc  union select zcid,rqmc,rqlb,rqfl,"+&
+//				"'',rqzzdw,'',cgtc_dprj,cgtc_ptsjyl,cgtc_ptsjwd,cgtc_syyl,'',sbjb,tyrq,cgtc_ptsjbh,0,0,'','','','','',cgtc_czjz,'',0,0,"+&
+//				"0,'',0,0,0,'','','','' from djb_ylrq_cgtc union select zcid,'',rqlb,rqfl,rqsjdw,rqzzdw,'',gsjzx_gtrj,gsjzx_gtsjyl,gsjzx_gtsjwd,gsjzx_syyl,"+&
+//				"gsjzx_gtbh,sbjb,tyrq,gsjzx_ftsjbh,gsjzx_ntsjbh,0,gsjzx_ftcl,gsjzx_wtcl,gsjzx_ntcl,'','','','',0,0,0,'',0,0,0,'','','','' from djb_ylrq_gsjzx "+&
+//				"union select zcid,rqmc,rqlb,rqfl,rqsjdw,rqzzdw,'',rqrj,qcsjyl,qcsjwd,qczgyl,'',sbjb,tyrq,fthd,ttbh,ncbh,ftcl,ttcl,nccl,ccbh,"+&
+//				"rqazdw,qcjz,jtcl,rqg,gcsjwd,jthd,gcjz,gczgyl,rqnj,gcsjyl,zzrq,rqrj,qcsjwd,gcsjwd from djb_ylrq union select zcid,'','','','',zzdw,'',rj,0,0,"+&
+//				"sysyyl,'','','',0,0,sjbh,'','',cz,ccbh,'','','',0,0,0,'',gcgzyl,0,0,zzrq,'','','' from djb_qp"
+//	execute immediate :mysql using sqlca;
+//else 
+//	delsql = "drop view view_jcgl_ylrq_union"
+//	execute immediate :delsql using sqlca;
+//	mysql = "create view view_jcgl_ylrq_union (zcid,rqmc,rqlb,ytdh,sjdw,zzdw,rqjg,tool3,sjyl1,sjwd1,czyl1,rqbh,aqdj,tyrq,gcbh1,tool1,"+&
+//				"jthd2,ztcz1,ztcz2,nccl,ccbh,azdw,gzjz1,jtcz1,gcbh2,sjwd2,jthd1,gzjz2,czyl2,tool2,sjyl2,zzrq,rqrj,qcsjwd,gcsjwd)as select zcid,rqmc,rqlb,rqfl,rqsjdw,"+&
+//				"rqzzdw,gc_jgxs,gc_gtrj,gc_gtsjyl,gc_gtsjwd,gc_syyl,gc_gtbh,sbjb,tyrq,gc_ntsjbh,gc_ftsjbh,gc_wtsjbh,gc_ftcl,gc_ntcl,"+&
+//				"gc_wtcl,'','','','',0,0,0,'',0,0,0,'','','','' from djb_ylrq_gc union select zcid,'',rqlb,'',rqsjdw,rqzzdw,'',0,0,0,0,'','',"+&
+//				"tyrq,0,0,0,'','','',ccbh,'','','',0,0,0,'',0,0,0,'','','','' from djb_ylrq_yc  union select zcid,rqmc,rqlb,rqfl,"+&
+//				"'',rqzzdw,'',cgtc_dprj,cgtc_ptsjyl,cgtc_ptsjwd,cgtc_syyl,'',sbjb,tyrq,cgtc_ptsjbh,0,0,'','','','','',cgtc_czjz,'',0,0,"+&
+//				"0,'',0,0,0,'','','','' from djb_ylrq_cgtc union select zcid,'',rqlb,rqfl,rqsjdw,rqzzdw,'',gsjzx_gtrj,gsjzx_gtsjyl,gsjzx_gtsjwd,gsjzx_syyl,"+&
+//				"gsjzx_gtbh,sbjb,tyrq,gsjzx_ftsjbh,gsjzx_ntsjbh,0,gsjzx_ftcl,gsjzx_wtcl,gsjzx_ntcl,'','','','',0,0,0,'',0,0,0,'','','','' from djb_ylrq_gsjzx "+&
+//				"union select zcid,rqmc,rqlb,rqfl,rqsjdw,rqzzdw,'',rqrj,qcsjyl,qcsjwd,qczgyl,'',sbjb,tyrq,fthd,ttbh,ncbh,ftcl,ttcl,nccl,ccbh,"+&
+//				"rqazdw,qcjz,jtcl,rqg,gcsjwd,jthd,gcjz,gczgyl,rqnj,gcsjyl,zzrq,rqrj,qcsjwd,gcsjwd from djb_ylrq union select zcid,'','','','',zzdw,'',rj,0,0,"+&
+//				"sysyyl,'','','',0,0,sjbh,'','',cz,ccbh,'','','',0,0,0,'',gcgzyl,0,0,zzrq,'','','' from djb_qp"
+//	execute immediate :mysql using sqlca;
+//end if
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jcgl_ylrq_union"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_ylrq_union (zcid,rqmc,rqlb,ytdh,sjdw,zzdw,rqjg,tool3,sjyl1,sjwd1,czyl1,rqbh,aqdj,tyrq,gcbh1,tool1,"+&
+				"jthd2,ztcz1,ztcz2,nccl,ccbh,azdw,gzjz1,jtcz1,gcbh2,sjwd2,jthd1,gzjz2,czyl2,tool2,sjyl2,zzrq,rqrj,qcsjwd,gcsjwd)as select zcid,rqmc,rqlb,rqfl,rqsjdw,"+&
+				"rqzzdw,gc_jgxs,gc_gtrj,gc_gtsjyl,gc_gtsjwd,gc_syyl,gc_gtbh,sbjb,tyrq,gc_ntsjbh,gc_ftsjbh,gc_wtsjbh,gc_ftcl,gc_ntcl,"+&
+				"gc_wtcl,'','','','',null,null,null,'',null,null,null,'','','','' from djb_ylrq_gc union select zcid,'',rqlb,'',rqsjdw,rqzzdw,'',null,null,null,null,'','',"+&
+				"tyrq,null,null,null,'','','',ccbh,'','','',null,null,null,'',null,null,null,'','','','' from djb_ylrq_yc  union select zcid,rqmc,rqlb,rqfl,"+&
+				"'',rqzzdw,'',cgtc_dprj,cgtc_ptsjyl,cgtc_ptsjwd,cgtc_syyl,'',sbjb,tyrq,cgtc_ptsjbh,null,null,'','','','','',cgtc_czjz,'',null,null,"+&
+				"null,'',null,null,null,'','','','' from djb_ylrq_cgtc union select zcid,'',rqlb,rqfl,rqsjdw,rqzzdw,'',gsjzx_gtrj,gsjzx_gtsjyl,gsjzx_gtsjwd,gsjzx_syyl,"+&
+				"gsjzx_gtbh,sbjb,tyrq,gsjzx_ftsjbh,gsjzx_ntsjbh,null,gsjzx_ftcl,gsjzx_wtcl,gsjzx_ntcl,'','','','',null,null,null,'',null,null,null,'','','','' from djb_ylrq_gsjzx "+&
+				"union select zcid,rqmc,rqlb,rqfl,rqsjdw,rqzzdw,'',rqrj,qcsjyl,qcsjwd,qczgyl,'',sbjb,tyrq,fthd,ttbh,ncbh,ftcl,ttcl,nccl,ccbh,"+&
+				"rqazdw,qcjz,jtcl,rqg,gcsjwd,jthd,gcjz,gczgyl,rqnj,gcsjyl,zzrq,rqrj,qcsjwd,gcsjwd from djb_ylrq union select zcid,'','','','',zzdw,'',rj,null,null,"+&
+				"sysyyl,'','','',null,null,sjbh,'','',cz,ccbh,'','','',null,null,null,'',gcgzyl,null,null,zzrq,'','','' from djb_qp"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jcgl_ylrq_union"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jcgl_ylrq_union (zcid,rqmc,rqlb,ytdh,sjdw,zzdw,rqjg,tool3,sjyl1,sjwd1,czyl1,rqbh,aqdj,tyrq,gcbh1,tool1,"+&
+				"jthd2,ztcz1,ztcz2,nccl,ccbh,azdw,gzjz1,jtcz1,gcbh2,sjwd2,jthd1,gzjz2,czyl2,tool2,sjyl2,zzrq,rqrj,qcsjwd,gcsjwd)as select zcid,rqmc,rqlb,rqfl,rqsjdw,"+&
+				"rqzzdw,gc_jgxs,gc_gtrj,gc_gtsjyl,gc_gtsjwd,gc_syyl,gc_gtbh,sbjb,tyrq,gc_ntsjbh,gc_ftsjbh,gc_wtsjbh,gc_ftcl,gc_ntcl,"+&
+				"gc_wtcl,'','','','',null,null,null,'',null,null,null,'','','','' from djb_ylrq_gc union select zcid,'',rqlb,'',rqsjdw,rqzzdw,'',null,null,null,null,'','',"+&
+				"tyrq,null,null,null,'','','',ccbh,'','','',null,null,null,'',null,null,null,'','','','' from djb_ylrq_yc  union select zcid,rqmc,rqlb,rqfl,"+&
+				"'',rqzzdw,'',cgtc_dprj,cgtc_ptsjyl,cgtc_ptsjwd,cgtc_syyl,'',sbjb,tyrq,cgtc_ptsjbh,null,null,'','','','','',cgtc_czjz,'',null,null,"+&
+				"null,'',null,null,null,'','','','' from djb_ylrq_cgtc union select zcid,'',rqlb,rqfl,rqsjdw,rqzzdw,'',gsjzx_gtrj,gsjzx_gtsjyl,gsjzx_gtsjwd,gsjzx_syyl,"+&
+				"gsjzx_gtbh,sbjb,tyrq,gsjzx_ftsjbh,gsjzx_ntsjbh,null,gsjzx_ftcl,gsjzx_wtcl,gsjzx_ntcl,'','','','',null,null,null,'',null,null,null,'','','','' from djb_ylrq_gsjzx "+&
+				"union select zcid,rqmc,rqlb,rqfl,rqsjdw,rqzzdw,'',rqrj,qcsjyl,qcsjwd,qczgyl,'',sbjb,tyrq,fthd,ttbh,ncbh,ftcl,ttcl,nccl,ccbh,"+&
+				"rqazdw,qcjz,jtcl,rqg,gcsjwd,jthd,gcjz,gczgyl,rqnj,gcsjyl,zzrq,rqrj,qcsjwd,gcsjwd from djb_ylrq union select zcid,'','','','',zzdw,'',rj,null,null,"+&
+				"sysyyl,'','','',null,null,sjbh,'','',cz,ccbh,'','','',null,null,null,'',gcgzyl,null,null,zzrq,'','','' from djb_qp"
+	execute immediate :mysql using sqlca;
+end if
+//Ñ¹Á¦ÈÝÆ÷Ê¹ÓÃµ¥Î»ÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jcgl_sydw_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_sydw_ylrq (zcid,sbsf,sbds,sbqx,frdb1,sydwdz,dwyzbm,aqglbm,aqglbmdh,zgfzr,fzrdh) AS SELECT zcid,sbsf,sbds,sbqx,frdb1,sydwdz,dwyzbm,aqglbm,aqglbmdh,zgfzr,fzrdh FROM djylrq.sb_sydw union select zcid,sf,ds,qx,frdb,xxdz,yzbm,'','','','' from djylrq.sb_sydw_qp  "
+	execute immediate :mysql using sqlca;
+//	CREATE view djylrq.view_jcgl_sydw_ylrq (zcid,sbsf,sbds,sbqx,frdb1,sydwdz,dwyzbm,aqglbm,aqglbmdh,zgfzr,fzrdh) AS SELECT zcid,sbsf,sbds,sbqx,frdb1,sydwdz,dwyzbm,aqglbm,aqglbmdh,zgfzr,fzrdh FROM djylrq.sb_sydw union select zcid,sf,ds,qx,frdb,xxdz,yzbm,'','','' ,'' from djylrq.sb_sydw_qp ; 
+else 
+	delsql = "drop view view_jcgl_sydw_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view view_jcgl_sydw_ylrq (zcid,sbsf,sbds,sbqx,frdb1,sydwdz,dwyzbm,aqglbm,aqglbmdh,zgfzr,fzrdh) AS SELECT zcid,sbsf,sbds,sbqx,frdb1,sydwdz,dwyzbm,aqglbm,aqglbmdh,zgfzr,fzrdh FROM djylrq.sb_sydw union select zcid,sf,ds,qx,frdb,xxdz,yzbm,'','','','' from djylrq.sb_sydw_qp   "
+	execute immediate :mysql using sqlca;
+end if
+//µ¼Ñ¹Á¦ÈÝÆ÷Êý¾ÝÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jcgl_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_ylrq (zcid,rqmc,rqlb,ytdh,sjdw,zzdw,rqjg,tool3,sjyl1,sjwd1,czyl1,rqbh,aqdj,tyrq,gcbh1,tool1,jthd2,ztcz1,ztcz2,nccl,ccbh,azdw,gzjz1,jtcz1,gcbh2,sjwd2,jthd1,gzjz2,czyl2,tool2,sjyl2,syzh,sbzcdm,sbmc,sblb,sbzl,sbjb,sbpz,sbxh,ccbh_a,qydm,sbdm,sbsf,sbds,sbqx,frdb1,sydwdz,dwyzbm,aqglbm,aqglbmdh,sydw,sbflmc,zgfzr,fzrdh, zzrq, rqrj,qcsjwd,gcsjwd) AS SELECT djylrq.view_jcgl_ylrq_union.zcid, djylrq.view_jcgl_ylrq_union.rqmc, djylrq.view_jcgl_ylrq_union.rqlb, djylrq.view_jcgl_ylrq_union.ytdh, djylrq.view_jcgl_ylrq_union.sjdw, djylrq.view_jcgl_ylrq_union.zzdw, djylrq.view_jcgl_ylrq_union.rqjg, djylrq.view_jcgl_ylrq_union.tool3, djylrq.view_jcgl_ylrq_union.sjyl1, djylrq.view_jcgl_ylrq_union.sjwd1, djylrq.view_jcgl_ylrq_union.czyl1, djylrq.view_jcgl_ylrq_union.rqbh, djylrq.view_jcgl_ylrq_union.aqdj, djylrq.view_jcgl_ylrq_union.tyrq, djylrq.view_jcgl_ylrq_union.gcbh1, djylrq.view_jcgl_ylrq_union.tool1, djylrq.view_jcgl_ylrq_union.jthd2, djylrq.view_jcgl_ylrq_union.ztcz1, djylrq.view_jcgl_ylrq_union.ztcz2, djylrq.view_jcgl_ylrq_union.nccl, djylrq.view_jcgl_ylrq_union.ccbh, djylrq.view_jcgl_ylrq_union.azdw, djylrq.view_jcgl_ylrq_union.gzjz1, djylrq.view_jcgl_ylrq_union.jtcz1, djylrq.view_jcgl_ylrq_union.gcbh2, djylrq.view_jcgl_ylrq_union.sjwd2, djylrq.view_jcgl_ylrq_union.jthd1, djylrq.view_jcgl_ylrq_union.gzjz2, djylrq.view_jcgl_ylrq_union.czyl2, djylrq.view_jcgl_ylrq_union.tool2, djylrq.view_jcgl_ylrq_union.sjyl2, djylrq.sb_syz.syzh, djylrq.sb_total.lssbzcdm, djylrq.sb_total.sbmc, djylrq.sb_total.sblb, djylrq.sb_total.sbzl, djylrq.sb_total.sbjb, djylrq.sb_total.sbpz, djylrq.sb_total.sbxh, djylrq.sb_total.ccbh, djylrq.sb_total.qydm, djylrq.sb_total.sbdm, djylrq.view_jcgl_sydw_ylrq.sbsf, djylrq.view_jcgl_sydw_ylrq.sbds, djylrq.view_jcgl_sydw_ylrq.sbqx, djylrq.view_jcgl_sydw_ylrq.frdb1, djylrq.view_jcgl_sydw_ylrq.sydwdz, djylrq.view_jcgl_sydw_ylrq.dwyzbm, djylrq.view_jcgl_sydw_ylrq.aqglbm, djylrq.view_jcgl_sydw_ylrq.aqglbmdh,djylrq.sb_total.sydw,djylrq.view_jcgl_sbfl.sbflmc,djylrq.view_jcgl_sydw_ylrq.zgfzr,djylrq.view_jcgl_sydw_ylrq.fzrdh, djylrq.view_jcgl_ylrq_union.zzrq, djylrq.view_jcgl_ylrq_union.rqrj, djylrq.view_jcgl_ylrq_union.qcsjwd, djylrq.view_jcgl_ylrq_union.gcsjwd FROM {oj djylrq.view_jcgl_ylrq_union LEFT OUTER JOIN djylrq.sb_syz ON djylrq.view_jcgl_ylrq_union.zcid = djylrq.sb_syz.zcid},djylrq.view_jcgl_sydw_ylrq,djylrq.sb_total,djylrq.view_jcgl_sbfl WHERE ( djylrq.view_jcgl_ylrq_union.zcid = djylrq.sb_total.zcid ) and  ( djylrq.view_jcgl_ylrq_union.zcid = djylrq.view_jcgl_sydw_ylrq.zcid )  and (djylrq.sb_total.sbpz = djylrq.view_jcgl_sbfl.sbpz) "//and (djylrq.sb_total.sbsyzt <> '20') 
+	execute immediate :mysql using sqlca;
+//	CREATE view djylrq.view_jcgl_ylrq (zcid,rqmc,rqlb,ytdh,sjdw,zzdw,rqjg,tool3,sjyl1,sjwd1,czyl1,rqbh,aqdj,tyrq,gcbh1,tool1,jthd2,ztcz1,ztcz2,nccl,ccbh,azdw,gzjz1,jtcz1,gcbh2,sjwd2,jthd1,gzjz2,czyl2,tool2,sjyl2,syzh,sbzcdm,sbmc,sblb,sbzl,sbjb,sbpz,sbxh,ccbh_a,qydm,sbdm,sbsf,sbds,sbqx,frdb1,sydwdz,dwyzbm,aqglbm,aqglbmdh,sydw,sbflmc,zgfzr,fzrdh) AS SELECT djylrq.view_jcgl_ylrq_union.zcid, djylrq.view_jcgl_ylrq_union.rqmc, djylrq.view_jcgl_ylrq_union.rqlb, djylrq.view_jcgl_ylrq_union.ytdh, djylrq.view_jcgl_ylrq_union.sjdw, djylrq.view_jcgl_ylrq_union.zzdw, djylrq.view_jcgl_ylrq_union.rqjg,djylrq.view_jcgl_ylrq_union.tool3, djylrq.view_jcgl_ylrq_union.sjyl1, djylrq.view_jcgl_ylrq_union.sjwd1, djylrq.view_jcgl_ylrq_union.czyl1, djylrq.view_jcgl_ylrq_union.rqbh, djylrq.view_jcgl_ylrq_union.aqdj, djylrq.view_jcgl_ylrq_union.tyrq, djylrq.view_jcgl_ylrq_union.gcbh1, djylrq.view_jcgl_ylrq_union.tool1, djylrq.view_jcgl_ylrq_union.jthd2, djylrq.view_jcgl_ylrq_union.ztcz1, djylrq.view_jcgl_ylrq_union.ztcz2, djylrq.view_jcgl_ylrq_union.nccl, djylrq.view_jcgl_ylrq_union.ccbh, djylrq.view_jcgl_ylrq_union.azdw, djylrq.view_jcgl_ylrq_union.gzjz1, djylrq.view_jcgl_ylrq_union.jtcz1, djylrq.view_jcgl_ylrq_union.gcbh2, djylrq.view_jcgl_ylrq_union.sjwd2, djylrq.view_jcgl_ylrq_union.jthd1, djylrq.view_jcgl_ylrq_union.gzjz2, djylrq.view_jcgl_ylrq_union.czyl2, djylrq.view_jcgl_ylrq_union.tool2, djylrq.view_jcgl_ylrq_union.sjyl2, djylrq.sb_syz.syzh, djylrq.sb_total.sbzcdm, djylrq.sb_total.sbmc, djylrq.sb_total.sblb, djylrq.sb_total.sbzl, djylrq.sb_total.sbjb, djylrq.sb_total.sbpz, djylrq.sb_total.sbxh, djylrq.sb_total.ccbh, djylrq.sb_total.qydm, djylrq.sb_total.sbdm, djylrq.view_jcgl_sydw_ylrq.sbsf, djylrq.view_jcgl_sydw_ylrq.sbds, djylrq.view_jcgl_sydw_ylrq.sbqx, djylrq.view_jcgl_sydw_ylrq.frdb1, djylrq.view_jcgl_sydw_ylrq.sydwdz, djylrq.view_jcgl_sydw_ylrq.dwyzbm, djylrq.view_jcgl_sydw_ylrq.aqglbm, djylrq.view_jcgl_sydw_ylrq.aqglbmdh,djylrq.sb_total.sydw,djylrq.view_jcgl_sbfl.sbflmc,djylrq.view_jcgl_sydw_ylrq.zgfzr ,djylrq.view_jcgl_sydw_ylrq.fzrdh FROM {oj djylrq.view_jcgl_ylrq_union LEFT OUTER JOIN djylrq.sb_syz ON djylrq.view_jcgl_ylrq_union.zcid = djylrq.sb_syz.zcid},djylrq.view_jcgl_sydw_ylrq,djylrq.sb_total,djylrq.view_jcgl_sbfl WHERE ( djylrq.view_jcgl_ylrq_union.zcid = djylrq.sb_total.zcid ) and  ( djylrq.view_jcgl_ylrq_union.zcid = djylrq.view_jcgl_sydw_ylrq.zcid )  and (djylrq.sb_total.sbpz = djylrq.view_jcgl_sbfl.sbpz) and (djylrq.sb_total.sbsyzt <> '20') 
+else 
+	delsql = "drop view view_jcgl_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view .view_jcgl_ylrq (zcid,rqmc,rqlb,ytdh,sjdw,zzdw,rqjg,tool3,sjyl1,sjwd1,czyl1,rqbh,aqdj,tyrq,gcbh1,tool1,jthd2,ztcz1,ztcz2,nccl,ccbh,azdw,gzjz1,jtcz1,gcbh2,sjwd2,jthd1,gzjz2,czyl2,tool2,sjyl2,syzh,sbzcdm,sbmc,sblb,sbzl,sbjb,sbpz,sbxh,ccbh_a,qydm,sbdm,sbsf,sbds,sbqx,frdb1,sydwdz,dwyzbm,aqglbm,aqglbmdh,sydw,sbflmc,zgfzr,fzrdh, zzrq, rqrj,qcsjwd,gcsjwd) AS SELECT djylrq.view_jcgl_ylrq_union.zcid, djylrq.view_jcgl_ylrq_union.rqmc, djylrq.view_jcgl_ylrq_union.rqlb, djylrq.view_jcgl_ylrq_union.ytdh, djylrq.view_jcgl_ylrq_union.sjdw, djylrq.view_jcgl_ylrq_union.zzdw, djylrq.view_jcgl_ylrq_union.rqjg, djylrq.view_jcgl_ylrq_union.tool3, djylrq.view_jcgl_ylrq_union.sjyl1, djylrq.view_jcgl_ylrq_union.sjwd1, djylrq.view_jcgl_ylrq_union.czyl1, djylrq.view_jcgl_ylrq_union.rqbh, djylrq.view_jcgl_ylrq_union.aqdj, djylrq.view_jcgl_ylrq_union.tyrq, djylrq.view_jcgl_ylrq_union.gcbh1, djylrq.view_jcgl_ylrq_union.tool1, djylrq.view_jcgl_ylrq_union.jthd2, djylrq.view_jcgl_ylrq_union.ztcz1, djylrq.view_jcgl_ylrq_union.ztcz2, djylrq.view_jcgl_ylrq_union.nccl, djylrq.view_jcgl_ylrq_union.ccbh, djylrq.view_jcgl_ylrq_union.azdw, djylrq.view_jcgl_ylrq_union.gzjz1, djylrq.view_jcgl_ylrq_union.jtcz1, djylrq.view_jcgl_ylrq_union.gcbh2, djylrq.view_jcgl_ylrq_union.sjwd2, djylrq.view_jcgl_ylrq_union.jthd1, djylrq.view_jcgl_ylrq_union.gzjz2, djylrq.view_jcgl_ylrq_union.czyl2, djylrq.view_jcgl_ylrq_union.tool2, djylrq.view_jcgl_ylrq_union.sjyl2, djylrq.sb_syz.syzh, djylrq.sb_total.lssbzcdm, djylrq.sb_total.sbmc, djylrq.sb_total.sblb, djylrq.sb_total.sbzl, djylrq.sb_total.sbjb, djylrq.sb_total.sbpz, djylrq.sb_total.sbxh, djylrq.sb_total.ccbh, djylrq.sb_total.qydm, djylrq.sb_total.sbdm, djylrq.view_jcgl_sydw_ylrq.sbsf, djylrq.view_jcgl_sydw_ylrq.sbds, djylrq.view_jcgl_sydw_ylrq.sbqx, djylrq.view_jcgl_sydw_ylrq.frdb1, djylrq.view_jcgl_sydw_ylrq.sydwdz, djylrq.view_jcgl_sydw_ylrq.dwyzbm, djylrq.view_jcgl_sydw_ylrq.aqglbm, djylrq.view_jcgl_sydw_ylrq.aqglbmdh,djylrq.sb_total.sydw,djylrq.view_jcgl_sbfl.sbflmc,djylrq.view_jcgl_sydw_ylrq.zgfzr,djylrq.view_jcgl_sydw_ylrq.fzrdh, djylrq.view_jcgl_ylrq_union.zzrq, djylrq.view_jcgl_ylrq_union.rqrj, djylrq.view_jcgl_ylrq_union.qcsjwd, djylrq.view_jcgl_ylrq_union.gcsjwd FROM {oj djylrq.view_jcgl_ylrq_union LEFT OUTER JOIN djylrq.sb_syz ON djylrq.view_jcgl_ylrq_union.zcid = djylrq.sb_syz.zcid},djylrq.view_jcgl_sydw_ylrq,djylrq.sb_total,djylrq.view_jcgl_sbfl WHERE ( djylrq.view_jcgl_ylrq_union.zcid = djylrq.sb_total.zcid ) and  ( djylrq.view_jcgl_ylrq_union.zcid = djylrq.view_jcgl_sydw_ylrq.zcid )  and (djylrq.sb_total.sbpz = djylrq.view_jcgl_sbfl.sbpz) "//and (djylrq.sb_total.sbsyzt <> '20') 
+	execute immediate :mysql using sqlca;
+end if
+
+//ÌØÖÖÉè±¸»ù±¾ÐÅÏ¢(³§³µ,µçÌÝ,¿ÍÔËË÷µÀ,ÆðÖØ»úÐµ)
+//if mark = 'sqlserver' then 
+//   delsql = "drop view djylrq.view_jcgl_tzsb_union"
+//	execute immediate :delsql using sqlca;
+//	mysql = "CREATE view djylrq.view_jcgl_tzsb_union(zcid,yhbh,azdd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,tyrq,wxbydw,qzjxzh,qzjxtslj,qzjxtsgd,kd,sqsd,sb_zcdm,kzfs,dsxs,wbdw,dtedzh,bgsbh,dtyxsd,sd,sdlx,sdmc,gzhj,dt_cz,dt_ssnl,dt_tjkd,dt_qxjd,dt_tsgd,dt_yxsd,dt_syqdcd,dt_jmlb,sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,sd_cd,sd_ssnl,sbczry,tjdw,tjysdw,azysjyjg,dxzq) as select zcid,dmnbbh,sbsydd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,tyrq,wxbydw,qzjx_edzh,qzjx_zdtslj,qzjx_zdtsgd,qzjx_gzbj,qzjx_yxsd,sbdm,'','','',0,'',0,0,'','',qzj_gzhj,'','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq from djylrq.djb_tzsb_qzjx union select zcid,dmnbbh,'','',sbxh,sjdw,zzdw,zzrq,ccbh,'','','',0,cc_ysxd,0,0,0,sbdm,sbmc,sych,wxbydw,cc_edzh,cc_dph,0,0,'','','','','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq from djylrq.djb_tzsb_cc union select zcid,dmnbbh,sbsydd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,'','',0,0,0,0,0,sbdm,'','',wxbydw,dt_edzh,'',dt_yxsd,0,'','','',dt_cz,dt_ssnl,dt_tjkd,dt_qxjd,dt_tsgd,dt_yxsd,dt_syqdcd,dt_jmlb,sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq from djylrq.djb_tzsb_dt union select zcid,'','',sbmc,sbxh,'','','','','','','',0,0,0,0,0,sbdm,'','','',0,'',0,sd_yxsd,sbxh,sbmc,'','','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,sd_cd,sd_ssnl,sbczry,tjdw,tjysdw,azysjyjg,dxzq from djylrq.djb_tzsb_kysd"
+//   execute immediate :mysql using sqlca;
+//else 
+//	delsql = "drop view view_jcgl_tzsb_union"
+//	execute immediate :delsql using sqlca;
+//	mysql = "CREATE view djylrq.view_jcgl_tzsb_union(zcid,yhbh,azdd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,tyrq,wxbydw,qzjxzh,qzjxtslj,qzjxtsgd,kd,sqsd,sb_zcdm,kzfs,dsxs,wbdw,dtedzh,bgsbh,dtyxsd,sd,sdlx,sdmc,gzhj,dt_cz,dt_ssnl,dt_tjkd,dt_qxjd,dt_tsgd,dt_yxsd,dt_syqdcd,dt_jmlb,sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,sd_cd,sd_ssnl,sbczry,tjdw,tjysdw,azysjyjg,dxzq) as select zcid,dmnbbh,sbsydd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,tyrq,wxbydw,qzjx_edzh,qzjx_zdtslj,qzjx_zdtsgd,qzjx_gzbj,qzjx_yxsd,sbdm,'','','',0,'',0,0,'','',qzj_gzhj,'','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq from djylrq.djb_tzsb_qzjx union select zcid,dmnbbh,'','',sbxh,sjdw,zzdw,zzrq,ccbh,'','','',0,cc_ysxd,0,0,0,sbdm,sbmc,sych,wxbydw,cc_edzh,cc_dph,0,0,'','','','','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq from djylrq.djb_tzsb_cc union select zcid,dmnbbh,sbsydd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,'','',0,0,0,0,0,sbdm,'','',wxbydw,dt_edzh,'',dt_yxsd,0,'','','',dt_cz,dt_ssnl,dt_tjkd,dt_qxjd,dt_tsgd,dt_yxsd,dt_syqdcd,dt_jmlb,sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq from djylrq.djb_tzsb_dt union select zcid,'','',sbmc,sbxh,'','','','','','','',0,0,0,0,0,sbdm,'','','',0,'',0,sd_yxsd,sbxh,sbmc,'','','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,sd_cd,sd_ssnl,sbczry,tjdw,tjysdw,azysjyjg,dxzq from djylrq.djb_tzsb_kysd"
+//   execute immediate :mysql using sqlca;
+//end if
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jcgl_tzsb_union"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_tzsb_union(zcid,yhbh,azdd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,tyrq,wxbydw,qzjxzh,qzjxtslj,qzjxtsgd,kd,sqsd,sb_zcdm,kzfs,dsxs,wbdw,dtedzh,bgsbh,dtyxsd,sd,sdlx,sdmc,gzhj,dt_cz,dt_ssnl,dt_tjkd,dt_qxjd,dt_tsgd,dt_yxsd,dt_syqdcd,dt_jmlb,sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,sd_cd,sd_ssnl,sbczry,tjdw,tjysdw,azysjyjg,dxzq,rlzl,yfgc,cc_fdjh,kczl,cc_dlfs,ccpzbh,ys) as select zcid,dmnbbh,sbsydd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,tyrq,wxbydw,qzjx_edzh,qzjx_zdtslj,qzjx_zdtsgd,qzjx_gzbj,qzjx_yxsd,sbdm,'','','',null,'',null,null,'','',qzj_gzhj,'','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq,null,null,null,null,null,null,null from djylrq.djb_tzsb_qzjx union select zcid,dmnbbh,'','',sbxh,sjdw,zzdw,zzrq,ccbh,'','','',null,cc_ysxd,null,null,null,sbdm,sbmc,sych,wxbydw,cc_edzh,cc_dph,null,null,'','','','','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq,rlzl,yfgc,cc_fdjh,kczl,cc_dlfs,ccpzbh,ys from djylrq.djb_tzsb_cc union select zcid,dmnbbh,sbsydd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,'','',null,null,null,null,null,sbdm,'','',wxbydw,dt_edzh,'',dt_yxsd,null,'','','',dt_cz,dt_ssnl,dt_tjkd,dt_qxjd,dt_tsgd,dt_yxsd,dt_syqdcd,dt_jmlb,sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq,null,null,null,null,null,null,null from djylrq.djb_tzsb_dt union select zcid,'','',sbmc,sbxh,'','','','','','','',null,null,null,null,null,sbdm,'','','',null,'',null,sd_yxsd,sbxh,sbmc,'','','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,sd_cd,sd_ssnl,sbczry,tjdw,tjysdw,azysjyjg,dxzq,null,null,null,null,null,null,null from djylrq.djb_tzsb_kysd"
+   execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jcgl_tzsb_union"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_tzsb_union(zcid,yhbh,azdd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,tyrq,wxbydw,qzjxzh,qzjxtslj,qzjxtsgd,kd,sqsd,sb_zcdm,kzfs,dsxs,wbdw,dtedzh,bgsbh,dtyxsd,sd,sdlx,sdmc,gzhj,dt_cz,dt_ssnl,dt_tjkd,dt_qxjd,dt_tsgd,dt_yxsd,dt_syqdcd,dt_jmlb,sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,sd_cd,sd_ssnl,sbczry,tjdw,tjysdw,azysjyjg,dxzq,rlzl,yfgc,cc_fdjh,kczl,cc_dlfs,ccpzbh,ys) as select zcid,dmnbbh,sbsydd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,tyrq,wxbydw,qzjx_edzh,qzjx_zdtslj,qzjx_zdtsgd,qzjx_gzbj,qzjx_yxsd,sbdm,'','','',null,'',null,null,'','',qzj_gzhj,'','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq,null,null,null,null,null,null,null from djylrq.djb_tzsb_qzjx union select zcid,dmnbbh,'','',sbxh,sjdw,zzdw,zzrq,ccbh,'','','',null,cc_ysxd,null,null,null,sbdm,sbmc,sych,wxbydw,cc_edzh,cc_dph,null,null,'','','','','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq,rlzl,yfgc,cc_fdjh,kczl,cc_dlfs,ccpzbh,ys from djylrq.djb_tzsb_cc union select zcid,dmnbbh,sbsydd,sbmc,sbxh,sjdw,zzdw,zzrq,ccbh,azdw,'','',null,null,null,null,null,sbdm,'','',wxbydw,dt_edzh,'',dt_yxsd,null,'','','',dt_cz,dt_ssnl,dt_tjkd,dt_qxjd,dt_tsgd,dt_yxsd,dt_syqdcd,dt_jmlb,sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,'','',sbczry,tjdw,tjysdw,azysjyjg,dxzq,null,null,null,null,null,null,null from djylrq.djb_tzsb_dt union select zcid,'','',sbmc,sbxh,'','','','','','','',null,null,null,null,null,sbdm,'','','',null,'',null,sd_yxsd,sbxh,sbmc,'','','','','','','','','',sbcqdw,cqdwzc,cqfrdbr,cqdwglr,cqdwdh,sjdwdm,zzdwdm,zzdwdh,zzzgzsh,sych,azdwdh,wbdwdm,wbzgzsh,wbdh,sbsydd,wbzrr,JGYSRQ, KSSGRQ,azdwdm,azzgzsh,azdwxmfzr,sd_cd,sd_ssnl,sbczry,tjdw,tjysdw,azysjyjg,dxzq,null,null,null,null,null,null,null from djylrq.djb_tzsb_kysd"
+   execute immediate :mysql using sqlca;
+end if
+//µ¼ÌØÖÖÉè±¸Êý¾ÝÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jcgl_tzsb"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jcgl_tzsb (zcid, yhbh, azdd, sbmc, sbxh, sjdw, zzdw, zzrq, ccbh, azdw, tyrq, wxbydw, qzjxzh, qzjxtslj, qzjxtsgd, kd, sqsd, sb_zcdm, kzfs, dsxs, wbdw, dtedzh, bgsbh, dtyxsd, sd, sdlx, sdmc, syzh, sbzcdm, sblb, sbzl, sbmc_a, sbjb, sbpz, sbxh_a, ccbh_a, qydm, sbdm, sbsf, sbds, sbqx, frdb1, sydwdz, dwyzbm, aqglbm, aqglbmdh ,sydw,sbflmc,qcml,zgfzr,gzhj,fzrdh,dt_cz, dt_ssnl,  dt_tjkd, dt_qxjd,dt_tsgd, dt_yxsd, dt_syqdcd, dt_jmlb,sbcqdw, cqdwzc,cqfrdbr,cqdwglr,cqdwdh, sjdwdm, zzdwdm, zzdwdh, zzzgzsh, sych,azdwdh, wbdwdm,wbdh, wbzgzsh,sbsydd, wbzrr,JGYSRQ,KSSGRQ, azdwdm, azzgzsh, azdwxmfzr,sd_cd,  sd_ssnl,ZZJGDM, AQGLRY,EMAIL,FAX, JBR, JBRDH,JBRSJCH, DWNBBH, sbczry,tjdw, tjysdw,azysjyjg, dxzq,rlzl,yfgc,cc_fdjh,kczl,cc_dlfs,ccpzbh,ys) AS SELECT djylrq. view_jcgl_tzsb_union.zcid,djylrq. view_jcgl_tzsb_union.yhbh,djylrq. view_jcgl_tzsb_union.azdd,djylrq. view_jcgl_tzsb_union.sbmc,djylrq. view_jcgl_tzsb_union.sbxh,djylrq. view_jcgl_tzsb_union.sjdw,djylrq. view_jcgl_tzsb_union.zzdw,djylrq. view_jcgl_tzsb_union.zzrq,djylrq. view_jcgl_tzsb_union.ccbh,djylrq. view_jcgl_tzsb_union.azdw,djylrq. view_jcgl_tzsb_union.tyrq,djylrq. view_jcgl_tzsb_union.wxbydw,djylrq. view_jcgl_tzsb_union.qzjxzh,djylrq. view_jcgl_tzsb_union.qzjxtslj,djylrq. view_jcgl_tzsb_union.qzjxtsgd,djylrq. view_jcgl_tzsb_union.kd,djylrq. view_jcgl_tzsb_union.sqsd,djylrq. view_jcgl_tzsb_union.sb_zcdm,djylrq. view_jcgl_tzsb_union.kzfs,djylrq. view_jcgl_tzsb_union.dsxs,djylrq. view_jcgl_tzsb_union.wbdw,djylrq. view_jcgl_tzsb_union.dtedzh,djylrq. view_jcgl_tzsb_union.bgsbh,djylrq. view_jcgl_tzsb_union.dtyxsd,djylrq. view_jcgl_tzsb_union.sd,djylrq. view_jcgl_tzsb_union.sdlx,djylrq. view_jcgl_tzsb_union.sdmc, djylrq.sb_syz.syzh,djylrq.sb_total.lssbzcdm,djylrq.sb_total.sblb,djylrq. sb_total.sbzl,djylrq. sb_total.sbmc,djylrq. sb_total.sbjb,djylrq. sb_total.sbpz,djylrq. sb_total.sbxh,djylrq. sb_total.ccbh,djylrq. sb_total.qydm,djylrq. sb_total.sbdm,djylrq.sb_sydw.sbsf,djylrq.sb_sydw.sbds,djylrq.sb_sydw.sbqx,djylrq.sb_sydw.frdb1,djylrq.sb_sydw.sydwdz,djylrq.sb_sydw.dwyzbm,djylrq.sb_sydw.aqglbm,djylrq.sb_sydw.aqglbmdh,djylrq. sb_total.sydw,djylrq.view_jcgl_sbfl.sbflmc,djylrq.view_jcgl_sbfl.qcml,djylrq.sb_sydw.zgfzr,djylrq. view_jcgl_tzsb_union.gzhj,sb_sydw.fzrdh,djylrq.view_jcgl_tzsb_union.dt_cz, djylrq.view_jcgl_tzsb_union.dt_ssnl, djylrq.view_jcgl_tzsb_union.dt_tjkd, djylrq.view_jcgl_tzsb_union.dt_qxjd,  djylrq.view_jcgl_tzsb_union.dt_tsgd, djylrq.view_jcgl_tzsb_union.dt_yxsd,  djylrq.view_jcgl_tzsb_union.dt_syqdcd, djylrq.view_jcgl_tzsb_union.dt_jmlb,djylrq.view_jcgl_tzsb_union.sbcqdw, djylrq.view_jcgl_tzsb_union.cqdwzc,djylrq.view_jcgl_tzsb_union.cqfrdbr, djylrq.view_jcgl_tzsb_union.cqdwglr, djylrq.view_jcgl_tzsb_union.cqdwdh, djylrq.view_jcgl_tzsb_union.sjdwdm,djylrq.view_jcgl_tzsb_union.zzdwdm, djylrq.view_jcgl_tzsb_union.zzdwdh,  djylrq.view_jcgl_tzsb_union.zzzgzsh, djylrq.view_jcgl_tzsb_union.sych,djylrq.view_jcgl_tzsb_union.azdwdh, djylrq.view_jcgl_tzsb_union.wbdwdm,djylrq.view_jcgl_tzsb_union.wbdh, djylrq.view_jcgl_tzsb_union.wbzgzsh, djylrq.view_jcgl_tzsb_union.sbsydd, djylrq.view_jcgl_tzsb_union.wbzrr,djylrq.view_jcgl_tzsb_union.JGYSRQ, djylrq.view_jcgl_tzsb_union.KSSGRQ,  djylrq.view_jcgl_tzsb_union.azdwdm, djylrq.view_jcgl_tzsb_union.azzgzsh,djylrq.view_jcgl_tzsb_union.azdwxmfzr, djylrq.view_jcgl_tzsb_union.sd_cd,djylrq.view_jcgl_tzsb_union.sd_ssnl, djylrq.SB_SYDW.ZZJGDM,djylrq.SB_SYDW.AQGLRY, djylrq.SB_SYDW.EMAIL, djylrq.SB_SYDW.FAX,  djylrq.SB_SYDW.JBR, djylrq.SB_SYDW.JBRDH, djylrq.SB_SYDW.JBRSJCH, djylrq.SB_TOTAL.DWNBBH, djylrq.view_jcgl_tzsb_union.sbczry, djylrq.view_jcgl_tzsb_union.tjdw, djylrq.view_jcgl_tzsb_union.tjysdw, djylrq.view_jcgl_tzsb_union.azysjyjg, djylrq.view_jcgl_tzsb_union.dxzq, djylrq.view_jcgl_tzsb_union.rlzl, djylrq.view_jcgl_tzsb_union.yfgc, djylrq.view_jcgl_tzsb_union.cc_fdjh,djylrq.view_jcgl_tzsb_union.kczl,djylrq.view_jcgl_tzsb_union.cc_dlfs,djylrq.view_jcgl_tzsb_union.ccpzbh,djylrq.view_jcgl_tzsb_union.ys FROM {oj djylrq.view_jcgl_tzsb_union LEFT OUTER JOIN djylrq.sb_syz ON djylrq.view_jcgl_tzsb_union.zcid = djylrq.sb_syz.zcid},djylrq.sb_sydw,djylrq.sb_total,djylrq.view_jcgl_sbfl WHERE (djylrq. view_jcgl_tzsb_union.zcid =djylrq. sb_total.zcid ) and  (djylrq. view_jcgl_tzsb_union.zcid =djylrq.sb_sydw.zcid ) and (djylrq.sb_total.sbpz =djylrq.view_jcgl_sbfl.sbpz) "// and (djylrq.sb_total.sbsyzt <> '20')
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jcgl_tzsb"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view view_jcgl_tzsb (zcid, yhbh, azdd, sbmc, sbxh, sjdw, zzdw, zzrq, ccbh, azdw, tyrq, wxbydw, qzjxzh, qzjxtslj, qzjxtsgd, kd, sqsd, sb_zcdm, kzfs, dsxs, wbdw, dtedzh, bgsbh, dtyxsd, sd, sdlx, sdmc, syzh, sbzcdm, sblb, sbzl, sbmc_a, sbjb, sbpz, sbxh_a, ccbh_a, qydm, sbdm, sbsf, sbds, sbqx, frdb1, sydwdz, dwyzbm, aqglbm, aqglbmdh ,sydw,sbflmc,qcml,zgfzr,gzhj,fzrdh,dt_cz, dt_ssnl,  dt_tjkd, dt_qxjd,dt_tsgd, dt_yxsd, dt_syqdcd, dt_jmlb,sbcqdw, cqdwzc,cqfrdbr,cqdwglr,cqdwdh, sjdwdm, zzdwdm, zzdwdh, zzzgzsh, sych,azdwdh, wbdwdm,wbdh, wbzgzsh,sbsydd, wbzrr,JGYSRQ,KSSGRQ, azdwdm, azzgzsh, azdwxmfzr,sd_cd,  sd_ssnl,ZZJGDM, AQGLRY,EMAIL,FAX, JBR, JBRDH,JBRSJCH, DWNBBH, sbczry,tjdw, tjysdw,azysjyjg, dxzq,rlzl,yfgc,cc_fdjh,kczl,cc_dlfs,ccpzbh,ys) AS SELECT djylrq. view_jcgl_tzsb_union.zcid,djylrq. view_jcgl_tzsb_union.yhbh,djylrq. view_jcgl_tzsb_union.azdd,djylrq. view_jcgl_tzsb_union.sbmc,djylrq. view_jcgl_tzsb_union.sbxh,djylrq. view_jcgl_tzsb_union.sjdw,djylrq. view_jcgl_tzsb_union.zzdw,djylrq. view_jcgl_tzsb_union.zzrq,djylrq. view_jcgl_tzsb_union.ccbh,djylrq. view_jcgl_tzsb_union.azdw,djylrq. view_jcgl_tzsb_union.tyrq,djylrq. view_jcgl_tzsb_union.wxbydw,djylrq. view_jcgl_tzsb_union.qzjxzh,djylrq. view_jcgl_tzsb_union.qzjxtslj,djylrq. view_jcgl_tzsb_union.qzjxtsgd,djylrq. view_jcgl_tzsb_union.kd,djylrq. view_jcgl_tzsb_union.sqsd,djylrq. view_jcgl_tzsb_union.sb_zcdm,djylrq. view_jcgl_tzsb_union.kzfs,djylrq. view_jcgl_tzsb_union.dsxs,djylrq. view_jcgl_tzsb_union.wbdw,djylrq. view_jcgl_tzsb_union.dtedzh,djylrq. view_jcgl_tzsb_union.bgsbh,djylrq. view_jcgl_tzsb_union.dtyxsd,djylrq. view_jcgl_tzsb_union.sd,djylrq. view_jcgl_tzsb_union.sdlx,djylrq. view_jcgl_tzsb_union.sdmc, djylrq.sb_syz.syzh,djylrq.sb_total.lssbzcdm,djylrq.sb_total.sblb,djylrq. sb_total.sbzl,djylrq. sb_total.sbmc,djylrq. sb_total.sbjb,djylrq. sb_total.sbpz,djylrq. sb_total.sbxh,djylrq. sb_total.ccbh,djylrq. sb_total.qydm,djylrq. sb_total.sbdm,djylrq.sb_sydw.sbsf,djylrq.sb_sydw.sbds,djylrq.sb_sydw.sbqx,djylrq.sb_sydw.frdb1,djylrq.sb_sydw.sydwdz,djylrq.sb_sydw.dwyzbm,djylrq.sb_sydw.aqglbm,djylrq.sb_sydw.aqglbmdh,djylrq. sb_total.sydw,djylrq.view_jcgl_sbfl.sbflmc,djylrq.view_jcgl_sbfl.qcml,djylrq.sb_sydw.zgfzr,djylrq. view_jcgl_tzsb_union.gzhj,sb_sydw.fzrdh,djylrq.view_jcgl_tzsb_union.dt_cz, djylrq.view_jcgl_tzsb_union.dt_ssnl, djylrq.view_jcgl_tzsb_union.dt_tjkd, djylrq.view_jcgl_tzsb_union.dt_qxjd,  djylrq.view_jcgl_tzsb_union.dt_tsgd, djylrq.view_jcgl_tzsb_union.dt_yxsd,  djylrq.view_jcgl_tzsb_union.dt_syqdcd, djylrq.view_jcgl_tzsb_union.dt_jmlb,djylrq.view_jcgl_tzsb_union.sbcqdw, djylrq.view_jcgl_tzsb_union.cqdwzc,djylrq.view_jcgl_tzsb_union.cqfrdbr, djylrq.view_jcgl_tzsb_union.cqdwglr, djylrq.view_jcgl_tzsb_union.cqdwdh, djylrq.view_jcgl_tzsb_union.sjdwdm,djylrq.view_jcgl_tzsb_union.zzdwdm, djylrq.view_jcgl_tzsb_union.zzdwdh,  djylrq.view_jcgl_tzsb_union.zzzgzsh, djylrq.view_jcgl_tzsb_union.sych,djylrq.view_jcgl_tzsb_union.azdwdh, djylrq.view_jcgl_tzsb_union.wbdwdm,djylrq.view_jcgl_tzsb_union.wbdh, djylrq.view_jcgl_tzsb_union.wbzgzsh, djylrq.view_jcgl_tzsb_union.sbsydd, djylrq.view_jcgl_tzsb_union.wbzrr,djylrq.view_jcgl_tzsb_union.JGYSRQ, djylrq.view_jcgl_tzsb_union.KSSGRQ,  djylrq.view_jcgl_tzsb_union.azdwdm, djylrq.view_jcgl_tzsb_union.azzgzsh,djylrq.view_jcgl_tzsb_union.azdwxmfzr, djylrq.view_jcgl_tzsb_union.sd_cd,djylrq.view_jcgl_tzsb_union.sd_ssnl, djylrq.SB_SYDW.ZZJGDM,djylrq.SB_SYDW.AQGLRY, djylrq.SB_SYDW.EMAIL, djylrq.SB_SYDW.FAX,  djylrq.SB_SYDW.JBR, djylrq.SB_SYDW.JBRDH, djylrq.SB_SYDW.JBRSJCH, djylrq.SB_TOTAL.DWNBBH, djylrq.view_jcgl_tzsb_union.sbczry, djylrq.view_jcgl_tzsb_union.tjdw, djylrq.view_jcgl_tzsb_union.tjysdw, djylrq.view_jcgl_tzsb_union.azysjyjg, djylrq.view_jcgl_tzsb_union.dxzq, djylrq.view_jcgl_tzsb_union.rlzl, djylrq.view_jcgl_tzsb_union.yfgc, djylrq.view_jcgl_tzsb_union.cc_fdjh,djylrq.view_jcgl_tzsb_union.kczl,djylrq.view_jcgl_tzsb_union.cc_dlfs,djylrq.view_jcgl_tzsb_union.ccpzbh,djylrq.view_jcgl_tzsb_union.ys FROM {oj djylrq.view_jcgl_tzsb_union LEFT OUTER JOIN djylrq.sb_syz ON djylrq.view_jcgl_tzsb_union.zcid = djylrq.sb_syz.zcid},djylrq.sb_sydw,djylrq.sb_total,djylrq.view_jcgl_sbfl WHERE (djylrq. view_jcgl_tzsb_union.zcid =djylrq. sb_total.zcid ) and  (djylrq. view_jcgl_tzsb_union.zcid =djylrq.sb_sydw.zcid ) and (djylrq.sb_total.sbpz =djylrq.view_jcgl_sbfl.sbpz) "// and (djylrq.sb_total.sbsyzt <> '20')
+	execute immediate :mysql using sqlca;
+end if
+
+// ´´½¨ Éè±¸»ù±¾ÐÅÏ¢±í(ÁÙÊ±±í)
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_TOTAL_TEMP(ZCID numeric(20) not null,zt VARCHAR(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_TOTAL_TEMP_X ON DJYLRQ.SB_TOTAL_TEMP (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_TOTAL_TEMP(ZCID numeric(20) not null,zt VARCHAR(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+
+//´´½¨Éè±¸»ù±¾ÐÅÏ¢¸üÐÂzcidÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_sbjbxx"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_sbjbxx(djid,zcid) AS SELECT djid,zcid from glc_ylrq union select djid,zcid from glc_gygd union select djid,zcid from glc_gg union select djid,zcid from glc_dzgl union select djid,zcid from glc_tzsb"
+   execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_sbjbxx"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_sbjbxx (djid,zcid) AS SELECT djid,zcid from glc_ylrq union select djid,zcid from glc_gygd union select djid,zcid from glc_gg union select djid,zcid from glc_dzgl union select djid,zcid from glc_tzsb"
+   execute immediate :mysql using sqlca;
+end if
+choose case zt
+	case '1'
+		if mark = 'sqlserver' then 
+			delsql = "drop view djylrq.view_jy_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE view djylrq.view_jy_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '1' and zcid <> 0 and zcid is not null  union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '1' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '1' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '1' and zcid <> 0 and zcid is not null  "
+			execute immediate :mysql using sqlca;
+		else 
+			delsql = "drop view view_jy_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE view view_jy_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '1' and zcid <> 0 and zcid is not null  union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '1' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '1' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '1' and zcid <> 0 and zcid is not null  "
+			execute immediate :mysql using sqlca;
+		end if
+		//¼ìÑé±¨¸æÊÓÍ¼
+		if mark = 'sqlserver' then 
+			delsql = "drop view djylrq.view_jybg_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE view djylrq.view_jybg_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '1' union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '1'  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '1' "
+			execute immediate :mysql using sqlca;
+		else 
+			delsql = "drop view view_jybg_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE view view_jybg_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '1' union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '1'  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '1' "
+			execute immediate :mysql using sqlca;
+		end if
+	case '$'
+		if mark = 'sqlserver' then 
+			delsql = "drop view djylrq.view_jy_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE view djylrq.view_jy_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and zcid <> 0 and zcid is not null  union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and zcid <> 0 and zcid is not null  "
+			execute immediate :mysql using sqlca;
+		else 
+			delsql = "drop view view_jy_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE VIEW view_jy_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and zcid <> 0 and zcid is not null  union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and zcid <> 0 and zcid is not null  "
+			execute immediate :mysql using sqlca;
+		end if
+		//¼ìÑé±¨¸æÊÓÍ¼
+		if mark = 'sqlserver' then 
+			delsql = "drop view djylrq.view_jybg_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE view djylrq.view_jybg_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1'  union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1'  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' "
+			execute immediate :mysql using sqlca;
+		else 
+			delsql = "drop view view_jybg_total"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE VIEW view_jybg_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' "
+			execute immediate :mysql using sqlca;
+		end if
+	case else
+		if mark = 'sqlserver' then 
+			delsql = "drop view djylrq.view_jy_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE view djylrq.view_jy_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' and zcid <> 0 and zcid is not null  union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' and zcid <> 0 and zcid is not null  "
+			execute immediate :mysql using sqlca;
+		else 
+			delsql = "drop view view_jy_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE VIEW view_jy_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' and zcid <> 0 and zcid is not null  union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' and zcid <> 0 and zcid is not null  union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' and zcid <> 0 and zcid is not null  "
+			execute immediate :mysql using sqlca;
+		end if
+		
+		//¼ìÑé±¨¸æÊÓÍ¼
+		if mark = 'sqlserver' then 
+			delsql = "drop view djylrq.view_jybg_total"
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE view djylrq.view_jybg_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' "
+			execute immediate :mysql using sqlca;
+		else 
+			delsql = "drop view view_jybg_total"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+			execute immediate :delsql using sqlca;
+			mysql = "CREATE VIEW view_jybg_total (zcid,xh,jydw,jyrq,jylb,jyjl,bgbh,xcjyrq,jyid,jyry,sydw,jytype,jyml,ryid) AS select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,nextdate,jyid,rymc,sydw,jytype,jyml,ryid from  b_jy_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' union   select  zcid,0,(select jydw from a_jydw),jydate,jylb,jyjl,bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_aj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_jj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' union  select  zcid,0,(select jydw from a_jydw),jydate,jylb,'',bgid,'',jyid,rymc,sydw,jytype,jyml,ryid from  b_qj_total  where shmark = '$' and shtui <> '-1' and shsp <> '-1' and shwang = '" + zt + "' "
+			execute immediate :mysql using sqlca;
+		end if
+end choose
+
+
+//µØÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_map_total"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_map_total(zcid,sblb,sbzl,sydw,dwid,sbsyzt,sbpz,qydm,dgcd,sbzcdm ) AS SELECT sb_total.zcid,sb_total.sblb,sb_total.sbzl,sb_total.sydw,sb_total.dwid,sb_total.sbsyzt,sb_total.sbpz,sb_total.qydm,djb_ylgd.dgcd,sb_total.sbzcdm FROM {oj sb_total LEFT OUTER JOIN djb_ylgd ON sb_total.zcid = djb_ylgd.zcid} union SELECT sb_total_bf.zcid,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sydw,sb_total_bf.dwid,'99',sb_total_bf.sbpz,sb_total_bf.qydm,djb_ylgd.dgcd,sb_total_bf.sbzcdm  FROM {oj sb_total_bf LEFT OUTER JOIN djb_ylgd ON sb_total_bf.zcid = djb_ylgd.zcid}"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_map_total"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW view_map_total(zcid,sblb,sbzl,sydw,dwid,sbsyzt,sbpz,qydm,dgcd,sbzcdm ) AS SELECT sb_total.zcid,sb_total.sblb,sb_total.sbzl,sb_total.sydw,sb_total.dwid,sb_total.sbsyzt,sb_total.sbpz,sb_total.qydm,djb_ylgd.dgcd,sb_total.sbzcdm FROM {oj sb_total LEFT OUTER JOIN djb_ylgd ON sb_total.zcid = djb_ylgd.zcid} union SELECT sb_total_bf.zcid,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sydw,sb_total_bf.dwid,'99',sb_total_bf.sbpz,sb_total_bf.qydm,djb_ylgd.dgcd,sb_total_bf.sbzcdm  FROM {oj sb_total_bf LEFT OUTER JOIN djb_ylgd ON sb_total_bf.zcid = djb_ylgd.zcid}"
+	execute immediate :mysql using sqlca;
+end if
+string qydm,sbdsdm
+select sbdsdm into :sbdsdm from a_jydw;
+qydm = left(sbdsdm,4)
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_map_temp"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_map_temp(xzid,xzmc,bs,jd,wd) AS select distinct(view_map_total.qydm),z_xzdm.xzmc,2,z_xzdm.jd,z_xzdm.wd from view_map_total,z_xzdm where substring(view_map_total.qydm,1,4) = '" + qydm + "' and substring(view_map_total.qydm,5,2) <> '00'  and view_map_total.qydm = z_xzdm.xzid union  select distinct(substring(view_map_total.qydm,1,4))+ '00',z_xzdm.xzmc,1,z_xzdm.jd,z_xzdm.wd from view_map_total,z_xzdm   where substring(view_map_total.qydm,1,4) = '" + qydm + "' and  substring(view_map_total.qydm,1,4)+ '00' = z_xzdm.xzid   union select distinct(convert(varchar,view_map_total.dwid)),dw_total_sydw.dwmc,3,dw_total_sydw.jd,dw_total_sydw.wd from view_map_total,dw_total_sydw  where substring(view_map_total.qydm,1,4) = '" + qydm + "'  and  view_map_total.dwid = dw_total_sydw.dwid"
+   execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_map_temp"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW view_map_temp(xzid,xzmc,bs,jd,wd) AS select distinct(view_map_total.qydm),z_xzdm.xzmc,2,z_xzdm.jd,z_xzdm.wd from view_map_total,z_xzdm where substring(view_map_total.qydm,1,4) = '" + qydm + "'  and substring(view_map_total.qydm,5,2) <> '00'  and view_map_total.qydm = z_xzdm.xzid union  select distinct(substring(view_map_total.qydm,1,4))+ '00',z_xzdm.xzmc,1,z_xzdm.jd,z_xzdm.wd from view_map_total,z_xzdm   where substring(view_map_total.qydm,1,4) = '" + qydm + "' and  substring(view_map_total.qydm,1,4)+ '00' = z_xzdm.xzid   union select distinct(convert(varchar,view_map_total.dwid)),dw_total_sydw.dwmc,3,dw_total_sydw.jd,dw_total_sydw.wd from view_map_total,dw_total_sydw  where substring(view_map_total.qydm,1,4) = '" + qydm + "'  and  view_map_total.dwid = dw_total_sydw.dwid"
+   execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_map_qx"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_map_qx(xzid,xzmc) AS select distinct(view_map_total.qydm),z_xzdm.xzmc from view_map_total,z_xzdm where view_map_total.qydm = z_xzdm.xzid"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_map_qx"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW view_map_qx(xzid,xzmc) AS select distinct(view_map_total.qydm),z_xzdm.xzmc from view_map_total,z_xzdm where view_map_total.qydm = z_xzdm.xzid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_map_ds"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.view_map_ds(xzid,xzmc) as select distinct(substring(view_map_total.qydm,1,4)) + '00',z_xzdm.xzmc from view_map_total,z_xzdm where substring(view_map_total.qydm,1,4) + '00' = z_xzdm.xzid"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_map_ds"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW view_map_ds(xzid,xzmc) as select distinct(substring(view_map_total.qydm,1,4)) + '00',z_xzdm.xzmc from view_map_total,z_xzdm where substring(view_map_total.qydm,1,4) + '00' = z_xzdm.xzid"
+	execute immediate :mysql using sqlca;
+end if
+
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_map_sbsl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.view_map_sbsl(xzid,xzmc,gl,ylrq,dt,qzj,cc,ylss,ylgd,kysd,bs,jd,wd) as "+&
+			"	select xzid,xzmc,  (case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '1000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '1000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '1000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '1000') end),"+&
+			"	(case bs when 0 then 	"+&
+			"		(select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and substring(sbzl,1,2) <> '23' and sblb = '2000')  "+&
+			"	when 1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and substring(sbzl,1,2) <> '23' and sblb = '2000') "+&
+			"	when 2 then (select  count(*) from view_map_total where qydm = xzid and substring(sbzl,1,2) <> '23' and sblb = '2000') "+&
+			"	else (select count(*) from view_map_total where dwid = xzid and substring(sbzl,1,2) <> '23' and sblb = '2000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '3000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '3000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '3000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '3000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '4000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '4000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '4000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '4000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '5000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '5000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '5000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '5000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '6000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '6000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '6000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '6000') end),	"+&
+			"	(case bs when 0 then (select sum(convert(decimal,dgcd)) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '8000') when "+&
+			"		1 then (select sum(convert(decimal,dgcd)) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '8000') when "+&
+			"		2 then (select  sum(convert(decimal,dgcd)) from view_map_total where qydm = xzid and sblb = '8000') else "+&
+			"		(select sum(convert(decimal,dgcd)) from view_map_total where dwid = xzid and sblb = '8000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '9000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '9000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '9000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '9000') end)	"+&
+			"	,bs,jd,wd    from view_map_temp"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_map_sbsl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW view_map_sbsl(xzid,xzmc,gl,ylrq,dt,qzj,cc,ylss,ylgd,kysd,bs,jd,wd) as "+&
+			"	select xzid,xzmc,  (case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '1000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '1000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '1000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '1000') end),"+&
+			"	(case bs when 0 then 	"+&
+			"		(select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and substring(sbzl,1,2) <> '23' and sblb = '2000')  "+&
+			"	when 1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and substring(sbzl,1,2) <> '23' and sblb = '2000') "+&
+			"	when 2 then (select  count(*) from view_map_total where qydm = xzid and substring(sbzl,1,2) <> '23' and sblb = '2000') "+&
+			"	else (select count(*) from view_map_total where dwid = xzid and substring(sbzl,1,2) <> '23' and sblb = '2000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '3000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '3000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '3000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '3000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '4000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '4000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '4000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '4000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '5000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '5000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '5000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '5000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '6000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '6000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '6000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '6000') end),	"+&
+			"	(case bs when 0 then (select sum(convert(decimal,dgcd)) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '8000') when "+&
+			"		1 then (select sum(convert(decimal,dgcd)) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '8000') when "+&
+			"		2 then (select  sum(convert(decimal,dgcd)) from view_map_total where qydm = xzid and sblb = '8000') else "+&
+			"		(select sum(convert(decimal,dgcd)) from view_map_total where dwid = xzid and sblb = '8000') end),"+&
+			"	(case bs when 0 then (select count(*) from view_map_total where substring(qydm,1,2) = '"+ left(qydm,2) + "' and sblb = '9000') when "+&
+			"		1 then (select count(*) from view_map_total where substring(qydm,1,4) = substring(xzid,1,4) and sblb = '9000') when "+&
+			"		2 then (select  count(*) from view_map_total where qydm = xzid and sblb = '9000') else "+&
+			"		(select count(*) from view_map_total where dwid = xzid and sblb = '9000') end)	"+&
+			"	,bs,jd,wd    from view_map_temp"
+	execute immediate :mysql using sqlca;
+end if
+
+
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.t_map_sbsl_temp(xzid varchar(10) not null,xzmc varchar(60) null,"+&
+				"gl numeric(10) null,ylrq numeric(10) null,dt numeric(10) null,qzj numeric(10) null,"+&
+				"cc numeric(10) null,ylss numeric(10) null,ylgd numeric(20) null,kysd numeric(10) null,"+&
+				"bs varchar(1) null,JD numeric(9,6) null,WD numeric(9,6) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX t_map_sbsl_temp_X ON DJYLRQ.t_map_sbsl_temp (xzid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE t_map_sbsl_temp(xzid varchar(10) not null,xzmc varchar(60) null,"+&
+				"gl numeric(10) null,ylrq numeric(10) null,dt numeric(10) null,qzj numeric(10) null,"+&
+				"cc numeric(10) null,ylss numeric(10) null,ylgd numeric(20) null,kysd numeric(10) null,"+&
+				"bs varchar(1) null,JD numeric(9,6) null,WD numeric(9,6) null,PRIMARY KEY (xzid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.sb_syz_qp(hzbid numeric(20) not null,xsbh varchar(30) null,"+&
+				"syzbh varchar(30) null,sbzl varchar(20) null,sydw varchar(60) null,"+&
+				"fzrq datetime null,fzdw varchar(60) null,syzzt varchar(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX sb_syz_qp_X ON DJYLRQ.sb_syz_qp (hzbid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE sb_syz_qp(hzbid numeric(20) not null,xsbh varchar(30) null,"+&
+				"syzbh varchar(30) null,sbzl varchar(20) null,sydw varchar(60) null,"+&
+				"fzrq datetime null,fzdw varchar(60) null,syzzt varchar(20) null,PRIMARY KEY (hzbid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+update z_xzdm set xzmc = 'ÎÚº£ÊÐ' where xzmc = 'Äñº£ÊÐ' and xzid = '150300';
+update djb_ylgd set dgcd = substring(dgcd,1,len(dgcd) - 1) where right(dgcd,1) = 'm';
+//¸§Ë³¾­Î³¶È
+update z_xzdm set jd = '125.034648',wd = '41.732617' where xzid = '210422';
+update z_xzdm set jd = '123.776223',wd = '41.852013' where xzid = '210404';
+update z_xzdm set jd = '124.918408',wd = '42.098844' where xzid = '210423';
+update z_xzdm set jd = '123.910429',wd = '41.881474' where xzid = '210411';
+update z_xzdm set jd = '123.900703',wd = '41.726769' where xzid = '210421';
+update z_xzdm set jd = '123.909090',wd = '41.858513' where xzid = '210402';
+update z_xzdm set jd = '123.950',wd = '41.879' where xzid = '210401';
+update z_xzdm set jd = '123.950',wd = '41.879' where xzid = '210400';
+update z_xzdm set xzmc = '¶«ÖÞÇø',jd = '124.027975',wd = '41.849685' where xzid = '210403';
+
+
+
+commit;
+end subroutine
+

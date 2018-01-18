@@ -1,0 +1,217 @@
+﻿$PBExportHeader$fun_create_sjd_table.srf
+global type fun_create_sjd_table from function_object
+end type
+
+forward prototypes
+global subroutine fun_create_sjd_table ()
+end prototypes
+
+global subroutine fun_create_sjd_table ();string delsql,mysql,myindex,modsql
+int ls_count
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase' 
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver' 
+
+IF mark = 'sqlserver' THEN
+	mysql = "CREATE TABLE djylrq.z_cw_sjd(sjid varchar(20) NOT NULL ,jkpzhm varchar(30) NULL,zsdwbm varchar(30) NULL,jkr varchar(60) NULL,"+&
+				"zsdwmc varchar(80) NULL,tzrq varchar(20) NULL,sjno varchar(20) NULL,jkfs varchar(10) NULL,srxmbm1 varchar(20) NULL,srxmbm2 varchar(20) NULL,"+&
+				"srxmbm3 varchar(20) NULL,srxmbm4 varchar(20) NULL,srmca1 varchar(20) NULL,srmca2 varchar(20) NULL,srmca3 varchar(20) NULL,"+&
+				"srmca4 varchar(20) NULL,srmcb1 varchar(20) NULL,srmcb2 varchar(20) NULL,srmcb3 varchar(20) NULL,srmcb4 varchar(20) NULL,srmcc1 varchar(20) NULL,"+&
+				"srmcc2 varchar(20) NULL,srmcc3 varchar(20) NULL,srmcc4 varchar(20) NULL,dw1 varchar(10) NULL,dw2 varchar(10) NULL,dw3 varchar(10) NULL,"+&
+				"dw4 varchar(10) NULL,sl1 varchar(10) NULL,sl2 varchar(10) NULL,sl3 varchar(10) NULL,sl4 varchar(10) NULL,sfbz1 varchar(20) NULL,"+&
+				"sfbz2 varchar(20) NULL,sfbz3 varchar(20) NULL,sfbz4 varchar(20) NULL,je1 numeric (18,2) null,je2 numeric (18,2) null,je3 numeric (18,2) null,"+&
+				"je4 numeric (18,2) null,jezs numeric (18,2) NULL,zsdwgy varchar(10) NULL,skr varchar(10) NULL,jetotal varchar(80) NULL,jyname1 varchar(10) NULL,"+&
+				"jyname2 varchar(10) NULL,jyname3 varchar(10) NULL,jyname4 varchar(10) NULL,bz varchar(200) NULL,mark varchar(10) NULL,jzmark varchar(10) NULL,"+&
+				"srmc1 varchar(60) NULL,srmc2 varchar(60) NULL,srmc3 varchar(60) NULL,srmc4 varchar(60) NULL,tzyear varchar(4) NULL,tzmonth varchar(2) NULL,"+&
+				"tzday varchar(2) NULL,bs varchar(5) NULL);"
+	execute immediate :mysql using sqlca;
+	myindex="CREATE UNIQUE INDEX z_cw_sjd_x ON djylrq.z_cw_sjd(sjid) ;"
+	execute immediate :myindex using sqlca ;	
+	
+//	mysql = "CREATE TABLE djylrq.a_aa(id int NOT NULL ,name varchar(30) NULL);"
+//    execute immediate :mysql using sqlca;
+//	 myindex="CREATE UNIQUE INDEX a_aa_x ON djylrq.a_aa(id) ;"
+//	execute immediate :myindex using sqlca ;	
+	
+	mysql = "CREATE TABLE djylrq.a_max_id(id varchar(20) NOT NULL,lb varchar(10) NULL,xh varchar(10) null);"
+	execute immediate :mysql using sqlca;
+	myindex="CREATE UNIQUE INDEX a_max_id_x ON djylrq.a_max_id(id) ;"
+	execute immediate :myindex using sqlca ;	
+	
+	
+	modsql = "alter table djylrq.z_rw_sb add bs varchar(1) NULL;"
+	execute immediate :modsql using sqlca;
+	
+END IF
+	////////z_rw_sb¼Ózcid dwid sjid
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.z_rw_sb add sfbs varchar(1) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_rw_sb add zcid numeric(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_rw_sb add dwid numeric(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_rw_sb add sjid varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table z_rw_sb add sfbs varchar(1) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_rw_sb add zcid numeric(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_rw_sb add dwid numeric(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_rw_sb add sjid varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+
+//ÊÕ¾ÝÃ÷Ï¸ÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_sjd_mx"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_sjd_mx(sjid,sfxm,sl,dw,je,jkr,jkfs) as select sjid,srmc1,sl1,dw1,je1,jkr,jkfs from "+&
+	        "z_cw_sjd union select sjid,srmc2,sl2,dw2,je2,jkr,jkfs from z_cw_sjd where srmc2 <> '' and srmc2 is not null "+&
+			  "union select sjid,srmc3,sl3,dw3,je3,jkr,jkfs from z_cw_sjd where srmc3 <> '' and srmc3 is not null"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_sjd_mx"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_sjd_mx(sjid,sfxm,sl,dw,je,jkr,jkfs) as select sjid,srmc1,sl1,dw1,je1,jkr,jkfs from "+&
+	        "z_cw_sjd union select sjid,srmc2,sl2,dw2,je2,jkr,jkfs from z_cw_sjd where srmc2 <> '' and srmc2 is not null "+&
+			  "union select sjid,srmc3,sl3,dw3,je3,jkr,jkfs from z_cw_sjd where srmc3 <> '' and srmc3 is not null"
+	execute immediate :mysql using sqlca;
+end if
+
+//z_cw_sjd ¼Óryid,ks×Ö¶Î¼ÇÂ¼ÈËÔ±ËùÔÚ¿ÆÊÒ
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.z_cw_sjd add ryid varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_cw_sjd add ks varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table z_cw_sjd add ryid varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_cw_sjd add ks varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+
+
+//Éè±¸ÁÙÊ±±í
+IF mark = 'sqlserver' THEN
+	mysql = "CREATE TABLE djylrq.z_rw_sb_temp(ID numeric(10,0) identity(1,1) not null,jytype varchar(10) null);"
+   execute immediate :mysql using sqlca;
+	myindex="CREATE UNIQUE INDEX z_rw_sb_temp_x ON djylrq.z_rw_sb_temp(ID) ;"
+	execute immediate :myindex using sqlca ;	
+end if 
+
+//ÊÕ¾ÝÍ³¼ÆÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_sjd_tj_temp"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_sjd_tj_temp(sjid,sfxm,sl,dw,je,djbid,tzrq,ks,jkr,jymlid,jylbid) as select sjid,"+&
+	        "srmc1,sl1,dw1,je1,sfbz4,(tzyear + '-' + tzmonth + '-' + tzday),ks,jkr,srmca1,srmcb1 from z_cw_sjd where "+&
+			  "mark = 'Ê¹ÓÃ' union select sjid,srmc2,sl2,dw2,je2,sfbz4,(tzyear + '-' + tzmonth + '-' + tzday),ks,jkr,"+&
+			  "srmca2,srmcb2 from z_cw_sjd where mark = 'Ê¹ÓÃ' and srmc2 <> '' and srmc2 is not null union select sjid,"+&
+			  "srmc3,sl3,dw3,je3,sfbz4,(tzyear + '-' + tzmonth + '-' + tzday),ks,jkr,srmca3,srmcb3 from z_cw_sjd "+&
+           "where mark = 'Ê¹ÓÃ' and srmc3 <> '' and srmc3 is not null"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_sjd_tj_temp"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_sjd_tj_temp(sjid,sfxm,sl,dw,je,djbid,tzrq,ks,jkr,jymlid,jylbid) as select sjid,"+&
+	        "srmc1,sl1,dw1,je1,sfbz4,(tzyear + '-' + tzmonth + '-' + tzday),ks,jkr,srmca1,srmcb1 from z_cw_sjd where "+&
+			  "mark = 'Ê¹ÓÃ' union select sjid,srmc2,sl2,dw2,je2,sfbz4,(tzyear + '-' + tzmonth + '-' + tzday),ks,jkr,"+&
+			  "srmca2,srmcb2 from z_cw_sjd where mark = 'Ê¹ÓÃ' and srmc2 <> '' and srmc2 is not null union select sjid,"+&
+			  "srmc3,sl3,dw3,je3,sfbz4,(tzyear + '-' + tzmonth + '-' + tzday),ks,jkr,srmca3,srmcb3 from z_cw_sjd "+&
+           "where mark = 'Ê¹ÓÃ' and srmc3 <> '' and srmc3 is not null"
+	execute immediate :mysql using sqlca;
+end if
+//Í³¼Æ½á¹û²é¿´Éè±¸
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_sjd_tj_sb"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_sjd_tj_sb(jkr,ks,jymlid,jylbid,djid,zcid,tzrq) as SELECT z_cw_sjd.jkr,z_cw_sjd.ks,"+&   
+           "z_rw_sb.jymlid,z_rw_sb.jylbid,z_rw_sb.djid,z_rw_sb.zcid,(z_cw_sjd.tzyear + '-' + z_cw_sjd.tzmonth + '-' + "+&
+			  "z_cw_sjd.tzday) FROM z_rw_sb,z_cw_sjd  WHERE ( z_rw_sb.sjid = z_cw_sjd.sjid )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_sjd_tj_sb"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_sjd_tj_sb(jkr,ks,jymlid,jylbid,djid,zcid,tzrq) as SELECT z_cw_sjd.jkr,z_cw_sjd.ks,"+&   
+           "z_rw_sb.jymlid,z_rw_sb.jylbid,z_rw_sb.djid,z_rw_sb.zcid,(z_cw_sjd.tzyear + '-' + z_cw_sjd.tzmonth + '-' + "+&
+			  "z_cw_sjd.tzday) FROM z_rw_sb,z_cw_sjd  WHERE ( z_rw_sb.sjid = z_cw_sjd.sjid )"
+	execute immediate :mysql using sqlca;
+end if
+
+
+//z_rw_sb_temp ¼Óje
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.z_rw_sb_temp add je varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_rw_sb add mx varchar(200) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_cw_sjd add zfsj varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_cw_sjd add fph varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_cw_sjd add sydw varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table z_rw_sb_temp add je varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_rw_sb add mx varchar(200) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_cw_sjd add zfsj varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_cw_sjd add fph varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_cw_sjd add sydw varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+
+
+//Éè±¸Ô¤¾¯
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_sb_yjsb_total"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_sb_yjsb_total (cpid,sydw,djid,sbmc,zcid,jyid,jytype,jydate,nextdate,lbid ) AS SELECT "+&
+	        "glc_tzsb.cpid,glc_tzsb.sydw, glc_tzsb.djid,glc_tzsb.sbmc,glc_tzsb.zcid,b_jy_total.jyid,b_jy_total.jytype,"+& 
+	        "b_jy_total.jydate,nextyear + '-' + nextmonth + '-' + nextday,a_bgml.lbid FROM b_jy_total,glc_tzsb,a_bgml "+& 
+			  "WHERE ( b_jy_total.cpid = glc_tzsb.cpid and b_jy_total.jytype = a_bgml.jytype and "+&
+			  "( a_bgml.lbid like 'dt%' or a_bgml.lbid like 'qzj%' or a_bgml.lbid like 'cc%' or a_bgml.lbid like 'sd%' or a_bgml.lbid like 'yl%')) union SELECT glc_ylrq.cpid,"+&
+			  "glc_ylrq.sydw,glc_ylrq.djid,glc_ylrq.rqmc,glc_ylrq.zcid,b_jy_total.jyid,b_jy_total.jytype,"+&
+			  "b_jy_total.jydate,nextyear + '-' + nextmonth + '-' + nextday,a_bgml.lbid FROM b_jy_total,glc_ylrq,a_bgml "+& 
+			  "WHERE ( b_jy_total.cpid = glc_ylrq.cpid and b_jy_total.jytype = a_bgml.jytype and a_bgml.lbid like 'rq%' ) union SELECT glc_gg.cpid,"+&
+			   "glc_gg.sydw,glc_gg.djid,glc_gg.sbflmc,glc_gg.zcid,b_jy_total.jyid,b_jy_total.jytype,"+&
+			  "b_jy_total.jydate,nextyear + '-' + nextmonth + '-' + nextday,a_bgml.lbid FROM b_jy_total,glc_gg,a_bgml "+& 
+			  "WHERE ( b_jy_total.cpid = glc_gg.cpid and b_jy_total.jytype = a_bgml.jytype and (b_jy_total.jytype like 'D%' or b_jy_total.jytype like 'F%') ) union SELECT glc_dzgl.cpid,"+&
+			   "glc_dzgl.sydw,glc_dzgl.djid,glc_dzgl.sbflmc,glc_dzgl.zcid,b_jy_total.jyid,b_jy_total.jytype,"+&
+			  "b_jy_total.jydate,nextyear + '-' + nextmonth + '-' + nextday,a_bgml.lbid FROM b_jy_total,glc_dzgl,a_bgml "+& 
+			  "WHERE ( b_jy_total.cpid = glc_dzgl.cpid and b_jy_total.jytype = a_bgml.jytype and b_jy_total.jytype like 'A%' ) union SELECT glc_gygd.cpid,"+&
+			   "glc_gygd.sydw,glc_gygd.djid,glc_gygd.gdmc,glc_gygd.zcid,b_jy_total.jyid,b_jy_total.jytype,"+&
+			  "b_jy_total.jydate,nextyear + '-' + nextmonth + '-' + nextday,a_bgml.lbid FROM b_jy_total,glc_gygd,a_bgml "+& 
+			  "WHERE ( b_jy_total.cpid = glc_gygd.cpid and b_jy_total.jytype = a_bgml.jytype and a_bgml.lbid like 'gd%' ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_sb_yjsb_total"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_sb_yjsb_total (cpid,sydw,djid,sbmc,zcid,jyid,jytype,jydate,nextdate ) AS SELECT "+&
+	        "glc_tzsb.cpid,glc_tzsb.sydw, glc_tzsb.djid,glc_tzsb.sbmc,glc_tzsb.zcid,b_jy_total.jyid,b_jy_total.jytype,"+& 
+	        "b_jy_total.jydate,nextyear + '-' + nextmonth + '-' + nextday FROM b_jy_total,glc_tzsb WHERE ( b_jy_total.cpid = glc_tzsb.cpid ) "
+	execute immediate :mysql using sqlca;
+end if
+
+
+   
+           
+             
+
+
+
+
+   
+           
+             
+
+
+end subroutine
+

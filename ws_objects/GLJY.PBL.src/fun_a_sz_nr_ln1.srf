@@ -1,0 +1,834 @@
+﻿$PBExportHeader$fun_a_sz_nr_ln1.srf
+global type fun_a_sz_nr_ln1 from function_object
+end type
+
+forward prototypes
+global subroutine fun_a_sz_nr_ln1 ()
+end prototypes
+
+global subroutine fun_a_sz_nr_ln1 ();long ll_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+string qzjmark
+select qzjmark into :qzjmark from a_jydw;
+///////////////////////////////////////////////
+string id 
+DECLARE temp1 CURSOR FOR
+SELECT id
+FROM a_bgml where id > '2111' ORDER BY id; 
+OPEN temp1;
+FETCH temp1 INTO :id;
+do while sqlca.sqlcode = 0
+	DELETE FROM a_bgml WHERE id = :id;
+FETCH temp1 INTO :id;
+LOOP
+CLOSE temp1;	
+////////////////////////////////////////Î£ÏÕ»¯Ñ§Æ·ÔËÊä¹Þ³µ¼ìÑé±¨¸æ////////////////////////////////////////
+insert into a_jyml_id (Id,Mc) values ('6h','Î£ÏÕ»¯Ñ§Æ·ÔËÊä¹Þ³µ');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('6h','120','Î£ÏÕ»¯Ñ§Æ·ÔËÊä¹Þ³µ','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2112','dj','6h2','Î£ÏÕ»¯Ñ§Æ·ÔËÊä¹Þ³µ¼ìÑé±¨¸æ');		
+////////////////////////////////////////ÇÅ(ÃÅ)Ê½ÆðÖØ»úÖÆÔì¼à¼ìÏîÄ¿±í////////////////////////////////////////
+insert into a_bgml (id,jymk,jytype,typename) values ('2113','jj','Vp','ÇÅ(ÃÅ)Ê½ÆðÖØ»ú¼à¼ìÏîÄ¿±í');		
+////////////////////////////////////////ËþÊ½ÆðÖØ»úÖÆÔì¼à¼ìÏîÄ¿±í////////////////////////////////////////
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('T','121','ËþÊ½ÆðÖØ»ú','ÖÆÔì¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2114','jj','Tp','ËþÊ½ÆðÖØ»ú¼à¼ìÏîÄ¿±í');
+insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Tp','01','ÏîÄ¿±íÒ»','','','dw_qzj_ts_zzjj','','') ; 
+insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Tp','02','ÏîÄ¿±í¶þ','','','dw_qzj_ts_zzjj1','','') ; 
+////////////////////////////////////////ÃÅ×ùÊ½ÆðÖØ»ú¼à¼ìÏîÄ¿±í////////////////////////////////////////
+insert into a_bgml (id,jymk,jytype,typename) values ('2115','jj','Wp','ÃÅ×ùÊ½ÆðÖØ»ú¼à¼ìÏîÄ¿±í');	
+insert into a_sz_nr (jytype,xh,nr,dw,fy) values ('Wp','01','ÏîÄ¿±íÒ»','dw_jj_mzxmb1','¸½Ò³') ;
+insert into a_sz_nr (jytype,xh,nr,dw,fy) values ('Wp','02','ÏîÄ¿±í¶þ','dw_jj_mzxmb2','¸½Ò³') ;
+////////////////////////////////////////Ê©¹¤Éý½µ»úÖÆÔì¼à¼ìÏîÄ¿±í////////////////////////////////////////
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('U','122','Ê©¹¤Éý½µ»ú','ÖÆÔì¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2116','jj','Up','Ê©¹¤Éý½µ»ú¼à¼ìÏîÄ¿±í');	
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Up','01','ÏîÄ¿±íÒ»','dw_jj_sgsjj_xmb1');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Up','02','ÏîÄ¿±í¶þ','dw_jj_sgsjj_xmb2');
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+insert into a_jyml_id (id,mc) values ('`','ÀÂË÷ÆðÖØ»ú');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('`','123','ÀÂË÷ÆðÖØ»ú','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2117','dj','`c','ÀÂË÷ÆðÖØ»ú¶¨ÆÚ¼ìÑé');	
+insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','01','±¨¸æ·âÆ¤','dw_qzj_ls_dq1');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','02','¼ìÑé½áÂÛ','dw_qzj_ls_dq2');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','03','½áÂÛ±¨¸æ','dw_qzj_ls_dq3');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','04','¸½Ò³1','dw_qzj_ls_dq4');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','05','¸½Ò³2','dw_qzj_ls_dq5');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','06','¸½Ò³3','dw_qzj_ls_dq6');
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+insert into a_bgml (id,jymk,jytype,typename) values ('2118','dj','Hc','³§³µ¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2119','aj','Ho','³§³µÑéÊÕ¼ìÑé');
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('`','124','ÀÂË÷ÆðÖØ»ú','°²×°¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2200','aj','`d','ÀÂË÷ÆðÖØ»ú°²×°¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2201','aj','`?','ÀÂË÷ÆðÖØ»ú°²×°¼à¼ìÏîÄ¿±í');
+/////////////////////////////¹¤Òµ¹øÂ¯Ë®ÖÊ¼à²â±¨¸æ
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('=','70','Ë®ÖÊ¼à²â','qj');
+insert into a_jylb_id(id,mc) values('=','Ë®ÖÊ¼à²â');
+insert into a_bgml(id,jymk,jytype,typename) values('2202','qj','D=','¹¤Òµ¹øÂ¯Ë®ÖÊ¼à²â');
+//delete from a_sz_nr where jytype like 'D=';
+//if pos(qzjmark,'D=')<>0 then //¹óÖÝÊ¡¹øÂ¯Ñ¹Á¦ÈÝÆ÷¼ìÑéÖÐÐÄ
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D=','01','Ë®ÖÊ¼à²â','¸½Ò³','dat_qj_sz_bg_gy');//¹óÖÝ
+//else
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D=','01','Ë®ÖÊ¼à²â','¸½Ò³','dat_qj_sz_bg');//±ê×¼
+//end if 
+//////////////////////////////////////µçÕ¾¹øÂ¯Í£Â¯Ë®´¦Àí
+insert into a_bgml (id,jymk,jytype,typename) values('2203','dj','A}','µçÕ¾¹øÂ¯Í£Â¯Ë®´¦Àí¼ìÑé');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('A}','01','±¨¸æ·âÆ¤','','dat_tl_scl_fp');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('A}','02','×¢ÒâÊÂÏî','','dat_tl_scl_zysx');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('A}','03','½áÂÛ±¨¸æ','','dat_tl_scl_jyjl');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('A}','04','¸½Ò³Ò»','','dat_tl_scl_fy1');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('A}','05','¸½Ò³¶þ','','dat_tl_scl_fy2');
+/////////////////////////////////////
+insert into a_bgml (id,jymk,jytype,typename) values ('2204','jj','Tw','ËþÊ½ÆðÖØ»ú¼à¼ìÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw,fcy,fy,ct) values ('tw','01','Ö¤Êé','dat_qzj_zs','','¸½Ò³','¸ÖÓ¡');
+///////////////////////////¼ÜÇÅ»ú¶¨ÆÚ¡¢°²×°¼°ÏîÄ¿±í
+insert into a_jyml_id(id,mc) values ('Va','¼ÜÇÅ»ú');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('Va','125','¼ÜÇÅ»ú','¶¨ÆÚ¼ìÑé');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('Va','126','¼ÜÇÅ»ú','°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2205','dj','Vac','¼ÜÇÅ»ú¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2206','aj','Vad','¼ÜÇÅ»ú°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2207','aj','Va?','¼ÜÇÅ»ú°²×°¼à¼ìÏîÄ¿±í');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Vad','10','º¸·ìÉäÏß','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Vad','11','º¸·ì³¬Éù²¨','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Vad','12','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Vad','13','ÎÞËð¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Vad','14','²âºñ¼ìÑé','·Ö³öÒ³','¸½Ò³','','','') ;	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Vad','15','Ó²¶È²âÊÔ','·Ö³öÒ³','¸½Ò³','','','') ; 	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Vad','16','ÁÑÎÆ¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Vad','18','¹âÆ×·ÖÎö','·Ö³öÒ³','¸½Ò³','','','') ; 
+///////////////////////////Î¦¸ËÆðÖØ»ú¶¨ÆÚ¼ìÑé±¨¸æ
+insert into a_jyml_id (id,mc) values ('`q','Î¦¸ËÆðÖØ»ú');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('`q','127','Î¦¸ËÆðÖØ»ú','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2208','dj','`qc','Î¦¸ËÆðÖØ»ú¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2209','dj','`q!','Î¦¸ËÆðÖØ»úÊ×¼ì¼ìÑé');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('`q','125','Î¦¸ËÆðÖØ»ú','°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2218','aj','`qd','Î¦¸ËÆðÖØ»ú°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2219','aj','`q?','Î¦¸ËÆðÖØ»ú°²×°¼à¼ìÏîÄ¿±í');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('`qd','09','º¸·ìÉäÏß','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('`qd','10','º¸·ì³¬Éù²¨','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('`qd','11','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('`qd','12','ÎÞËð¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('`qd','13','²âºñ¼ìÑé','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('`qd','14','Ó²¶È²âÊÔ','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('`qd','15','ÁÑÎÆ¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('`qd','16','ÄÚ¿ú¾µ¼ìÑé','·Ö³öÒ³','¸½Ò³','','','') ; 	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('`qd','17','¹âÆ×·ÖÎö','·Ö³öÒ³','¸½Ò³','','','') ; 
+///////////////////////////ÌØÖÖÉè±¸¼ìÑé¹¤×÷Òâ¼ûÍ¨ÖªÊé£¨1£©
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('-','100','¹¤×÷Òâ¼ûÍ¨ÖªÊé(1)','dj');
+insert into a_jylb_id(id,mc) values('-','¹¤×÷Òâ¼ûÍ¨ÖªÊé(1)');
+insert into a_bgml (id,jymk,jytype,typename) values ('2210','dj','9-','ÌØÖÖÉè±¸¹¤×÷Òâ¼ûÍ¨ÖªÊé(1)');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('9-','01','Í¨ÖªÊé','dw_dj_tzsb_tzs2');
+///////////////////////////ÌØÖÖÉè±¸¼ìÑé¹¤×÷Òâ¼ûÍ¨ÖªÊé£¨2£©
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('+','101','¹¤×÷Òâ¼ûÍ¨ÖªÊé(2)','dj');
+insert into a_jylb_id(id,mc) values('+','¹¤×÷Òâ¼ûÍ¨ÖªÊé(2)');
+insert into a_bgml (id,jymk,jytype,typename) values ('2211','dj','9+','ÌØÖÖÉè±¸¹¤×÷Òâ¼ûÍ¨ÖªÊé(2)');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('9+','01','Í¨ÖªÊé','dw_dj_tzsb_tzs1');
+///////////////////////////µçÌÝÌØÖÖÉè±¸¼ìÑé¹¤×÷Òâ¼ûÍ¨ÖªÊé
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('B9','1014','µçÌÝÌØÖÖÉè±¸','dj');
+insert into a_jyml_id(id,mc) values('B9','µçÌÝÌØÖÖÉè±¸¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2313','dj','B9@','µçÌÝÌØÖÖÉè±¸¼ìÑéÒâ¼ûÊé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('B9@','01','Í¨ÖªÊé','dw_dj_tzsb_tzs1_dt');
+///////////////////////////¹øÂ¯²úÆ·°²È«ÐÔÄÜ¼à¶½¼ìÑéÖ¤Êé/////////////////////////////////////////
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7a','1015','¹øÂ¯²úÆ·°²È«ÐÔÄÜ','jj');
+insert into a_jyml_id(id,mc) values('7a','¹øÂ¯²úÆ·°²È«ÐÔÄÜ');
+insert into a_bgml (id,jymk,jytype,typename) values ('2314','jj','7aw','¹øÂ¯²úÆ·°²È«ÐÔÄÜ¼à¼ìÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7aw','01','¹øÂ¯¼à¼ìÖ¤Êé','jj_nezs_xa');
+///////////////////////////Æû³µÓÃÑ¹ËõÌìÈ»Æø½ðÊôÄÚµ¨ÏËÎ¬ºÏ¸ñÖ¤Êé
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7b','1016','Æû³µÓÃÑ¹ËõÌìÈ»Æø','dj');
+insert into a_jyml_id(id,mc) values('7b','Æû³µÓÃÑ¹ËõÌìÈ»Æø');
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('<','102','ºÏ¸ñÖ¤Êé','dj');
+insert into a_jylb_id(id,mc) values('<','ºÏ¸ñÖ¤Êé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2315','dj','7b<','Æû³µÓÃÑ¹ËõÌìÈ»ÆøºÏ¸ñÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7b<','01','Æû³µÓÃÑ¹ËõÌìÈ»ÆøºÏ¸ñÖ¤Êé','dat_qcxwcr_zs');
+///////////////////////////³µÓÃÆøÆ¿°²×°¼à¶½¼ìÑéÖ¤Êé
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7c','1017','³µÓÃÆøÆ¿°²×°','aj');
+insert into a_jyml_id(id,mc) values('7c','³µÓÃÆøÆ¿°²×°');
+insert into a_bgml (id,jymk,jytype,typename) values ('2316','aj','7cw','³µÓÃÆøÆ¿°²×°¼à¶½¼à¼ìÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7cw','01','³µÓÃÆøÆ¿°²×°¼à¶½¼à¼ìÖ¤Êé','dat_cyqpaz_zs');
+///////////////////////////³µÓÃÆøÆ¿°²×°¼à¶½¼ìÑéÖ¤Êé(¶àÆ¿)
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7d','1018','³µÓÃÆøÆ¿°²×°(¶àÆ¿)','aj');
+insert into a_jyml_id(id,mc) values('7d','³µÓÃÆøÆ¿°²×°(¶àÆ¿)');
+insert into a_bgml (id,jymk,jytype,typename) values ('2317','aj','7dw','³µÓÃÆøÆ¿°²×°¼à¶½ºÏ¸ñÖ¤Êé(¶àÆ¿)');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7dw','01','³µÓÃÆøÆ¿Ö¤Êé(¶àÆ¿)','dat_cyqpaz_dp_zs');
+///////////////////////////¸ÖÖÊº¸½Ó¸ÖÆ¿¶¨ÆÚ¼ìÑéºÏ¸ñÖ¤Êé
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7e','1019','¸ÖÖÊº¸½Ó¸ÖÆ¿','jj');
+insert into a_jyml_id(id,mc) values('7e','¸ÖÖÊº¸½Ó¸ÖÆ¿');
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('<','105','ºÏ¸ñÖ¤Êé','dj');
+insert into a_jylb_id(id,mc) values('<','ºÏ¸ñÖ¤Êé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2318','dj','7e<','¸ÖÖÊº¸½Ó¸ÖÆ¿¶¨ÆÚºÏ¸ñÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7e<','01','¸ÖÖÊº¸½Ó¸ÖÆ¿Ö¤Êé','dat_gzhjgp_zs');
+///////////////////////////ÂÁºÏ½ð¸ÖÆ¿¶¨ÆÚ¼ìÑé¸ñºÏ¸ñÖ¤Êé
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7f','1020','ÂÁºÏ½ð¸ÖÆ¿','jj');
+insert into a_jyml_id(id,mc) values('7f','ÂÁºÏ½ð¸ÖÆ¿');
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('<','106','ºÏ¸ñÖ¤Êé','dj');
+insert into a_jylb_id(id,mc) values('<','ºÏ¸ñÖ¤Êé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2319','dj','7f<','ÂÁºÏ½ð¸ÖÆ¿¶¨ÆÚºÏ¸ñÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7f<','01','ÂÁºÏ½ð¸ÖÆ¿Ö¤Êé','dat_lhjgp_zs');
+///////////////////////////ÈÜ½âÒÒÈ²¸ÖÆ¿¶¨ÆÚ¼ìÑéºÏ¸ñÖ¤Êé
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7g','1021','ÈÜ½âÒÒÈ²¸ÖÆ¿','jj');
+insert into a_jyml_id(id,mc) values('7g','ÈÜ½âÒÒÈ²¸ÖÆ¿');
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('<','107','ºÏ¸ñÖ¤Êé','dj');
+insert into a_jylb_id(id,mc) values('<','ºÏ¸ñÖ¤Êé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2320','dj','7g<','ÈÜ½âÒÒÈ²¸ÖÆ¿¶¨ÆÚºÏ¸ñÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7g<','01','ÈÜ½âÒÒÈ²¸ÖÆ¿Ö¤Êé','dat_rjyqgp_zs');
+///////////////////////////Æû³µÓÃÑ¹ËõÌìÈ»Æø¸ÖÆ¿¶¨ÆÚ¼ìÑéºÏ¸ñÖ¤Êé
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7H','1021','Æû³µÓÃÑ¹ËõÌìÈ»Æø¸ÖÆ¿','jj');
+insert into a_jyml_id(id,mc) values('7H','Æû³µÓÃÑ¹ËõÌìÈ»Æø¸ÖÆ¿');
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('<','108','ºÏ¸ñÖ¤Êé','dj');
+insert into a_jylb_id(id,mc) values('<','ºÏ¸ñÖ¤Êé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2321','dj','7H<','Æû³µÓÃÑ¹ËõÌìÈ»Æø¸ÖÆ¿¶¨ÆÚºÏ¸ñÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7H<','01','Æû³µÓÃÑ¹ËõÌìÈ»Æø¸ÖÆ¿Ö¤Êé','dat_qcygp_zs');
+///////////////////////////¸ÖÖÊÎÞ·ì¸ÖÆ¿¶¨ÆÚ¼ìÑéºÏ¸ñÖ¤Êé
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7I','1022','¸ÖÖÊÎÞ·ì¸ÖÆ¿','dj');
+insert into a_jyml_id(id,mc) values('7I','¸ÖÖÊÎÞ·ì¸ÖÆ¿');
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('<','109','ºÏ¸ñÖ¤Êé','dj');
+insert into a_jylb_id(id,mc) values('<','ºÏ¸ñÖ¤Êé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2322','dj','7I<','¸ÖÖÊÎÞ·ì¸ÖÆ¿¶¨ÆÚºÏ¸ñÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7I<','01','¸ÖÖÊÎÞ·ì¸ÖÆ¿Ö¤Êé','dat_gzwfgp_zs');
+///////////////////////////Òº»¯Ê¯ÓÍÆø¸ÖÆ¿¶¨ÆÚ¼ìÑéºÏ¸ñÖ¤Êé
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values('7J','1023','Òº»¯Ê¯ÓÍÆø¸ÖÆ¿','dj');
+insert into a_jyml_id(id,mc) values('7J','Òº»¯Ê¯ÓÍÆø¸ÖÆ¿');
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('<','109','ºÏ¸ñÖ¤Êé','dj');
+insert into a_jylb_id(id,mc) values('<','ºÏ¸ñÖ¤Êé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2323','dj','7J<','Òº»¯Ê¯ÓÍÆø¸ÖÆ¿¶¨ÆÚºÏ¸ñÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('7J<','01','Òº»¯Ê¯ÓÍÆø¸ÖÆ¿Ö¤Êé','dat_yhsyqgp_zs');
+/////////////////////////////ÇòÐÎ´¢¹ÞÏÖ³¡×éº¸ÏîÄ¿±í
+insert into a_jyml_id (id,mc) values ('6i','ÇòÐÎ´¢¹ÞÏÖ³¡×éº¸');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('6i','1003','ÇòÐÎ´¢¹ÞÏÖ³¡×éº¸','ÖÆÔì¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2212','jj','6ip','ÇòÐÎ´¢¹ÞÏÖ³¡×éº¸¼à¼ìÏîÄ¿±í');	
+insert into a_bgml (id,jymk,jytype,typename) values ('2213','jj','6iw','ÇòÐÎ´¢¹ÞÏÖ³¡×éº¸¼à¼ìÖ¤Êé');	
+////////////³¤¹ÜÍÏ³µÏîÄ¿±í¼°Ö¤Êé
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values('p','942','¼à¼ìÏîÄ¿±í','ÖÆÔì¼à¼ì');
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values ('?','942','³¤¹ÜÍÏ³µ','ÖÆÔì¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2214','jj','?p','³¤¹ÜÍÏ³µ¼à¼ìÏîÄ¿±í');
+insert into a_bgml (id,jymk,jytype,typename) values ('2215','jj','?w','³¤¹ÜÍÏ³µ¼à¼ìÖ¤Êé');
+//////////////////////////////////////////////////////////////////µ¥ÁºÆðÖØ»úÏîÄ¿±í¼°°²×°
+insert into a_bgml (id,jymk,jytype,typename) values ('2216','aj','R?','µ¥ÁºÆðÖØ»ú°²×°¼à¼ìÏîÄ¿±í');
+insert into a_bgml (id,jymk,jytype,typename) values ('2217','aj','Rd','µ¥ÁºÆðÖØ»ú°²×°¼ìÑé');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rd','10','º¸·ìÉäÏß','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rd','11','º¸·ì³¬Éù²¨','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rd','12','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rd','13','ÎÞËð¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rd','14','²âºñ¼ìÑé','·Ö³öÒ³','¸½Ò³','','','') ;	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rd','15','Ó²¶È²âÊÔ','·Ö³öÒ³','¸½Ò³','','','') ; 	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rd','16','ÁÑÎÆ¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rd','18','¹âÆ×·ÖÎö','·Ö³öÒ³','¸½Ò³','','','') ; 
+////////////////////////////////////////////////////////////////////µçÌÝ¼à¶½
+insert into a_bgml (id,jymk,jytype,typename) values ('2221','aj','Be','µçÌÝ¼à¶½¼ìÑé');
+///////////////////////////////////////////////////////////////////ÓÐ»úÈÈÔØÌåÂ¯¶¨ÆÚ
+insert into a_bgml (id,jymk,jytype,typename) values ('2222','dj','Fc','ÓÐ»úÈÈÔØÌåÂ¯¶¨ÆÚ¼ìÑé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Fc','01','¶¨ÆÚ±¨¸æ','dat_dj_rztn') ;
+insert into a_bgml (id,jymk,jytype,typename) values ('2223','dj','|c','ÊªÕôÆû¶¨ÆÚ¼ìÑé');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','01','±¨¸æ·âÆ¤','','','szq_bgfp','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','02','±¨¸æÄ¿Â¼','','','szq_bgml','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','03','½áÂÛ±¨¸æ','','','szq_bgjyjl','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','04','Éó²é±¨¸æ','','','szq_bgsc','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','05','ÄÚÍâ²¿¼ì²é','','','szq_bgjybg','','') ;	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','06','Ó²¶È²â¶¨','·Ö³öÒ³','','szq_bgydjc','','') ; 	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','07','±Úºñ²â¶¨','·Ö³öÒ³','','szq_bgbhcd','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','08','ºê¹Û¼ì²é','·Ö³öÒ³','¸½Ò³','szq_bghgjc','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','09','¸øË®¼ìÑé','·Ö³öÒ³','¸½Ò³','szq_bggygs','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','10','¸½ÊôÉè±¸','·Ö³öÒ³','','szq_bgfssb','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','11','ÉäÏßÌ½ÉË','·Ö³öÒ³','','szq_bgsxjc','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','12','ÄÍÑ¹ÊÔÑé','·Ö³öÒ³','','szq_bgnysy','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','13','Õ¹¿ªÎ»ÖÃÍ¼','·Ö³öÒ³','¸½Ò³','szq_bggszk','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','14','¶ÔÁ÷Í¼1','·Ö³öÒ³','¸½Ò³','szq_bgdlgswz1','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','15','¶ÔÁ÷Í¼2','·Ö³öÒ³','¸½Ò³','szq_bgdlgswz2','','') ;	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('|c','16','Òâ¼ûÊé','','','szq_bgjyyjs','','') ; 	
+insert into a_jyml_id (id,mc) values ('yt','ÓÍÌï×¢Æû¹øÂ¯');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('yt','1004','ÓÍÌï×¢Æû¹øÂ¯','ÖÆÔì¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2224','jj','ytp','ÓÍÌï×¢Æû¹øÂ¯¼à¼ìÏîÄ¿±í');
+insert into a_bgml (id,jymk,jytype,typename) values ('2225','jj','ytw','ÓÍÌï×¢Æû¹øÂ¯¼à¼ìÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('ytp','01','ÏîÄ¿±íÒ»','dat_ytzqgl_xmb1') ;
+insert into a_sz_nr (jytype,xh,nr,dw) values ('ytp','02','ÏîÄ¿±í¶þ','dat_ytzqgl_xmb2') ;
+insert into a_sz_nr (jytype,xh,nr,dw) values ('ytw','01','Ö¤Êé','dw_ytzjgl_zs') ;
+/////////////////////////////·ÀÀ××°ÖÃ
+insert into a_jyml_id(id,mc) values ('Fl','·ÀÀ××°ÖÃ');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('Fl','150','·ÀÀ××°ÖÃ','¶¨ÆÚ¼à¼ì');
+insert into a_bgml(id,jymk,jytype,typename) values ('2226','dj','Fl2','·ÀÀ××°ÖÃ°²È«¼¼Êõ¼ì²â±¨¸æ');
+insert into a_bgml(id,jymk,jytype,typename) values ('2227','jj','Flv','·ÀÀ××°ÖÃ¼à¼ìÒâ¼ûÊé');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Flv','01','Í¨ÖªÊé','','','dw_flzz_tzs','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fl2','01','µÚÒ»Ò³','','','dw_flzz_fp','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fl2','02','µÚ¶þÒ³','','','dw_flzz_zysx','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fl2','03','µÚÈýÒ³','','','dw_flzz_qc1','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fl2','04','µÚËÄÒ³','','','dw_flzz_qc2','','') ;
+commit;
+///////////////////////////////////////////////////////////////////////////////////////////
+insert into a_jyml_id (Id,Mc) values ('Rd','ÈÈË®¹øÂ¯Ë®ÖÊ');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Rd','1005','ÈÈË®¹øÂ¯Ë®ÖÊ','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2228','dj','Rdc','ÈÈË®¹øÂ¯Ë®ÖÊ¼à²â±¨¸æ');	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rdc','01','·âÆ¤','','','b_rsglsz_fp','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rdc','02','×¢ÒâÊÂÏî','','','b_rsglsz_zysx','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Rdc','03','¼à²â±¨¸æ','','','b_rsglsz_bg','','') ;
+/////////////////////////////////////////////////////////////////////////////////////////////
+insert into a_jyml_id (Id,Mc) values ('Zd','ÕôÆû¹øÂ¯Ë®ÖÊ');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Zd','1006','ÕôÆû¹øÂ¯Ë®ÖÊ','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2229','dj','Zdc','ÕôÆû¹øÂ¯Ë®ÖÊ¼à²â±¨¸æ');	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Zdc','01','·âÆ¤','','','b_zqglsz_fp','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Zdc','02','×¢ÒâÊÂÏî','','','b_rsglsz_zysx','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Zdc','03','¼à²â±¨¸æ1','','','b_zqglsz_bg1','','') ;  
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Zdc','04','¼à²â±¨¸æ2','','','b_zqglsz_bg','','') ; 
+//////////////////////////////////////////////////////////////////////////////////////////
+insert into a_jyml_id (Id,Mc) values ('Ba','Ò·ÒýÇý¶¯ÎÞ»ú·¿µçÌÝ');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Ba','1007','Ò·ÒýÇý¶¯ÎÞ»ú·¿µçÌÝ','¼à¶½¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2231','aj','Bae','Ò·ÒýÇý¶¯ÎÞ»ú·¿µçÌÝ¼à¶½¼ìÑé');	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bae','01','·âÆ¤','','','dt_jd1_nm','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bae','02','×¢ÒâÊÂÏî','','','dt_jd2_nm','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bae','03','¼ìÑé±¨¸æ','','','dt_jd3_nm','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bae','04','¸½Ò³1','','','dt_jd4_nm','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bae','05','¸½Ò³2','','','dt_jd5_nm','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bae','06','¸½Ò³3','','','dt_jd6_nm','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bae','07','¸½Ò³4','','','dt_jd7_nm','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bae','08','¸½Ò³5','','','dt_jd8_nm','','') ; 
+//////////////////////////////////////////////////
+insert into a_jyml_id (Id,Mc) values ('Bb','Ò·ÒýÇý¶¯ÓÐ»ú·¿µçÌÝ');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Bb','1008','Ò·ÒýÇý¶¯ÓÐ»ú·¿µçÌÝ','¼à¶½¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2232','aj','Bbe','Ò·ÒýÇý¶¯ÓÐ»ú·¿µçÌÝ¼à¶½¼ìÑé');	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bbe','01','·âÆ¤','','','dt_jd1_nm','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bbe','02','×¢ÒâÊÂÏî','','','dt_jd2_nm','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bbe','03','¼ìÑé±¨¸æ','','','dt_jd3_nm','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bbe','04','¸½Ò³1','','','dt_yyyjf_jd4','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bbe','05','¸½Ò³2','','','dt_yyyjf_jd5','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bbe','06','¸½Ò³3','','','dt_yyyjf_jd6','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bbe','07','¸½Ò³4','','','dt_yyyjf_jd7','','') ;
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Bbe','08','¸½Ò³5','','','dt_yyyjf_jd8','','') ;
+///////////////////////////////////////////////////////
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Ba','1009','Ò·ÒýÇý¶¯ÎÞ»ú·¿µçÌÝ','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2233','dj','Bac','Ò·ÒýÇý¶¯ÎÞ»ú·¿µçÌÝ¶¨ÆÚ¼ìÑé');	
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Bb','1010','Ò·ÒýÇý¶¯ÓÐ»ú·¿µçÌÝ','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2234','dj','Bbc','Ò·ÒýÇý¶¯ÓÐ»ú·¿µçÌÝ¶¨ÆÚ¼ìÑé');	
+////////////////////////////////////////////////////////
+insert into a_jyml_id (Id,Mc) values ('Yl','ÓãÀ×¹Þ³µ');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Yl','1011','ÓãÀ×¹Þ³µ','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2235','dj','Ylc','ÓãÀ×¹Þ³µ¶¨ÆÚ¼ìÑé');	
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Ylc','01','±¨¸æ·âÆ¤','');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Ylc','02','×¢ÒâÊÂÏî','');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylc','03','±¨¸æÄ¿Â¼','','');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylc','04','½áÂÛ±¨¸æ','','');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylc','05','×ÊÁÏ±¨¸æ','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylc','06','×ßÐÐ»ú¹¹','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylc','07','Çã·­»ú¹¹','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylc','08','±Úºñ²â¶¨','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylc','09','³¬Éù²¨¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylc','10','´Å·Û¼ì²â','·Ö³öÒ³','¸½Ò³');
+////////////////////////////////////////////////////////
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Yl','1012','ÓãÀ×¹Þ³µ','ÑéÊÕ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2236','aj','Ylo','ÓãÀ×¹Þ³µÑéÊÕ¼ìÑé');	
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Ylo','01','±¨¸æ·âÆ¤','');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Ylo','02','×¢ÒâÊÂÏî','');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylo','03','±¨¸æÄ¿Â¼','','');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylo','04','½áÂÛ±¨¸æ','','');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylo','05','×ÊÁÏ±¨¸æ','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylo','06','×ßÐÐ»ú¹¹','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylo','07','Çã·­»ú¹¹','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylo','08','±Úºñ²â¶¨','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylo','09','³¬Éù²¨¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Ylo','10','´Å·Û¼ì²â','·Ö³öÒ³','¸½Ò³');
+/////////////////////////////////////////////////////////////////////////////////////////////
+insert into a_jyml_id (Id,Mc) values ('Tl','ÌúÂ·ÆðÖØ»ú');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Tl','1013','ÌúÂ·ÆðÖØ»ú','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2237','dj','Tlc','ÌúÂ·ÆðÖØ»ú¶¨ÆÚ¼ìÑé');	
+/////////////////////////////////////ÓÐ»úÈÈÔØÌå¹øÂ¯½éÖÊ¼à²â////////////////////////////////
+insert into a_jyml_id (id,mc,sh) values ('&a','ÓÐ»úÈÈÔØÌå¹øÂ¯¼à²â','');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('&a','999','ÓÐ»úÈÈÔØÌå¹øÂ¯¼à²â','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (Id,jymk,jytype,typename) values ('2310','dj','&ac','ÓÐ»úÈÈÔØÌå¹øÂ¯¼à²â¶¨ÆÚ¼ìÑé');
+insert into a_sz_nr(jytype,xh,nr,dw) values('&ac','01','±¨¸æ·âÆ¤','b_yjrztgljc_fp');
+insert into a_sz_nr(jytype,xh,nr,dw) values('&ac','02','×¢ÒâÊÂÏî','b_yjrztgljc_zysx');
+insert into a_sz_nr(jytype,xh,nr,dw) values('&ac','03','¼à²â±¨¸æ1','b_yjrztgljc_bg');
+insert into a_sz_nr(jytype,xh,nr,dw) values('&ac','04','¼à²â±¨¸æ2','b_yjrztgljc_bg1');
+////////////////////////////////////////³µÓÃÈ¼ÆøÆøÆ¿°²×°¼à¶½¼ìÑé±¨¸æ////////////////////////////////////////
+insert into a_jyml_id (Id,Mc) values ('6p','³µÓÃÈ¼ÆøÆøÆ¿');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('6p','1015','³µÓÃÈ¼ÆøÆøÆ¿','°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('2312','aj','6pd','³µÓÃÈ¼ÆøÆøÆ¿°²×°¼à¼ì');
+delete from a_sz_nr where jytype = '6pd';
+insert into a_sz_nr (jytype,xh,nr,dw) values ('6pd','01','·âÆ¤','dat_cyqp_fp');
+//insert into a_sz_nr (jytype,xh,nr,dw) values ('6pd','02','×¢ÒâÊÂÏî','dat_cyqp_zysx');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('6pd','02','ÏîÄ¿±íÒ»','dat_cyqp_xmb');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('6pd','03','Ö¤Êé','dat_cyrqqp_zs');
+//////////////////////////////////////Ñ¹Á¦ÈÝÆ÷(1)//////////////////////////////////Îª°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ×ö
+insert into a_jyml_id (id,mc) values ('I','Ñ¹Á¦ÈÝÆ÷(1)');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('I','810','Ñ¹Á¦ÈÝÆ÷(1)','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('8100','dj','Is','Ñ¹Á¦ÈÝÆ÷(1)¶¨ÆÚ¼ìÑé');
+delete from a_sz_nr where jytype = ')c';
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Is','04','½áÂÛ±¨¸æ','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Is','08','±Úºñ²â¶¨','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Is','10','ÉäÏß¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Is','11','³¬Éù²¨¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Is','12','´Å·Û¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Is','13','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Is','14','Éù·¢Éä¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Is','15','²ÄÁÏ·ÖÎö','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Is','16','Ó²¶È¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Is','17','½ðÏà·ÖÎö','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Is','18','ÄÍÑ¹ÊÔÑé','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Is','19','ÆøÃÜÊÔÑé','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Is','20','°²È«¸½¼þ','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Is','21','¸½¼Ó¼ì²â','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Is','22','¼ìÑé·½°¸','dat_ylrq_jyfa_fp');
+insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Is','23','¼ìÑé·½°¸','dat_ylrq_jyfa_nr','²åÍ¼');
+insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Is','24','Òâ¼ûÍ¨ÖªÊé','dat_ylrq_jyyjyzs','²åÍ¼');  
+///////////////////////////Éè±¸¼ìÑé½á¹û±¨¸æµ¥////////////ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù
+insert into a_jyml_id (id,mc) values (']','Éè±¸¼ìÑé');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values (']','811','Éè±¸¼ìÑé','ÆäËü¼ìÑé');
+insert into a_jylb_id (id,mc) values ('6','½á¹û±¨¸æµ¥');
+insert into a_jylb (jylbid,jylbdh,jylbmc,jymk) values ('6','811','½á¹û±¨¸æµ¥','ÆäËü¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('8101','qj',']6','Éè±¸¼ìÑé½á¹û±¨¸æµ¥');
+update a_sz_nr set jytype = ']6' where jytype = ']8';
+///////////////////////////////////////ÒÔÏÂÎªÌì½òÐÂÔö¼ÓµÄ±¨¸æ//////////////////////////////////////////
+//**¹¤Òµ¹øÂ¯ÐÞÀí¸ÄÔì¸Ä±äjytypeÓÉÔ­À´µÄ'De'±äÎª'D#'**//Ñ¹Á¦¹ÜµÀÔª¼þ£¬»úÐµÊ½Í£³µ£¬¼òÒ×Ê©¹¤Éý½µ»úÒ²ÊÇÌì½òÏÈÌá³öÀ´µÄ
+insert into a_jylb_id (id,mc) values ('#','ÐÞÀí£¨¸ÄÔì£©');
+insert into a_jylb (jylbid,jylbdh,jylbmc,jymk) values ('#','910','ÐÞÀí£¨¸ÄÔì£©','ÖÆÔì¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('9100','jj','D#','¹¤Òµ¹øÂ¯ÐÞÀí£¨¸ÄÔì£©');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D#','01','·âÆ¤','','dat_jj_gygl_fp');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D#','02','±¨¸æ1','¸½Ò³','dat_jj_gygl_xlbg');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D#','03','±¨¸æ2','¸½Ò³','dat_jj_gygl_xmb1');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D#','04','±¨¸æ3','¸½Ò³','dat_jj_gygl_xlbg1');
+//**²æ³µ¼à¶½¼ìÑé**//
+insert into a_bgml (id,jymk,jytype,typename) values ('9101','dj','>e','²æ³µ¼à¶½¼ìÑé');
+//**¸ß´¦×÷Òµ»úÐµ¼à¶½¼ìÑé**//
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('{','911','¸ß¿Õ×÷Òµ³µ','°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('9102','dj','{e','¸ß¿Õ×÷Òµ³µ¼à¶½¼ìÑé');
+//**Æû³µ¾ÙÉý»ú¶¨ÆÚ¼ìÑé**//
+insert into a_jyml_id (id,mc) values ('}','Æû³µ¾ÙÉý»ú');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('}','912','Æû³µ¾ÙÉý»ú','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('9103','dj','}c','Æû³µ¾ÙÉý»ú¶¨ÆÚ¼ìÑé');
+//**Éý½µÆðÖØ»ú¶¨ÆÚ¼ìÑé**//
+insert into a_jyml_id (id,mc) values ('^','Éý½µÆðÖØ»ú');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('^','913','Éý½µÆðÖØ»ú','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('9104','dj','^c','Éý½µÆðÖØ»ú¶¨ÆÚ¼ìÑé');
+///////////////////////////////////////ÒÔÏÂÎªÎ÷°²ÐÂÔö¼ÓµÄ±¨¸æ//////////////////////////////////////////
+insert into a_jylb (jylbid,jylbdh,jylbmc,jymk) values ('2','920','¼ìÑé±¨¸æ','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('9200','dj',':a2','ÔÚÓÃ¸ÖÖÊÎÞ·ìÆøÆ¿¼ìÑé±¨¸æÊé');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':a2','01','±¨¸æ·âÆ¤','¸½Ò³','dw_wfqp_fp');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':a2','02','Ä¿Â¼','¸½Ò³','dw_wfqp_ml');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':a2','03','ÏîÄ¿±íÒ»','¸½Ò³','dw_wfqp_xmb1');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':a2','04','ÏîÄ¿±í¶þ','¸½Ò³','dw_wfqp_xmb2');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':a2','05','ÏîÄ¿±íÈý','¸½Ò³','dw_wfqp_xmb3');
+///////////////////////////////////////ÔÚÓÃÆû³µÓÃÑ¹ËõÌìÈ»Æø¸ÖÆ¿¼ìÑé///////////////////////////////////////
+insert into a_jyml_id (id,mc) values ('Qc','ÌìÈ»Æø¸ÖÆ¿');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('Qc','921','ÌìÈ»Æø¸ÖÆ¿','¶¨ÆÚ¼ìÑé');
+insert into a_sz_nr(jytype,xh,nr,dw) values('Qc','01','¼ìÑé±¨¸æ','dat_qp_djbg');
+insert into a_bgml (id,jymk,jytype,typename) values ('9201','dj','Qc2','ÔÚÓÃÆû³µÓÃÑ¹ËõÌìÈ»Æø¸ÖÆ¿¼ìÑé±¨¸æÊé');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Qc2','01','±¨¸æ·âÆ¤','¸½Ò³','dw_trqp_fp');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Qc2','02','Ä¿Â¼','¸½Ò³','dw_trqp_ml');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Qc2','03','ÏîÄ¿±íÒ»','¸½Ò³','dw_trqp_xmb1');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Qc2','04','ÏîÄ¿±í¶þ','¸½Ò³','dw_trqp_xmb2');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Qc2','05','ÏîÄ¿±íÈý','¸½Ò³','dw_trqp_xmb3');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Qc2','06','ÏîÄ¿±íËÄ','¸½Ò³','dw_trqp_xmb4');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Qc2','07','ÏîÄ¿±íÎå','¸½Ò³','dw_trqp_xmb5');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Qc2','08','ÏîÄ¿±íÁù','¸½Ò³','dw_trqp_xmb6');
+///////////////////////////////////////¼òÒ×ÌáÉý»ú°²×°¼à¼ì///////////////////////////////////////
+insert into a_jyml_id (id,mc) values ('*','¼òÒ×ÌáÉý»ú');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('*','922','¼òÒ×ÌáÉý»ú','°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('9202','aj','*d','¼òÒ×ÌáÉý»ú°²×°¼à¼ì');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('*d','01','±¨¸æ·âÆ¤','¸½Ò³','dat_jyhwtsj_table');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('*d','02','×¢ÒâÊÂÏî','¸½Ò³','dat_jyhwtsj_table1');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('*d','03','µÚÒ»Ò³','¸½Ò³','dat_jyhwtsj_table2');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('*d','04','µÚ¶þÒ³','¸½Ò³','dat_jyhwtsj_table3');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('*d','05','µÚÈýÒ³','¸½Ò³','dat_jyhwtsj_table4');
+///////////////////////////////////////Ðý±ÛÆðÖØ»ú°²×°¼à¼ì///////////////////////////////////////
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('$','923','Ðý±ÛÆðÖØ»ú','°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('9203','aj','$d','Ðý±ÛÆðÖØ»ú°²×°¼à¼ì');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('$d','01','±¨¸æ·âÆ¤','¸½Ò³','dat_xbqzj_table_xa');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('$d','02','×¢ÒâÊÂÏî','¸½Ò³','dat_xbqzj_zysx_table_xa');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('$d','03','µÚÒ»Ò³','¸½Ò³','dat_xbqzj_jybg_table_xa');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('$d','04','µÚ¶þÒ³','¸½Ò³','dat_xbqzj_jybg1_table_xa');
+///////////////////////////////////////½¨ÖþÎïÁÏÌáÉý»ú°²×°¼à¼ì///////////////////////////////////
+insert into a_jyml_id (id,mc) values ('\','½¨ÖþÎïÁÏÌáÉý»ú');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('\','924','½¨ÖþÎïÁÏÌáÉý»ú','°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('9204','aj','\d','½¨ÖþÎïÁÏÌáÉý»ú°²×°¼à¼ì');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('\d','01','±¨¸æ·âÆ¤','¸½Ò³','dat_jzwltsj_table_xa');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('\d','02','×¢ÒâÊÂÏî','¸½Ò³','dat_jzwltsj_zysx_table_xa');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('\d','03','µÚÒ»Ò³','¸½Ò³','dat_jzwltsj_jybg_table_xa');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('\d','04','µÚ¶þÒ³','¸½Ò³','dat_jzwltsj_jybg1_table_xa');
+///////////////////////////////////////µç¶¯ºùÂ«°²×°¼à¼ì///////////////////////////////////
+insert into a_bgml (id,jymk,jytype,typename) values ('9205','aj','/d','µç¶¯ºùÂ«°²×°¼à¼ì');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('/d','01','±¨¸æ·âÆ¤','¸½Ò³','dat_ddhl_table_fp');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('/d','02','×¢ÒâÊÂÏî','¸½Ò³','dat_ddhl_zysx_table');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('/d','03','µÚÒ»Ò³','¸½Ò³','dat_ddhl_jybg_table');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('/d','04','µÚ¶þÒ³','¸½Ò³','dat_ddhl_jybg1_table');
+/////////////////////////////Ñ¹Á¦±í¼à¼ìÖ¤Êé///////////////////////////////////////////////
+insert into a_jyml_id(id,mc) values (':','Ñ¹Á¦±í');
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values (':','926','Ñ¹Á¦±í','');
+insert into a_bgml(id,jymk,jytype,typename) values ('9206','jj',':w','Ñ¹Á¦±í¼à¼ìÖ¤Êé');
+/////////////////////////////ÆäËüÉè±¸Ë®ÆûÖÊÁ¿¼à²â/////////////////////////////////////////
+insert into a_jylb_id (Id,Mc) values ('$','Ë®ÆûÖÊÁ¿¼à²â');
+insert into a_jylb (jylbid,jylbdh,jylbmc,jymk) values ('$','927','Ë®ÆûÖÊÁ¿¼à²â','ÆäËü¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('9207','qj','Z$','ÆäËüÉè±¸Ë®ÆûÖÊÁ¿¼à²â');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Z$','01','Ë®Æû¼à²â','¸½Ò³','dat_sqzl1');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Z$','02','¸øË®¼à²â','¸½Ò³','dat_sqzl2');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Z$','03','Â¯Ë®¼à²â','¸½Ò³','dat_sqzl3');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Z$','04','±¥ºÍ¼à²â','¸½Ò³','dat_sqzl4');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Z$','05','¹ýÈÈ¼à²â','¸½Ò³','dat_sqzl5');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Z$','06','Äý½áË®¼à²â','¸½Ò³','dat_sqzl6');
+/////////////////////////////ÃÅ×ùÊ½ÆðÖØ»ú°²×°¼à¼ì/////////////////////////////////////////
+insert into a_bgml (id,jymk,jytype,typename) values ('9208','aj','Wd','ÃÅ×ùÊ½ÆðÖØ»ú°²×°¼à¼ì');
+insert into a_bgml (id,jymk,jytype,typename) values ('9209','aj','W?','ÃÅ×ùÊ½ÆðÖØ»ú°²×°¼à¼ìÏîÄ¿±í');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Wd','09','º¸·ìÉäÏß','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Wd','10','º¸·ì³¬Éù²¨','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Wd','11','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Wd','12','ÎÞËð¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Wd','13','²âºñ¼ìÑé','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Wd','14','Ó²¶È²âÊÔ','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Wd','15','ÁÑÎÆ¼ì²â','·Ö³öÒ³','¸½Ò³','','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Wd','16','ÄÚ¿ú¾µ¼ìÑé','·Ö³öÒ³','¸½Ò³','','','') ; 	
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Wd','17','¹âÆ×·ÖÎö','·Ö³öÒ³','¸½Ò³','','','') ; 
+///////////////////////////////////////ÒÔÏÂÎªºÚÁú½­ÐÂÔö¼ÓµÄ±¨¸æ//////////////////////////////////////////
+/////////////////Æû³µÔËÊäÒºÌåÎ£ÏÕ»õÎï¹ÞÌå¼ìÑé
+insert into a_jyml_id (id,mc) values (';','Æû³µÔËÊäÒºÌåÎ£ÏÕ»õÎï¹ÞÌå¼ìÑé');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values (';','930','Æû³µÔËÊäÒºÌåÎ£ÏÕ»õÎï¹ÞÌå','¶¨ÆÚ¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('9300','dj',';c','Æû³µÔËÊäÒºÌåÎ£ÏÕ»õÎï¹ÞÌå¶¨ÆÚ¼ìÑé');
+insert into a_sz_nr (jytype,xh,nr,dw) values (';c','01','±¨¸æ·âÆ¤','dw_a_dj_qcgtpf');
+insert into a_sz_nr (jytype,xh,nr,dw) values (';c','02','¹ÞÌå¼ìÑé','dw_a_dj_gtjy');
+insert into a_sz_nr (jytype,xh,nr,dw) values (';c','03','¹ÞÌåÇé¿ö','dw_a_dj_gcjc');
+insert into a_sz_nr (jytype,xh,nr,dw) values (';c','04','°²È«¼ì²é','dw_a_dj_aqjc');
+insert into a_sz_nr (jytype,xh,nr,dw) values (';c','05','¹ÞÌå¼ì²é','dw_a_dj_gtjc');
+insert into a_sz_nr (jytype,xh,nr,dw) values (';c','06','Í¨Æø·§ÊÔÑé','dw_a_dj_tqfsy');
+insert into a_sz_nr (jytype,xh,nr,dw) values (';c','07','±Úºñ²â¶¨','dw_a_dj_gtwg');
+///////////////////////////////////////ÒÔÏÂÎª¹óÖÝÐÂÔö¼ÓµÄ±¨¸æ//////////////////////////////////////////
+/////////////////////////////////////µçÕ¾¹øÂ¯Ë®ÖÊ»¯Ñé///////////////////////////////////
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values ('g','940','Ë®ÖÊ»¯Ñé','¶¨ÆÚ¼ìÑé');
+insert into a_bgml(id,jymk,jytype,typename) values ('9400','dj','Ag','µçÕ¾¹øÂ¯Ë®ÖÊ»¯Ñé');
+insert into a_sz_nr(jytype,xh,nr,dw,ct) values ('Ag','01','±¨¸æÖ÷Ò³','dat_dj_dzglsz','¸´ÔÓ');
+/////////////////////////////////////¹¤Òµ¹øÂ¯Ë®ÖÊ»¯Ñé///////////////////////////////////
+insert into a_bgml(id,jymk,jytype,typename) values ('9401','dj','Dg','¹¤Òµ¹øÂ¯Ë®ÖÊ»¯Ñé');
+insert into a_sz_nr(jytype,xh,nr,dw,ct) values ('Dg','01','±¨¸æÖ÷Ò³','dat_dj_gyglsz','¸´ÔÓ');
+/////////////////////////////////////¹¤Òµ¹øÂ¯³ý¹¸Í¨ÖªÊé///////////////////////////////
+insert into a_bgml(id,jymk,jytype,typename) values ('9402','jj','D5','¹¤Òµ¹øÂ¯³ý¹¸Í¨ÖªÊé');
+//////////////////////////////////////×ñÒåÐÂÔö¼Ó±¨¸æ///////////////////////////////////////////////
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values ('Dj','940','¹øÂ¯»¯Ñ§ÇåÏ´','ÖÆÔì¼à¼ì');
+insert into a_jyml_id(id,mc) values ('Dj','¹øÂ¯»¯Ñ§ÇåÏ´');
+insert into a_bgml(id,jymk,jytype,typename) values ('9403','jj','Djw','¹øÂ¯»¯Ñ§ÇåÏ´¼à¼ìÖ¤Êé');
+insert into a_sz_nr(jytype,xh,nr,dw) values ('Djw','01','Ö¤Êé','dw_jj_glhxqx');
+insert into a_jylb(jylbid,jylbdh,jylbmc,jymk) values ('/','941','ÐÞÀí(¸ÄÔì)Ö¤Êé','ÖÆÔì¼à¼ì');
+insert into a_jylb_id(id,mc) values ('/','ÐÞÀí(¸ÄÔì)Ö¤Êé');
+insert into a_bgml(id,jymk,jytype,typename) values ('9404','jj','D/','¹¤Òµ¹øÂ¯ÐÞÀí(¸ÄÔì)Ö¤Êé');
+insert into a_sz_nr(jytype,xh,nr,dw) values ('D/','01','Ö¤Êé','dw_jj_glxlgz');
+insert into a_bgml(id,jymk,jytype,typename) values ('9405','jj','8/','Ñ¹Á¦¹ÜµÀÐÞÀí(¸ÄÔì)Ö¤Êé');
+insert into a_sz_nr(jytype,xh,nr,dw) values ('8/','01','Ö¤Êé','dw_jj_gdxlgz');
+insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values ('6j','941','Ñ¹Á¦ÈÝÆ÷»¯Ñ§ÇåÏ´','ÖÆÔì¼à¼ì');
+insert into a_jyml_id(id,mc) values ('6j','Ñ¹Á¦ÈÝÆ÷»¯Ñ§ÇåÏ´');
+insert into a_bgml(id,jymk,jytype,typename) values ('9406','jj','6jw','Ñ¹Á¦ÈÝÆ÷»¯Ñ§ÇåÏ´¼à¼ìÖ¤Êé');
+insert into a_sz_nr(jytype,xh,nr,dw) values ('6jw','01','Ö¤Êé','dw_jj_ylrqhxqx');
+insert into a_bgml(id,jymk,jytype,typename) values ('9407','jj','6/','Ñ¹Á¦ÈÝÆ÷ÐÞÀí(¸ÄÔì)Ö¤Êé');
+insert into a_sz_nr(jytype,xh,nr,dw) values ('6/','01','Ö¤Êé','dw_jj_ylrqxlgz');
+//////////////////////////////////////³à·åÊÐÌØÖÖÉè±¸¼ìÑéËù///////////////////////////////////////////
+//if gs_jydw = '³à·åÊÐÌØÖÖÉè±¸¼ìÑéËù' then
+//	insert into a_jylb_id (Id,Mc) values ('`','¶¨¼ì¼ÇÂ¼');
+//	insert into a_jylb (jylbid,jylbdh,jylbmc,jymk) values ('`','951','¶¨¼ì¼ÇÂ¼','¶¨ÆÚ¼ìÑé');
+//	insert into a_bgml (id,jymk,jytype,typename) values ('9501','dj','@a`','ÈÜ½âÒÒÈ²ÆøÆ¿¶¨¼ì¼ÇÂ¼');
+//	insert into a_bgml (id,jymk,jytype,typename) values ('9502','dj','!`','Òº»¯Ê¯ÓÍÆø¸ÖÆ¿¶¨¼ì¼ÇÂ¼');
+//	insert into a_bgml (id,jymk,jytype,typename) values ('9503','dj','Q`','¸ßÑ¹ÆøÆ¿¶¨¼ì¼ÇÂ¼');
+//end if
+//////////////////////////////////////ºôÂ×±´¶ûÊÐÌØÖÖÉè±¸¼ìÑéËù///////////////////////////////////////////
+insert into a_bgml(id,jymk,jytype,typename) values ('9601','jj','6fw','ÏÖ³¡×éº¸Ñ¹Á¦ÈÝÆ÷¼à¼ìÖ¤Êé');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('6fw','01','¼à¼ìÖ¤Êé','¸½Ò³','dat_ylrqxcjz_zs');
+////////////////////////////////////////////////////////////////////////////////////////////////
+//////ÒÔÏÂÊÇÎª¸÷¸öËùÐÞ¸ÄµÄÌØÊâ
+if gs_jydw = 'ÖÐ¹úÊ¯ÓÍÁÉºÓÓÍÌïÌØÖÖÉè±¸¼ìÑéÖÐÐÄ' then
+	update a_sz_nr set dw = 'dat_glsysy_fp_lh' where jytype like 'Di' and xh = '01';
+end if
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+delete from a_sz_nr where jytype = 'Dj';
+delete from a_sz_nr where jytype = 'Dk';
+//if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','01','±¨¸æ·âÆ¤','¸½Ò³','dat_gl_xz_fp');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','02','±¨¸æ1','¸½Ò³','dat_gl_xz_bg1');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','03','±¨¸æ2','¸½Ò³','dat_gl_xz_bg2');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','04','¼à¼ìÖ¤Êé','¸½Ò³','dat_gl_azjdjyzs_new');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','05','ÏîÄ¿±í1','¸½Ò³','dat_szgl_azjdjyxmb_011');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','06','ÏîÄ¿±í2','¸½Ò³','dat_szgl_azjdjyxmb_022');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','07','ÏîÄ¿±í3','¸½Ò³','dat_szgl_azjdjyxmb_033');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','08','ÏîÄ¿±í4','¸½Ò³','dat_szgl_azjdjyxmb_044');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','09','ÏîÄ¿±í5','¸½Ò³','dat_szgl_azjdjyxmb_055');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','10','ÏîÄ¿±í6','¸½Ò³','dat_szgl_azjdjyxmb_066');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','11','ÏîÄ¿±í7','¸½Ò³','dat_szgl_azjdjyxmb_077');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','01','·âÆ¤','¸½Ò³','dat_aj_zzglxl_fp');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','02','±¨¸æÒ»','¸½Ò³','dat_aj_zzglxl_jybg');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','03','±¨¸æ¶þ','¸½Ò³','dat_aj_zzglxl_jybg1');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','04','Ö¤Êé','¸½Ò³','dat_aj_zzglxl_jjzs');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','05','ÏîÄ¿±íÒ»','¸½Ò³','dat_aj_zzglxl_xmb1');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','06','ÏîÄ¿±í¶þ','¸½Ò³','dat_aj_zzglxl_xmb2');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','07','ÏîÄ¿±íÈý','¸½Ò³','dat_aj_zzglxl_xmb3');
+if gs_jydw = 'Äµµ¤½­ÊÐÌØÖÖÉè±¸¼ìÑéÑÐ¾¿Ëù' then
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','01','µÚÒ»Ò³','¸½Ò³','dat_szgl_azjdjyxmb_01_old');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','02','µÚ¶þÒ³','¸½Ò³','dat_szgl_azjdjyxmb_02');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','03','µÚÈýÒ³','¸½Ò³','dat_szgl_azjdjyxmb_03');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','04','µÚËÄÒ³','¸½Ò³','dat_szgl_azjdjyxmb_04');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','05','µÚÎåÒ³','¸½Ò³','dat_szgl_azjdjyxmb_05');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','06','µÚÁùÒ³','¸½Ò³','dat_szgl_azjdjyxmb_06');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','01','µÚÒ»Ò³','¸½Ò³','dat_zzgl_azjdjyxmb_01_old');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','02','µÚ¶þÒ³','¸½Ò³','dat_zzgl_azjdjyxmb_02_old');
+else
+	insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Dj','01','±¨¸æ·âÆ¤','dat_aj_szgl_fp1','¸´ÔÓ');
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Dj','02','±¨¸æÄ¿Â¼','dat_aj_gl_ml');
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Dj','03','¼à¼ì½áÂÛ','dat_aj_gl_jjjl');
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Dj','04','¹øÂ¯Çé¿ö','dat_aj_gl_sz_gljbqk');
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Dj','05','µ¥Î»Çé¿ö','dat_aj_gl_azdwjbqk');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','06','ÏîÄ¿±íÒ»','¸½Ò³','dat_szgl_azjdjyxmb_01');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','07','ÏîÄ¿±í¶þ','¸½Ò³','dat_szgl_azjdjyxmb_02');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','08','ÏîÄ¿±íÈý','¸½Ò³','dat_szgl_azjdjyxmb_03');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','09','ÏîÄ¿±íËÄ','¸½Ò³','dat_szgl_azjdjyxmb_04');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','10','ÏîÄ¿±íÎå','¸½Ò³','dat_szgl_azjdjyxmb_05');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','11','ÏîÄ¿±íÁù','¸½Ò³','dat_szgl_azjdjyxmb_06');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dj','12','ÉäÏß¼ì²â','·Ö³öÒ³','¸½Ò³','dat_aj_gl_sxjc');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dj','13','ÉäÏßÆÀ¶¨±í','·Ö³öÒ³','¸½Ò³','dat_aj_gl_sxjcpdb');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dj','14','³¬Éù²¨¼ì²â','·Ö³öÒ³','¸½Ò³','dat_aj_gl_csbjc');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dj','15','´Å·Û¼ì²â','·Ö³öÒ³','¸½Ò³','dat_aj_gl_cfjc');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dj','16','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³','dat_aj_gl_stjc');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dj','17','¹âÆ×·ÖÎö','·Ö³öÒ³','¸½Ò³','dat_aj_gl_gpfx');
+	insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Dk','01','±¨¸æ·âÆ¤','dat_aj_zzgl_fp','¸´ÔÓ');
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Dk','02','±¨¸æÄ¿Â¼','dat_aj_gl_ml');
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Dk','03','¼à¼ì½áÂÛ','dat_aj_gl_jjjl');
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Dk','04','¹øÂ¯Çé¿ö','dat_aj_gl_gljbqk');
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Dk','05','µ¥Î»Çé¿ö','dat_aj_gl_azdwjbqk');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','06','ÏîÄ¿±íÒ»','¸½Ò³','dat_zzgl_azjdjyxmb_01');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','07','ÏîÄ¿±í¶þ','¸½Ò³','dat_zzgl_azjdjyxmb_02');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dk','08','ÉäÏß¼ì²â','·Ö³öÒ³','¸½Ò³','dat_aj_gl_sxjc');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dk','09','ÉäÏßÆÀ¶¨±í','·Ö³öÒ³','¸½Ò³','dat_aj_gl_sxjcpdb');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dk','10','³¬Éù²¨¼ì²â','·Ö³öÒ³','¸½Ò³','dat_aj_gl_csbjc');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dk','11','´Å·Û¼ì²â','·Ö³öÒ³','¸½Ò³','dat_aj_gl_cfjc');
+	insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('Dk','12','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³','dat_aj_gl_stjc');
+end if
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+if gs_jydw='ÁÉÄþÊ¡°²È«¿ÆÑ§ÑÐ¾¿Ôº'  then
+	update a_sz_nr set nr  = 'µçÌÝÏÞËÙÆ÷',dw = 'dat_dtxsq' where jytype = 'Z&' and xh = '01';
+end if
+//if gs_jydw='Í¨ÁÉÊÐÌØÖÖÉè±¸¼ìÑéËù' then
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dj','18','Ë®Ñ¹ÊÔÑé','¸½Ò³','dat_bg_ggi');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dk','13','Ë®Ñ¹ÊÔÑé','¸½Ò³','dat_bg_ggi');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dr','07','Ë®Ñ¹ÊÔÑé','¸½Ò³','dat_bg_ggi');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D#','05','Ë®Ñ¹ÊÔÑé','¸½Ò³','dat_bg_ggi');
+//   insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D#','06','¼à¼ìÒâ¼ûÊé','¸½Ò³','dat_tzsb_yjtzs_02');
+//	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Fd','08','Ë®Ñ¹ÊÔÑé','¸½Ò³','dat_bg_ggi');
+//end if
+//if gs_jydw = 'ºÚÁú½­Ê¡ÌØÖÖÉè±¸¼ìÑéÑÐ¾¿Ôº' then
+//	update a_sz_nr set dw = 'dw_jj_qzjxzs' where jytype = '#w' and xh = '01';
+//end if
+delete from a_sz_nr where jytype = ':w';
+if pos(qzjmark,':w') <> 0 then
+	choose case mid(qzjmark,pos(qzjmark,':w') + 3,1)
+		case 'A' //¹óÖÝÊ¡¹øÂ¯Ñ¹Á¦ÈÝÆ÷¼ìÑéÖÐÐÄ
+			insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':w','01','¼ì¶¨Ö¤Êé','¸½Ò³','jj_ylbzs_gz');
+			insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':w','02','¼ì¶¨½á¹û','¸½Ò³','jj_ylbjg_gz');
+		case 'B' //°²Ë³ÊÐ¹øÂ¯Ñ¹Á¦ÈÝÆ÷¼ìÑéËù
+			insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':w','01','¼ì¶¨Ö¤Êé','¸½Ò³','jj_ylbzs_as');
+			insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':w','02','¼ì¶¨½á¹û','¸½Ò³','jj_ylbjg_as');
+	end choose
+else
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values (':w','01','¼ì¶¨Ö¤Êé','¸½Ò³','jj_ylbzs');
+end if
+
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Pc','01','±¨¸æ·âÆ¤','dj_zyye_fp');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Pc','02','¼ìÑé±¨¸æ','dj_zyye_jybg');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Pc','03','¸½Ò³1','dj_zyye_xmjjg');
+
+////////////////////////////////////////ÒÆ¶¯Ê½Ñ¹Á¦ÈÝÆ÷¸ÄÔìÎ¬ÐÞ¼à¼ìÏîÄ¿±í////////////////////////////////////////
+insert into a_jyml_id(id,mc) values ('6g','ÒÆ¶¯Ê½Ñ¹Á¦ÈÝÆ÷');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('6g','119','ÒÆ¶¯Ê½Ñ¹Á¦ÈÝÆ÷','°²×°¼à¼ì');
+insert into a_bgml(id,jymk,jytype,typename) values ('2110','aj','6g|','ÒÆ¶¯Ê½Ñ¹Á¦ÈÝÆ÷¸ÄÔìÎ¬ÐÞ¼à¼ìÏîÄ¿±í');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('6g|','01','ÏîÄ¿±íÒ»','','','dw_ydylrq_gzwx_xmb','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('6g|','02','ÏîÄ¿±í¶þ','','','dw_ydylrq_gzwx_xmb1','','') ; 
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('6g|','03','ÏîÄ¿±íÈý','','¸½Ò³','dw_ydylrq_gzwx_xmb2','','') ;
+///////////////////////////////////////////////////////ÒÆ¶¯Ê½Ñ¹Á¦ÈÝÆ÷¸ÄÔìÎ¬ÐÞ¼à¼ìÖ¤Êé
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('6g4','01','Ö¤Êé','','¸½Ò³','dw_ydylrq_gzwx_zs','','');
+///////////////////////////////////////////////////////
+insert into a_sz_nr(jytype,xh,nr,dw) values('Qp','01','ÏîÄ¿±í·âÆ¤','dw_jj_qp_fp');
+insert into a_sz_nr(jytype,xh,nr,dw) values('Qp','02','µÚÒ»Ò³','dw_jj_qp_01');
+insert into a_sz_nr(jytype,xh,nr,dw) values('Qp','03','µÚ¶þÒ³','dw_jj_qp_02');
+insert into a_sz_nr(jytype,xh,nr,dw) values('Qw','01','¼à¼ìÖ¤Êé','jj_newzs');
+insert into a_sz_nr(jytype,xh,nr,dw) values('Qu','01','¼à¼ìÁªÂçµ¥','jj_qp_lld');
+insert into a_sz_nr(jytype,xh,nr,dw) values('Qv','01','¼à¼ìÒâ¼ûÊé','jj_qp_yjs');
+////////////////////////////////////////////////////////
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values (']aw','01','¼à¼ìÖ¤Êé','¸½Ò³','dw_jd_glylrq');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('|aw','01','¼à¼ìÖ¤Êé','¸½Ò³','jj_newzs');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('^ap','01','µÚÒ»Ò³','¸½Ò³','dat_jdylrq_xmb1');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('^ap','02','µÚ¶þÒ³','¸½Ò³','dat_jdylrq_xmb2');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('^aw','01','¼à¼ìÖ¤Êé','¸½Ò³','dat_jdylrq_aqzs');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('(ap','01','µÚÒ»Ò³','¸½Ò³','dw_gl_ylrq_anxn_gtzp_jj');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('(ap','02','µÚ¶þÒ³','¸½Ò³','dw_gl_ylrq_anxn_gtzp_jj01');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('(aw','02','¼à¼ìÖ¤Êé','¸½Ò³','jj_newzs');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values (']ap','01','µÚÒ»Ò³','¸½Ò³','dat_b_jd_ftcpxn');
+//////////////////////////////////////////////////////
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Qbp','01','ÏîÄ¿±íÒ»','dat_czyhsyqgp_xmb1');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Qbp','02','ÏîÄ¿±í¶þ','dat_czyhsyqgp_xmb2');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Qbp','03','ÏîÄ¿±íÈý','dat_czyhsyqgp_xmb3');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Qbw','01','¼à¼ìÖ¤Êé','dat_clqp_zs');
+//////////////////////////////////////////////
+insert into a_sz_nr(jytype,xh,nr,dw) values('!c','01','±¨¸æ·âÆ¤','b_dj_hjgp_fp');
+insert into a_sz_nr(jytype,xh,nr,dw) values('!c','02','±¨¸æ1','b_dj_hjgp_bg1');
+insert into a_sz_nr(jytype,xh,nr,dw) values('!c','03','±¨¸æ2','b_dj_hjgp_bg2');
+insert into a_sz_nr(jytype,xh,nr,dw) values('!c','04','±¨¸æ3','b_dj_hjgp_bg3');
+
+insert into a_sz_nr(jytype,xh,nr,dw) values('.ac','01','±¨¸æ·âÆ¤','dw_wfqp_bgfp');
+insert into a_sz_nr(jytype,xh,nr,dw) values('.ac','02','×¢ÒâÊÂÏî','dw_jy_wfqp_fpfm');
+insert into a_sz_nr(jytype,xh,nr,dw) values('.ac','03','±¨¸æÖ÷Ò³','dw_jy_wfqp_zw1');
+insert into a_sz_nr(jytype,xh,nr,dw) values('.ac','04','¼ìÑé½á¹û','dw_jy_wfqp_zw2');
+
+insert into a_sz_nr(jytype,xh,nr,dw) values('#ac','01','±¨¸æ·âÆ¤','dw_dj_crqp_fp');
+insert into a_sz_nr(jytype,xh,nr,dw) values('#ac','02','×¢ÒâÊÂÏî','dw_dj_crqp_zyss');
+insert into a_sz_nr(jytype,xh,nr,dw) values('#ac','03','±¨¸æÖ÷Ò³','dw_dj_crqp1');
+insert into a_sz_nr(jytype,xh,nr,dw) values('#ac','04','¼ìÑé½á¹û','dw_dj_crqp2');
+
+insert into a_sz_nr(jytype,xh,nr,dw) values('?ac','01','±¨¸æ·âÆ¤','dw_qwqp_fp');
+insert into a_sz_nr(jytype,xh,nr,dw) values('?ac','02','×¢ÒâÊÂÏî','dw_qwqp_zysx');
+insert into a_sz_nr(jytype,xh,nr,dw) values('?ac','03','±¨¸æÖ÷Ò³','dw_qwqp_pdbg');
+insert into a_sz_nr(jytype,xh,nr,dw) values('?ac','04','¼ìÑé½á¹û','dw_qwqp_jyjg');
+
+
+
+insert into a_sz_nr(jytype,xh,nr,dw) values('@a0','01','¼ìÑé±¨¸æ','dw_pf_rjyqqp');
+
+
+////////////////////////////////////////////////////////////
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','04','½áÂÛ±¨¸æ','','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','08','±Úºñ²â¶¨','','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','10','ÉäÏß¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','11','³¬Éù²¨¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','12','´Å·Û¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','13','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','14','Éù·¢Éä¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','15','²ÄÁÏ·ÖÎö','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','16','Ó²¶È¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('+n','17','½ðÏà·ÖÎö','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('+n','18','ÄÍÑ¹ÊÔÑé','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('+n','19','ÆøÃÜÊÔÑé','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('+n','20','°²È«¸½¼þ','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('+n','21','¸½¼Ó¼ì²â','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('+n','22','¼ìÑé·½°¸Ò»','dat_ylrq_jyfa_fp');
+insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('+n','23','¼ìÑé·½°¸¶þ','dat_ylrq_jyfa_nr','²åÍ¼');
+insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('+n','24','Òâ¼ûÍ¨ÖªÊé','dat_ylrq_jyyjtzs','²åÍ¼');
+
+
+delete from a_sz_nr where jytype like 'Kn' and xh like '01';
+delete from a_sz_nr where jytype like 'Kn' and xh like '02';
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','04','½áÂÛ±¨¸æ','','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','08','±Úºñ²â¶¨','','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','10','ÉäÏß¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','11','³¬Éù²¨¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','12','´Å·Û¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','13','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','14','Éù·¢Éä¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','15','²ÄÁÏ·ÖÎö','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','16','Ó²¶È¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Kn','17','½ðÏà·ÖÎö','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Kn','18','ÄÍÑ¹ÊÔÑé','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Kn','19','ÆøÃÜÊÔÑé','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Kn','20','°²È«¸½¼þ','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Kn','21','¸½¼Ó¼ì²â','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Kn','22','¼ìÑé·½°¸Ò»','dat_ylrq_jyfa_fp');
+insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Kn','23','¼ìÑé·½°¸¶þ','dat_ylrq_jyfa_nr','²åÍ¼');
+insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Kn','24','Òâ¼ûÍ¨ÖªÊé','dat_ylrq_jyyjtzs','²åÍ¼');
+
+
+delete from a_sz_nr where jytype like 'Jn' and xh like '01';
+delete from a_sz_nr where jytype like 'Jn' and xh like '02';
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','04','½áÂÛ±¨¸æ','','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','08','±Úºñ²â¶¨','','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','10','ÉäÏß¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','11','³¬Éù²¨¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','12','´Å·Û¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','13','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','14','Éù·¢Éä¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','15','²ÄÁÏ·ÖÎö','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','16','Ó²¶È¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('Jn','17','½ðÏà·ÖÎö','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Jn','18','ÄÍÑ¹ÊÔÑé','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Jn','19','ÆøÃÜÊÔÑé','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Jn','20','°²È«¸½¼þ','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fy) values ('Jn','21','¸½¼Ó¼ì²â','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,dw) values ('Jn','22','¼ìÑé·½°¸Ò»','dat_ylrq_jyfa_fp');
+insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Jn','23','¼ìÑé·½°¸¶þ','dat_ylrq_jyfa_nr','²åÍ¼');
+insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Jn','24','Òâ¼ûÍ¨ÖªÊé','dat_ylrq_jyyjtzs','²åÍ¼');
+if gs_jydw='ÉòÑôÊÐÌØÖÖÉè±¸¼ì²âÑÐ¾¿Ôº' then
+	update a_sz_nr set fy='¸½Ò³' where jytype like 'Jn' and xh like '22';
+end if
+///////////////////////////////////////////////
+//if gs_jydw='ºôÂ×±´¶ûÊÐÌØÖÖÉè±¸¼ìÑéËù' then
+//	delete from a_sz_nr where jytype like 'Qc';
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('Qc','01','±¨¸æ·âÆ¤','dat_qp_fp') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('Qc','02','×¢ÒâÊÂÏî','dat_qp_zysx') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('Qc','03','¼ìÑé±¨¸æ','dat_qp_djbg_hlbe') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('Qc','04','ÅÐ·ÏÍ¨ÖªÊé','dat_qp_pftzs_hlbe') ;
+//	///////////////////////
+//	delete from a_sz_nr where jytype like '@ac';
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('@ac','01','±¨¸æ·âÆ¤','dat_qp_fp_rjyq') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('@ac','02','×¢ÒâÊÂÏî','dat_qp_zysx') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('@ac','03','¼ìÑé±¨¸æ','dat_qp_djbg_rjyq_hlbe') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('@ac','04','ÅÐ·ÏÍ¨ÖªÊé','dat_qp_pftzs_rjyq_hlbe') ;
+//	/////////////////////////
+//	delete from a_sz_nr where jytype like ':ac';
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (':ac','01','±¨¸æ·âÆ¤','dat_qp_fp_gzwf') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (':ac','02','×¢ÒâÊÂÏî','dat_qp_zysx') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (':ac','03','¼ìÑé±¨¸æ','dat_qp_djbg_gzwf_hlbe') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (':ac','04','ÅÐ·ÏÍ¨ÖªÊé','dat_qp_pftzs_gzwf_hlbe') ;
+//	///////////////////////
+//	delete from a_sz_nr where jytype like '!ac';
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('!ac','01','±¨¸æ·âÆ¤','dat_qp_fp_gzhj') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('!ac','02','×¢ÒâÊÂÏî','dat_qp_zysx') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('!ac','03','¼ìÑé±¨¸æ','dat_qp_djbg_gzhj_hlbe') ;
+//	insert into a_sz_nr (jytype,xh,nr,dw) values ('!ac','04','ÅÐ·ÏÍ¨ÖªÊé','dat_qp_pftzs_gzhj_hlbe') ;
+//else
+	delete from a_sz_nr where jytype like 'Qc';
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Qc','01','±¨¸æ·âÆ¤','dat_qp_djbg') ;
+	insert into a_sz_nr (jytype,xh,nr,dw) values ('Qc','02','×¢ÒâÊÂÏî','dat_qp_pftzs') ;
+	delete from a_sz_nr where jytype like ':ac';
+	insert into a_sz_nr(jytype,xh,nr,dw) values(':ac','01','±¨¸æ·âÆ¤','dat_dj_wfqpfp');
+	insert into a_sz_nr(jytype,xh,nr,dw) values(':ac','02','×¢ÒâÊÂÏî','dat_dj_wfqp_zyts');
+	insert into a_sz_nr(jytype,xh,nr,dw) values(':ac','03','±¨¸æÖ÷Ò³','dat_dj_wfqp_1');
+	insert into a_sz_nr(jytype,xh,nr,dw) values(':ac','04','¼ìÑé½á¹û','dat_dj_wfqp_2');
+	delete from a_sz_nr where jytype like '@ac';
+	insert into a_sz_nr(jytype,xh,nr,dw) values('@ac','01','±¨¸æ·âÆ¤','dw_dj_rjyqqp_fp');
+	insert into a_sz_nr(jytype,xh,nr,dw) values('@ac','02','×¢ÒâÊÂÏî','dw_dj_rjyqqp_zyss');
+	insert into a_sz_nr(jytype,xh,nr,dw) values('@ac','03','±¨¸æÖ÷Ò³','dw_dj_rjyqqp1');
+	insert into a_sz_nr(jytype,xh,nr,dw) values('@ac','04','¼ìÑé½á¹û','dw_dj_rjyqqp2');
+	delete from a_sz_nr where jytype like '!ac';
+	insert into a_sz_nr(jytype,xh,nr,dw) values('!ac','01','±¨¸æ·âÆ¤','dw_hjqp_bgfp');
+	insert into a_sz_nr(jytype,xh,nr,dw) values('!ac','02','×¢ÒâÊÂÏî','dw_jy_hjqp_fpfm');
+	insert into a_sz_nr(jytype,xh,nr,dw) values('!ac','03','±¨¸æÖ÷Ò³','dw_jy_hjqp_zw1');
+	insert into a_sz_nr(jytype,xh,nr,dw) values('!ac','04','¼ìÑé½á¹û','dw_jy_hjqp_zw2');
+//end if
+////////////////////////////////¸ÖÓ¡
+//ÈÝÆ÷¼à¼ìÖ¤Êé
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = '^aw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = '|aw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = '(aw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = '6fw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = 'Ow';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = ']aw';
+// ¹øÂ¯¼à¼ìÖ¤Êé
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = 'Dw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = 'Aw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = 'Daw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = ')bw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = 'ytw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = 'Djw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = 'D/';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = ')aw';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = ',w';
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = '|w';
+// ÆøÆ¿
+update a_sz_nr set ct='¸ÖÓ¡' where jytype = 'Qw';
+///////////////////////////////ÁÉºÓÓÍÌïÊªÕôÆû·¢ÉúÆ÷¼ìÑéÒâ¼ûÊé//////////////////////////
+if gs_jydw='ÖÐ¹úÊ¯ÓÍÁÉºÓÓÍÌïÌØÖÖÉè±¸¼ìÑéÖÐÐÄ' then
+	delete from a_sz_nr where jytype='|@' and xh like '01';
+	insert into a_sz_nr(jytype,xh,nr,dw) values('|@','01','¼ìÑéÒâ¼ûÊé','szq_bg_jyyjs_new_lhyt');
+end if
+//if gs_jydw='¹óÖÝÊ¡¹øÂ¯Ñ¹Á¦ÈÝÆ÷¼ìÑéÖÐÐÄ' then
+//	update a_sz_nr set dw='dat_ml_gz' where jytype like '5s' and xh like '02';
+//	update a_sz_nr set dw='dat_qmjyjlbg_gz' where jytype like '5s' and xh like '03';
+//end if
+insert into a_jyml_id(id,mc) values ('0','³ÐÑ¹ÀàÌØÖÖÉè±¸');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('0','127','³ÐÑ¹ÀàÌØÖÖÉè±¸','¶¨ÆÚ¼ìÑé');
+insert into a_bgml(id,jymk,jytype,lbid,typename) values ('9602','dj','0-','','³ÐÑ¹ÀàÌØÖÖÉè±¸¹¤×÷Òâ¼ûÍ¨ÖªÊé(1)');
+insert into a_bgml(id,jymk,jytype,lbid,typename) values ('9603','dj','0+','','³ÐÑ¹ÀàÌØÖÖÉè±¸¹¤×÷Òâ¼ûÍ¨ÖªÊé(2)');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('0-','01','Í¨ÖªÊé(01)','','¸½Ò³','dw_dj_cyl_tzs2');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw) values ('0+','01','Í¨ÖªÊé(02)','','¸½Ò³','dw_dj_cyl_tzs1');
+/////////////////////////////////////////////////////////////////
+
+	
+end subroutine
+

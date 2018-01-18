@@ -1,0 +1,19 @@
+﻿$PBExportHeader$us_bg.srs
+global type us_bg from structure
+	string		id
+	string		jytype
+	string		qc
+	string		sh
+	string		sp
+	string		jyz1
+	string		jyz2
+	string		jyz3
+	string		jyz4
+	string		jyz5
+	string		list
+	string		to_qc
+	string		to_sh
+	string		rq
+	string		fl
+end type
+

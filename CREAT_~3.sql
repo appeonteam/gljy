@@ -1,0 +1,31 @@
+drop view  b_jy_sf_view;
+create view b_jy_sf_view
+as
+SELECT b_jy_total.jyid,   
+         b_jy_total.cpid,   
+         b_jy_total.djid,   
+         b_jy_total.nh,   
+         b_jy_total.bgid, 
+         b_jy_total.jyml,
+         b_jy_total.jylb,
+         b_jy_total.jytype, 
+         b_jy_total.sydw,
+         b_jy_total.spmc,     
+         b_jy_total.ryid,   
+         b_jy_total.rymc,   
+         b_jy_total.rybm,   
+         b_jy_total.jydate,
+         b_jy_total.sjid,
+         b_jy_total.bgmoney,
+         b_jy_total.sjmoney,
+         b_jy_total.qfje,
+         b_jy_total.shmark,   
+         b_jy_total.shtui,   
+         b_jy_total.shzb,   
+         b_jy_total.shsp,
+         b_jy_total.qfqzname,
+         b_jy_total.shwang,         
+         b_jy_total.dangan,
+         b_jy_total.qmjsm,
+         b_jy_total.qz
+    FROM b_jy_total ;

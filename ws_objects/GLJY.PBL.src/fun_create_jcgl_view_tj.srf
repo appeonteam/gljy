@@ -1,0 +1,886 @@
+﻿$PBExportHeader$fun_create_jcgl_view_tj.srf
+global type fun_create_jcgl_view_tj from function_object
+end type
+
+forward prototypes
+global subroutine fun_create_jcgl_view_tj ()
+end prototypes
+
+global subroutine fun_create_jcgl_view_tj ();long ls_count = 0
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//2009Äê3ÔÂ16ÈÕÓÅ»¯Í³¼ÆËÙ¶ÈÐÂ½¨ÊÓÍ¼
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_sb_jy"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_sb_jy(jylb,jyjl,zcid) AS select jylb,jyjl,zcid from "+&
+				" sb_jy where xh = (select max(xh) from sb_jy where zcid = sb_jy.zcid) "+&
+				"and xh1 in(SELECT MAX(xh1) AS xh1 FROM sb_jy GROUP BY zcid)"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_sb_jy"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_sb_jy(jylb,jyjl,zcid) AS select jylb,jyjl,zcid from "+&
+				" sb_jy where xh = (select max(xh) from sb_jy where zcid = sb_jy.zcid) "+&
+				"and xh1 in (SELECT MAX(xh1) AS xh1 FROM sb_jy GROUP BY zcid)"
+		execute immediate :mysql using sqlca ;		
+END IF
+//¹øÂ¯
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_gl_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_gl_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '1000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_gl_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_gl_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '1000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_gl_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_gl_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_gl_dc.zcid,view_zhtj_gl_dc.sbmc,view_zhtj_gl_dc.sblb,"+&
+		      "view_zhtj_gl_dc.sbzl,view_zhtj_gl_dc.sbjb,view_zhtj_gl_dc.sydw,view_zhtj_gl_dc.dwid,view_zhtj_gl_dc.sbsyzt,"+&
+		      "view_zhtj_gl_dc.yh,view_zhtj_gl_dc.dc,view_zhtj_gl_dc.jk,view_zhtj_gl_dc.sbpz,view_zhtj_gl_dc.qydm,"+&
+				"view_zhtj_gl_dc.yy1,view_zhtj_gl_dc.yy2,view_zhtj_gl_dc.yy3,view_zhtj_gl_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_gl_dc.sbzcdm,view_zhtj_gl_dc.ccbh,view_zhtj_gl_dc.sbxh from {oj view_zhtj_gl_dc left outer join view_sb_jy on view_zhtj_gl_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_gl_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_gl_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_gl_dc.zcid,view_zhtj_gl_dc.sbmc,view_zhtj_gl_dc.sblb,"+&
+		      "view_zhtj_gl_dc.sbzl,view_zhtj_gl_dc.sbjb,view_zhtj_gl_dc.sydw,view_zhtj_gl_dc.dwid,view_zhtj_gl_dc.sbsyzt,"+&
+		      "view_zhtj_gl_dc.yh,view_zhtj_gl_dc.dc,view_zhtj_gl_dc.jk,view_zhtj_gl_dc.sbpz,view_zhtj_gl_dc.qydm,"+&
+				"view_zhtj_gl_dc.yy1,view_zhtj_gl_dc.yy2,view_zhtj_gl_dc.yy3,view_zhtj_gl_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_gl_dc.sbzcdm,view_zhtj_gl_dc.ccbh,view_zhtj_gl_dc.sbxh from {oj view_zhtj_gl_dc left outer join view_sb_jy on view_zhtj_gl_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+//¹øÂ¯±¨·Ï
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_gl_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_gl_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '1000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_gl_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_gl_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '1000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_gl_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_gl_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_gl_dc_bf.zcid,view_zhtj_gl_dc_bf.sbmc,view_zhtj_gl_dc_bf.sblb,"+&
+		      "view_zhtj_gl_dc_bf.sbzl,view_zhtj_gl_dc_bf.sbjb,view_zhtj_gl_dc_bf.sydw,view_zhtj_gl_dc_bf.dwid,view_zhtj_gl_dc_bf.sbsyzt,"+&
+		      "view_zhtj_gl_dc_bf.yh,view_zhtj_gl_dc_bf.dc,view_zhtj_gl_dc_bf.jk,view_zhtj_gl_dc_bf.sbpz,view_zhtj_gl_dc_bf.qydm,"+&
+				"view_zhtj_gl_dc_bf.yy1,view_zhtj_gl_dc_bf.yy2,view_zhtj_gl_dc_bf.yy3,view_zhtj_gl_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_gl_dc_bf.sbzcdm,view_zhtj_gl_dc_bf.ccbh,view_zhtj_gl_dc_bf.sbxh from {oj view_zhtj_gl_dc_bf left outer join view_sb_jy on view_zhtj_gl_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_gl_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_gl_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_gl_dc_bf.zcid,view_zhtj_gl_dc_bf.sbmc,view_zhtj_gl_dc_bf.sblb,"+&
+		      "view_zhtj_gl_dc_bf.sbzl,view_zhtj_gl_dc_bf.sbjb,view_zhtj_gl_dc_bf.sydw,view_zhtj_gl_dc_bf.dwid,view_zhtj_gl_dc_bf.sbsyzt,"+&
+		      "view_zhtj_gl_dc_bf.yh,view_zhtj_gl_dc_bf.dc,view_zhtj_gl_dc_bf.jk,view_zhtj_gl_dc_bf.sbpz,view_zhtj_gl_dc_bf.qydm,"+&
+				"view_zhtj_gl_dc_bf.yy1,view_zhtj_gl_dc_bf.yy2,view_zhtj_gl_dc_bf.yy3,view_zhtj_gl_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_gl_dc_bf.sbzcdm,view_zhtj_gl_dc_bf.ccbh,view_zhtj_gl_dc_bf.sbxh from {oj view_zhtj_gl_dc_bf left outer join view_sb_jy on view_zhtj_gl_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+            
+//Ñ¹Á¦ÈÝÆ÷
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylrq_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylrq_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '2000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylrq_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylrq_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '2000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylrq_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylrq_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylrq_dc.zcid,view_zhtj_ylrq_dc.sbmc,view_zhtj_ylrq_dc.sblb,"+&
+		      "view_zhtj_ylrq_dc.sbzl,view_zhtj_ylrq_dc.sbjb,view_zhtj_ylrq_dc.sydw,view_zhtj_ylrq_dc.dwid,view_zhtj_ylrq_dc.sbsyzt,"+&
+		      "view_zhtj_ylrq_dc.yh,view_zhtj_ylrq_dc.dc,view_zhtj_ylrq_dc.jk,view_zhtj_ylrq_dc.sbpz,view_zhtj_ylrq_dc.qydm,"+&
+				"view_zhtj_ylrq_dc.yy1,view_zhtj_ylrq_dc.yy2,view_zhtj_ylrq_dc.yy3,view_zhtj_ylrq_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylrq_dc.sbzcdm,view_zhtj_ylrq_dc.ccbh,view_zhtj_ylrq_dc.sbxh from {oj view_zhtj_ylrq_dc left outer join view_sb_jy on view_zhtj_ylrq_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylrq_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylrq_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylrq_dc.zcid,view_zhtj_ylrq_dc.sbmc,view_zhtj_ylrq_dc.sblb,"+&
+		      "view_zhtj_ylrq_dc.sbzl,view_zhtj_ylrq_dc.sbjb,view_zhtj_ylrq_dc.sydw,view_zhtj_ylrq_dc.dwid,view_zhtj_ylrq_dc.sbsyzt,"+&
+		      "view_zhtj_ylrq_dc.yh,view_zhtj_ylrq_dc.dc,view_zhtj_ylrq_dc.jk,view_zhtj_ylrq_dc.sbpz,view_zhtj_ylrq_dc.qydm,"+&
+				"view_zhtj_ylrq_dc.yy1,view_zhtj_ylrq_dc.yy2,view_zhtj_ylrq_dc.yy3,view_zhtj_ylrq_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylrq_dc.sbzcdm,view_zhtj_ylrq_dc.ccbh,view_zhtj_ylrq_dc.sbxh from {oj view_zhtj_ylrq_dc left outer join view_sb_jy on view_zhtj_ylrq_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+//Ñ¹Á¦ÈÝÆ÷±¨·Ï
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylrq_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylrq_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '2000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylrq_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylrq_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '2000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylrq_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylrq_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylrq_dc_bf.zcid,view_zhtj_ylrq_dc_bf.sbmc,view_zhtj_ylrq_dc_bf.sblb,"+&
+		      "view_zhtj_ylrq_dc_bf.sbzl,view_zhtj_ylrq_dc_bf.sbjb,view_zhtj_ylrq_dc_bf.sydw,view_zhtj_ylrq_dc_bf.dwid,view_zhtj_ylrq_dc_bf.sbsyzt,"+&
+		      "view_zhtj_ylrq_dc_bf.yh,view_zhtj_ylrq_dc_bf.dc,view_zhtj_ylrq_dc_bf.jk,view_zhtj_ylrq_dc_bf.sbpz,view_zhtj_ylrq_dc_bf.qydm,"+&
+				"view_zhtj_ylrq_dc_bf.yy1,view_zhtj_ylrq_dc_bf.yy2,view_zhtj_ylrq_dc_bf.yy3,view_zhtj_ylrq_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylrq_dc_bf.sbzcdm,view_zhtj_ylrq_dc_bf.ccbh,view_zhtj_ylrq_dc_bf.sbxh from {oj view_zhtj_ylrq_dc_bf left outer join view_sb_jy on view_zhtj_ylrq_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylrq_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylrq_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylrq_dc_bf.zcid,view_zhtj_ylrq_dc_bf.sbmc,view_zhtj_ylrq_dc_bf.sblb,"+&
+		      "view_zhtj_ylrq_dc_bf.sbzl,view_zhtj_ylrq_dc_bf.sbjb,view_zhtj_ylrq_dc_bf.sydw,view_zhtj_ylrq_dc_bf.dwid,view_zhtj_ylrq_dc_bf.sbsyzt,"+&
+		      "view_zhtj_ylrq_dc_bf.yh,view_zhtj_ylrq_dc_bf.dc,view_zhtj_ylrq_dc_bf.jk,view_zhtj_ylrq_dc_bf.sbpz,view_zhtj_ylrq_dc_bf.qydm,"+&
+				"view_zhtj_ylrq_dc_bf.yy1,view_zhtj_ylrq_dc_bf.yy2,view_zhtj_ylrq_dc_bf.yy3,view_zhtj_ylrq_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylrq_dc_bf.sbzcdm,view_zhtj_ylrq_dc_bf.ccbh,view_zhtj_ylrq_dc_bf.sbxh from {oj view_zhtj_ylrq_dc_bf left outer join view_sb_jy on view_zhtj_ylrq_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+
+         
+//Ñ¹Á¦¹ÜµÀ
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylgd_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylgd_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,dgcd,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,djb_ylgd.dgcd,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh  "+&
+				"  FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON sb_total.zcid = sb_dcxx.zcid LEFT OUTER JOIN djb_ylgd ON "+&
+				"sb_total.zcid = djb_ylgd.zcid}  where sb_total.sblb = '8000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylgd_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylgd_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,dgcd,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,djb_ylgd.dgcd,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh  "+&
+				"  FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON sb_total.zcid = sb_dcxx.zcid LEFT OUTER JOIN djb_ylgd ON "+&
+				"sb_total.zcid = djb_ylgd.zcid}  where sb_total.sblb = '8000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylgd_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylgd_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,dgcd,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylgd_dc.zcid,view_zhtj_ylgd_dc.sbmc,view_zhtj_ylgd_dc.sblb,"+&
+		      "view_zhtj_ylgd_dc.sbzl,view_zhtj_ylgd_dc.sbjb,view_zhtj_ylgd_dc.sydw,view_zhtj_ylgd_dc.dwid,view_zhtj_ylgd_dc.sbsyzt,"+&
+		      "view_zhtj_ylgd_dc.yh,view_zhtj_ylgd_dc.dc,view_zhtj_ylgd_dc.jk,view_zhtj_ylgd_dc.sbpz,view_zhtj_ylgd_dc.qydm,"+&
+				"view_zhtj_ylgd_dc.yy1,view_zhtj_ylgd_dc.yy2,view_zhtj_ylgd_dc.yy3,view_zhtj_ylgd_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylgd_dc.dgcd,view_zhtj_ylgd_dc.sbzcdm,view_zhtj_ylgd_dc.ccbh,view_zhtj_ylgd_dc.sbxh"+&
+				" from {oj view_zhtj_ylgd_dc left outer join view_sb_jy on view_zhtj_ylgd_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylgd_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylgd_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,dgcd,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylgd_dc.zcid,view_zhtj_ylgd_dc.sbmc,view_zhtj_ylgd_dc.sblb,"+&
+		      "view_zhtj_ylgd_dc.sbzl,view_zhtj_ylgd_dc.sbjb,view_zhtj_ylgd_dc.sydw,view_zhtj_ylgd_dc.dwid,view_zhtj_ylgd_dc.sbsyzt,"+&
+		      "view_zhtj_ylgd_dc.yh,view_zhtj_ylgd_dc.dc,view_zhtj_ylgd_dc.jk,view_zhtj_ylgd_dc.sbpz,view_zhtj_ylgd_dc.qydm,"+&
+				"view_zhtj_ylgd_dc.yy1,view_zhtj_ylgd_dc.yy2,view_zhtj_ylgd_dc.yy3,view_zhtj_ylgd_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylgd_dc.dgcd,view_zhtj_ylgd_dc.sbzcdm,view_zhtj_ylgd_dc.ccbh,view_zhtj_ylgd_dc.sbxh"+&
+				" from {oj view_zhtj_ylgd_dc left outer join view_sb_jy on view_zhtj_ylgd_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+//Ñ¹Á¦¹ÜµÀ±¨·Ï
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylgd_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylgd_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,dgcd,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,djb_ylgd_bf.dgcd,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh  "+&
+				"  FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON sb_total_bf.zcid = sb_dcxx.zcid LEFT OUTER JOIN djb_ylgd_bf ON "+&
+				"sb_total_bf.zcid = djb_ylgd_bf.zcid}  where sb_total_bf.sblb = '8000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylgd_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylgd_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,dgcd,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,djb_ylgd_bf.dgcd,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh  "+&
+				"  FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON sb_total_bf.zcid = sb_dcxx.zcid LEFT OUTER JOIN djb_ylgd_bf ON "+&
+				"sb_total_bf.zcid = djb_ylgd_bf.zcid}  where sb_total_bf.sblb = '8000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylgd_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylgd_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,dgcd,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylgd_dc_bf.zcid,view_zhtj_ylgd_dc_bf.sbmc,view_zhtj_ylgd_dc_bf.sblb,"+&
+		      "view_zhtj_ylgd_dc_bf.sbzl,view_zhtj_ylgd_dc_bf.sbjb,view_zhtj_ylgd_dc_bf.sydw,view_zhtj_ylgd_dc_bf.dwid,view_zhtj_ylgd_dc_bf.sbsyzt,"+&
+		      "view_zhtj_ylgd_dc_bf.yh,view_zhtj_ylgd_dc_bf.dc,view_zhtj_ylgd_dc_bf.jk,view_zhtj_ylgd_dc_bf.sbpz,view_zhtj_ylgd_dc_bf.qydm,"+&
+				"view_zhtj_ylgd_dc_bf.yy1,view_zhtj_ylgd_dc_bf.yy2,view_zhtj_ylgd_dc_bf.yy3,view_zhtj_ylgd_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylgd_dc_bf.dgcd,view_zhtj_ylgd_dc_bf.sbzcdm,view_zhtj_ylgd_dc_bf.ccbh,view_zhtj_ylgd_dc_bf.sbxh from {oj view_zhtj_ylgd_dc_bf left outer join view_sb_jy on view_zhtj_ylgd_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylgd_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylgd_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,dgcd,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylgd_dc_bf.zcid,view_zhtj_ylgd_dc_bf.sbmc,view_zhtj_ylgd_dc_bf.sblb,"+&
+		      "view_zhtj_ylgd_dc_bf.sbzl,view_zhtj_ylgd_dc_bf.sbjb,view_zhtj_ylgd_dc_bf.sydw,view_zhtj_ylgd_dc_bf.dwid,view_zhtj_ylgd_dc_bf.sbsyzt,"+&
+		      "view_zhtj_ylgd_dc_bf.yh,view_zhtj_ylgd_dc_bf.dc,view_zhtj_ylgd_dc_bf.jk,view_zhtj_ylgd_dc_bf.sbpz,view_zhtj_ylgd_dc_bf.qydm,"+&
+				"view_zhtj_ylgd_dc_bf.yy1,view_zhtj_ylgd_dc_bf.yy2,view_zhtj_ylgd_dc_bf.yy3,view_zhtj_ylgd_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylgd_dc_bf.dgcd,view_zhtj_ylgd_dc_bf.sbzcdm,view_zhtj_ylgd_dc_bf.ccbh,view_zhtj_ylgd_dc_bf.sbxh from {oj view_zhtj_ylgd_dc_bf left outer join view_sb_jy on view_zhtj_ylgd_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF   
+         
+//µçÌÝ
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_dt_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_dt_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '3000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_dt_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_dt_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '3000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_dt_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_dt_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_dt_dc.zcid,view_zhtj_dt_dc.sbmc,view_zhtj_dt_dc.sblb,"+&
+		      "view_zhtj_dt_dc.sbzl,view_zhtj_dt_dc.sbjb,view_zhtj_dt_dc.sydw,view_zhtj_dt_dc.dwid,view_zhtj_dt_dc.sbsyzt,"+&
+		      "view_zhtj_dt_dc.yh,view_zhtj_dt_dc.dc,view_zhtj_dt_dc.jk,view_zhtj_dt_dc.sbpz,view_zhtj_dt_dc.qydm,"+&
+				"view_zhtj_dt_dc.yy1,view_zhtj_dt_dc.yy2,view_zhtj_dt_dc.yy3,view_zhtj_dt_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_dt_dc.sbzcdm,view_zhtj_dt_dc.ccbh,view_zhtj_dt_dc.sbxh from {oj view_zhtj_dt_dc left outer join view_sb_jy on view_zhtj_dt_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_dt_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_dt_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_dt_dc.zcid,view_zhtj_dt_dc.sbmc,view_zhtj_dt_dc.sblb,"+&
+		      "view_zhtj_dt_dc.sbzl,view_zhtj_dt_dc.sbjb,view_zhtj_dt_dc.sydw,view_zhtj_dt_dc.dwid,view_zhtj_dt_dc.sbsyzt,"+&
+		      "view_zhtj_dt_dc.yh,view_zhtj_dt_dc.dc,view_zhtj_dt_dc.jk,view_zhtj_dt_dc.sbpz,view_zhtj_dt_dc.qydm,"+&
+				"view_zhtj_dt_dc.yy1,view_zhtj_dt_dc.yy2,view_zhtj_dt_dc.yy3,view_zhtj_dt_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_dt_dc.sbzcdm,view_zhtj_dt_dc.ccbh,view_zhtj_dt_dc.sbxh from {oj view_zhtj_dt_dc left outer join view_sb_jy on view_zhtj_dt_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+//µçÌÝ±¨·Ï
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_dt_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_dt_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '3000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_dt_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_dt_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '3000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_dt_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_dt_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_dt_dc_bf.zcid,view_zhtj_dt_dc_bf.sbmc,view_zhtj_dt_dc_bf.sblb,"+&
+		      "view_zhtj_dt_dc_bf.sbzl,view_zhtj_dt_dc_bf.sbjb,view_zhtj_dt_dc_bf.sydw,view_zhtj_dt_dc_bf.dwid,view_zhtj_dt_dc_bf.sbsyzt,"+&
+		      "view_zhtj_dt_dc_bf.yh,view_zhtj_dt_dc_bf.dc,view_zhtj_dt_dc_bf.jk,view_zhtj_dt_dc_bf.sbpz,view_zhtj_dt_dc_bf.qydm,"+&
+				"view_zhtj_dt_dc_bf.yy1,view_zhtj_dt_dc_bf.yy2,view_zhtj_dt_dc_bf.yy3,view_zhtj_dt_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_dt_dc_bf.sbzcdm,view_zhtj_dt_dc_bf.ccbh,view_zhtj_dt_dc_bf.sbxh from {oj view_zhtj_dt_dc_bf left outer join view_sb_jy on view_zhtj_dt_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_dt_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_dt_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_dt_dc_bf.zcid,view_zhtj_dt_dc_bf.sbmc,view_zhtj_dt_dc_bf.sblb,"+&
+		      "view_zhtj_dt_dc_bf.sbzl,view_zhtj_dt_dc_bf.sbjb,view_zhtj_dt_dc_bf.sydw,view_zhtj_dt_dc_bf.dwid,view_zhtj_dt_dc_bf.sbsyzt,"+&
+		      "view_zhtj_dt_dc_bf.yh,view_zhtj_dt_dc_bf.dc,view_zhtj_dt_dc_bf.jk,view_zhtj_dt_dc_bf.sbpz,view_zhtj_dt_dc_bf.qydm,"+&
+				"view_zhtj_dt_dc_bf.yy1,view_zhtj_dt_dc_bf.yy2,view_zhtj_dt_dc_bf.yy3,view_zhtj_dt_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_dt_dc_bf.sbzcdm,view_zhtj_dt_dc_bf.ccbh,view_zhtj_dt_dc_bf.sbxh from {oj view_zhtj_dt_dc_bf left outer join view_sb_jy on view_zhtj_dt_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+            
+//ÆðÖØ»ú
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_qzj_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_qzj_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '4000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_qzj_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_qzj_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '4000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_qzj_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_qzj_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_qzj_dc.zcid,view_zhtj_qzj_dc.sbmc,view_zhtj_qzj_dc.sblb,"+&
+		      "view_zhtj_qzj_dc.sbzl,view_zhtj_qzj_dc.sbjb,view_zhtj_qzj_dc.sydw,view_zhtj_qzj_dc.dwid,view_zhtj_qzj_dc.sbsyzt,"+&
+		      "view_zhtj_qzj_dc.yh,view_zhtj_qzj_dc.dc,view_zhtj_qzj_dc.jk,view_zhtj_qzj_dc.sbpz,view_zhtj_qzj_dc.qydm,"+&
+				"view_zhtj_qzj_dc.yy1,view_zhtj_qzj_dc.yy2,view_zhtj_qzj_dc.yy3,view_zhtj_qzj_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_qzj_dc.sbzcdm,view_zhtj_qzj_dc.ccbh,view_zhtj_qzj_dc.sbxh from {oj view_zhtj_qzj_dc left outer join view_sb_jy on view_zhtj_qzj_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_qzj_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_qzj_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_qzj_dc.zcid,view_zhtj_qzj_dc.sbmc,view_zhtj_qzj_dc.sblb,"+&
+		      "view_zhtj_qzj_dc.sbzl,view_zhtj_qzj_dc.sbjb,view_zhtj_qzj_dc.sydw,view_zhtj_qzj_dc.dwid,view_zhtj_qzj_dc.sbsyzt,"+&
+		      "view_zhtj_qzj_dc.yh,view_zhtj_qzj_dc.dc,view_zhtj_qzj_dc.jk,view_zhtj_qzj_dc.sbpz,view_zhtj_qzj_dc.qydm,"+&
+				"view_zhtj_qzj_dc.yy1,view_zhtj_qzj_dc.yy2,view_zhtj_qzj_dc.yy3,view_zhtj_qzj_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_qzj_dc.sbzcdm,view_zhtj_qzj_dc.ccbh,view_zhtj_qzj_dc.sbxh from {oj view_zhtj_qzj_dc left outer join view_sb_jy on view_zhtj_qzj_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+//ÆðÖØ»ú±¨·Ï
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_qzj_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_qzj_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '4000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_qzj_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_qzj_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '4000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_qzj_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_qzj_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_qzj_dc_bf.zcid,view_zhtj_qzj_dc_bf.sbmc,view_zhtj_qzj_dc_bf.sblb,"+&
+		      "view_zhtj_qzj_dc_bf.sbzl,view_zhtj_qzj_dc_bf.sbjb,view_zhtj_qzj_dc_bf.sydw,view_zhtj_qzj_dc_bf.dwid,view_zhtj_qzj_dc_bf.sbsyzt,"+&
+		      "view_zhtj_qzj_dc_bf.yh,view_zhtj_qzj_dc_bf.dc,view_zhtj_qzj_dc_bf.jk,view_zhtj_qzj_dc_bf.sbpz,view_zhtj_qzj_dc_bf.qydm,"+&
+				"view_zhtj_qzj_dc_bf.yy1,view_zhtj_qzj_dc_bf.yy2,view_zhtj_qzj_dc_bf.yy3,view_zhtj_qzj_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_qzj_dc_bf.sbzcdm,view_zhtj_qzj_dc_bf.ccbh,view_zhtj_qzj_dc_bf.sbxh from {oj view_zhtj_qzj_dc_bf left outer join view_sb_jy on view_zhtj_qzj_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_qzj_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_qzj_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_qzj_dc_bf.zcid,view_zhtj_qzj_dc_bf.sbmc,view_zhtj_qzj_dc_bf.sblb,"+&
+		      "view_zhtj_qzj_dc_bf.sbzl,view_zhtj_qzj_dc_bf.sbjb,view_zhtj_qzj_dc_bf.sydw,view_zhtj_qzj_dc_bf.dwid,view_zhtj_qzj_dc_bf.sbsyzt,"+&
+		      "view_zhtj_qzj_dc_bf.yh,view_zhtj_qzj_dc_bf.dc,view_zhtj_qzj_dc_bf.jk,view_zhtj_qzj_dc_bf.sbpz,view_zhtj_qzj_dc_bf.qydm,"+&
+				"view_zhtj_qzj_dc_bf.yy1,view_zhtj_qzj_dc_bf.yy2,view_zhtj_qzj_dc_bf.yy3,view_zhtj_qzj_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_qzj_dc_bf.sbzcdm,view_zhtj_qzj_dc_bf.ccbh,view_zhtj_qzj_dc_bf.sbxh from {oj view_zhtj_qzj_dc_bf left outer join view_sb_jy on view_zhtj_qzj_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+           
+      
+//ÓÎÀÖÉèÊ©
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylss_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylss_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '6000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylss_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylss_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '6000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylss_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylss_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylss_dc.zcid,view_zhtj_ylss_dc.sbmc,view_zhtj_ylss_dc.sblb,"+&
+		      "view_zhtj_ylss_dc.sbzl,view_zhtj_ylss_dc.sbjb,view_zhtj_ylss_dc.sydw,view_zhtj_ylss_dc.dwid,view_zhtj_ylss_dc.sbsyzt,"+&
+		      "view_zhtj_ylss_dc.yh,view_zhtj_ylss_dc.dc,view_zhtj_ylss_dc.jk,view_zhtj_ylss_dc.sbpz,view_zhtj_ylss_dc.qydm,"+&
+				"view_zhtj_ylss_dc.yy1,view_zhtj_ylss_dc.yy2,view_zhtj_ylss_dc.yy3,view_zhtj_ylss_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylss_dc.sbzcdm,view_zhtj_ylss_dc.ccbh,view_zhtj_ylss_dc.sbxh from {oj view_zhtj_ylss_dc left outer join view_sb_jy on view_zhtj_ylss_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylss_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylss_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylss_dc.zcid,view_zhtj_ylss_dc.sbmc,view_zhtj_ylss_dc.sblb,"+&
+		      "view_zhtj_ylss_dc.sbzl,view_zhtj_ylss_dc.sbjb,view_zhtj_ylss_dc.sydw,view_zhtj_ylss_dc.dwid,view_zhtj_ylss_dc.sbsyzt,"+&
+		      "view_zhtj_ylss_dc.yh,view_zhtj_ylss_dc.dc,view_zhtj_ylss_dc.jk,view_zhtj_ylss_dc.sbpz,view_zhtj_ylss_dc.qydm,"+&
+				"view_zhtj_ylss_dc.yy1,view_zhtj_ylss_dc.yy2,view_zhtj_ylss_dc.yy3,view_zhtj_ylss_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylss_dc.sbzcdm,view_zhtj_ylss_dc.ccbh,view_zhtj_ylss_dc.sbxh from {oj view_zhtj_ylss_dc left outer join view_sb_jy on view_zhtj_ylss_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+//ÓÎÀÖÉèÊ©±¨·Ï
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylss_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylss_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '6000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylss_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylss_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '6000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_ylss_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_ylss_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylss_dc_bf.zcid,view_zhtj_ylss_dc_bf.sbmc,view_zhtj_ylss_dc_bf.sblb,"+&
+		      "view_zhtj_ylss_dc_bf.sbzl,view_zhtj_ylss_dc_bf.sbjb,view_zhtj_ylss_dc_bf.sydw,view_zhtj_ylss_dc_bf.dwid,view_zhtj_ylss_dc_bf.sbsyzt,"+&
+		      "view_zhtj_ylss_dc_bf.yh,view_zhtj_ylss_dc_bf.dc,view_zhtj_ylss_dc_bf.jk,view_zhtj_ylss_dc_bf.sbpz,view_zhtj_ylss_dc_bf.qydm,"+&
+				"view_zhtj_ylss_dc_bf.yy1,view_zhtj_ylss_dc_bf.yy2,view_zhtj_ylss_dc_bf.yy3,view_zhtj_ylss_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylss_dc_bf.sbzcdm,view_zhtj_ylss_dc_bf.ccbh,view_zhtj_ylss_dc_bf.sbxh from {oj view_zhtj_ylss_dc_bf left outer join view_sb_jy on view_zhtj_ylss_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_ylss_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_ylss_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_ylss_dc_bf.zcid,view_zhtj_ylss_dc_bf.sbmc,view_zhtj_ylss_dc_bf.sblb,"+&
+		      "view_zhtj_ylss_dc_bf.sbzl,view_zhtj_ylss_dc_bf.sbjb,view_zhtj_ylss_dc_bf.sydw,view_zhtj_ylss_dc_bf.dwid,view_zhtj_ylss_dc_bf.sbsyzt,"+&
+		      "view_zhtj_ylss_dc_bf.yh,view_zhtj_ylss_dc_bf.dc,view_zhtj_ylss_dc_bf.jk,view_zhtj_ylss_dc_bf.sbpz,view_zhtj_ylss_dc_bf.qydm,"+&
+				"view_zhtj_ylss_dc_bf.yy1,view_zhtj_ylss_dc_bf.yy2,view_zhtj_ylss_dc_bf.yy3,view_zhtj_ylss_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_ylss_dc_bf.sbzcdm,view_zhtj_ylss_dc_bf.ccbh,view_zhtj_ylss_dc_bf.sbxh from {oj view_zhtj_ylss_dc_bf left outer join view_sb_jy on view_zhtj_ylss_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+
+//¿ÍÔËË÷µÀ
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_kysd_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_kysd_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '9000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_kysd_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_kysd_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '9000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_kysd_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_kysd_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_kysd_dc.zcid,view_zhtj_kysd_dc.sbmc,view_zhtj_kysd_dc.sblb,"+&
+		      "view_zhtj_kysd_dc.sbzl,view_zhtj_kysd_dc.sbjb,view_zhtj_kysd_dc.sydw,view_zhtj_kysd_dc.dwid,view_zhtj_kysd_dc.sbsyzt,"+&
+		      "view_zhtj_kysd_dc.yh,view_zhtj_kysd_dc.dc,view_zhtj_kysd_dc.jk,view_zhtj_kysd_dc.sbpz,view_zhtj_kysd_dc.qydm,"+&
+				"view_zhtj_kysd_dc.yy1,view_zhtj_kysd_dc.yy2,view_zhtj_kysd_dc.yy3,view_zhtj_kysd_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_kysd_dc.sbzcdm,view_zhtj_kysd_dc.ccbh,view_zhtj_kysd_dc.sbxh from {oj view_zhtj_kysd_dc left outer join view_sb_jy on view_zhtj_kysd_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_kysd_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_kysd_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_kysd_dc.zcid,view_zhtj_kysd_dc.sbmc,view_zhtj_kysd_dc.sblb,"+&
+		      "view_zhtj_kysd_dc.sbzl,view_zhtj_kysd_dc.sbjb,view_zhtj_kysd_dc.sydw,view_zhtj_kysd_dc.dwid,view_zhtj_kysd_dc.sbsyzt,"+&
+		      "view_zhtj_kysd_dc.yh,view_zhtj_kysd_dc.dc,view_zhtj_kysd_dc.jk,view_zhtj_kysd_dc.sbpz,view_zhtj_kysd_dc.qydm,"+&
+				"view_zhtj_kysd_dc.yy1,view_zhtj_kysd_dc.yy2,view_zhtj_kysd_dc.yy3,view_zhtj_kysd_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_kysd_dc.sbzcdm,view_zhtj_kysd_dc.ccbh,view_zhtj_kysd_dc.sbxh from {oj view_zhtj_kysd_dc left outer join view_sb_jy on view_zhtj_kysd_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+//¿ÍÔËË÷µÀ±¨·Ï
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_kysd_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_kysd_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '9000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_kysd_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_kysd_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '9000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_kysd_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_kysd_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_kysd_dc_bf.zcid,view_zhtj_kysd_dc_bf.sbmc,view_zhtj_kysd_dc_bf.sblb,"+&
+		      "view_zhtj_kysd_dc_bf.sbzl,view_zhtj_kysd_dc_bf.sbjb,view_zhtj_kysd_dc_bf.sydw,view_zhtj_kysd_dc_bf.dwid,view_zhtj_kysd_dc_bf.sbsyzt,"+&
+		      "view_zhtj_kysd_dc_bf.yh,view_zhtj_kysd_dc_bf.dc,view_zhtj_kysd_dc_bf.jk,view_zhtj_kysd_dc_bf.sbpz,view_zhtj_kysd_dc_bf.qydm,"+&
+				"view_zhtj_kysd_dc_bf.yy1,view_zhtj_kysd_dc_bf.yy2,view_zhtj_kysd_dc_bf.yy3,view_zhtj_kysd_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_kysd_dc_bf.sbzcdm,view_zhtj_kysd_dc_bf.ccbh,view_zhtj_kysd_dc_bf.sbxh from {oj view_zhtj_kysd_dc_bf left outer join view_sb_jy on view_zhtj_kysd_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_kysd_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_kysd_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_kysd_dc_bf.zcid,view_zhtj_kysd_dc_bf.sbmc,view_zhtj_kysd_dc_bf.sblb,"+&
+		      "view_zhtj_kysd_dc_bf.sbzl,view_zhtj_kysd_dc_bf.sbjb,view_zhtj_kysd_dc_bf.sydw,view_zhtj_kysd_dc_bf.dwid,view_zhtj_kysd_dc_bf.sbsyzt,"+&
+		      "view_zhtj_kysd_dc_bf.yh,view_zhtj_kysd_dc_bf.dc,view_zhtj_kysd_dc_bf.jk,view_zhtj_kysd_dc_bf.sbpz,view_zhtj_kysd_dc_bf.qydm,"+&
+				"view_zhtj_kysd_dc_bf.yy1,view_zhtj_kysd_dc_bf.yy2,view_zhtj_kysd_dc_bf.yy3,view_zhtj_kysd_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_kysd_dc_bf.sbzcdm,view_zhtj_kysd_dc_bf.ccbh,view_zhtj_kysd_dc_bf.sbxh from {oj view_zhtj_kysd_dc_bf left outer join view_sb_jy on view_zhtj_kysd_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+
+//³§³µ
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_cc_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_cc_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '5000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_cc_dc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_cc_dc(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total.zcid,sb_total.sbmc,sb_total.sblb,sb_total.sbzl,sb_total.sbjb,sb_total.sydw,"+&
+		      "sb_total.dwid,sb_total.sbsyzt,sb_total.yh,sb_total.dc,sb_total.jk,sb_total.sbpz,sb_total.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total.sbzcdm,sb_total.ccbh,sb_total.sbxh FROM {oj sb_total LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total.zcid = sb_dcxx.zcid} where sb_total.sblb = '5000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_cc_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_cc_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_cc_dc.zcid,view_zhtj_cc_dc.sbmc,view_zhtj_cc_dc.sblb,"+&
+		      "view_zhtj_cc_dc.sbzl,view_zhtj_cc_dc.sbjb,view_zhtj_cc_dc.sydw,view_zhtj_cc_dc.dwid,view_zhtj_cc_dc.sbsyzt,"+&
+		      "view_zhtj_cc_dc.yh,view_zhtj_cc_dc.dc,view_zhtj_cc_dc.jk,view_zhtj_cc_dc.sbpz,view_zhtj_cc_dc.qydm,"+&
+				"view_zhtj_cc_dc.yy1,view_zhtj_cc_dc.yy2,view_zhtj_cc_dc.yy3,view_zhtj_cc_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_cc_dc.sbzcdm,view_zhtj_cc_dc.ccbh,view_zhtj_cc_dc.sbxh from {oj view_zhtj_cc_dc left outer join view_sb_jy on view_zhtj_cc_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_cc_dcjl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_cc_dcjl(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_cc_dc.zcid,view_zhtj_cc_dc.sbmc,view_zhtj_cc_dc.sblb,"+&
+		      "view_zhtj_cc_dc.sbzl,view_zhtj_cc_dc.sbjb,view_zhtj_cc_dc.sydw,view_zhtj_cc_dc.dwid,view_zhtj_cc_dc.sbsyzt,"+&
+		      "view_zhtj_cc_dc.yh,view_zhtj_cc_dc.dc,view_zhtj_cc_dc.jk,view_zhtj_cc_dc.sbpz,view_zhtj_cc_dc.qydm,"+&
+				"view_zhtj_cc_dc.yy1,view_zhtj_cc_dc.yy2,view_zhtj_cc_dc.yy3,view_zhtj_cc_dc.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_cc_dc.sbzcdm,view_zhtj_cc_dc.ccbh,view_zhtj_cc_dc.sbxh from {oj view_zhtj_cc_dc left outer join view_sb_jy on view_zhtj_cc_dc.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+//³§³µ±¨·Ï
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_cc_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_cc_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '5000'"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_cc_dc_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_cc_dc_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,yy2,"+&
+		      "yy3,yy4,sbzcdm,ccbh,sbxh) AS SELECT sb_total_bf.zcid,sb_total_bf.sbmc,sb_total_bf.sblb,sb_total_bf.sbzl,sb_total_bf.sbjb,sb_total_bf.sydw,"+&
+		      "sb_total_bf.dwid,'99',sb_total_bf.yh,sb_total_bf.dc,sb_total_bf.jk,sb_total_bf.sbpz,sb_total_bf.qydm,"+&
+		      "sb_dcxx.yy1,sb_dcxx.yy2,sb_dcxx.yy3,sb_dcxx.yy4,sb_total_bf.sbzcdm,sb_total_bf.ccbh,sb_total_bf.sbxh FROM {oj sb_total_bf LEFT OUTER JOIN sb_dcxx ON "+&
+				" sb_total_bf.zcid = sb_dcxx.zcid} where sb_total_bf.sblb = '5000'"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_zhtj_cc_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_zhtj_cc_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_cc_dc_bf.zcid,view_zhtj_cc_dc_bf.sbmc,view_zhtj_cc_dc_bf.sblb,"+&
+		      "view_zhtj_cc_dc_bf.sbzl,view_zhtj_cc_dc_bf.sbjb,view_zhtj_cc_dc_bf.sydw,view_zhtj_cc_dc_bf.dwid,view_zhtj_cc_dc_bf.sbsyzt,"+&
+		      "view_zhtj_cc_dc_bf.yh,view_zhtj_cc_dc_bf.dc,view_zhtj_cc_dc_bf.jk,view_zhtj_cc_dc_bf.sbpz,view_zhtj_cc_dc_bf.qydm,"+&
+				"view_zhtj_cc_dc_bf.yy1,view_zhtj_cc_dc_bf.yy2,view_zhtj_cc_dc_bf.yy3,view_zhtj_cc_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_cc_dc_bf.sbzcdm,view_zhtj_cc_dc_bf.ccbh,view_zhtj_cc_dc_bf.sbxh from {oj view_zhtj_cc_dc_bf left outer join view_sb_jy on view_zhtj_cc_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_zhtj_cc_dcjl_bf"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_zhtj_cc_dcjl_bf(zcid,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,sbpz,qydm,yy1,"+&
+		      "yy2,yy3,yy4,jylb,jyjl,sbzcdm,ccbh,sbxh) AS SELECT view_zhtj_cc_dc_bf.zcid,view_zhtj_cc_dc_bf.sbmc,view_zhtj_cc_dc_bf.sblb,"+&
+		      "view_zhtj_cc_dc_bf.sbzl,view_zhtj_cc_dc_bf.sbjb,view_zhtj_cc_dc_bf.sydw,view_zhtj_cc_dc_bf.dwid,view_zhtj_cc_dc_bf.sbsyzt,"+&
+		      "view_zhtj_cc_dc_bf.yh,view_zhtj_cc_dc_bf.dc,view_zhtj_cc_dc_bf.jk,view_zhtj_cc_dc_bf.sbpz,view_zhtj_cc_dc_bf.qydm,"+&
+				"view_zhtj_cc_dc_bf.yy1,view_zhtj_cc_dc_bf.yy2,view_zhtj_cc_dc_bf.yy3,view_zhtj_cc_dc_bf.yy4,view_sb_jy.jylb,"+&
+				"view_sb_jy.jyjl,view_zhtj_cc_dc_bf.sbzcdm,view_zhtj_cc_dc_bf.ccbh,view_zhtj_cc_dc_bf.sbxh from {oj view_zhtj_cc_dc_bf left outer join view_sb_jy on view_zhtj_cc_dc_bf.zcid="+&
+				"view_sb_jy.zcid} "
+		execute immediate :mysql using sqlca ;		
+END IF
+
+//ÇøÓòÈ¦¶¨
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_sydw_qd"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_sydw_qd(xzid,xzmc,gl,ylrq,dt,qzj,cc,ylss,ylgd,kysd,bs,jd,wd,qydm) AS SELECT "+&
+		      "t_map_sbsl_temp.xzid, t_map_sbsl_temp.xzmc, t_map_sbsl_temp.gl, t_map_sbsl_temp.ylrq, t_map_sbsl_temp.dt, "+&
+				"t_map_sbsl_temp.qzj, t_map_sbsl_temp.cc, t_map_sbsl_temp.ylss, t_map_sbsl_temp.ylgd, t_map_sbsl_temp.kysd, "+&
+				"t_map_sbsl_temp.bs, t_map_sbsl_temp.jd, t_map_sbsl_temp.wd, dw_total_sydw.qydm FROM dw_total_sydw, "+&
+				"t_map_sbsl_temp WHERE ( t_map_sbsl_temp.xzid = dw_total_sydw.dwid ) and ( ( t_map_sbsl_temp.bs = '3' ) "+&
+				"AND ( dw_total_sydw.qydm <> '' ) AND ( dw_total_sydw.qydm is not null ) )"
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_sydw_qd"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_sydw_qd(xzid,xzmc,gl,ylrq,dt,qzj,cc,ylss,ylgd,kysd,bs,jd,wd,qydm) AS SELECT "+&
+		      "t_map_sbsl_temp.xzid, t_map_sbsl_temp.xzmc, t_map_sbsl_temp.gl, t_map_sbsl_temp.ylrq, t_map_sbsl_temp.dt, "+&
+				"t_map_sbsl_temp.qzj, t_map_sbsl_temp.cc, t_map_sbsl_temp.ylss, t_map_sbsl_temp.ylgd, t_map_sbsl_temp.kysd, "+&
+				"t_map_sbsl_temp.bs, t_map_sbsl_temp.jd, t_map_sbsl_temp.wd, dw_total_sydw.qydm FROM dw_total_sydw, "+&
+				"t_map_sbsl_temp WHERE ( t_map_sbsl_temp.xzid = dw_total_sydw.dwid ) and ( ( t_map_sbsl_temp.bs = '3' ) "+&
+				"AND ( dw_total_sydw.qydm <> '' ) AND ( dw_total_sydw.qydm is not null ) )"
+		execute immediate :mysql using sqlca ;		
+END IF
+
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_jy_cc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_jy_cc ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_cc.zcid,sb_total.qydm, sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_cc, sb_total, sb_jy WHERE ( djb_tzsb_cc.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+		execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_jy_cc"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_jy_cc( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_cc.zcid,sb_total.qydm, sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_cc, sb_total, sb_jy WHERE ( djb_tzsb_cc.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+		execute immediate :mysql using sqlca ;		
+END IF
+
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_jy_dt"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_jy_dt ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_dt.zcid,sb_total.qydm, sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_dt, sb_total, sb_jy WHERE ( djb_tzsb_dt.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_jy_dt"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_jy_dt ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_dt.zcid,sb_total.qydm, sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_dt, sb_total, sb_jy WHERE ( djb_tzsb_dt.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca ;		
+END IF
+
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_jy_gl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_jy_gl ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_gl.zcid, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_gl, sb_jy, sb_total WHERE ( djb_gl.zcid = sb_jy.zcid ) and ( djb_gl.zcid = sb_total.zcid ) "
+	execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_jy_gl"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_jy_gl ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_gl.zcid, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_gl, sb_jy, sb_total WHERE ( djb_gl.zcid = sb_jy.zcid ) and ( djb_gl.zcid = sb_total.zcid ) "
+	execute immediate :mysql using sqlca ;		
+END IF
+
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_jy_kysd"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_jy_kysd ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_kysd.zcid,sb_total.qydm, sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_kysd, sb_total, sb_jy WHERE ( djb_tzsb_kysd.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_jy_kysd"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_jy_kysd ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_kysd.zcid, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_kysd, sb_total, sb_jy WHERE ( djb_tzsb_kysd.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca ;		
+END IF
+
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_jy_qzj"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_jy_qzj ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_qzjx.zcid, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_qzjx, sb_total, sb_jy WHERE ( djb_tzsb_qzjx.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_jy_qzj"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_jy_qzj ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_qzjx.zcid, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_qzjx, sb_total, sb_jy WHERE ( djb_tzsb_qzjx.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca ;		
+END IF
+
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_jy_ylgd"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_jy_ylgd ( zcid, dgcd, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jylb, jyrq, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_ylgd.zcid, djb_ylgd.dgcd, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jylb, sb_jy.jyrq, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_ylgd, sb_total, sb_jy WHERE ( djb_ylgd.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_jy_ylgd"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_jy_ylgd ( zcid, dgcd, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jylb, jyrq, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_ylgd.zcid, djb_ylgd.dgcd, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jylb, sb_jy.jyrq, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_ylgd, sb_total, sb_jy WHERE ( djb_ylgd.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca ;		
+END IF
+
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_jy_ylrq"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_jy_ylrq ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT sb_total.zcid, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_ylrq, sb_total, sb_jy WHERE ( djb_ylrq.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_jy_ylrq"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_jy_ylrq ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT sb_total.zcid, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_ylrq, sb_total, sb_jy WHERE ( djb_ylrq.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca ;		
+END IF
+
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_jy_ylss"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_jy_ylss ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_ylss.zcid, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_ylss, sb_total, sb_jy WHERE ( djb_tzsb_ylss.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_jy_ylss"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_jy_ylss ( zcid, qydm,sbzcdm, sbmc, sblb, sbzl, sydw, dwid, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry) AS SELECT djb_tzsb_ylss.zcid, sb_total.qydm,sb_total.sbzcdm, sb_total.sbmc, sb_total.sblb, sb_total.sbzl, sb_total.sydw, sb_total.dwid, sb_jy.jyrq, sb_jy.jylb, sb_jy.jyjl, sb_jy.bgbh, sb_jy.xcjyrq, sb_jy.jyid, sb_jy.jyry  FROM djb_tzsb_ylss, sb_total, sb_jy WHERE ( djb_tzsb_ylss.zcid = sb_total.zcid ) and ( sb_total.zcid = sb_jy.zcid ) "
+   execute immediate :mysql using sqlca ;		
+END IF
+
+IF mark = 'sqlserver' THEN
+	delsql = "drop view djylrq.view_map_total_jy"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE VIEW djylrq.view_map_total_jy ( zcid, sblb, sbzl,sbpz,qydm, sydw, dwid, dgcd, sbzcdm, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry, jytype, jyml, ryid ) AS SELECT view_map_total.zcid, view_map_total.sblb, view_map_total.sbzl,view_map_total.sbpz,view_map_total.qydm, view_map_total.sydw, view_map_total.dwid, view_map_total.dgcd, view_map_total.sbzcdm, view_jy_total.jyrq, view_jy_total.jylb, view_jy_total.jyjl, view_jy_total.bgbh, view_jy_total.xcjyrq, view_jy_total.jyid, view_jy_total.jyry, view_jy_total.jytype, view_jy_total.jyml, view_jy_total.ryid FROM view_map_total, view_jy_total WHERE ( view_map_total.zcid = view_jy_total.zcid )"
+	execute immediate :mysql using sqlca;
+ELSE
+	delsql = "drop view view_map_total_jy"
+	execute immediate :delsql using sqlca;
+		mysql="CREATE view view_map_total_jy ( zcid, sblb, sbzl,sbpz,qydm, sydw, dwid, dgcd, sbzcdm, jyrq, jylb, jyjl, bgbh, xcjyrq, jyid, jyry, jytype, jyml, ryid ) AS SELECT view_map_total.zcid, view_map_total.sblb, view_map_total.sbzl,view_map_total.sbpz,view_map_total.qydm, view_map_total.sydw, view_map_total.dwid, view_map_total.dgcd, view_map_total.sbzcdm, view_jy_total.jyrq, view_jy_total.jylb, view_jy_total.jyjl, view_jy_total.bgbh, view_jy_total.xcjyrq, view_jy_total.jyid, view_jy_total.jyry, view_jy_total.jytype, view_jy_total.jyml, view_jy_total.ryid FROM view_map_total, view_jy_total WHERE ( view_map_total.zcid = view_jy_total.zcid )"
+	execute immediate :mysql using sqlca ;		
+END IF
+
+//µ¥Î»¼Ó¼ò³Æ
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.dw_total_sydw add dwjc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+else 
+	modsql = "alter table dw_total_sydw add dwjc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+
+//ÐÂ½¨´æµÀÂ·±í
+if mark = 'sqlserver' then
+	mysql = "CREATE TABLE djylrq.a_street (id varchar(20) NOT NULL,blob_ocx image,primary key (id));"
+   execute immediate :mysql using sqlca;
+	myindex = "CREATE UNIQUE INDEX a_street_X ON DJYLRQ.a_street (id)"
+	   execute immediate :myindex using sqlca;
+else	
+	mysql = "CREATE TABLE a_street (id varchar(20) NOT NULL,blob_ocx long binary,primary key (id));"
+   execute immediate :mysql using sqlca;	
+end if
+
+end subroutine
+

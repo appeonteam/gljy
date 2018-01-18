@@ -1,0 +1,44 @@
+﻿$PBExportHeader$fun_sjzd_bgnr.srf
+global type fun_sjzd_bgnr from function_object
+end type
+
+forward prototypes
+global subroutine fun_sjzd_bgnr (transaction sjzd, transaction sqlserver)
+end prototypes
+
+global subroutine fun_sjzd_bgnr (transaction sjzd, transaction sqlserver);string delsql,mysql,myindex,ls_mc,ls_nr
+integer ls_id,ls_bglb_id,ls_bg_id,ls_xh_id,ls_xh
+transaction sql_sjzd1,sql_new
+
+sql_sjzd1= sjzd;
+sql_new= sqlserver;
+
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+delete from sjzd_bg_bgzd_nr;
+//sjzd_bg_bgzd_nr
+ if mark = 'sqlserver' then
+mysql="CREATE TABLE djylrq.sjzd_bg_bgzd_nr(bglb_id integer NOT NULL,bg_id integer not null,xh_id integer NOT NULL,xh integer not null,nr varchar(80) NULL);"
+execute immediate :mysql using sql_new ;
+myindex="CREATE UNIQUE INDEX sjzd_bg_bgzd_nr ON djylrq.sjzd_bg_bgzd_nr(bglb_id,bg_id,xh_id,xh);"
+execute immediate :myindex using sql_new ;
+commit using sql_new;
+else
+	mysql="CREATE TABLE sjzd_bg_bgzd_nr(bglb_id integer NOT NULL,bg_id integer not null,xh_id integer NOT NULL,xh integer not null,nr varchar(80) NULL);"
+execute immediate :mysql using sql_new ;
+end if
+setnull(ls_bglb_id);
+setnull(ls_bg_id);
+setnull(ls_nr);
+declare cur_ct4 cursor for
+select bglb_id,bg_id,xh_id,xh,nr from sjzd_bg_bgzd_nr using sql_sjzd1;
+open cur_ct4 ;
+fetch cur_ct4 into :ls_bglb_id,:ls_bg_id,:ls_xh_id,:ls_xh,:ls_nr;
+do while sql_sjzd1.sqlcode=0
+	insert into sjzd_bg_bgzd_nr(bglb_id,bg_id,xh_id,xh,nr)values(:ls_bglb_id,:ls_bg_id,:ls_xh_id,:ls_xh,:ls_nr);
+   fetch cur_ct4 into :ls_bglb_id,:ls_bg_id,:ls_xh_id,:ls_xh,:ls_nr;
+loop
+close cur_ct4;
+commit using sql_new; 
+end subroutine
+

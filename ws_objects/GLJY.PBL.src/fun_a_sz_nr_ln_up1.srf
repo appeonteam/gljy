@@ -1,0 +1,723 @@
+﻿$PBExportHeader$fun_a_sz_nr_ln_up1.srf
+global type fun_a_sz_nr_ln_up1 from function_object
+end type
+
+forward prototypes
+global subroutine fun_a_sz_nr_ln_up1 ()
+end prototypes
+
+global subroutine fun_a_sz_nr_ln_up1 ();long ll_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+string id_bgml,jytype_bgml
+DECLARE a_bgml CURSOR FOR
+SELECT id,jytype
+FROM a_bgml WHERE (lbid = '' or lbid is null) and (mark = '' or mark is null) and (jytype is not null and jytype not like '');   
+OPEN a_bgml;
+FETCH a_bgml INTO :id_bgml,:jytype_bgml;
+do while sqlca.sqlcode = 0
+	choose case jytype_bgml
+		case 'Kyo'
+			update a_bgml set lbid = 'rqA207',sh = '207' where id like :id_bgml and jytype = 'Kyo';
+		case 'Kyc'
+			update a_bgml set lbid = 'rqA206',sh = '206' where id like :id_bgml and jytype = 'Kyc';
+		case '6s'
+			update a_bgml set lbid = 'rqA101',sh = '101' where id like :id_bgml and jytype = '6s';
+		case '6n'
+			update a_bgml set lbid = 'rqA102',sh = '102' where id like :id_bgml and jytype = '6n';
+		case '6]'
+			update a_bgml set lbid = 'rqA103',sh = '103' where id like :id_bgml and jytype = '6]';
+		case '61'
+			update a_bgml set lbid = 'rqA104',sh = '104' where id like :id_bgml and jytype = '61';
+		case '6bs'
+			update a_bgml set lbid = 'rqA105',sh = '105' where id like :id_bgml and jytype = '6bs';
+		case '6cs'
+			update a_bgml set lbid = 'rqA106',sh = '106' where id like :id_bgml and jytype = '6cs';	
+		case '6e2'
+			update a_bgml set lbid = 'rqA107',sh = '107' where id like :id_bgml and jytype = '6e2';	
+		case '6h2'
+			update a_bgml set lbid = 'rqA108',sh = '108' where id like :id_bgml and jytype = '6h2';
+		case '?s'
+			update a_bgml set lbid = 'rqA201',sh = '201' where id like :id_bgml and jytype = '?s';
+		case '?n'
+			update a_bgml set lbid = 'rqA202',sh = '201' where id like :id_bgml and jytype = '?n';	
+		case '+s'
+			update a_bgml set lbid = 'rqA301',sh = '301' where id like :id_bgml and jytype = '+s';	
+		case '+n'
+			update a_bgml set lbid = 'rqA302',sh = '302' where id like :id_bgml and jytype = '+n';	
+		case 'Ks'
+			update a_bgml set lbid = 'rqA401',sh = '401' where id like :id_bgml and jytype = 'Ks';
+		case 'Kn'
+			update a_bgml set lbid = 'rqA402',sh = '402' where id like :id_bgml and jytype = 'Kn';
+		case 'Js'
+			update a_bgml set lbid = 'rqA501',sh = '501' where id like :id_bgml and jytype = 'Js';
+		case 'Jn'
+			update a_bgml set lbid = 'rqA502',sh = '502' where id like :id_bgml and jytype = 'Jn';
+		case 'Os'
+			update a_bgml set lbid = 'rqA601',sh = '601' where id like :id_bgml and jytype = 'Os';
+		case 'On'
+			update a_bgml set lbid = 'rqA602',sh = '602' where id like :id_bgml and jytype = 'On';
+		case 'Oc'
+			update a_bgml set lbid = 'rqA603',sh = '603' where id like :id_bgml and jytype = 'Oc';
+		case 'Pc'
+			update a_bgml set lbid = 'rqA701',sh = '701' where id like :id_bgml and jytype = 'Pc';
+		case '1c'
+			update a_bgml set lbid = 'rqA801',sh = '801' where id like :id_bgml and jytype = '1c';
+		case '2c'
+			update a_bgml set lbid = 'rqA901',sh = '901' where id like :id_bgml and jytype = '2c';
+		case ';c'
+			update a_bgml set lbid = 'rqAa01',sh = 'a01' where id like :id_bgml and jytype = ';c';
+		case 'Is'
+			update a_bgml set lbid = 'rqAl01',sh = 'l01' where id like :id_bgml and jytype = 'Is';
+		case 'Ylc'
+			update a_bgml set lbid = 'rqAl02',sh = 'l02' where id like :id_bgml and jytype = 'Ylc';
+		case 'Ylo'
+			update a_bgml set lbid = 'rqAl02',sh = 'l02' where id like :id_bgml and jytype = 'Ylo';
+		/////////////////////////////////aj//////////////////////////////////////////
+		case '6d'
+			update a_bgml set lbid = 'rqB101',sh = '101' where id like :id_bgml and jytype = '6d';
+		case '6?'
+			update a_bgml set lbid = 'rqB102',sh = '102' where id like :id_bgml and jytype = '6?';
+		case '63'
+			update a_bgml set lbid = 'rqB103',sh = '103' where id like :id_bgml and jytype = '63';
+		case '6|'
+			update a_bgml set lbid = 'rqB104',sh = '104' where id like :id_bgml and jytype = '6|';
+		case '64'
+			update a_bgml set lbid = 'rqB105',sh = '105' where id like :id_bgml and jytype = '64';
+		case '6g|'
+			update a_bgml set lbid = 'rqB106',sh = '106' where id like :id_bgml and jytype = '6g|';
+		case '6g4'
+			update a_bgml set lbid = 'rqB107',sh = '107' where id like :id_bgml and jytype = '6g4';
+		case '6+'
+			update a_bgml set lbid = 'rqB108',sh = '108' where id like :id_bgml and jytype = '6+';
+		case 'Od'
+			update a_bgml set lbid = 'rqB601',sh = '601' where id like :id_bgml and jytype = 'Od';
+		/////////////////////////////////jj///////////////////////////////////////////
+		case '6p'
+			update a_bgml set lbid = 'rqC101',sh = '101' where id like :id_bgml and jytype = '6p';
+		case '6w'
+			update a_bgml set lbid = 'rqC102',sh = '102' where id like :id_bgml and jytype = '6w';
+		case '6u'
+			update a_bgml set lbid = 'rqC103',sh = '103' where id like :id_bgml and jytype = '6u';
+		case '6v'
+			update a_bgml set lbid = 'rqC104',sh = '104' where id like :id_bgml and jytype = '6v';
+		case '6fp'
+			update a_bgml set lbid = 'rqC105',sh = '105' where id like :id_bgml and jytype = '6fp';
+		case '6fw'
+			update a_bgml set lbid = 'rqC106',sh = '106' where id like :id_bgml and jytype = '6fw';	
+		case 'Op'
+			update a_bgml set lbid = 'rqC601',sh = '601' where id like :id_bgml and jytype = 'Op';
+		case 'Ow'
+			update a_bgml set lbid = 'rqC602',sh = '602' where id like :id_bgml and jytype = 'Ow';
+		case 'Ou'
+			update a_bgml set lbid = 'rqC603',sh = '603' where id like :id_bgml and jytype = 'Ou';
+		case 'Ov'
+			update a_bgml set lbid = 'rqC604',sh = '604' where id like :id_bgml and jytype = 'Ov';
+		case ']ap'
+			update a_bgml set lbid = 'rqCb01',sh = 'b01' where id like :id_bgml and jytype = ']ap';
+		case ']aw'
+			update a_bgml set lbid = 'rqCb02',sh = 'b02' where id like :id_bgml and jytype = ']aw';
+		case '|ap'
+			update a_bgml set lbid = 'rqCc01',sh = 'c01' where id like :id_bgml and jytype = '|ap';
+		case '|aw'
+			update a_bgml set lbid = 'rqCc02',sh = 'c02' where id like :id_bgml and jytype = '|aw';
+		case '(ap'
+			update a_bgml set lbid = 'rqCd01',sh = 'd01' where id like :id_bgml and jytype = '(ap';
+		case '(aw'
+			update a_bgml set lbid = 'rqCd02',sh = 'd02' where id like :id_bgml and jytype = '(aw';
+		case '^ap'
+			update a_bgml set lbid = 'rqCe01',sh = 'e01' where id like :id_bgml and jytype = '^ap';
+		case '^aw'
+			update a_bgml set lbid = 'rqCe02',sh = 'e02' where id like :id_bgml and jytype = '^aw';
+		case '6ap'
+			update a_bgml set lbid = 'rqCf01',sh = 'f01' where id like :id_bgml and jytype = '6ap';
+		case '6dp'
+			update a_bgml set lbid = 'rqCg01',sh = 'g01' where id like :id_bgml and jytype = '6dp';
+		case '7w'
+			update a_bgml set lbid = 'rqCh01',sh = 'h01' where id like :id_bgml and jytype = '7w';
+		case ':w'
+			update a_bgml set lbid = 'rqCi01',sh = 'i01' where id like :id_bgml and jytype = ':w';
+		case '6ip'
+			update a_bgml set lbid = 'rqCi02',sh = 'i02' where id like :id_bgml and jytype = '6ip';
+		case '6iw'
+			update a_bgml set lbid = 'rqCi03',sh = 'i03' where id like :id_bgml and jytype = '6iw';
+		case '6jw'
+			update a_bgml set lbid = 'rqCi04',sh = 'i04' where id like :id_bgml and jytype = '6jw';
+		case '6/'
+			update a_bgml set lbid = 'rqCi05',sh = 'i05' where id like :id_bgml and jytype = '6/';	
+		case '?p'
+			update a_bgml set lbid = 'rqCi06',sh = 'i06' where id like :id_bgml and jytype = '?p';	
+		case '?w'
+			update a_bgml set lbid = 'rqCi07',sh = 'i07' where id like :id_bgml and jytype = '?w';		
+		/////////////////////////////////////jk///////////////////////////////////////
+		case 'Le'
+			update a_bgml set lbid = 'rqDj01',sh = 'j01' where id like :id_bgml and jytype = 'Le';
+		case '4p'
+			update a_bgml set lbid = 'rqDk01',sh = 'k01' where id like :id_bgml and jytype = '4p';
+		case '4w'
+			update a_bgml set lbid = 'rqDk02',sh = 'k02' where id like :id_bgml and jytype = '4w';
+		////////////////////////////////¹øÂ¯//////////////////////////////////////////
+		case 'Aa'
+			update a_bgml set lbid = 'glA101',sh = '101' where id like :id_bgml and jytype = 'Aa';
+		case 'Ab'
+			update a_bgml set lbid = 'glA102',sh = '102' where id like :id_bgml and jytype = 'Ab';
+		case 'Ai'
+			update a_bgml set lbid = 'glA103',sh = '103' where id like :id_bgml and jytype = 'Ai';
+		case 'Da'
+			update a_bgml set lbid = 'glA201',sh = '201' where id like :id_bgml and jytype = 'Da';
+		case 'Db'
+			update a_bgml set lbid = 'glA202',sh = '202' where id like :id_bgml and jytype = 'Db';
+		case 'Di'
+			update a_bgml set lbid = 'glA203',sh = '203' where id like :id_bgml and jytype = 'Di';
+		case 'Dc'
+			update a_bgml set lbid = 'glA204',sh = '204' where id like :id_bgml and jytype = 'Dc';
+		case 'Fa'
+			update a_bgml set lbid = 'glA301',sh = '301' where id like :id_bgml and jytype = 'Fa';
+		case 'Fb'
+			update a_bgml set lbid = 'glA302',sh = '302' where id like :id_bgml and jytype = 'Fb';
+		case '(c'
+			update a_bgml set lbid = 'glA801',sh = '801' where id like :id_bgml and jytype = '(c';
+		case ',s'
+			update a_bgml set lbid = 'glA901',sh = '901' where id like :id_bgml and jytype = ',s';
+		case ',@'
+			update a_bgml set lbid = 'glA902',sh = '902' where id like :id_bgml and jytype = ',@';
+		case '|;'
+			update a_bgml set lbid = 'glAa01',sh = 'a01' where id like :id_bgml and jytype = '|;';	
+		case '|@'
+			update a_bgml set lbid = 'glAa02',sh = 'a02' where id like :id_bgml and jytype = '|@';	
+		case 'Fc'
+			update a_bgml set lbid = 'glA401',sh = '401' where id like :id_bgml and jytype = 'Fc';	
+		case '|c'
+			update a_bgml set lbid = 'glA402',sh = '402' where id like :id_bgml and jytype = '|c';	
+		case '&ac'
+			update a_bgml set lbid = 'glA501',sh = '501' where id like :id_bgml and jytype = '&ac';
+		case 'Rdc'
+			update a_bgml set lbid = 'glA502',sh = '502' where id like :id_bgml and jytype = 'Rdc';
+		case 'Zdc'
+			update a_bgml set lbid = 'glA503',sh = '503' where id like :id_bgml and jytype = 'Zdc';
+
+		////////////////////////////////////aj/////////////////////////////////////
+		case 'Dk'
+			update a_bgml set lbid = 'glB201',sh = '201' where id like :id_bgml and jytype = 'Dk';
+		case 'Dj'
+			update a_bgml set lbid = 'glB202',sh = '202' where id like :id_bgml and jytype = 'Dj';
+		case 'Dr'
+			update a_bgml set lbid = 'glB203',sh = '203' where id like :id_bgml and jytype = 'Dr';
+		case 'D3'
+			update a_bgml set lbid = 'glB204',sh = '204' where id like :id_bgml and jytype = 'D3';
+		case 'Dm'
+			update a_bgml set lbid = 'glB205',sh = '205' where id like :id_bgml and jytype = 'Dm';
+		case 'Fd'
+			update a_bgml set lbid = 'glB301',sh = '301' where id like :id_bgml and jytype = 'Fd';
+		////////////////////////////////////jj///////////////////////////////////////
+		case 'Ap'
+			update a_bgml set lbid = 'glC101',sh = '101' where id like :id_bgml and jytype = 'Ap';
+		case 'Aw'
+			update a_bgml set lbid = 'glC102',sh = '102' where id like :id_bgml and jytype = 'Aw';
+		case 'Au'
+			update a_bgml set lbid = 'glC103',sh = '103' where id like :id_bgml and jytype = 'Au';
+		case 'Av'
+			update a_bgml set lbid = 'glC104',sh = '104' where id like :id_bgml and jytype = 'Av';
+		case 'D#'
+			update a_bgml set lbid = 'glC201',sh = '201' where id like :id_bgml and jytype = 'D#';
+		case 'Dp'
+			update a_bgml set lbid = 'glC202',sh = '202' where id like :id_bgml and jytype = 'Dp';
+		case 'Dw'
+			update a_bgml set lbid = 'glC203',sh = '203' where id like :id_bgml and jytype = 'Dw';
+		case 'Du'
+			update a_bgml set lbid = 'glC204',sh = '204' where id like :id_bgml and jytype = 'Du';
+		case 'Dv'
+			update a_bgml set lbid = 'glC205',sh = '205' where id like :id_bgml and jytype = 'Dv';
+		case 'D5'
+			update a_bgml set lbid = 'glC206',sh = '206' where id like :id_bgml and jytype = 'D5';
+		case 'D#'
+			update a_bgml set lbid = 'glC207',sh = '207' where id like :id_bgml and jytype = 'D#';
+		case 'Fp'
+			update a_bgml set lbid = 'glC301',sh = '301' where id like :id_bgml and jytype = 'Fp';
+		case 'Fe'
+			update a_bgml set lbid = 'glC302',sh = '302' where id like :id_bgml and jytype = 'Fe';
+		case ')ap'
+			update a_bgml set lbid = 'glC401',sh = '401' where id like :id_bgml and jytype = ')ap';
+		case ')aw'
+			update a_bgml set lbid = 'glC402',sh = '402' where id like :id_bgml and jytype = ')aw';
+		case ')bw'
+			update a_bgml set lbid = 'glC501',sh = '501' where id like :id_bgml and jytype = ')bw';
+		case 'Daw'
+			update a_bgml set lbid = 'glC601',sh = '601' where id like :id_bgml and jytype = 'Daw';	
+		case 'Dbw'
+			update a_bgml set lbid = 'glC701',sh = '701' where id like :id_bgml and jytype = 'Dbw';	
+		case ',w'
+			update a_bgml set lbid = 'glC901',sh = '901' where id like :id_bgml and jytype = ',w';
+		case ',3'
+			update a_bgml set lbid = 'glC902',sh = '902' where id like :id_bgml and jytype = ',3';
+		case ',5'
+			update a_bgml set lbid = 'glC903',sh = '903' where id like :id_bgml and jytype = ',5';
+		case '|w'
+			update a_bgml set lbid = 'glCa01',sh = 'a01' where id like :id_bgml and jytype = '|w';
+		case '|3'
+			update a_bgml set lbid = 'glCa02',sh = 'a02' where id like :id_bgml and jytype = '|3';
+		case '|5'
+			update a_bgml set lbid = 'glCa03',sh = 'a03' where id like :id_bgml and jytype = '|5';
+		case 'Djw'
+			update a_bgml set lbid = 'glCa04',sh = 'a04' where id like :id_bgml and jytype = 'Djw';
+		case 'D/'
+			update a_bgml set lbid = 'glCa05',sh = 'a05' where id like :id_bgml and jytype = 'D/';	
+		case 'ytp'
+			update a_bgml set lbid = 'glCb01',sh = 'b01' where id like :id_bgml and jytype = 'ytp';
+		case 'ytw'
+			update a_bgml set lbid = 'glCb02',sh = 'b02' where id like :id_bgml and jytype = 'ytw';	
+		////////////////////////////////////////jk///////////////////////////////////
+		case 'Ge'
+			update a_bgml set lbid = 'glDb01',sh = 'b01' where id like :id_bgml and jytype = 'Ge';
+		///////////////////////////////////////¹ÜµÀ///////////////////////////////////
+		case '5s'
+			update a_bgml set lbid = 'gdA101',sh = '101' where id like :id_bgml and jytype = '5s';
+		case '5t'
+			update a_bgml set lbid = 'gdA102',sh = '102' where id like :id_bgml and jytype = '5t';
+		case '5r('	
+			update a_bgml set lbid = 'gdA601',sh = '601' where id like :id_bgml and jytype = '5r(';
+		case '5r)'	
+			update a_bgml set lbid = 'gdA602',sh = '602' where id like :id_bgml and jytype = '5r)';
+		///////////////////////////////////////////////////////////////////////////////
+		case '8d'
+			update a_bgml set lbid = 'gdB201',sh = '201' where id like :id_bgml and jytype = '8d';
+		///////////////////////////////////////////////////////////////////////////////
+		case '8w'
+			update a_bgml set lbid = 'gdC201',sh = '201' where id like :id_bgml and jytype = '8w';
+		case '8v'
+			update a_bgml set lbid = 'gdC202',sh = '202' where id like :id_bgml and jytype = '8v';
+		case '8q'
+			update a_bgml set lbid = 'gdC203',sh = '203' where id like :id_bgml and jytype = '8q';
+		case '=ap'
+			update a_bgml set lbid = 'gdC301',sh = '301' where id like :id_bgml and jytype = '=ap';
+		case '=aw'
+			update a_bgml set lbid = 'gdC302',sh = '302' where id like :id_bgml and jytype = '=aw';
+		case '`ap'
+			update a_bgml set lbid = 'gdC401',sh = '401' where id like :id_bgml and jytype = '`ap';
+		case '`aw'
+			update a_bgml set lbid = 'gdC402',sh = '402' where id like :id_bgml and jytype = '`aw';
+		case '\ap'
+			update a_bgml set lbid = 'gdC501',sh = '501' where id like :id_bgml and jytype = '\ap';
+		case '\aw'
+			update a_bgml set lbid = 'gdC502',sh = '502' where id like :id_bgml and jytype = '\aw';
+		case '8/'
+			update a_bgml set lbid = 'gdC503',sh = '503' where id like :id_bgml and jytype = '8/';	
+		//////////////////////////////////////ÆøÆ¿/////////////////////////////////////
+		case 'Qc'
+			update a_bgml set lbid = 'qpA101',sh = '101' where id like :id_bgml and jytype = 'Qc';
+		case 'Q0'
+			update a_bgml set lbid = 'qpA102',sh = '102' where id like :id_bgml and jytype = 'Q0';	
+		case '@ac'
+			update a_bgml set lbid = 'qpA201',sh = '201' where id like :id_bgml and jytype = '@ac';
+		case '@a0'
+			update a_bgml set lbid = 'qpA202',sh = '202' where id like :id_bgml and jytype = '@a0';	
+		case '.ac'
+			update a_bgml set lbid = 'qpA301',sh = '301' where id like :id_bgml and jytype = '.ac';
+		case '#ac'
+			update a_bgml set lbid = 'qpA401',sh = '401' where id like :id_bgml and jytype = '#ac';
+		case '?ac'
+			update a_bgml set lbid = 'qpA501',sh = '501' where id like :id_bgml and jytype = '?ac';
+		case ':ac'
+			update a_bgml set lbid = 'qpA601',sh = '601' where id like :id_bgml and jytype = ':ac';
+		case ':a2'
+			update a_bgml set lbid = 'qpA602',sh = '602' where id like :id_bgml and jytype = ':a2';
+		case '!c'
+			update a_bgml set lbid = 'qpA701',sh = '701' where id like :id_bgml and jytype = '!c';	
+		case '!ac'
+			update a_bgml set lbid = 'qpA801',sh = '801' where id like :id_bgml and jytype = '!ac';	
+		case 'Qc2'
+			update a_bgml set lbid = 'qpAb01',sh = 'b01' where id like :id_bgml and jytype = 'Qc2';
+		case '@a`'
+			update a_bgml set lbid = 'qpA203',sh = '203' where id like :id_bgml and jytype = '@a`';
+		case '!`'
+			update a_bgml set lbid = 'qpA702',sh = '702' where id like :id_bgml and jytype = '!`';	
+		case 'Q`'
+			update a_bgml set lbid = 'qpA103',sh = '103' where id like :id_bgml and jytype = 'Q`';	
+		//////////////////////////////////////////////////////////////////////////////
+		case 'Qp'
+			update a_bgml set lbid = 'qpC101',sh = '101' where id like :id_bgml and jytype = 'Qp';
+		case 'Qw'
+			update a_bgml set lbid = 'qpC102',sh = '102' where id like :id_bgml and jytype = 'Qw';
+		case 'Qu'
+			update a_bgml set lbid = 'qpC103',sh = '103' where id like :id_bgml and jytype = 'Qu';
+		case 'Qv'
+			update a_bgml set lbid = 'qpC104',sh = '104' where id like :id_bgml and jytype = 'Qv';
+		case 'Qap'
+			update a_bgml set lbid = 'qpC901',sh = '901' where id like :id_bgml and jytype = 'Qap';
+		case 'Qbp'
+			update a_bgml set lbid = 'qpC902',sh = '902' where id like :id_bgml and jytype = 'Qbp';
+		case 'Qbw'
+			update a_bgml set lbid = 'qpCa01',sh = 'a01' where id like :id_bgml and jytype = 'Qbw';
+		case '6pd'
+			update a_bgml set lbid = 'qpCa02',sh = 'a02' where id like :id_bgml and jytype = '6pd';
+		case '7aw'
+			update a_bgml set lbid = 'qpCa03',sh = 'a03' where id like :id_bgml and jytype = '7aw';
+		case '7b<'
+			update a_bgml set lbid = 'qpCa04',sh = 'a04' where id like :id_bgml and jytype = '7b<';
+		case '7cw'
+			update a_bgml set lbid = 'qpCa05',sh = 'a05' where id like :id_bgml and jytype = '7cw';
+		case '7dw'
+			update a_bgml set lbid = 'qpCa06',sh = 'a06' where id like :id_bgml and jytype = '7dw';
+		case '7e<'
+			update a_bgml set lbid = 'qpCa07',sh = 'a07' where id like :id_bgml and jytype = '7e<';
+		case '7f<'
+			update a_bgml set lbid = 'qpCa08',sh = 'a08' where id like :id_bgml and jytype = '7f<';
+		case '7g<'
+			update a_bgml set lbid = 'qpCa09',sh = 'a09' where id like :id_bgml and jytype = '7g<';
+		case '7H<'
+			update a_bgml set lbid = 'qpCa10',sh = 'a10' where id like :id_bgml and jytype = '7H<';
+		case '7I<'
+			update a_bgml set lbid = 'qpCa11',sh = 'a11' where id like :id_bgml and jytype = '7I<';
+		case '7J<'
+			update a_bgml set lbid = 'qpCa12',sh = 'a12' where id like :id_bgml and jytype = '7J<';
+		/////////////////////////////////Ë®ÖÊ/////////////////////////////////////////
+		case 'A{'
+			update a_bgml set lbid = 'szA101',sh = '101' where id like :id_bgml and jytype = 'A{';
+		//¹óÖÝ//
+		case 'Ag'
+			update a_bgml set lbid = 'szA102',sh = '102' where id like :id_bgml and jytype = 'Ag';
+		case 'D{'
+			update a_bgml set lbid = 'szA201',sh = '201' where id like :id_bgml and jytype = 'D{';
+		case 'D}'
+			update a_bgml set lbid = 'szA202',sh = '202' where id like :id_bgml and jytype = 'D}';
+		//¹óÖÝ//
+		case 'Dg'
+			update a_bgml set lbid = 'szA203',sh = '203' where id like :id_bgml and jytype = 'Dg';
+		case 'A}'
+			update a_bgml set lbid = 'szA204',sh = '204' where id like :id_bgml and jytype = 'A}';	
+		//////////////////////////////////////////////////////////////////////////////
+		case 'A8'
+			update a_bgml set lbid = 'szB101',sh = '101' where id like :id_bgml and jytype = 'A8';
+		case 'D8'
+			update a_bgml set lbid = 'szB102',sh = '102' where id like :id_bgml and jytype = 'D8';
+		///////////////////////////////////////////////////////////////////////////////
+		case 'Dc2'
+			update a_bgml set lbid = 'szE301',sh = '301' where id like :id_bgml and jytype = 'Dc2';
+		case 'Zg'
+			update a_bgml set lbid = 'szE401',sh = '401' where id like :id_bgml and jytype = 'Zg';
+		case 'Z$'
+			update a_bgml set lbid = 'szE402',sh = '402' where id like :id_bgml and jytype = 'Z$';
+		case 'D='
+			update a_bgml set lbid = 'szE403',sh = '403' where id like :id_bgml and jytype = 'D=';	
+		////////////////////////////////////°²È«·§//////////////////////////////////
+		case 'Zf'
+			update a_bgml set lbid = 'aqfE101',sh = '101' where id like :id_bgml and jytype = 'Zf';
+		case 'Z9'
+			update a_bgml set lbid = 'aqfE102',sh = '102' where id like :id_bgml and jytype = 'Z9';
+		//////////////////////////////////ÎÞËðÌ½ÉË////////////////////////////////////
+		case ')c'
+			update a_bgml set lbid = 'wstsA101',sh = '101' where id like :id_bgml and jytype = ')c';
+		case 'Zl'
+			update a_bgml set lbid = 'wstsE201',sh = '201' where id like :id_bgml and jytype = 'Zl';
+		///////////////////////////////////µçÌÝ////////////////////////////////////////
+		case 'Bc'
+			update a_bgml set lbid = 'dtA101',sh = '101' where id like :id_bgml and jytype = 'Bc';
+		case '3c'
+			update a_bgml set lbid = 'dtA201',sh = '201' where id like :id_bgml and jytype = '3c';
+		case 'Cc'
+			update a_bgml set lbid = 'dtA301',sh = '301' where id like :id_bgml and jytype = 'Cc';
+		case 'Mc'
+			update a_bgml set lbid = 'dtA401',sh = '401' where id like :id_bgml and jytype = 'Mc';
+		case 'Bo'
+			update a_bgml set lbid = 'dtB101',sh = '101' where id like :id_bgml and jytype = 'Bo';
+		case '3o'
+			update a_bgml set lbid = 'dtB102',sh = '102' where id like :id_bgml and jytype = '3o';
+		case 'Co'
+			update a_bgml set lbid = 'dtB103',sh = '103' where id like :id_bgml and jytype = 'Co';
+		case 'Mo'
+			update a_bgml set lbid = 'dtB104',sh = '104' where id like :id_bgml and jytype = 'Mo';
+		case 'Be'
+			update a_bgml set lbid = 'dtB105',sh = '105' where id like :id_bgml and jytype = 'Be';	
+		case 'Bae'
+			update a_bgml set lbid = 'dtC101',sh = '101' where id like :id_bgml and jytype = 'Bae';
+		case 'Bbe'
+			update a_bgml set lbid = 'dtC102',sh = '102' where id like :id_bgml and jytype = 'Bbe';
+		case 'Bac'
+			update a_bgml set lbid = 'dtC103',sh = '103' where id like :id_bgml and jytype = 'Bac';
+		case 'Bbc'
+			update a_bgml set lbid = 'dtC104',sh = '104' where id like :id_bgml and jytype = 'Bbc';
+		case 'Z&'
+			update a_bgml set lbid = 'dtE101',sh = '101' where id like :id_bgml and jytype = 'Z&';
+		case 'B9@'
+			update a_bgml set lbid = 'dtE102',sh = '102' where id like :id_bgml and jytype = 'B9@';
+		///////////////////////////////////////ÆðÖØ»ú//////////////////////////////////
+		case 'Vc'
+			update a_bgml set lbid = 'qzjA101',sh = '101' where id like :id_bgml and jytype = 'Vc';
+		case 'Tc'
+			update a_bgml set lbid = 'qzjA201',sh = '201' where id like :id_bgml and jytype = 'Tc';
+		case 'Tlc'
+			update a_bgml set lbid = 'qzjA202',sh = '202' where id like :id_bgml and jytype = 'Tlc';
+		case 'Sc'
+			update a_bgml set lbid = 'qzjA301',sh = '301' where id like :id_bgml and jytype = 'Sc';
+		case 'S!'
+			update a_bgml set lbid = 'qzjA302',sh = '302' where id like :id_bgml and jytype = 'S!';
+		case 'Wc'
+			update a_bgml set lbid = 'qzjA401',sh = '401' where id like :id_bgml and jytype = 'Wc';
+		case 'W!'
+			update a_bgml set lbid = 'qzjA402',sh = '402' where id like :id_bgml and jytype = 'W!';
+		case 'Uc'
+			update a_bgml set lbid = 'qzjA501',sh = '501' where id like :id_bgml and jytype = 'Uc';
+		case 'U!'
+			update a_bgml set lbid = 'qzjA502',sh = '502' where id like :id_bgml and jytype = 'U!';
+		case '<c'
+			update a_bgml set lbid = 'qzjA503',sh = '503' where id like :id_bgml and jytype = '<c';
+		case '<!'
+			update a_bgml set lbid = 'qzjA504',sh = '504' where id like :id_bgml and jytype = '<!';
+		case 'Uac'
+			update a_bgml set lbid = 'qzjA505',sh = '505' where id like :id_bgml and jytype = 'Uac';
+		case 'Ua!'
+			update a_bgml set lbid = 'qzjA506',sh = '506' where id like :id_bgml and jytype = 'Ua!';
+		case '{c'
+			update a_bgml set lbid = 'qzjA507',sh = '507' where id like :id_bgml and jytype = '{c';
+		case '{!'
+			update a_bgml set lbid = 'qzjA508',sh = '508' where id like :id_bgml and jytype = '{!';
+		case '$c'
+			update a_bgml set lbid = 'qzjA601',sh = '601' where id like :id_bgml and jytype = '$c';
+		case '$!'
+			update a_bgml set lbid = 'qzjA602',sh = '602' where id like :id_bgml and jytype = '$!';
+		case '/c'
+			update a_bgml set lbid = 'qzjA701',sh = '701' where id like :id_bgml and jytype = '/c';
+		case '/!'
+			update a_bgml set lbid = 'qzjA702',sh = '702' where id like :id_bgml and jytype = '/!';
+		case '&c'
+			update a_bgml set lbid = 'qzjA801',sh = '801' where id like :id_bgml and jytype = '&c';
+		case '>c'
+			update a_bgml set lbid = 'qzjA901',sh = '901' where id like :id_bgml and jytype = '>c';
+		case '>!'
+			update a_bgml set lbid = 'qzjA902',sh = '902' where id like :id_bgml and jytype = '>!';
+		case 'Rc'
+			update a_bgml set lbid = 'qzjAa01',sh = 'a01' where id like :id_bgml and jytype = 'Rc';
+		case '>e'
+			update a_bgml set lbid = 'qzjAb01',sh = 'b01' where id like :id_bgml and jytype = '>e';
+		case '{e'
+			update a_bgml set lbid = 'qzjAc01',sh = 'c01' where id like :id_bgml and jytype = '{e';
+		case '}c'
+			update a_bgml set lbid = 'qzjAd01',sh = 'd01' where id like :id_bgml and jytype = '}c';
+		case '^c'
+			update a_bgml set lbid = 'qzjAe01',sh = 'e01' where id like :id_bgml and jytype = '^c';
+		case '`c'
+			update a_bgml set lbid = 'qzjAf01',sh = 'f01' where id like :id_bgml and jytype = '`c';
+		case '`qc'
+			update a_bgml set lbid = 'qzjAg01',sh = 'g01' where id like :id_bgml and jytype = '`qc';	
+		case '`q!'
+			update a_bgml set lbid = 'qzjAg02',sh = 'g02' where id like :id_bgml and jytype = '`q!';	
+		case 'Vac'
+			update a_bgml set lbid = 'qzjAh01',sh = 'h01' where id like :id_bgml and jytype = 'Vac';
+		case '9-'
+			update a_bgml set lbid = 'qzjAI01',sh = 'I01' where id like :id_bgml and jytype = '9-';
+		case '9+'
+			update a_bgml set lbid = 'qzjAI02',sh = 'I02' where id like :id_bgml and jytype = '9+';	
+		case 'Vd'
+			update a_bgml set lbid = 'qzjB101',sh = '101' where id like :id_bgml and jytype = 'Vd';
+		case 'V?'
+			update a_bgml set lbid = 'qzjB102',sh = '102' where id like :id_bgml and jytype = 'V?';
+		case 'Vo'
+			update a_bgml set lbid = 'qzjB103',sh = '103' where id like :id_bgml and jytype = 'Vo';
+		case 'Td'
+			update a_bgml set lbid = 'qzjB201',sh = '201' where id like :id_bgml and jytype = 'Td';
+		case 'T?'
+			update a_bgml set lbid = 'qzjB202',sh = '202' where id like :id_bgml and jytype = 'T?';
+		case 'To'
+			update a_bgml set lbid = 'qzjB203',sh = '203' where id like :id_bgml and jytype = 'To';
+		case 'T['
+			update a_bgml set lbid = 'qzjB206',sh = '206' where id like :id_bgml and jytype = 'T[';		
+		case 'Wd'
+			update a_bgml set lbid = 'qzjB401',sh = '401' where id like :id_bgml and jytype = 'Wd';
+		case 'W?'
+			update a_bgml set lbid = 'qzjB402',sh = '402' where id like :id_bgml and jytype = 'W?';
+		case 'Wo'
+			update a_bgml set lbid = 'qzjB403',sh = '403' where id like :id_bgml and jytype = 'Wo';
+		case 'Ud'
+			update a_bgml set lbid = 'qzjB501',sh = '501' where id like :id_bgml and jytype = 'Ud';
+		case 'U?'
+			update a_bgml set lbid = 'qzjB502',sh = '502' where id like :id_bgml and jytype = 'U?';
+		case 'Uo'
+			update a_bgml set lbid = 'qzjB503',sh = '503' where id like :id_bgml and jytype = 'Uo';
+		case '<d'
+			update a_bgml set lbid = 'qzjB504',sh = '503' where id like :id_bgml and jytype = '<d';
+		case '<?'
+			update a_bgml set lbid = 'qzjB505',sh = '504' where id like :id_bgml and jytype = '<?';
+		case '$d'
+			update a_bgml set lbid = 'qzjB601',sh = '601' where id like :id_bgml and jytype = '$d';
+		case '/o'
+			update a_bgml set lbid = 'qzjB701',sh = '701' where id like :id_bgml and jytype = '/o';	
+		case '/d'
+			update a_bgml set lbid = 'qzjB702',sh = '702' where id like :id_bgml and jytype = '/d';	
+		case '&d'
+			update a_bgml set lbid = 'qzjB801',sh = '801' where id like :id_bgml and jytype = '&d';
+		case '&?'
+			update a_bgml set lbid = 'qzjB802',sh = '802' where id like :id_bgml and jytype = '&?';
+		case 'Ro'
+			update a_bgml set lbid = 'qzjBa01',sh = 'a01' where id like :id_bgml and jytype = 'Ro';
+		case '*d'
+			update a_bgml set lbid = 'qzjBb01',sh = 'b01' where id like :id_bgml and jytype = '*d';
+		case '\d'
+			update a_bgml set lbid = 'qzjBc01',sh = 'c01' where id like :id_bgml and jytype = '\d';	
+		case '#3'
+			update a_bgml set lbid = 'qzjBd01',sh = 'd01' where id like :id_bgml and jytype = '#3';
+		case '`d'
+			update a_bgml set lbid = 'qzjBf01',sh = 'f01' where id like :id_bgml and jytype = '`d';
+		case '`?'
+			update a_bgml set lbid = 'qzjBf02',sh = 'f02' where id like :id_bgml and jytype = '`?';
+		case 'Vad'
+			update a_bgml set lbid = 'qzjBg01',sh = 'g01' where id like :id_bgml and jytype = 'Vad';
+		case 'Va?'
+			update a_bgml set lbid = 'qzjBg02',sh = 'g02' where id like :id_bgml and jytype = 'Va?';
+		case 'R?'
+			update a_bgml set lbid = 'qzjBh01',sh = 'h01' where id like :id_bgml and jytype = 'R?';
+		case 'Rd'
+			update a_bgml set lbid = 'qzjBh02',sh = 'h02' where id like :id_bgml and jytype = 'Rd';
+		case 'Ve'
+			update a_bgml set lbid = 'qzjC101',sh = '101' where id like :id_bgml and jytype = 'Ve';
+		case 'Vp'
+			update a_bgml set lbid = 'qzjC102',sh = '102' where id like :id_bgml and jytype = 'Vp';
+		case 'Tp'
+			update a_bgml set lbid = 'qzjC201',sh = '201' where id like :id_bgml and jytype = 'Tp';
+		case 'Tw'
+			update a_bgml set lbid = 'qzjC202',sh = '202' where id like :id_bgml and jytype = 'Tw';	
+		case 'Sp'
+			update a_bgml set lbid = 'qzjC301',sh = '301' where id like :id_bgml and jytype = 'Sp';
+		case 'We'
+			update a_bgml set lbid = 'qzjC401',sh = '401' where id like :id_bgml and jytype = 'We';
+		case 'Wp'
+			update a_bgml set lbid = 'qzjC402',sh = '402' where id like :id_bgml and jytype = 'Wp';
+		case 'Up'
+			update a_bgml set lbid = 'qzjC501',sh = '501' where id like :id_bgml and jytype = 'Up';
+		case 'Re'
+			update a_bgml set lbid = 'qzjCa01',sh = 'a01' where id like :id_bgml and jytype = 'Re';
+		case '#p'
+			update a_bgml set lbid = 'qzjCd01',sh = 'd01' where id like :id_bgml and jytype = '#p';	
+		case '#w'
+			update a_bgml set lbid = 'qzjCd02',sh = 'd02' where id like :id_bgml and jytype = '#w';	
+		case '`qd'
+			update a_bgml set lbid = 'qzjC601',sh = 'C601' where id like :id_bgml and jytype = '`qd';
+		case '`q?'
+			update a_bgml set lbid = 'qzjC602',sh = 'C602' where id like :id_bgml and jytype = '`q?';
+		////////////////////////////////////////³§³µ//////////////////////////////
+		case 'He'
+			update a_bgml set lbid = 'ccA101',sh = '101' where id like :id_bgml and jytype = 'He';
+		case 'Hc'
+			update a_bgml set lbid = 'ccA102',sh = '102' where id like :id_bgml and jytype = 'Hc';
+		case 'Ho'
+			update a_bgml set lbid = 'ccB101',sh = '101' where id like :id_bgml and jytype = 'Ho';
+		////////////////////////////////////////ÓÎÀÖÉèÊ©//////////////////////////////
+		case 'Ec'
+			update a_bgml set lbid = 'ylA101',sh = '101' where id like :id_bgml and jytype = 'Ec';
+		case 'Eo'
+			update a_bgml set lbid = 'ylb101',sh = '101' where id like :id_bgml and jytype = 'Eo';
+		////////////////////////////////////////Ë÷µÀ///////////////////////////////////
+		case 'Nn'
+			update a_bgml set lbid = 'sdA101',sh = '101' where id like :id_bgml and jytype = 'Nn';
+		case 'Xn'
+			update a_bgml set lbid = 'sdA201',sh = '201' where id like :id_bgml and jytype = 'Xn';
+		case 'Yn'
+			update a_bgml set lbid = 'sdA301',sh = '301' where id like :id_bgml and jytype = 'Yn';
+		case '@c'
+			update a_bgml set lbid = 'sdA401',sh = '401' where id like :id_bgml and jytype = '@c';
+		case 'No'
+			update a_bgml set lbid = 'sdB101',sh = '101' where id like :id_bgml and jytype = 'No';
+		case 'Xo'
+			update a_bgml set lbid = 'sdB201',sh = '201' where id like :id_bgml and jytype = 'Xo';
+		case 'Yo'
+			update a_bgml set lbid = 'sdB301',sh = '301' where id like :id_bgml and jytype = 'Yo';
+		case '@d'
+			update a_bgml set lbid = 'sdB401',sh = '401' where id like :id_bgml and jytype = '@d';
+		////////////////////////////////////////ÆäËü///////////////////////////////////
+		case 'Fl2'
+			update a_bgml set lbid = 'qtA221',sh = '221' where id like :id_bgml and jytype = 'Fl2';
+		case '9v'
+			update a_bgml set lbid = 'qtA101',sh = '101' where id like :id_bgml and jytype = '9v';
+		case '9*'
+			update a_bgml set lbid = 'qtA102',sh = '102' where id like :id_bgml and jytype = '9*';
+		case '0-'
+			update a_bgml set lbid = 'qtA103',sh = '103' where id like :id_bgml and jytype = '0-';	
+		case '0+'
+			update a_bgml set lbid = 'qtA104',sh = '104' where id like :id_bgml and jytype = '0+';		
+		case '9@'
+			update a_bgml set lbid = 'qtB101',sh = '101' where id like :id_bgml and jytype = '9@';
+		case '9u'
+			update a_bgml set lbid = 'qtB102',sh = '102' where id like :id_bgml and jytype = '9u';
+		case '9m'
+			update a_bgml set lbid = 'qtB103',sh = '103' where id like :id_bgml and jytype = '9m';
+		case '9w'
+			update a_bgml set lbid = 'qtC101',sh = '101' where id like :id_bgml and jytype = '9w';
+		case 'Flv'
+			update a_bgml set lbid = 'qtC222',sh = '222' where id like :id_bgml and jytype = 'Flv';
+		case '92'
+			update a_bgml set lbid = 'qtE101',sh = '101' where id like :id_bgml and jytype = '92';
+		case 'Zh'
+			update a_bgml set lbid = 'qtE201',sh = '201' where id like :id_bgml and jytype = 'Zh';
+		case 'Zx'
+			update a_bgml set lbid = 'qtE202',sh = '202' where id like :id_bgml and jytype = 'Zx';
+		case 'Zy'
+			update a_bgml set lbid = 'qtE203',sh = '203' where id like :id_bgml and jytype = 'Zy';
+		case 'Zz'
+			update a_bgml set lbid = 'qtE204',sh = '204' where id like :id_bgml and jytype = 'Zz';
+		case 'Z7'
+			update a_bgml set lbid = 'qtE205',sh = '205' where id like :id_bgml and jytype = 'Z7';
+		case ']6'
+			update a_bgml set lbid = 'qtE301',sh = '301' where id like :id_bgml and jytype = ']6';	
+		case "Dna"
+			update a_bgml set lbid = 'qtE302',sh = '302' where id like :id_bgml and jytype = 'Dna';	
+		case "Dnb"
+			update a_bgml set lbid = 'qtE303',sh = '303' where id like :id_bgml and jytype = 'Dnb';		
+	end choose
+FETCH a_bgml INTO :id_bgml,:jytype_bgml;
+LOOP
+CLOSE a_bgml;
+//////////////////////////////////////////////////////µ¥»ú°æ
+string lbid_bgml,jymlid_bgml,jylbid_bgml,sx_bgml
+if mark = 'sqlserver' then 
+else
+	DECLARE a_bgml_DJ CURSOR FOR
+	SELECT id,jytype,lbid
+	FROM a_bgml WHERE (jytype is not null and jytype not like '');   
+	OPEN a_bgml_DJ;
+	FETCH a_bgml_DJ INTO :id_bgml,:jytype_bgml,:lbid_bgml;
+	do while sqlca.sqlcode = 0
+		if len(jytype_bgml) = 3 then
+			jymlid_bgml = left(jytype_bgml,2)
+		elseif len(jytype_bgml) = 2 then
+			jymlid_bgml = left(jytype_bgml,1)
+		end if
+		jylbid_bgml = right(jytype_bgml,1)
+		if lbid_bgml = '' or isnull(lbid_bgml) then
+		else
+			choose case left(lbid_bgml,2)
+				case 'rq'
+					sx_bgml = '10'
+				case 'gl'
+					sx_bgml = '11'
+				case 'gd'
+					sx_bgml = '12'
+				case 'qp'
+					sx_bgml = '13'
+				case 'sz'
+					sx_bgml = '14'
+				case 'aq'
+					sx_bgml = '15'
+				case 'ws'
+					sx_bgml = '16'
+				case 'dt'
+					sx_bgml = '17'
+				case 'qz'
+					sx_bgml = '18'
+				case 'cc'
+					sx_bgml = '19'
+				case 'sd'
+					sx_bgml = '20'
+				case 'yl'
+					sx_bgml = '21'
+				case 'qt'
+					sx_bgml = '22'
+			end choose		
+		end if
+		update a_bgml set jymlid = :jymlid_bgml,jylbid = :jylbid_bgml,sx = :sx_bgml where id like :id_bgml;
+		FETCH a_bgml_DJ INTO :id_bgml,:jytype_bgml,:lbid_bgml;
+	LOOP
+	CLOSE a_bgml_DJ;
+end if
+end subroutine
+

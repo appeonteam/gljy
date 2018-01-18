@@ -1,0 +1,35 @@
+﻿$PBExportHeader$f_ryjm_table.srf
+global type f_ryjm_table from function_object
+end type
+
+forward prototypes
+global subroutine f_ryjm_table (string cs1)
+end prototypes
+
+global subroutine f_ryjm_table (string cs1);if cs1 <> 'OK' then return
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//select count(*) into :ls_count from djylrq.a_rycode;
+//if ls_count > 0 and sqlca.sqlcode = 0 then mark = 'sqlserver'
+// END
+
+ls_count = 0
+//ÈËÔ±¹ÜÀía_rycode ×Ö¶Î
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from a_rycode where mark like '%';
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+	   modsql= "Alter table djylrq.a_rycode add mark varchar(1)"
+      execute immediate :modsql using sqlca;
+	end if 
+else
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		modsql= "Alter table a_rycode add mark varchar(1)"
+      execute immediate :modsql using sqlca;
+	end if
+end if
+
+end subroutine
+

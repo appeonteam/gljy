@@ -1,0 +1,153 @@
+﻿$PBExportHeader$fun_view_dqm.srf
+global type fun_view_dqm from function_object
+end type
+
+forward prototypes
+global subroutine fun_view_dqm ()
+end prototypes
+
+global subroutine fun_view_dqm ();//**fun_reCreatePX_DB**//
+string delsql,mysql,myindex,modsql
+int    li_temp
+boolean lb_insert
+string ls_temp
+string mark = 'sybase'
+if sqlca.dbms = "MSS (Msoft) SQL Server 6.0" then 
+   mark = 'sqlserver'
+end if
+long ll_Count 
+ll_Count = 0
+
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.a_dqm"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.a_dqm as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.jyyear,a.jymonth,a.jyday,a.jyjl,a.nextdate,a.nextyear,a.nextmonth,a.nextday,a.shmark,a.shtui,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from djylrq.b_jy_gldj_view as a,djylrq.u_addr_bg as b,djylrq.a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2)  "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view a_dqm"
+	execute immediate :delsql using sqlca;       
+	mysql = "create view a_dqm as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.jyyear,a.jymonth,a.jyday,a.jyjl,a.nextdate,a.nextyear,a.nextmonth,a.nextday,a.shmark,a.shtui,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from b_jy_gldj_view as a,u_addr_bg as b,a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype  and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2);  "
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.a_aj_dqm"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.a_aj_dqm as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.jyyear,a.jymonth,a.jyday,a.jyjl,a.shmark,a.shtui,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from djylrq.b_aj_total as a,djylrq.u_addr_bg as b,djylrq.a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2)  "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view a_aj_dqm"
+	execute immediate :delsql using sqlca;       
+	mysql = "create view a_aj_dqm as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.jyyear,a.jymonth,a.jyday,a.jyjl,a.shmark,a.shtui,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from b_aj_total as a,u_addr_bg as b,a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype  and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2);  "
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.a_aj_dqm_swts"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.a_aj_dqm_swts as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.jyyear,a.jymonth,a.jyday,a.jyjl,a.shmark,a.shtui,a.newmark,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from djylrq.b_aj_total as a,djylrq.u_addr_bg as b,djylrq.a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2)  "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view a_aj_dqm_swts"
+	execute immediate :delsql using sqlca;       
+	mysql = "create view a_aj_dqm_swts as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.jyyear,a.jymonth,a.jyday,a.jyjl,a.shmark,a.shtui,a.newmark,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from b_aj_total as a,u_addr_bg as b,a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype  and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2);  "
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.a_jj_dqm"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.a_jj_dqm as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.shmark,a.shtui,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.sjid,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from djylrq.b_jj_total as a,djylrq.u_addr_bg as b,djylrq.a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2)  "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view a_jj_dqm"
+	execute immediate :delsql using sqlca;       
+	mysql = "create view a_jj_dqm as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.shmark,a.shtui,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.sjid,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from .b_jj_total as a,u_addr_bg as b,a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype  and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2);  "
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.a_jj_dqm_swts"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.a_jj_dqm_swts as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.shmark,a.shtui,a.newmark,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.sjid,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from djylrq.b_jj_total as a,djylrq.u_addr_bg as b,djylrq.a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2)  "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view a_jj_dqm_swts"
+	execute immediate :delsql using sqlca;       
+	mysql = "create view a_jj_dqm_swts as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.shmark,a.shtui,a.newmark,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.sjid,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from .b_jj_total as a,u_addr_bg as b,a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype  and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2);  "
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.a_qj_dqm"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.a_qj_dqm as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.shmark,a.shtui,a.jyjl,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.sjid,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from djylrq.b_qj_total as a,djylrq.u_addr_bg as b,djylrq.a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2)  "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view a_qj_dqm"
+	execute immediate :delsql using sqlca;       
+	mysql ="create view a_qj_dqm as select a.jyid as jyid,a.cpid as cpid,a.djid,a.nh,a.bgid,a.jyml,a.jylb,a.jytype,a.sydw,a.spmc,"+&
+       "a.ryid,a.rymc,a.rybm,a.jydate,a.shmark,a.shtui,a.jyjl,"+&
+		 "a.shzb,a.shsp,a.shwang,a.dangan,a.sjid,a.qz,a.sb_zcdm,a.tory,a.sbmc,a.tuitime,a.rysh,a.rysp,b.bg_qc_addrid as bg_qc_addrid,b.fl as fl,"+&
+       "c.id as id,c.typename as typename,c.jyid as sh_jyid,c.addrid as addrid,c.addrname as addrname,c.mark as mark "+&
+       " from b_qj_total as a,u_addr_bg as b,a_ry_dqm as c "+&
+		 "where a.jyid=b.bg_id and a.jytype=c.jytype and substring(b.bg_qc_addrid,1,2) = substring(c.addrid,1,2)  "
+	execute immediate :mysql using sqlca;
+end if
+end subroutine
+

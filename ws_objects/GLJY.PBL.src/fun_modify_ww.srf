@@ -1,0 +1,1313 @@
+﻿$PBExportHeader$fun_modify_ww.srf
+global type fun_modify_ww from function_object
+end type
+
+forward prototypes
+global subroutine fun_modify_ww ()
+end prototypes
+
+global subroutine fun_modify_ww ();string delsql,mysql,myindex,modsql
+int    li_temp
+boolean lb_insert
+string ls_temp
+string mark = 'sybase'
+if sqlca.dbms = "MSS (Msoft) SQL Server 6.0" then 
+   mark = 'sqlserver'
+end if
+long ll_Count 
+ll_Count = 0
+
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_tzjybg_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW djylrq.view_tzjybg_nrcx AS " + &
+			  " SELECT djylrq.b_qj_total.jyid, djylrq.b_qj_total.djid, djylrq.b_qj_total.nh, " + & 
+       	  " djylrq.b_qj_total.bgid, djylrq.b_qj_total.jyml, djylrq.b_qj_total.jylb, " + &
+      	  " djylrq.b_qj_total.sydw, djylrq.b_qj_total.spmc, djylrq.b_qj_total.ryid, " + &
+      	  " djylrq.b_qj_total.rymc, djylrq.b_qj_total.rybm, djylrq.b_qj_total.jydate, " + &
+      	  " djylrq.b_qj_total.shib, djylrq.b_qj_total.shmark, djylrq.b_qj_total.shtui, " + &
+      	  " djylrq.b_qj_total.shzb, djylrq.b_qj_total.shsp, djylrq.b_qj_total.sjid, " + &
+      	  " djylrq.b_qj_total.shwang, djylrq.b_qj_total.sb_zcdm, djylrq.tzsb_tzjybg.xmmc, " + &
+      	  " djylrq.tzsb_tzjybg.yhmc, djylrq.tzsb_tzjybg.wtdw, djylrq.tzsb_tzjybg.sbmc, " + &
+      	  " djylrq.tzsb_tzjybg.cpbh, djylrq.tzsb_tzjybg.wcrq, djylrq.tzsb_tzjybg.fjxbt, " + &
+      	  " djylrq.tzsb_tzjybg.fjx, djylrq.tzsb_tzjybg.sbl, djylrq.tzsb_tzjybg.jyl, " + &
+      	  " djylrq.tzsb_tzjybg.jyz1, djylrq.tzsb_tzjybg.jyz2, djylrq.tzsb_tzjybg.jyz3, " + & 
+      	  " djylrq.tzsb_tzjybg.jyz4, djylrq.tzsb_tzjybg.jyz5, djylrq.tzsb_tzjybg.sh, " + &
+      	  " djylrq.tzsb_tzjybg.date2 FROM djylrq.tzsb_tzjybg INNER JOIN " + &
+      	  " djylrq.b_qj_total ON djylrq.tzsb_tzjybg.jyid = djylrq.b_qj_total.jyid"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_tzjybg_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW view_tzjybg_nrcx AS " + &
+			  " SELECT b_qj_total.jyid, b_qj_total.djid, b_qj_total.nh, " + &
+			  " b_qj_total.bgid, b_qj_total.jyml, b_qj_total.jylb, " + & 
+      	  " b_qj_total.sydw, b_qj_total.spmc, b_qj_total.ryid, " + &
+		     " b_qj_total.rymc, b_qj_total.rybm, b_qj_total.jydate, " + &
+		     " b_qj_total.shib, b_qj_total.shmark, b_qj_total.shtui, " + &
+	        " b_qj_total.shzb, b_qj_total.shsp, b_qj_total.sjid, " + &
+      	  " b_qj_total.shwang, b_qj_total.sb_zcdm, tzsb_tzjybg.xmmc, " + &
+	        " tzsb_tzjybg.yhmc, tzsb_tzjybg.wtdw, tzsb_tzjybg.sbmc, " + &
+	        " tzsb_tzjybg.cpbh, tzsb_tzjybg.wcrq, tzsb_tzjybg.fjxbt, " + &
+	        " tzsb_tzjybg.fjx, tzsb_tzjybg.sbl, tzsb_tzjybg.jyl, " + &
+	        " tzsb_tzjybg.jyz1, tzsb_tzjybg.jyz2, tzsb_tzjybg.jyz3, " + &
+      	  " tzsb_tzjybg.jyz4, tzsb_tzjybg.jyz5, tzsb_tzjybg.sh, " + &
+      	  " tzsb_tzjybg.date2 FROM tzsb_tzjybg INNER JOIN " + &
+           " b_qj_total ON tzsb_tzjybg.jyid = b_qj_total.jyid" 
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	modsql = "ALTER TABLE djylrq.b_jj_zs_total ADD add5 VARCHAR(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_zs_total ADD jyz1 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_zs_total ADD jyz2 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_zs_total ADD jyz3 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_zs_total ADD jyz4 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_zs_total ADD jyz5 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_ylgd_jjzs ADD jyz1 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_ylgd_jjzs ADD jyz2 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_ylgd_jjzs ADD jyz3 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_ylgd_jjzs ADD jyz4 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE djylrq.b_jj_ylgd_jjzs ADD jyz5 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "ALTER TABLE b_jj_zs_total ADD add5 VARCHAR(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_zs_total ADD jyz1 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_zs_total ADD jyz2 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_zs_total ADD jyz3 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_zs_total ADD jyz4 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_zs_total ADD jyz5 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_ylgd_jjzs ADD jyz1 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_ylgd_jjzs ADD jyz2 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_ylgd_jjzs ADD jyz3 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_ylgd_jjzs ADD jyz4 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "ALTER TABLE b_jj_ylgd_jjzs ADD jyz5 VARCHAR(8) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	if sqlca.sqlcode = 0 then
+		modsql = "update djylrq.a_sz_nr set fy = '¸½Ò³' where jytype like '%w';"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	if sqlca.sqlcode = 0 then
+		modsql = "update a_sz_nr set fy = '¸½Ò³' where jytype like '%w';"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+if mark = 'sqlserver' then
+	if sqlca.sqlcode = 0 then
+		modsql = "delete  from z_xzdm where xzid = '120222' ;"
+		execute immediate :modsql using sqlca;
+		modsql = "delete  from z_xzdm where xzid = '120224' ;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	if sqlca.sqlcode = 0 then
+		modsql = "delete  from z_xzdm where xzid = '120222' ;"
+		execute immediate :modsql using sqlca;
+		modsql = "delete  from z_xzdm where xzid = '120224' ;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+if mark = 'sqlserver' then
+	select count(*) into : ll_count from a_sz_nr where jytype like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into djylrq.z_xzdm (xzid,xzmc,xzsx) values ('120114','Ìì½ò¿ª·¢Çø','tjkf'); "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.z_xzdm (xzid,xzmc,xzsx) values ('120115','±£Ë°Çø','bs'); "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.z_xzdm (xzid,xzmc,xzsx) values ('120116','ÎäÇåÇø','wq'); "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.z_xzdm (xzid,xzmc,xzsx) values ('120117','±¦ÛæÇø','bd'); "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into : ll_count from a_sz_nr where jytype like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into z_xzdm (xzid,xzmc,xzsx) values ('120114','Ìì½ò¿ª·¢Çø','tjkf'); "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into z_xzdm (xzid,xzmc,xzsx) values ('120115','±£Ë°Çø','bs'); "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into z_xzdm (xzid,xzmc,xzsx) values ('120116','ÎäÇåÇø','wq'); "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into z_xzdm (xzid,xzmc,xzsx) values ('120117','±¦ÛæÇø','bd'); "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+/////////////////////////»úµçÀà±¨¸æ¶¨ÆÚ¸½Ò³Ôö¼Ó×Ö¶Î///////////////////
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_dt_dq3 add xh51 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+   modsql = "alter table djylrq.t_tzsb_dt_dq3 add xh52 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_dq3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_dq3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_dq3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_dq3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_dq3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_dq3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_dq3 add xh78 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh42 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh43 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh44 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh45 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh46 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh47 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh48 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh49 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh50 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh51 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_dq3 add xh52 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_dq3 add xh78 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh52 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh53 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh54 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh55 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh56 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh57 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh58 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh59 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh60 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh61 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_dq3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh79 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh80 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh81 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh82 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh83 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh84 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh85 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh86 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh87 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_dq3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh56 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh57 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh58 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh59 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh60 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh61 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_dq3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh37 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh38 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh39 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh40 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh41 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh42 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh43 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh44 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh45 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh46 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh47 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh48 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh49 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh50 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh51 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh52 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_dq3 add xh53 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_lds3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table t_tzsb_dt_dq3 add xh51 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+   modsql = "alter table t_tzsb_dt_dq3 add xh52 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_dq3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_dq3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_dq3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_dq3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_dq3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_dq3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_dq3 add xh78 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh42 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh43 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh44 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh45 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh46 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh47 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh48 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh49 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh50 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh51 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_dq3 add xh52 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_dq3 add xh78 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh52 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh53 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh54 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh55 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh56 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh57 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh58 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh59 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh60 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh61 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_dq3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh79 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh80 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh81 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh82 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh83 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh84 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh85 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh86 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh87 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_dq3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh56 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh57 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh58 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh59 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh60 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh61 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_dq3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh37 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh38 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh39 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh40 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh41 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh42 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh43 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh44 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh45 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh46 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh47 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh48 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh49 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh50 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh51 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh52 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_dq3 add xh53 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_lds3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+end if
+/////////////////////////»úµçÀà±¨¸æÑéÊÕ¸½Ò³Ôö¼Ó×Ö¶Î///////////////////
+int i
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh55 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh56 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh57 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh58 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh59 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh60 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh61 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dddl_ys3 add xh78 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh34 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh35 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh36 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh37 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh38 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh39 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh40 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh41 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh42 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh43 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh44 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh45 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh46 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh47 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh48 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh49 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_xy1 add xh50 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dt_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dt_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dt_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dt_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh103 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_mzs_ys3 add xh104 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh85 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh86 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh87 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_qms_ys3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh78 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh79 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh80 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh81 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh82 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh83 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh84 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh85 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh86 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh87 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_sjj_ys3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ts_ys3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_ys3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_yydt_ys3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh61 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_zwdt_ys3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dt_ys3 add jyjg26_1 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dt_ys3 add jyjg26_2 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dt_ys3 add jyjg26_3 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table t_tzsb_dddl_ys3 add xh55 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh56 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh57 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh58 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh59 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh60 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh61 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dddl_ys3 add xh78 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh34 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh35 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh36 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh37 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh38 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh39 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh40 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh41 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh42 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh43 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh44 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh45 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh46 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh47 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh48 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh49 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_xy1 add xh50 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dt_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dt_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dt_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dt_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh103 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_mzs_ys3 add xh104 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh85 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh86 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh87 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_qms_ys3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh78 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh79 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh80 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh81 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh82 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh83 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh84 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh85 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh86 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh87 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_sjj_ys3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ts_ys3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_ys3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_ys3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_ys3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_ys3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_ys3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_yydt_ys3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh61 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh62 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh63 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh64 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh65 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh66 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh67 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh68 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh69 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh70 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh71 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh72 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh73 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh74 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh75 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh76 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_zwdt_ys3 add xh77 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dt_ys3 add jyjg26_1 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dt_ys3 add jyjg26_2 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dt_ys3 add jyjg26_3 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+end if
+//////////////////////////////////////
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_aj_total add nextyear varchar(4) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_total add nextmonth varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_total add nextday varchar(2) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_aj_total add nextyear varchar(4) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_total add nextmonth varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_total add nextday varchar(2) null;"
+	execute immediate :modsql using sqlca;
+end if
+////////µ½ÆÚÉè±¸
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_sbdq_total"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view view_sbdq_total(jyid,cpid,jyml,jylb,jytype,sydw,djid,sb_zcdm,nextyear,"+&
+	        "nextmonth,nextday,bgid,jyyear,jymonth,jyday,jyjl,rymc,zcid,jydate,bs) AS select b_jy_total.jyid,b_jy_total.cpid,"+&
+			  "b_jy_total.jyml,b_jy_total.jylb,b_jy_total.jytype,b_jy_total.sydw,b_jy_total.djid,b_jy_total.sb_zcdm,"+&
+			  "b_jy_total.nextyear,b_jy_total.nextmonth,b_jy_total.nextday,b_jy_total.bgid,b_jy_total.jyyear,b_jy_total.jymonth,b_jy_total.jyday,"+&
+			  "b_jy_total.jyjl,b_jy_total.rymc,b_jy_total.zcid,b_jy_total.jydate,(case when datediff(day,(select convert(varchar(10),getdate(),120) from a_jydw),b_jy_total.nextyear + '-' + b_jy_total.nextmonth + '-' + b_jy_total.nextday) <= (select yjday from a_zqsd where mcsd = 'µ½ÆÚÉè±¸Ê±¼äÉè¶¨') then 1 when datediff(day,(select convert(varchar(10),getdate(),120) from a_jydw),b_jy_total.nextyear + '-' + b_jy_total.nextmonth + '-' + b_jy_total.nextday) <0 then 2 else 0 end) "+&
+			  "from b_jy_total where b_jy_total.nextyear<>'' and nextyear is not null and b_jy_total.nextmonth<>'' and nextmonth is not null and b_jy_total.nextday<>'' and nextday is not null and len(nextyear) = 4 and len(nextmonth)=2 and len(nextday)=2 and isdate(nextyear + '-' +nextmonth + '-' + nextday)=1 "+&
+			  "union select b_aj_total.jyid,b_aj_total.cpid,"+&
+			  "b_aj_total.jyml,b_aj_total.jylb,b_aj_total.jytype,b_aj_total.sydw,b_aj_total.djid,b_aj_total.sb_zcdm,"+&
+			  "b_aj_total.nextyear,b_aj_total.nextmonth,b_aj_total.nextday,b_aj_total.bgid,b_aj_total.jyyear,b_aj_total.jymonth,b_aj_total.jyday,"+&
+			  "b_aj_total.jyjl,b_aj_total.rymc,b_aj_total.zcid,b_aj_total.jydate,(case when datediff(day,(select convert(varchar(10),getdate(),120) from a_jydw),b_aj_total.nextyear + '-' + b_aj_total.nextmonth + '-' + b_aj_total.nextday) <= (select yjday from a_zqsd where mcsd = 'µ½ÆÚÉè±¸Ê±¼äÉè¶¨') then 1 when datediff(day,(select convert(varchar(10),getdate(),120) from a_jydw),b_aj_total.nextyear + '-' + b_aj_total.nextmonth + '-' + b_aj_total.nextday) <0 then 2 else 0 end) "+&
+			  "from b_aj_total where b_aj_total.nextyear<>'' and nextyear is not null and b_aj_total.nextmonth<>'' and nextmonth is not null and b_aj_total.nextday<>'' and nextday is not null and len(nextyear) = 4 and len(nextmonth)=2 and len(nextday)=2 and isdate(nextyear + '-' +nextmonth + '-' + nextday)=1 "
+	execute immediate :mysql using sqlca;//and  datediff(day,(select convert(varchar(10),getdate(),120) from a_jydw),b_jy_total.nextyear + '-' + b_jy_total.nextmonth + '-' + b_jy_total.nextday) >=0
+end if
+////¼ÓÒµÎñÊÒ²éÑ¯´òÓ¡Ê±¼ä,ÁÉºÓÓÍÌïµÄ°´µ¥Î»´òÓ¡µÄÎÊÌâ
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jy_total add dyrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_total add dyrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_total add dyrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_qj_total add dyrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jy_total add xzdw varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_total add xzdw varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_total add xzdw varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_qj_total add xzdw varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.a_rycode add xzdw text NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_jy_total add dyrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_total add dyrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_total add dyrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_qj_total add dyrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jy_total add xzdw varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_total add xzdw varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_total add xzdw varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_qj_total add xzdw varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table a_rycode add xzdw text NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_xzdw_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_xzdw_nrcx(sydw,xzdw)" + &
+      "As select distinct sydw,xzdw from djylrq.b_jy_total " + &
+		"union " + &
+		"select distinct sydw,xzdw from djylrq.b_aj_total " + &
+		"union " + &
+		"select distinct sydw,xzdw from djylrq.b_jj_total " + &
+		"union " + & 
+		"select distinct sydw,xzdw from djylrq.b_qj_total "
+	execute immediate :mysql using sqlca;
+end if
+end subroutine
+

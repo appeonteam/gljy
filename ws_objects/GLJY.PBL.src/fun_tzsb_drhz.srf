@@ -1,0 +1,349 @@
+﻿$PBExportHeader$fun_tzsb_drhz.srf
+global type fun_tzsb_drhz from function_object
+end type
+
+forward prototypes
+global subroutine fun_tzsb_drhz ()
+end prototypes
+
+global subroutine fun_tzsb_drhz ();//**ÌØÖÖÉè±¸¶àÈËºÏ×÷**//
+string delsql,mysql,myindex,modsql
+int    li_temp
+boolean lb_insert
+string ls_temp
+string mark = 'sybase'
+if sqlca.dbms = "MSS (Msoft) SQL Server 6.0" then 
+   mark = 'sqlserver'
+end if
+long ll_Count
+ll_Count = 0
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_cnjdcl_jj1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_cnjdcl_jj1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_cnjdcl_jj1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_cnjdcl_jj1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_dddl_dq1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_dddl_dq1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_dddl_dq1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_dddl_dq1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_dddl_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_dddl_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null,jyyj4 varchar(60) null,jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_dddl_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_dddl_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null,add jyyj4 varchar(60) null,add jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_dt_dq1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_dt_dq1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_dt_dq1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_dt_dq1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_dt_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_dt_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_dt_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_dt_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_dxgdbsq_nj1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_dxgdbsq_nj1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null,jyyj4 varchar(60) null,jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_dxgdbsq_nj1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_dxgdbsq_nj1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null,add jyyj4 varchar(60) null,add jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_dxgdbsq_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_dxgdbsq_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null,jyyj4 varchar(60) null,jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_dxgdbsq_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_dxgdbsq_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null,add jyyj4 varchar(60) null,add jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_dxxhtgbsq_nj1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_dxxhtgbsq_nj1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null,jyyj4 varchar(60) null,jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_dxxhtgbsq_nj1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_dxxhtgbsq_nj1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null,add jyyj4 varchar(60) null,add jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_dxxhtgbsq_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_dxxhtgbsq_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null,jyyj4 varchar(60) null,jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_dxxhtgbsq_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_dxxhtgbsq_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null,add jyyj4 varchar(60) null,add jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_lds1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_lds1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null,jyyj4 varchar(60) null,jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_lds1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_lds1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null,add jyyj4 varchar(60) null,add jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_mzs_dq1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_mzs_dq1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_mzs_dq1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_mzs_dq1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_mzs_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_mzs_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_mzs_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_mzs_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_qms_dq1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_qms_dq1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_qms_dq1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_qms_dq1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_qms_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_qms_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null,jyyj4 varchar(60) null,jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_qms_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_qms_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null,add jyyj4 varchar(60) null,add jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_sjj_dq1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_sjj_dq1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_sjj_dq1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_sjj_dq1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_sjj_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_sjj_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_sjj_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_sjj_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_sxwf_nj1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_sxwf_nj1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null,jyyj4 varchar(60) null,jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_sxwf_nj1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_sxwf_nj1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null,add jyyj4 varchar(60) null,add jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_sxwf_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_sxwf_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null,jyyj4 varchar(60) null,jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_sxwf_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_sxwf_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null,add jyyj4 varchar(60) null,add jyyj5 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_ts_dq1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_ts_dq1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_ts_dq1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_ts_dq1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_ts_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_ts_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_ts_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_ts_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_ylss_dj1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_ylss_dj1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_ylss_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_ylss_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_yydt_dq1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_yydt_dq1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_yydt_dq1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_yydt_dq1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_yydt_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_yydt_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_yydt_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_yydt_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_zdfthrxd_dj1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_zdfthrxd_dj1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_zdfthrxd_dj1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_zdfthrxd_dj1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_zdfthrxd_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_zdfthrxd_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_zdfthrxd_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_zdfthrxd_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_zwdt_dq1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_zwdt_dq1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_zwdt_dq1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_zwdt_dq1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_zwdt_ys1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_zwdt_ys1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_zwdt_ys1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_zwdt_ys1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+end subroutine
+

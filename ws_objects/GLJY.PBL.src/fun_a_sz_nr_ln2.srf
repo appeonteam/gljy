@@ -1,0 +1,46 @@
+﻿$PBExportHeader$fun_a_sz_nr_ln2.srf
+global type fun_a_sz_nr_ln2 from function_object
+end type
+
+forward prototypes
+global subroutine fun_a_sz_nr_ln2 ()
+end prototypes
+
+global subroutine fun_a_sz_nr_ln2 ();long ll_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//if gs_jydw='ÐË°²ÃËÌØÖÖÉè±¸¼ìÑéËù' then
+//	delete from a_sz_nr where jytype like ';c';
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (';c','01','±¨¸æ·âÆ¤','dw_a_dj_qcgtpf_wlht');
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (';c','02','×¢ÒâÊÂÏî','qcgt_bg_zysx_wlht');
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (';c','03','¹ÞÌå¼ìÑé','dw_a_dj_gtjy');
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (';c','04','¹ÞÌåÇé¿ö','dw_a_dj_gcjc_wlht');
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (';c','05','°²È«¼ì²é','dw_a_dj_aqjc');
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (';c','06','¹ÞÌå¼ì²é','dw_a_dj_gtjc_wlht');
+//	insert into a_sz_nr (jytype,xh,nr,dw) values (';c','07','±Úºñ²â¶¨','dw_a_dj_gtwg');
+//end if
+update a_sz_nr set ct='²åÍ¼' where jytype like '5r)' and xh like '08';
+string qzjmark
+select qzjmark into :qzjmark from a_jydw;
+delete from a_sz_nr where jytype like 'D=';
+if pos(qzjmark,'D=')<>0 then //¹óÖÝÊ¡¹øÂ¯Ñ¹Á¦ÈÝÆ÷¼ìÑéÖÐÐÄ
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D=','01','Ë®ÖÊ¼à²â','¸½Ò³','dat_qj_sz_bg_gy');//¹óÖÝ
+elseif gs_jydw = 'ÉòÑôÊÐÌØÖÖÉè±¸¼ì²âÑÐ¾¿Ôº' then
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D=','01','Ë®ÖÊ·âÆ¤','¸½Ò³','dat_qj_sz_fp_sy');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D=','02','×¢ÒâÊÂÏî','¸½Ò³','dat_qj_sz_zysx_sy');
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D=','03','Ë®ÖÊ¼à²â','¸½Ò³','dat_qj_sz_bg_sy');
+else
+	insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('D=','01','Ë®ÖÊ¼à²â','¸½Ò³','dat_qj_sz_bg');//±ê×¼
+end if
+////////////////////////////////////////¹¤Òµ¹øÂ¯ÄÜÐ§ÄÚÍâ²¿¼ìÑé±¨¸æ////////////////////////////////////////
+insert into a_jyml_id (Id,Mc) values ('Dn','¹¤Òµ¹øÂ¯ÄÜÐ§');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values('Dn','313','¹¤Òµ¹øÂ¯ÄÜÐ§','ÆäËü¼ìÑé');
+insert into a_bgml (id,jymk,jytype,typename) values ('2324','qj','Dna','¹¤Òµ¹øÂ¯ÄÜÐ§ÄÚ²¿¼ìÑé');	
+insert into a_bgml (id,jymk,jytype,typename) values ('2325','qj','Dnb','¹¤Òµ¹øÂ¯ÄÜÐ§Íâ²¿¼ìÑé');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dna','01','¼ìÑé±¨¸æ','','dw_qj_gygl_nxbg_nb');
+insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('Dnb','01','¼ìÑé±¨¸æ','','dw_qj_gygl_nxbg_wb');
+///////////////////////////////////////////////////////////////////////////////////////////////
+end subroutine
+

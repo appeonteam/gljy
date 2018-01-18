@@ -1,0 +1,22 @@
+﻿$PBExportHeader$fun_jyoa_log.srf
+global type fun_jyoa_log from function_object
+end type
+
+forward prototypes
+global subroutine fun_jyoa_log ()
+end prototypes
+
+global subroutine fun_jyoa_log ();//string str_logid,str_dx,str_lb
+//declare log cursor for select logid,dx,lb from jyoa_log;
+//open log;
+//fetch log into :str_logid,:str_dx,:str_lb;
+//do while sqlca.sqlcode = 0
+//		if str_dx='ÐÂÑ¹Á¦ÈÝÆ÷' and str_lb='¶¨ÆÚ¼ìÑé' then
+//			update jyoa_log set dx='Ñ¹Á¦ÈÝÆ÷',lb='È«Ãæ¼ìÑé' where logid like :str_logid;
+//		end if
+//fetch log into :str_logid,:str_dx,:str_lb;
+//loop
+//close log;
+//
+end subroutine
+

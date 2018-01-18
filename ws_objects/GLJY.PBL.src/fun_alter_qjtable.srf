@@ -1,0 +1,408 @@
+﻿$PBExportHeader$fun_alter_qjtable.srf
+$PBExportComments$³Âê»
+global type fun_alter_qjtable from function_object
+end type
+
+forward prototypes
+global subroutine fun_alter_qjtable (string cs1)
+end prototypes
+
+global subroutine fun_alter_qjtable (string cs1);if cs1 <> 'OK' then return
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//select count(*) into :ls_count from djylrq.a_rycode;
+//if ls_count > 0 and sqlca.sqlcode = 0 then mark = 'sqlserver'
+// END
+ls_Count = 0
+////ÐÞ¸Ä
+if mark = 'sqlserver' then   
+   select count(*) into :ls_Count from b_qj_w_cfjc_total where ts like '%';
+	if sqlca.sqlcode = -1 then   
+		modsql= "Alter table djylrq.b_qj_w_cfjc_total add ts varchar(60) null"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ls_Count from b_qj_w_cfjc_total where ts like '%';
+	if sqlca.sqlcode = -1 then   
+      modsql= "Alter table b_qj_w_cfjc_total add ts varchar(60) null"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_Count = 0
+////ÐÞ¸Ä
+if mark = 'sqlserver' then   
+   select count(*) into :ls_Count from b_qj_w_csjc_total where ts like '%';
+	if sqlca.sqlcode = -1 then   
+		modsql= "Alter table djylrq.b_qj_w_csjc_total add ts varchar(60) null"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ls_Count from b_qj_w_csjc_total where ts like '%';
+	if sqlca.sqlcode = -1 then   
+      modsql= "Alter table b_qj_w_csjc_total add ts varchar(60) null"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_Count = 0
+////ÐÞ¸Ä
+if mark = 'sqlserver' then   
+   select count(*) into :ls_Count from b_qj_w_ct_total where ts like '%';
+	if sqlca.sqlcode = -1 then   
+		modsql= "Alter table djylrq.b_qj_w_ct_total add ts varchar(60) null"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ls_Count from b_qj_w_ct_total where ts like '%';
+	if sqlca.sqlcode = -1 then   
+      modsql= "Alter table b_qj_w_ct_total add ts varchar(60) null"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_Count = 0
+////ÐÞ¸Ä
+if mark = 'sqlserver' then   
+   select count(*) into :ls_Count from b_qj_w_sxjc_total where ts like '%';
+	if sqlca.sqlcode = -1 then   
+		modsql= "Alter table djylrq.b_qj_w_sxjc_total add ts varchar(60) null"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ls_Count from b_qj_w_sxjc_total where ts like '%';
+	if sqlca.sqlcode = -1 then   
+      modsql= "Alter table b_qj_w_sxjc_total add ts varchar(60) null"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_Count = 0
+////ÐÞ¸Ä
+if mark = 'sqlserver' then   
+   select count(*) into :ls_Count from b_qj_w_total where dpsl like '%';
+	if sqlca.sqlcode = -1 then   
+		modsql= "Alter table djylrq.b_qj_w_total add dpsl varchar(10) null"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ls_Count from b_qj_w_total where dpsl like '%';
+	if sqlca.sqlcode = -1 then   
+      modsql= "Alter table b_qj_w_total add dpsl varchar(10) null"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_Count = 0
+////ÐÞ¸Ä
+if mark = 'sqlserver' then   
+   select count(*) into :ls_Count from b_qj_w_total where sytsl like '%';
+	if sqlca.sqlcode = -1 then   
+		modsql= "Alter table djylrq.b_qj_w_total add sytsl varchar(10) null"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ls_Count from b_qj_w_total where sytsl like '%';
+	if sqlca.sqlcode = -1 then   
+      modsql= "Alter table b_qj_w_total add sytsl varchar(10) null"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_Count = 0
+////ÐÞ¸Ä
+if mark = 'sqlserver' then   
+   select count(*) into :ls_Count from b_qj_w_total where syt like '%';
+	if sqlca.sqlcode = -1 then   
+		modsql= "Alter table djylrq.b_qj_w_total add syt varchar(2) null"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ls_Count from b_qj_w_total where syt like '%';
+	if sqlca.sqlcode = -1 then   
+      modsql= "Alter table b_qj_w_total add syt varchar(2) null"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+// ´´½¨ ÉäÏß¼ì²âÊ¾ÒâÍ¼
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_qj_w_sxjcsyt;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_qj_w_sxjcsyt"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_qj_w_sxjcsyt(jyid varchar(20) NOT NULL ,"+&
+            "xh varchar(20) NOT NULL ,ppsl varchar(10) NULL,syt_ocx image NULL,"+&
+            "syt_bmp image NULL );"
+		execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_qj_w_sxjcsyt_x "&
+		        +"ON djylrq.b_qj_w_sxjcsyt"&
+		        +"(jyid,xh) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_qj_w_sxjcsyt;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_qj_w_sxjcsyt"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_qj_w_sxjcsyt(jyid varchar(20) NOT NULL ,"+&
+            "xh varchar(20) NOT NULL ,ppsl varchar(10) NULL,syt_ocx long binary NULL,"+&
+            "syt_bmp long binary NULL, PRIMARY KEY (jyid,xh));"
+		execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+////ÐÞ¸Äa_jyml_idÔö¼Ó±í×Ö¶ÎÄÚÈÝ
+if mark = 'sqlserver' then
+	select count(*) into : ls_count from a_jyml_id where id like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('A','µçÕ¾¹øÂ¯') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('F','ÓÐ»úÈÈÔØÌå') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('1','Ð¡ÐÍÈÝÆ÷') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('2','ºæÍ²') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('3','ÔÓÎïµçÌÝ') ; "
+		execute immediate :modsql using sqlca ;		
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('4','ÔÚÏß¹ÜµÀ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('5','¹¤Òµ¹ÜµÀ') ; "
+		execute immediate :modsql using sqlca ;		
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('6','ÐÂÐÍÈÝÆ÷') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('7','³ÐÑ¹Ôª¼þ') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('8','Ñ¹Á¦¹ÜµÀ') ; "
+		execute immediate :modsql using sqlca ;	
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('B','µçÌÝ') ; "
+		execute immediate :modsql using sqlca ;	
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('C','ÒºÑ¹µçÌÝ') ; "
+		execute immediate :modsql using sqlca ;	
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('T','ËþÊ½ÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;	
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('R','µ¥ÁºÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('S','Á÷¶¯ÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('U','Ê©¹¤Éý½µ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('V','ÇÅÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('W','ÃÅÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('E','ÓÎÀÖÉèÊ©') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('H','³§³µ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('M','×Ô¶¯·öÌÝ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('N','¹Ì¶¨Ë÷µÀ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('X','ÍÑ¹ÒË÷µÀ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jyml_id (id,mc) values ('Y','Íù¸´Ë÷µÀ') ; "
+		execute immediate :modsql using sqlca ;				
+	end if
+else
+	select count(*) into : ls_count from a_jyml_id where id like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into a_jyml_id (id,mc) values ('A','µçÕ¾¹øÂ¯') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_jyml_id (id,mc) values ('F','ÓÐ»úÈÈÔØÌå') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_jyml_id (id,mc) values ('1','Ð¡ÐÍÈÝÆ÷') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_jyml_id (id,mc) values ('2','ºæÍ²') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_jyml_id (id,mc) values ('3','ÔÓÎïµçÌÝ') ; "
+		execute immediate :modsql using sqlca ;		
+		modsql = "insert into a_jyml_id (id,mc) values ('4','ÔÚÏß¹ÜµÀ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('5','¹¤Òµ¹ÜµÀ') ; "
+		execute immediate :modsql using sqlca ;		
+		modsql = "insert into a_jyml_id (id,mc) values ('6','ÐÂÐÍÈÝÆ÷') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('7','³ÐÑ¹Ôª¼þ') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_jyml_id (id,mc) values ('8','Ñ¹Á¦¹ÜµÀ') ; "
+		execute immediate :modsql using sqlca ;		
+		modsql = "insert into a_jyml_id (id,mc) values ('B','µçÌÝ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('C','ÒºÑ¹µçÌÝ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('T','ËþÊ½ÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('R','µ¥ÁºÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('S','Á÷¶¯ÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('U','Ê©¹¤Éý½µ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('V','ÇÅÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('W','ÃÅÆðÖØ»ú') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('E','ÓÎÀÖÉèÊ©') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('H','³§³µ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('M','×Ô¶¯·öÌÝ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('N','¹Ì¶¨Ë÷µÀ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('X','ÍÑ¹ÒË÷µÀ') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jyml_id (id,mc) values ('Y','Íù¸´Ë÷µÀ') ; "
+		execute immediate :modsql using sqlca ;				
+	end if
+end if
+
+ls_count = 0
+////ÐÞ¸Äa_jylb_idÔö¼Ó±í×Ö¶ÎÄÚÈÝ
+if mark = 'sqlserver' then
+	select count(*) into : ls_count from a_jylb_id where id like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into djylrq.a_jylb_id (id,mc) values ('p','¼à¼ìÏîÄ¿±í') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_jylb_id (id,mc) values ('q','Éê±¨Êé') ; "
+		execute immediate :modsql using sqlca ;	
+		modsql = "insert into djylrq.a_jylb_id (id,mc) values ('n','Äê¶È¼ìÑé') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into djylrq.a_jylb_id (id,mc) values ('o','ÑéÊÕ¼ìÑé') ; "
+		execute immediate :modsql using sqlca ;				
+	end if
+else
+	select count(*) into : ls_count from a_jylb_id where id like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into a_jylb_id (id,mc) values ('p','¼à¼ìÏîÄ¿±í') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_jylb_id (id,mc) values ('q','Éê±¨Êé') ; "
+		execute immediate :modsql using sqlca ;		
+		modsql = "insert into a_jylb_id (id,mc) values ('n','Äê¶È¼ìÑé') ; "
+		execute immediate :modsql using sqlca ;				
+		modsql = "insert into a_jylb_id (id,mc) values ('o','ÑéÊÕ¼ìÑé') ; "
+		execute immediate :modsql using sqlca ;				
+	end if
+end if
+
+ls_count = 0
+////ÐÞ¸Äa_sz_nrÔö¼Ó±í×Ö¶ÎÄÚÈÝ
+if mark = 'sqlserver' then
+	select count(*) into : ls_count from a_sz_nr where jytype like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "update djylrq.a_sz_nr set fy='¸½Ò³' where jytype = 'Zf' and xh = '01'; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('7w','01','¼à¼ìÖ¤Êé','','','jj_cyzs','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fa','01','±¨¸æ·âÆ¤','','','dat_bg_rztn_fp','¸´ÔÓ','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fa','02','±¨¸æÖ÷Ò³','','¸½Ò³','dat_bg_rztn_zy','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fa','03','±¨¸æ¸½Ò³','','','dat_bg_rztn_fy','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fb','01','±¨¸æ·âÆ¤','','','dat_bg_rztw_fp','¸´ÔÓ','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fb','02','±¨¸æÖ÷Ò³','','¸½Ò³','dat_bg_rztw_zy','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fb','03','±¨¸æ¸½Ò³','','','dat_bg_rztw_fy','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','07','ºê¹Û¼ìÑé','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','06','±¨¸æ1','','','dzgl_bg_01','²åÍ¼','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','09','´Å·ÛÌ½ÉË','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','08','ºñ¶È²âÁ¿','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','10','ÉøÍ¸Ì½ÉË','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','11','ÉäÏßÌ½ÉË','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','12','³¬ÉùÌ½ÉË','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','13','½ðÏà¼ìÑé','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','14','Ó²¶È²â¶¨','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','15','²ÄÖÊ·ÖÎö','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('1c','04','±¨¸æ·âÆ¤','','','dat_xxrq_fp','¸´ÔÓ','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('1c','05','±¨¸æÖ÷Ò³','','¸½Ò³','dat_xxrq_zy','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('1c','06','±¨¸æÐøÒ³','','¸½Ò³','dat_xxrq_xy','²åÍ¼','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('2c','03','±¨¸æ·âÆ¤','','','dat_ht_fp','¸´ÔÓ','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('2c','04','±¨¸æÖ÷Ò³','','¸½Ò³','dat_htjybg1','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('2c','05','±¨¸æÐøÒ³','','¸½Ò³','dat_htjybg2','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('2c','06','±¨¸æ¸½Ò³','','¸½Ò³','dat_htjybg3','²åÍ¼','') ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into : ls_count from a_sz_nr where jytype like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "update a_sz_nr set fy='¸½Ò³' where jytype = 'Zf' and xh = '01';  "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('7w','01','¼à¼ìÖ¤Êé','','','jj_cyzs','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fa','01','±¨¸æ·âÆ¤','','','dat_bg_rztn_fp','¸´ÔÓ','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fa','02','±¨¸æÖ÷Ò³','','¸½Ò³','dat_bg_rztn_zy','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fa','03','±¨¸æ¸½Ò³','','','dat_bg_rztn_fy','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fb','01','±¨¸æ·âÆ¤','','','dat_bg_rztw_fp','¸´ÔÓ','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fb','02','±¨¸æÖ÷Ò³','','¸½Ò³','dat_bg_rztw_zy','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Fb','03','±¨¸æ¸½Ò³','','','dat_bg_rztw_fy','','') ; "
+		execute immediate :modsql using sqlca ;
+	   modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','07','ºê¹Û¼ìÑé','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','06','±¨¸æ1','','','dzgl_bg_01','²åÍ¼','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','09','´Å·ÛÌ½ÉË','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','08','ºñ¶È²âÁ¿','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','10','ÉøÍ¸Ì½ÉË','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','11','ÉäÏßÌ½ÉË','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','12','³¬ÉùÌ½ÉË','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','13','½ðÏà¼ìÑé','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','14','Ó²¶È²â¶¨','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('Aa','15','²ÄÖÊ·ÖÎö','','¸½Ò³','','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('1c','04','±¨¸æ·âÆ¤','','','dat_xxrq_fp','¸´ÔÓ','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('1c','05','±¨¸æÖ÷Ò³','','¸½Ò³','dat_xxrq_zy','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('1c','06','±¨¸æÐøÒ³','','¸½Ò³','dat_xxrq_xy','²åÍ¼','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('2c','03','±¨¸æ·âÆ¤','','','dat_ht_fp','¸´ÔÓ','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('2c','04','±¨¸æÖ÷Ò³','','¸½Ò³','dat_htjybg1','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('2c','05','±¨¸æÐøÒ³','','¸½Ò³','dat_htjybg2','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('2c','06','±¨¸æ¸½Ò³','','¸½Ò³','dat_htjybg3','²åÍ¼','') ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+end subroutine
+

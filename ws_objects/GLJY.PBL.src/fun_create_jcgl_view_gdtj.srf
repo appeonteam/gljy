@@ -1,0 +1,950 @@
+﻿$PBExportHeader$fun_create_jcgl_view_gdtj.srf
+global type fun_create_jcgl_view_gdtj from function_object
+end type
+
+forward prototypes
+global subroutine fun_create_jcgl_view_gdtj ()
+end prototypes
+
+global subroutine fun_create_jcgl_view_gdtj ();long ls_count = 0
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//³§³µÊ¹ÓÃÄêÏÞ
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_cc_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_cc_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_CC.TYRQ from sb_total,djb_tzsb_cc where sb_total.zcid=djb_tzsb_cc.zcid"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_cc_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_cc_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_CC.TYRQ from sb_total,djb_tzsb_cc where sb_total.zcid=djb_tzsb_cc.zcid"
+	execute immediate :mysql using sqlca;
+end if
+//³§³µ±¨·ÏÊ¹ÓÃÄêÏÞ
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_cc_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_cc_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_TZSB_CC.TYRQ from sb_total_bf,djb_tzsb_cc where sb_total_bf.zcid=djb_tzsb_cc.zcid"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_cc_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_cc_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_TZSB_CC.TYRQ from sb_total_bf,djb_tzsb_cc where sb_total_bf.zcid=djb_tzsb_cc.zcid"
+	execute immediate :mysql using sqlca;
+end if
+//view_dc_bf_tj
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_bf_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_bf_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,yy1,yy2,yy3,yy4,scrq,cmry,cmdw,cmdwid,spry,zt) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, SB_DCXX.SCRQ, SB_DCXX.CMRY, SB_DCXX.CMDW, SB_DCXX.CMDWID, SB_DCXX.SPRY, SB_DCXX.ZT from sb_total_bf,sb_dcxx where sb_total_bf.zcid=sb_dcxx.zcid"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_bf_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_bf_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,yy1,yy2,yy3,yy4,scrq,cmry,cmdw,cmdwid,spry,zt) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, SB_DCXX.SCRQ, SB_DCXX.CMRY, SB_DCXX.CMDW, SB_DCXX.CMDWID, SB_DCXX.SPRY, SB_DCXX.ZT from sb_total_bf,sb_dcxx where sb_total_bf.zcid=sb_dcxx.zcid"
+	execute immediate :mysql using sqlca;
+end if
+//view_dc_bf_tj_ylgd
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_bf_tj_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_bf_tj_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,yy1,yy2,yy3,yy4,dgcd) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_YLGD.DGCD FROM SB_TOTAL_BF, SB_DCXX, DJB_YLGD WHERE ( SB_TOTAL_BF.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_YLGD.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_bf_tj_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_bf_tj_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,yy1,yy2,yy3,yy4,dgcd) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_YLGD.DGCD FROM SB_TOTAL_BF, SB_DCXX, DJB_YLGD WHERE ( SB_TOTAL_BF.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_YLGD.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+//view_dc_jyjl_tj
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_jyjl_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_jyjl_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,scrq,cmry,cmdw,cmdwid,spry,zt,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, SB_DCXX.SCRQ, SB_DCXX.CMRY, SB_DCXX.CMDW, SB_DCXX.CMDWID, SB_DCXX.SPRY, SB_DCXX.ZT, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, SB_DCXX,SB_JY T WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_jyjl_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_jyjl_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,scrq,cmry,cmdw,cmdwid,spry,zt,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, SB_DCXX.SCRQ, SB_DCXX.CMRY, SB_DCXX.CMDW, SB_DCXX.CMDWID, SB_DCXX.SPRY, SB_DCXX.ZT, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, SB_DCXX,SB_JY T WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+//view_dc_jyjl_tj_ylgd
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_jyjl_tj_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_jyjl_tj_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,dgcd) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLGD.DGCD FROM SB_TOTAL, SB_DCXX, SB_JY T, DJB_YLGD WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLGD.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_jyjl_tj_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_jyjl_tj_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,dgcd) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLGD.DGCD FROM SB_TOTAL, SB_DCXX, SB_JY T, DJB_YLGD WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLGD.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+//view_dc_nx_cc
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_nx_cc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_nx_cc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_TZSB_CC.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_CC WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_CC.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_nx_cc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_nx_cc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_TZSB_CC.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_CC WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_CC.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+//view_dc_nx_dt
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_nx_dt"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_nx_dt (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 , DJB_TZSB_DT.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_DT WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_DT.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_nx_dt"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_nx_dt (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 , DJB_TZSB_DT.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_DT WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_DT.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+
+//view_dc_nx_gl
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_nx_gl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_nx_gl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,yy1,yy2,yy3,yy4,scrq,cmry,cmdw,cmdwid,spry,zt) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_GL.TYRQ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, SB_DCXX.SCRQ, SB_DCXX.CMRY, SB_DCXX.CMDW, SB_DCXX.CMDWID, SB_DCXX.SPRY, SB_DCXX.ZT FROM SB_TOTAL, DJB_GL, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_GL.ZCID ) and ( DJB_GL.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_nx_gl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_nx_gl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,yy1,yy2,yy3,yy4,scrq,cmry,cmdw,cmdwid,spry,zt) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_GL.TYRQ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, SB_DCXX.SCRQ, SB_DCXX.CMRY, SB_DCXX.CMDW, SB_DCXX.CMDWID, SB_DCXX.SPRY, SB_DCXX.ZT FROM SB_TOTAL, DJB_GL, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_GL.ZCID ) and ( DJB_GL.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+//view_dc_nx_kysd
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_nx_kysd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_nx_kysd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_TZSB_KYSD.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_KYSD WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_KYSD.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_nx_kysd"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_nx_kysd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_TZSB_KYSD.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_KYSD WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_KYSD.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+//view_dc_nx_qp
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_nx_qp"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_nx_qp (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,zzrq,cqgx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_QP.ZZRQ, DJB_QP.CQGX FROM SB_TOTAL, SB_DCXX, DJB_QP WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_QP.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_nx_qp"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_nx_qp (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,zzrq,cqgx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_QP.ZZRQ, DJB_QP.CQGX FROM SB_TOTAL, SB_DCXX, DJB_QP WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_QP.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_nx_qzj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_nx_qzj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_TZSB_QZJX.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_QZJX WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_QZJX.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_nx_qzj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_nx_qzj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_TZSB_QZJX.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_QZJX WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_QZJX.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_nx_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_nx_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,dgcd,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLGD.TYRQ, DJB_YLGD.DGCD, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLGD, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLGD.ZCID ) and ( DJB_YLGD.ZCID = SB_DCXX.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_nx_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_nx_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,dgcd,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLGD.TYRQ, DJB_YLGD.DGCD, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLGD, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLGD.ZCID ) and ( DJB_YLGD.ZCID = SB_DCXX.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_nx_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_nx_ylrq (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLRQ.TYRQ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) and ( DJB_YLRQ.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_nx_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_nx_ylrq (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLRQ.TYRQ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) and ( DJB_YLRQ.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_nx_ylss"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_nx_ylss (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_TZSB_YLSS.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_YLSS WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_YLSS.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_nx_ylss"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_nx_ylss (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_TZSB_YLSS.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_TZSB_YLSS WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_TZSB_YLSS.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dt_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dt_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM , DJB_TZSB_DT.TYRQ FROM SB_TOTAL, DJB_TZSB_DT WHERE ( SB_TOTAL.ZCID = DJB_TZSB_DT.ZCID )	execute immediate :mysql using sqlca;"
+else 
+	delsql = "drop view view_dt_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dt_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM , DJB_TZSB_DT.TYRQ FROM SB_TOTAL, DJB_TZSB_DT WHERE ( SB_TOTAL.ZCID = DJB_TZSB_DT.ZCID "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dt_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dt_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH , DJB_TZSB_DT.TYRQ FROM SB_TOTAL_BF, DJB_TZSB_DT WHERE ( SB_TOTAL_BF.ZCID = DJB_TZSB_DT.ZCID )	execute immediate :mysql using sqlca;"
+else 
+	delsql = "drop view view_dt_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dt_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH , DJB_TZSB_DT.TYRQ FROM SB_TOTAL_BF, DJB_TZSB_DT WHERE ( SB_TOTAL_BF.ZCID = DJB_TZSB_DT.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_gl_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_gl_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_GL.TYRQ FROM SB_TOTAL, DJB_GL WHERE ( SB_TOTAL.ZCID = DJB_GL.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_gl_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_gl_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_GL.TYRQ FROM SB_TOTAL, DJB_GL WHERE ( SB_TOTAL.ZCID = DJB_GL.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_gl_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_gl_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_GL.TYRQ FROM SB_TOTAL_BF, DJB_GL WHERE ( SB_TOTAL_BF.ZCID = DJB_GL.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_gl_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_gl_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_GL.TYRQ FROM SB_TOTAL_BF, DJB_GL WHERE ( SB_TOTAL_BF.ZCID = DJB_GL.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_nx_cc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_nx_cc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_TZSB_CC.TYRQ FROM SB_TOTAL, SB_JY T, DJB_TZSB_CC WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_TZSB_CC.ZCID )  and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_nx_cc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_nx_cc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_TZSB_CC.TYRQ FROM SB_TOTAL, SB_JY T, DJB_TZSB_CC WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_TZSB_CC.ZCID )  and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_nx_dt"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_nx_dt (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM,DJB_TZSB_DT.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_TZSB_DT, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_TZSB_DT.ZCID ) and ( DJB_TZSB_DT.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_nx_dt"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_nx_dt (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM,DJB_TZSB_DT.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_TZSB_DT, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_TZSB_DT.ZCID ) and ( DJB_TZSB_DT.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_nx_gl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_nx_gl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_GL.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_GL, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_GL.ZCID ) and ( DJB_GL.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_nx_gl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_nx_gl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_GL.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_GL, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_GL.ZCID ) and ( DJB_GL.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_nx_kysd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_nx_kysd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_KYSD.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_TZSB_KYSD, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_TZSB_KYSD.ZCID ) and ( DJB_TZSB_KYSD.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_nx_kysd"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_nx_kysd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_KYSD.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_TZSB_KYSD, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_TZSB_KYSD.ZCID ) and ( DJB_TZSB_KYSD.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_nx_qp"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_nx_qp (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,zzrq,cqgx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_QP.ZZRQ, DJB_QP.CQGX FROM SB_TOTAL, SB_JY T, DJB_QP WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_QP.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_nx_qp"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_nx_qp (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,zzrq,cqgx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_QP.ZZRQ, DJB_QP.CQGX FROM SB_TOTAL, SB_JY T, DJB_QP WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_QP.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_nx_qzj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_nx_qzj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_TZSB_QZJX.TYRQ FROM SB_TOTAL,  SB_JY T, DJB_TZSB_QZJX WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_TZSB_QZJX.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_nx_qzj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_nx_qzj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_TZSB_QZJX.TYRQ FROM SB_TOTAL,  SB_JY T, DJB_TZSB_QZJX WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_TZSB_QZJX.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_nx_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_nx_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,dgcd,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLGD.TYRQ,DJB_YLGD.DGCD, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLGD,SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLGD.ZCID ) and ( DJB_YLGD.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_nx_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_nx_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,dgcd,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLGD.TYRQ,DJB_YLGD.DGCD, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLGD,SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLGD.ZCID ) and ( DJB_YLGD.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_nx_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_nx_ylrq (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLRQ.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) and ( DJB_YLRQ.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_nx_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_nx_ylrq (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLRQ.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) and ( DJB_YLRQ.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_nx_ylss"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_nx_ylss (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_TZSB_YLSS.TYRQ FROM SB_TOTAL, SB_JY T, DJB_TZSB_YLSS WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_TZSB_YLSS.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_nx_ylss"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_nx_ylss (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_TZSB_YLSS.TYRQ FROM SB_TOTAL, SB_JY T, DJB_TZSB_YLSS WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_TZSB_YLSS.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jl_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jl_ylrq (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,rqrj,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ.RQMC, DJB_YLRQ.RQLB, DJB_YLRQ.RQFL, DJB_YLRQ.RQRJ, DJB_YLRQ.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) and ( DJB_YLRQ.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jl_ylrq"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jl_ylrq (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,rqrj,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ.RQMC, DJB_YLRQ.RQLB, DJB_YLRQ.RQFL, DJB_YLRQ.RQRJ, DJB_YLRQ.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) and ( DJB_YLRQ.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jyjl_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jyjl_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, SB_JY T WHERE ( T.ZCID = SB_TOTAL.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jyjl_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jyjl_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,xh,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, T.XH, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, SB_JY T WHERE ( T.ZCID = SB_TOTAL.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jyjl_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jyjl_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,xh,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, T.XH, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL_BF, SB_JY T WHERE ( T.ZCID = SB_TOTAL_BF.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jyjl_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jyjl_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,xh,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, T.XH, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL_BF, SB_JY T WHERE ( T.ZCID = SB_TOTAL_BF.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_jyjl_tj_bf_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_jyjl_tj_bf_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,xh,jydw_b,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,dgcd) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLGD.DGCD FROM SB_TOTAL_BF,SB_JY T, DJB_YLGD WHERE ( SB_TOTAL_BF.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLGD.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_jyjl_tj_bf_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_jyjl_tj_bf_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,xh,jydw_b,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,dgcd) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLGD.DGCD FROM SB_TOTAL_BF,SB_JY T, DJB_YLGD WHERE ( SB_TOTAL_BF.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLGD.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_kysd_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_kysd_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_KYSD.TYRQ FROM SB_TOTAL, DJB_TZSB_KYSD WHERE ( SB_TOTAL.ZCID = DJB_TZSB_KYSD.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_kysd_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_kysd_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_KYSD.TYRQ FROM SB_TOTAL, DJB_TZSB_KYSD WHERE ( SB_TOTAL.ZCID = DJB_TZSB_KYSD.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_kysd_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_kysd_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_TZSB_KYSD.TYRQ FROM SB_TOTAL_BF, DJB_TZSB_KYSD WHERE ( SB_TOTAL_BF.ZCID = DJB_TZSB_KYSD.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_kysd_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_kysd_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_TZSB_KYSD.TYRQ FROM SB_TOTAL_BF, DJB_TZSB_KYSD WHERE ( SB_TOTAL_BF.ZCID = DJB_TZSB_KYSD.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_qp_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_qp_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,zzrq,cqgx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_QP.ZZRQ, DJB_QP.CQGX FROM SB_TOTAL, DJB_QP WHERE ( SB_TOTAL.ZCID = DJB_QP.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_qp_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_qp_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,zzrq,cqgx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_QP.ZZRQ, DJB_QP.CQGX FROM SB_TOTAL, DJB_QP WHERE ( SB_TOTAL.ZCID = DJB_QP.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_qp_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_qp_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,zzrq,cqgx) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_QP.ZZRQ, DJB_QP.CQGX FROM SB_TOTAL_BF, DJB_QP WHERE ( SB_TOTAL_BF.ZCID = DJB_QP.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_qp_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_qp_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,zzrq,cqgx) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_QP.ZZRQ, DJB_QP.CQGX FROM SB_TOTAL_BF, DJB_QP WHERE ( SB_TOTAL_BF.ZCID = DJB_QP.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_qzj_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_qzj_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_QZJX.TYRQ FROM SB_TOTAL, DJB_TZSB_QZJX WHERE ( SB_TOTAL.ZCID = DJB_TZSB_QZJX.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_qzj_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_qzj_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_QZJX.TYRQ FROM SB_TOTAL, DJB_TZSB_QZJX WHERE ( SB_TOTAL.ZCID = DJB_TZSB_QZJX.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_qzj_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_qzj_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_TZSB_QZJX.TYRQ FROM SB_TOTAL_BF, DJB_TZSB_QZJX WHERE ( SB_TOTAL_BF.ZCID = DJB_TZSB_QZJX.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_qzj_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_qzj_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_TZSB_QZJX.TYRQ FROM SB_TOTAL_BF, DJB_TZSB_QZJX WHERE ( SB_TOTAL_BF.ZCID = DJB_TZSB_QZJX.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_qp_z"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_qp_z (zzdw,zzrq,qpxh,cz,rj,sjbh,xdyqczl,gcgzyl,zcid,sbzcdm,dwid,sbsyzt,vxjb,sbpz,pz,dwmc,zzjgdm,xcjyrq,jyrq) AS SELECT DJB_QP.ZZDW, DJB_QP.ZZRQ, DJB_QP.QPXH, DJB_QP.CZ, DJB_QP.RJ, DJB_QP.SJBH, DJB_QP.XDYQCZL, DJB_QP.GCGZYL, SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.DWID,SB_TOTAL.SBSYZT, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, Z_SBFL.PZ, SB_SYDW_QP.DWMC, SB_SYDW_QP.ZZJGDM,SB_JY.XCJYRQ, SB_JY.JYRQ  from(sb_total left outer join sb_jy on sb_total.zcid=sb_jy.zcid),djb_qp,sb_sydw_qp,z_sbfl where(sb_total.zcid=djb_qp.zcid) and(sb_total.sbpz=z_sbfl.sbpz) and(sb_total.zcid=sb_sydw_qp.zcid) and((sb_total.sbsyzt='41') or(sb_total.sbsyzt='31') and(sb_total.sbgzzt='A9')) and ( XH = (select max(xh) from sb_jy where zcid = sb_jy.zcid))"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_qp_z"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_qp_z (zzdw,zzrq,qpxh,cz,rj,sjbh,xdyqczl,gcgzyl,zcid,sbzcdm,dwid,sbsyzt,vxjb,sbpz,pz,dwmc,zzjgdm,xcjyrq,jyrq) AS SELECT DJB_QP.ZZDW, DJB_QP.ZZRQ, DJB_QP.QPXH, DJB_QP.CZ, DJB_QP.RJ, DJB_QP.SJBH, DJB_QP.XDYQCZL, DJB_QP.GCGZYL, SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.DWID,SB_TOTAL.SBSYZT, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, Z_SBFL.PZ, SB_SYDW_QP.DWMC, SB_SYDW_QP.ZZJGDM,SB_JY.XCJYRQ, SB_JY.JYRQ  from(sb_total left outer join sb_jy on sb_total.zcid=sb_jy.zcid),djb_qp,sb_sydw_qp,z_sbfl where(sb_total.zcid=djb_qp.zcid) and(sb_total.sbpz=z_sbfl.sbpz) and(sb_total.zcid=sb_sydw_qp.zcid) and((sb_total.sbsyzt='41') or(sb_total.sbsyzt='31') and(sb_total.sbgzzt='A9')) and ( XH = (select max(xh) from sb_jy where zcid = sb_jy.zcid))"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,zcdjjg) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLRQ.TYRQ,SB_ZC.ZCDJJG  FROM {oj sb_total LEFT OUTER JOIN sb_zc ON sb_total.zcid = sb_zc.zcid},djb_ylrq  WHERE ( sb_total.zcid = djb_ylrq.zcid )    "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,zcdjjg) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLRQ.TYRQ,SB_ZC.ZCDJJG  FROM {oj sb_total LEFT OUTER JOIN sb_zc ON sb_total.zcid = sb_zc.zcid},djb_ylrq  WHERE ( sb_total.zcid = djb_ylrq.zcid )    "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_YLRQ.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_YLRQ.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylgd_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylgd_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,dgcd) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLGD.TYRQ , DJB_YLGD.DGCD FROM SB_TOTAL, DJB_YLGD WHERE ( SB_TOTAL.ZCID = DJB_YLGD.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylgd_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylgd_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq,dgcd) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_YLGD.TYRQ , DJB_YLGD.DGCD FROM SB_TOTAL, DJB_YLGD WHERE ( SB_TOTAL.ZCID = DJB_YLGD.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylgd_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylgd_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq,dgcd) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_YLGD.TYRQ, DJB_YLGD.DGCD FROM SB_TOTAL_BF, DJB_YLGD WHERE ( SB_TOTAL_BF.ZCID = DJB_YLGD.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylgd_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylgd_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq,dgcd) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_YLGD.TYRQ, DJB_YLGD.DGCD FROM SB_TOTAL_BF, DJB_YLGD WHERE ( SB_TOTAL_BF.ZCID = DJB_YLGD.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylgd_hzb"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylgd_hzb (zcid,sbzcdm,sbmc,sbzl,sbjb,sydw,dwid,sbsyzt,vxjb,sbpz,gczzmc,sbgzzt,sblb) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, DJB_YLGD_HZB.GCZZMC, SB_TOTAL.SBGZZT, SB_TOTAL.SBLB FROM DJB_YLGD_HZB, SB_TOTAL WHERE SB_TOTAL.SBLB  = '8000' and SB_TOTAL.SBGZZT  = 'A9'and (SB_TOTAL.SBSYZT  = '31' OR SB_TOTAL.SBSYZT  = '41') and ( DJB_YLGD_HZB.ZCID = SB_TOTAL.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylgd_hzb"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylgd_hzb (zcid,sbzcdm,sbmc,sbzl,sbjb,sydw,dwid,sbsyzt,vxjb,sbpz,gczzmc,sbgzzt,sblb) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, DJB_YLGD_HZB.GCZZMC, SB_TOTAL.SBGZZT, SB_TOTAL.SBLB FROM DJB_YLGD_HZB, SB_TOTAL WHERE SB_TOTAL.SBLB  = '8000' and SB_TOTAL.SBGZZT  = 'A9'and (SB_TOTAL.SBSYZT  = '31' OR SB_TOTAL.SBSYZT  = '41') and ( DJB_YLGD_HZB.ZCID = SB_TOTAL.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_cgtc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_cgtc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_CGTC.TYRQ FROM SB_TOTAL, DJB_YLRQ_CGTC WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_CGTC.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_cgtc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_cgtc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_CGTC.TYRQ FROM SB_TOTAL, DJB_YLRQ_CGTC WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_CGTC.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_cgtc_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_cgtc_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_CGTC.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ_CGTC WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_CGTC.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_cgtc_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_cgtc_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_CGTC.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ_CGTC WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_CGTC.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_cgtc_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_cgtc_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_YLRQ_CGTC.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_YLRQ_CGTC WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_YLRQ_CGTC.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_cgtc_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_cgtc_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,yy1,yy2,yy3,yy4,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, DJB_YLRQ_CGTC.TYRQ FROM SB_TOTAL, SB_DCXX, DJB_YLRQ_CGTC WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) and ( SB_DCXX.ZCID = DJB_YLRQ_CGTC.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_cgtc_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_cgtc_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLRQ_CGTC.TYRQ FROM SB_TOTAL, SB_JY T, DJB_YLRQ_CGTC WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLRQ_CGTC.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_cgtc_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_cgtc_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLRQ_CGTC.TYRQ FROM SB_TOTAL, SB_JY T, DJB_YLRQ_CGTC WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLRQ_CGTC.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,tyrq,rqrj,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ.RQMC, DJB_YLRQ.RQLB, DJB_YLRQ.RQFL, DJB_YLRQ.TYRQ, DJB_YLRQ.RQRJ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) and ( DJB_YLRQ.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,tyrq,rqrj,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ.RQMC, DJB_YLRQ.RQLB, DJB_YLRQ.RQFL, DJB_YLRQ.TYRQ, DJB_YLRQ.RQRJ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) and ( DJB_YLRQ.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_fj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_fj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,fjsbmc,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_FJ.FJSBMC, DJB_YLRQ.TYRQ FROM SB_TOTAL, DJB_YLRQ_FJ, DJB_YLRQ WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_FJ.ZCID ) and ( DJB_YLRQ_FJ.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_fj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_fj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,fjsbmc,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_FJ.FJSBMC, DJB_YLRQ.TYRQ FROM SB_TOTAL, DJB_YLRQ_FJ, DJB_YLRQ WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_FJ.ZCID ) and ( DJB_YLRQ_FJ.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_fj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_fj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,fjsbmc,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_FJ.FJSBMC, DJB_YLRQ.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ_FJ, DJB_YLRQ WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_FJ.ZCID ) and ( DJB_YLRQ_FJ.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_fj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_fj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,fjsbmc,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_FJ.FJSBMC, DJB_YLRQ.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ_FJ, DJB_YLRQ WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_FJ.ZCID ) and ( DJB_YLRQ_FJ.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_fj_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_fj_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,fjsbmc,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_FJ.FJSBMC, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ_FJ, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_FJ.ZCID ) and ( DJB_YLRQ_FJ.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_fj_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_fj_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,fjsbmc,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_FJ.FJSBMC, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ_FJ, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_FJ.ZCID ) and ( DJB_YLRQ_FJ.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_fj_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_fj_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,fjsbmc,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_FJ.FJSBMC, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ_FJ, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_FJ.ZCID )  and ( T.ZCID = DJB_YLRQ_FJ.ZCID )  and ( ( T.XH = (select max(t.xh) from sb_jy t where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_fj_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_fj_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,fjsbmc,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_FJ.FJSBMC, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ_FJ, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_FJ.ZCID )  and ( T.ZCID = DJB_YLRQ_FJ.ZCID )  and ( ( T.XH = (select max(t.xh) from sb_jy t where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_gc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_gc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GC.RQMC, DJB_YLRQ_GC.RQLB, DJB_YLRQ_GC.RQFL, DJB_YLRQ_GC.TYRQ FROM SB_TOTAL, DJB_YLRQ_GC WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GC.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_gc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_gc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GC.RQMC, DJB_YLRQ_GC.RQLB, DJB_YLRQ_GC.RQFL, DJB_YLRQ_GC.TYRQ FROM SB_TOTAL, DJB_YLRQ_GC WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GC.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_gc_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_gc_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,rqmc,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_GC.RQMC, DJB_YLRQ_GC.RQLB, DJB_YLRQ_GC.RQFL, DJB_YLRQ_GC.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ_GC WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_GC.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_gc_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_gc_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,rqmc,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_GC.RQMC, DJB_YLRQ_GC.RQLB, DJB_YLRQ_GC.RQFL, DJB_YLRQ_GC.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ_GC WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_GC.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_gc_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_gc_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,tyrq,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GC.RQMC, DJB_YLRQ_GC.RQLB, DJB_YLRQ_GC.RQFL, DJB_YLRQ_GC.TYRQ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ_GC, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GC.ZCID ) and ( DJB_YLRQ_GC.ZCID = SB_DCXX.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_gc_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_gc_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,tyrq,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GC.RQMC, DJB_YLRQ_GC.RQLB, DJB_YLRQ_GC.RQFL, DJB_YLRQ_GC.TYRQ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ_GC, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GC.ZCID ) and ( DJB_YLRQ_GC.ZCID = SB_DCXX.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_gc_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_gc_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,rqmc,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLRQ_GC.RQMC, DJB_YLRQ_GC.RQLB, DJB_YLRQ_GC.RQFL, DJB_YLRQ_GC.TYRQ FROM SB_TOTAL, SB_JY T, DJB_YLRQ_GC WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLRQ_GC.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_gc_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_gc_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,rqmc,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLRQ_GC.RQMC, DJB_YLRQ_GC.RQLB, DJB_YLRQ_GC.RQFL, DJB_YLRQ_GC.TYRQ FROM SB_TOTAL, SB_JY T, DJB_YLRQ_GC WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLRQ_GC.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_gsjzx"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_gsjzx (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GSJZX.RQLB, DJB_YLRQ_GSJZX.RQFL, DJB_YLRQ_GSJZX.TYRQ FROM SB_TOTAL, DJB_YLRQ_GSJZX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GSJZX.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_gsjzx"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_gsjzx (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GSJZX.RQLB, DJB_YLRQ_GSJZX.RQFL, DJB_YLRQ_GSJZX.TYRQ FROM SB_TOTAL, DJB_YLRQ_GSJZX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GSJZX.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_gsjzx_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_gsjzx_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_GSJZX.RQLB, DJB_YLRQ_GSJZX.RQFL, DJB_YLRQ_GSJZX.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ_GSJZX WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_GSJZX.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_gsjzx_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_gsjzx_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,rqlb,rqfl,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_GSJZX.RQLB, DJB_YLRQ_GSJZX.RQFL, DJB_YLRQ_GSJZX.TYRQ FROM SB_TOTAL_BF, DJB_YLRQ_GSJZX WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_GSJZX.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_gsjzx_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_gsjzx_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GSJZX.RQLB, DJB_YLRQ_GSJZX.RQFL, DJB_YLRQ_GSJZX.TYRQ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ_GSJZX, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GSJZX.ZCID ) and ( DJB_YLRQ_GSJZX.ZCID = SB_DCXX.ZCID )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_gsjzx_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_gsjzx_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GSJZX.RQLB, DJB_YLRQ_GSJZX.RQFL, DJB_YLRQ_GSJZX.TYRQ, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ_GSJZX, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GSJZX.ZCID ) and ( DJB_YLRQ_GSJZX.ZCID = SB_DCXX.ZCID )"
+	execute immediate :mysql using sqlca;
+end if
+////////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_gsjzx_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_gsjzx_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GSJZX.RQLB, DJB_YLRQ_GSJZX.RQFL, DJB_YLRQ_GSJZX.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ_GSJZX, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GSJZX.ZCID ) and ( DJB_YLRQ_GSJZX.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_gsjzx_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_gsjzx_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_GSJZX.RQLB, DJB_YLRQ_GSJZX.RQFL, DJB_YLRQ_GSJZX.TYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ_GSJZX, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_GSJZX.ZCID ) and ( DJB_YLRQ_GSJZX.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_pt"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_pt (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,tyrq,rqrj) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ.RQMC, DJB_YLRQ.RQLB, DJB_YLRQ.RQFL, DJB_YLRQ.TYRQ, DJB_YLRQ.RQRJ FROM SB_TOTAL, DJB_YLRQ WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_pt"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_pt (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqmc,rqlb,rqfl,tyrq,rqrj) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ.RQMC, DJB_YLRQ.RQLB, DJB_YLRQ.RQFL, DJB_YLRQ.TYRQ, DJB_YLRQ.RQRJ FROM SB_TOTAL, DJB_YLRQ WHERE ( SB_TOTAL.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_pt_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_pt_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,rqmc,rqlb,rqfl,tyrq,rqrj) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ.RQMC, DJB_YLRQ.RQLB, DJB_YLRQ.RQFL, DJB_YLRQ.TYRQ, DJB_YLRQ.RQRJ FROM SB_TOTAL_BF, DJB_YLRQ WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_pt_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_pt_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,rqmc,rqlb,rqfl,tyrq,rqrj) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ.RQMC, DJB_YLRQ.RQLB, DJB_YLRQ.RQFL, DJB_YLRQ.TYRQ, DJB_YLRQ.RQRJ FROM SB_TOTAL_BF, DJB_YLRQ WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_tj (zcid,sbpz,sbmc,sb_lb,sb_pz,xcjyrq,scjyjl,sbzcdm,rqlb,rqrj) AS SELECT DJB_TOTAL.ZCID, DJB_TOTAL.SBPZ, DJB_TOTAL.SBMC, DJB_TOTAL.SB_LB, DJB_TOTAL.SB_PZ, DJB_TOTAL.XCJYRQ, DJB_TOTAL.SCJYJL, DJB_TOTAL.SBZCDM, DJB_YLRQ.RQLB, DJB_YLRQ.RQRJ FROM DJB_TOTAL, DJB_YLRQ WHERE ( DJB_TOTAL.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_tj (zcid,sbpz,sbmc,sb_lb,sb_pz,xcjyrq,scjyjl,sbzcdm,rqlb,rqrj) AS SELECT DJB_TOTAL.ZCID, DJB_TOTAL.SBPZ, DJB_TOTAL.SBMC, DJB_TOTAL.SB_LB, DJB_TOTAL.SB_PZ, DJB_TOTAL.XCJYRQ, DJB_TOTAL.SCJYJL, DJB_TOTAL.SBZCDM, DJB_YLRQ.RQLB, DJB_YLRQ.RQRJ FROM DJB_TOTAL, DJB_YLRQ WHERE ( DJB_TOTAL.ZCID = DJB_YLRQ.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_yc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_yc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,yc_ycgg) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_YC.RQLB, DJB_YLRQ_YC.RQFL, DJB_YLRQ_YC.TYRQ, DJB_YLRQ_YC.YC_YCGG FROM SB_TOTAL, DJB_YLRQ_YC WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_YC.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_yc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_yc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,yc_ycgg) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_YC.RQLB, DJB_YLRQ_YC.RQFL, DJB_YLRQ_YC.TYRQ, DJB_YLRQ_YC.YC_YCGG FROM SB_TOTAL, DJB_YLRQ_YC WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_YC.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_yc_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_yc_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,rqlb,rqfl,tyrq,yc_ycgg) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_YC.RQLB, DJB_YLRQ_YC.RQFL, DJB_YLRQ_YC.TYRQ, DJB_YLRQ_YC.YC_YCGG FROM SB_TOTAL_BF, DJB_YLRQ_YC WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_YC.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_yc_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_yc_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,sbdm,rqlb,rqfl,tyrq,yc_ycgg) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, SB_TOTAL_BF.SBDM, DJB_YLRQ_YC.RQLB, DJB_YLRQ_YC.RQFL, DJB_YLRQ_YC.TYRQ, DJB_YLRQ_YC.YC_YCGG FROM SB_TOTAL_BF, DJB_YLRQ_YC WHERE ( SB_TOTAL_BF.ZCID = DJB_YLRQ_YC.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_yc_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_yc_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,yc_ycgg,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_YC.RQLB, DJB_YLRQ_YC.RQFL, DJB_YLRQ_YC.TYRQ, DJB_YLRQ_YC.YC_YCGG, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ_YC, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_YC.ZCID ) and ( DJB_YLRQ_YC.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_yc_dc"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_yc_dc (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,yc_ycgg,yy1,yy2,yy3,yy4) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_YC.RQLB, DJB_YLRQ_YC.RQFL, DJB_YLRQ_YC.TYRQ, DJB_YLRQ_YC.YC_YCGG, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4 FROM SB_TOTAL, DJB_YLRQ_YC, SB_DCXX WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_YC.ZCID ) and ( DJB_YLRQ_YC.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylrq_yc_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylrq_yc_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,yc_ycgg,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_YC.RQLB, DJB_YLRQ_YC.RQFL, DJB_YLRQ_YC.TYRQ, DJB_YLRQ_YC.YC_YCGG, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ_YC, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_YC.ZCID ) and ( DJB_YLRQ_YC.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylrq_yc_jl"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylrq_yc_jl (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,rqlb,rqfl,tyrq,yc_ycgg,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, DJB_YLRQ_YC.RQLB, DJB_YLRQ_YC.RQFL, DJB_YLRQ_YC.TYRQ, DJB_YLRQ_YC.YC_YCGG, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM SB_TOTAL, DJB_YLRQ_YC, SB_JY T WHERE ( SB_TOTAL.ZCID = DJB_YLRQ_YC.ZCID ) and ( DJB_YLRQ_YC.ZCID = T.ZCID ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylss_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylss_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_YLSS.TYRQ FROM SB_TOTAL, DJB_TZSB_YLSS WHERE ( SB_TOTAL.ZCID = DJB_TZSB_YLSS.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylss_synx_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylss_synx_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,tyrq) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, DJB_TZSB_YLSS.TYRQ FROM SB_TOTAL, DJB_TZSB_YLSS WHERE ( SB_TOTAL.ZCID = DJB_TZSB_YLSS.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+////
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_ylss_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_ylss_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_TZSB_YLSS.TYRQ FROM SB_TOTAL_BF, DJB_TZSB_YLSS WHERE ( SB_TOTAL_BF.ZCID = DJB_TZSB_YLSS.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_ylss_synx_tj_bf"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_ylss_synx_tj_bf (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,qydm,dc,jk,yh,tyrq) AS SELECT SB_TOTAL_BF.ZCID, SB_TOTAL_BF.SBZCDM, SB_TOTAL_BF.SBMC, SB_TOTAL_BF.SBLB, SB_TOTAL_BF.SBZL, SB_TOTAL_BF.SBJB, SB_TOTAL_BF.SYDW, SB_TOTAL_BF.DWID, SB_TOTAL_BF.JD, SB_TOTAL_BF.WD, SB_TOTAL_BF.MAPNUMBER, SB_TOTAL_BF.VXJB, SB_TOTAL_BF.SBPZ, SB_TOTAL_BF.JYDW, SB_TOTAL_BF.JYDWID, SB_TOTAL_BF.SBXH, SB_TOTAL_BF.CCBH, SB_TOTAL_BF.ZZDW, SB_TOTAL_BF.DWNBBH, SB_TOTAL_BF.QYDM, SB_TOTAL_BF.DC, SB_TOTAL_BF.JK, SB_TOTAL_BF.YH, DJB_TZSB_YLSS.TYRQ FROM SB_TOTAL_BF, DJB_TZSB_YLSS WHERE ( SB_TOTAL_BF.ZCID = DJB_TZSB_YLSS.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+//// ¶¨¼ìÂÊÊÓÍ¼
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_djl_total"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_djl_total (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,xh) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, T.XH FROM SB_TOTAL, SB_JY T WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( SB_TOTAL.SBSYZT = 10 ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_djl_total "
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_djl_total (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,xh) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, T.XH FROM SB_TOTAL, SB_JY T WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( SB_TOTAL.SBSYZT = 10 ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_djl_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_djl_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,dgcd) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLGD.DGCD FROM SB_TOTAL, SB_JY T, DJB_YLGD WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLGD.ZCID ) and ( SB_TOTAL.SBSYZT = 10 )  and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_djl_ylgd "
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_djl_ylgd (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,sbdm,xh,jydw_a,zzjgdm,jyrq,jylb,zywt,jyjl,bgbh,xcjyrq,jyid,yqid,zgqx,dgcd) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_TOTAL.SBDM, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX, DJB_YLGD.DGCD FROM SB_TOTAL, SB_JY T, DJB_YLGD WHERE ( SB_TOTAL.ZCID = T.ZCID ) and ( T.ZCID = DJB_YLGD.ZCID ) and ( SB_TOTAL.SBSYZT = 10 )  and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) ) "
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_nm_djl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_nm_djl (zcid,sbpz,dwid,jydwid,jylb,qydm,xcjyrq,xh,jydw,zzjgdm,jyrq,jylb_a,zywt,jyjl,bgbh,xcjyrq_a,jyid,yqid,zgqx) AS SELECT ZYSB_NC_DJL.ZCID, ZYSB_NC_DJL.SBPZ, ZYSB_NC_DJL.DWID, ZYSB_NC_DJL.JYDWID, ZYSB_NC_DJL.JYLB, ZYSB_NC_DJL.QYDM, ZYSB_NC_DJL.XCJYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM ZYSB_NC_DJL, SB_JY T WHERE ( ZYSB_NC_DJL.ZCID = T.ZCID ) and (ZYSB_NC_DJL.XCJYRQ <> T.XCJYRQ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_nm_djl "
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_nm_djl (zcid,sbpz,dwid,jydwid,jylb,qydm,xcjyrq,xh,jydw,zzjgdm,jyrq,jylb_a,zywt,jyjl,bgbh,xcjyrq_a,jyid,yqid,zgqx) AS SELECT ZYSB_NC_DJL.ZCID, ZYSB_NC_DJL.SBPZ, ZYSB_NC_DJL.DWID, ZYSB_NC_DJL.JYDWID, ZYSB_NC_DJL.JYLB, ZYSB_NC_DJL.QYDM, ZYSB_NC_DJL.XCJYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM ZYSB_NC_DJL, SB_JY T WHERE ( ZYSB_NC_DJL.ZCID = T.ZCID ) and (ZYSB_NC_DJL.XCJYRQ <> T.XCJYRQ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_nm_djl_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_nm_djl_ylgd (zcid,sbpz,dwid,jydwid,jylb,qydm,xcjyrq,dgcd,xh,jydw,zzjgdm,jyrq,jylb_a,zywt,jyjl,bgbh,xcjyrq_a,jyid,yqid,zgqx) AS SELECT ZYSB_NC_DJL_YLGD.ZCID, ZYSB_NC_DJL_YLGD.SBPZ, ZYSB_NC_DJL_YLGD.DWID, ZYSB_NC_DJL_YLGD.JYDWID, ZYSB_NC_DJL_YLGD.JYLB, ZYSB_NC_DJL_YLGD.QYDM, ZYSB_NC_DJL_YLGD.XCJYRQ, ZYSB_NC_DJL_YLGD.DGCD, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM ZYSB_NC_DJL_YLGD, SB_JY T WHERE ( ZYSB_NC_DJL_YLGD.ZCID = T.ZCID )  and (ZYSB_NC_DJL_YLGD.XCJYRQ <> T.XCJYRQ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_nm_djl_ylgd "
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_nm_djl_ylgd (zcid,sbpz,dwid,jydwid,jylb,qydm,xcjyrq,dgcd,xh,jydw,zzjgdm,jyrq,jylb_a,zywt,jyjl,bgbh,xcjyrq_a,jyid,yqid,zgqx) AS SELECT ZYSB_NC_DJL_YLGD.ZCID, ZYSB_NC_DJL_YLGD.SBPZ, ZYSB_NC_DJL_YLGD.DWID, ZYSB_NC_DJL_YLGD.JYDWID, ZYSB_NC_DJL_YLGD.JYLB, ZYSB_NC_DJL_YLGD.QYDM, ZYSB_NC_DJL_YLGD.XCJYRQ, ZYSB_NC_DJL_YLGD.DGCD, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM ZYSB_NC_DJL_YLGD, SB_JY T WHERE ( ZYSB_NC_DJL_YLGD.ZCID = T.ZCID )  and (ZYSB_NC_DJL_YLGD.XCJYRQ <> T.XCJYRQ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_nm_wjl"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_nm_wjl (zcid,sbpz,dwid,jydwid,jylb,qydm,xcjyrq,xh,jydw,zzjgdm,jyrq,jylb_a,zywt,jyjl,bgbh,xcjyrq_a,jyid,yqid,zgqx) AS SELECT ZYSB_NC_WJL.ZCID, ZYSB_NC_WJL.SBPZ, ZYSB_NC_WJL.DWID, ZYSB_NC_WJL.JYDWID, ZYSB_NC_WJL.JYLB, ZYSB_NC_WJL.QYDM, ZYSB_NC_WJL.XCJYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM ZYSB_NC_WJL, SB_JY T WHERE ( ZYSB_NC_WJL.ZCID = T.ZCID ) and (ZYSB_NC_WJL.XCJYRQ <> T.XCJYRQ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_nm_wjl "
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_nm_wjl (zcid,sbpz,dwid,jydwid,jylb,qydm,xcjyrq,xh,jydw,zzjgdm,jyrq,jylb_a,zywt,jyjl,bgbh,xcjyrq_a,jyid,yqid,zgqx) AS SELECT ZYSB_NC_WJL.ZCID, ZYSB_NC_WJL.SBPZ, ZYSB_NC_WJL.DWID, ZYSB_NC_WJL.JYDWID, ZYSB_NC_WJL.JYLB, ZYSB_NC_WJL.QYDM, ZYSB_NC_WJL.XCJYRQ, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM ZYSB_NC_WJL, SB_JY T WHERE ( ZYSB_NC_WJL.ZCID = T.ZCID ) and (ZYSB_NC_WJL.XCJYRQ <> T.XCJYRQ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_nm_wjl_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_nm_wjl_ylgd (zcid,sbpz,dwid,jydwid,jylb,qydm,xcjyrq,dgcd,xh,jydw,zzjgdm,jyrq,jylb_a,zywt,jyjl,bgbh,xcjyrq_a,jyid,yqid,zgqx) AS SELECT ZYSB_NC_WJL_YLGD.ZCID, ZYSB_NC_WJL_YLGD.SBPZ, ZYSB_NC_WJL_YLGD.DWID, ZYSB_NC_WJL_YLGD.JYDWID, ZYSB_NC_WJL_YLGD.JYLB, ZYSB_NC_WJL_YLGD.QYDM, ZYSB_NC_WJL_YLGD.XCJYRQ, ZYSB_NC_WJL_YLGD.DGCD, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM ZYSB_NC_WJL_YLGD, SB_JY T WHERE ( ZYSB_NC_WJL_YLGD.ZCID = T.ZCID )  and (ZYSB_NC_WJL_YLGD.XCJYRQ <> T.XCJYRQ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view  view_nm_wjl_ylgd"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_nm_wjl_ylgd (zcid,sbpz,dwid,jydwid,jylb,qydm,xcjyrq,dgcd,xh,jydw,zzjgdm,jyrq,jylb_a,zywt,jyjl,bgbh,xcjyrq_a,jyid,yqid,zgqx) AS SELECT ZYSB_NC_WJL_YLGD.ZCID, ZYSB_NC_WJL_YLGD.SBPZ, ZYSB_NC_WJL_YLGD.DWID, ZYSB_NC_WJL_YLGD.JYDWID, ZYSB_NC_WJL_YLGD.JYLB, ZYSB_NC_WJL_YLGD.QYDM, ZYSB_NC_WJL_YLGD.XCJYRQ, ZYSB_NC_WJL_YLGD.DGCD, T.XH, T.JYDW, T.ZZJGDM, T.JYRQ, T.JYLB, T.ZYWT, T.JYJL, T.BGBH, T.XCJYRQ, T.JYID, T.YQID, T.ZGQX FROM ZYSB_NC_WJL_YLGD, SB_JY T WHERE ( ZYSB_NC_WJL_YLGD.ZCID = T.ZCID )  and (ZYSB_NC_WJL_YLGD.XCJYRQ <> T.XCJYRQ) and ( ( XH = (select max(xh) from sb_jy where zcid = t.zcid) ) )"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then 
+   delsql = "drop view djylrq.view_dc_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE view djylrq.view_dc_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,scrq,cmry,cmdw,cmdwid,spry) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, SB_DCXX.SCRQ, SB_DCXX.CMRY, SB_DCXX.CMDW, SB_DCXX.CMDWID, SB_DCXX.SPRY FROM SB_TOTAL, SB_DCXX WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+else 
+	delsql = "drop view view_dc_tj"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_dc_tj (zcid,sbzcdm,sbmc,sblb,sbzl,sbjb,sydw,dwid,sbsyzt,yh,dc,jk,jd,wd,mapnumber,vxjb,sbpz,jydw,jydwid,sbxh,ccbh,zzdw,dwnbbh,sbgzzt,qydm,yy1,yy2,yy3,yy4,scrq,cmry,cmdw,cmdwid,spry) AS SELECT SB_TOTAL.ZCID, SB_TOTAL.SBZCDM, SB_TOTAL.SBMC, SB_TOTAL.SBLB, SB_TOTAL.SBZL, SB_TOTAL.SBJB, SB_TOTAL.SYDW, SB_TOTAL.DWID, SB_TOTAL.SBSYZT, SB_TOTAL.YH, SB_TOTAL.DC, SB_TOTAL.JK, SB_TOTAL.JD, SB_TOTAL.WD, SB_TOTAL.MAPNUMBER, SB_TOTAL.VXJB, SB_TOTAL.SBPZ, SB_TOTAL.JYDW, SB_TOTAL.JYDWID, SB_TOTAL.SBXH, SB_TOTAL.CCBH, SB_TOTAL.ZZDW, SB_TOTAL.DWNBBH, SB_TOTAL.SBGZZT, SB_TOTAL.QYDM, SB_DCXX.YY1, SB_DCXX.YY2, SB_DCXX.YY3, SB_DCXX.YY4, SB_DCXX.SCRQ, SB_DCXX.CMRY, SB_DCXX.CMDW, SB_DCXX.CMDWID, SB_DCXX.SPRY FROM SB_TOTAL, SB_DCXX WHERE ( SB_TOTAL.ZCID = SB_DCXX.ZCID ) "
+	execute immediate :mysql using sqlca;
+end if
+
+
+end subroutine
+

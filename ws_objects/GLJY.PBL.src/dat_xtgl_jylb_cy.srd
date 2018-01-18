@@ -1,0 +1,17 @@
+﻿$PBExportHeader$dat_xtgl_jylb_cy.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=81 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=73 color="553648127~tIF(MOD(GETROW(),2)=0,RGB(0, 128, 192), RGB(255,128,255 ))" )
+table(column=(type=char(4) update=yes updatewhereclause=yes key=yes name=id dbname="a_jylb_id.id" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=mc dbname="a_jylb_id.mc" )
+ column=(type=long update=yes updatewhereclause=yes name=sh dbname="a_jylb_id.sh" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"a_jylb_id~" ) COLUMN(NAME=~"a_jylb_id.id~") COLUMN(NAME=~"a_jylb_id.mc~") COLUMN(NAME=~"a_jylb_id.sh~")) ORDER(NAME=~"a_jylb_id.sh~" ASC=yes ) " update="a_jylb_id" updatewhere=1 updatekeyinplace=no )
+text(band=header alignment="2" text="ÅÅÐò"border="6" color="0" x="796" y="16" height="61" width="151"  font.face="ËÎÌå" font.height="-10" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="2" background.color="80269524" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="0" color="0" x="791" y="4" height="65" width="151" format="[General]"  name=sh editmask.mask="###" editmask.focusrectangle=no  font.face="ËÎÌå" font.height="-10" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="2" background.color="15793151" )
+text(band=detail alignment="0" text=""border="0" color="0" x="956" y="4" height="65" width="106"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+text(band=header alignment="0" text=""border="0" color="0" x="965" y="12" height="65" width="106"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+text(band=header alignment="2" text="Àà±ðÃû³Æ"border="6" color="0" x="10" y="16" height="61" width="773"  font.face="ËÎÌå" font.height="-10" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="2" background.color="80269524" )
+column(band=detail id=2 alignment="2" tabsequence=10 border="0" color="0" x="10" y="4" height="65" width="773" format="[general]"  name=mc edit.limit=0 edit.case=any edit.autoselect=yes edit.displayonly=yes  font.face="ËÎÌå" font.height="-10" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="2" background.color="15793151" )

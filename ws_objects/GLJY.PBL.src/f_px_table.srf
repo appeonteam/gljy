@@ -1,0 +1,1278 @@
+﻿$PBExportHeader$f_px_table.srf
+$PBExportComments$¸ß·É
+global type f_px_table from function_object
+end type
+
+forward prototypes
+global subroutine f_px_table ()
+end prototypes
+
+global subroutine f_px_table ();//**fun_reCreatePX_DB**//
+string delsql,mysql,myindex,modsql
+int    li_temp
+boolean lb_insert
+string ls_temp
+string mark = 'sybase'
+if sqlca.dbms = "MSS (Msoft) SQL Server 6.0" then 
+   mark = 'sqlserver'
+end if
+long ll_Count 
+ll_Count = 0
+//*begin*
+//px_bzkh*±àÖÆ¿¼ºÅÄ£Ê½*
+//id integer not null *Ö÷¼ü*
+//s1 varchar(6) *±êÊ¶×Ö·û*
+//bs1 varchar(6) *±êÊ¶1*
+//s2 varchar(6) *±êÊ¶×Ö·û*
+//bs2 varchar(6) *±êÊ¶2*
+//s3 varchar(6) *±êÊ¶×Ö·û*
+//lsh varchar(6) *Á÷Ë®ºÅ*
+//len integer *Á÷Ë®ºÅ³¤¶È*
+//zd  char(6) *ÊÇ·ñ×Ô¶¯*
+//*end*
+if mark = 'sqlserver' then   
+   select count(*) into :ll_Count from px_bzkh;
+	if sqlca.sqlcode = -1 then   
+	   //**px_bzkh±í²»´æÔÚ£¬ÐèÒª´´½¨**//
+		delsql = "drop table djylrq.px_bzkh"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_bzkh (id integer not null,"+&
+		        "s1 varchar(6) null,bs1 varchar(6) null,s2 varchar(6) null,"+&
+				  "bs2 varchar(6) null,s3 varchar(6) null,lsh varchar(6) null,"+&
+				  "len integer null,zd char(6) null);"
+		execute immediate :mysql using sqlca;
+      myindex = "Create UNIQUE INDEX px_bzkh_x on djylrq.px_bzkh (id);"
+		execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from px_bzkh;
+	if sqlca.sqlcode = -1  then   
+	   delsql = "drop table px_bzkh"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_bzkh (id integer not null,"+&
+		        "s1 varchar(6) null,bs1 varchar(6) null,s2 varchar(6) null,"+&
+				  "bs2 varchar(6) null,s3 varchar(6) null,lsh varchar(6) null,"+&
+				  "len integer null,zd char(6) null,PRIMARY KEY (id));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+//*begin*
+//px_bzzh *±àÖÆÖ¤ºÅÄ£Ê½*
+//id integer not null *Ö÷¼ü*
+//s1 varchar(6) *±êÊ¶×Ö·û*
+//bs1 varchar(6) *±êÊ¶1*
+//s2 varchar(6) *±êÊ¶×Ö·û*
+//bs2 varchar(6) *±êÊ¶2*
+//s3 varchar(6) *±êÊ¶×Ö·û*
+//lsh varchar(6) *Á÷Ë®ºÅ*
+//len integer *Á÷Ë®ºÅ³¤¶È*
+//zd  char(6) *ÊÇ·ñ×Ô¶¯*
+//*end*
+ll_Count = 0
+if mark = 'sqlserver' then   
+   select count(*) into :ll_Count from px_bzzh;
+	if sqlca.sqlcode = -1 then   
+	   //**px_bzzh±í²»´æÔÚ£¬ÐèÒª´´½¨**//
+		delsql = "drop table djylrq.px_bzzh"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_bzzh (id integer not null,"+&
+		        "s1 varchar(6) null,bs1 varchar(6) null,s2 varchar(6) null,"+&
+				  "bs2 varchar(6) null,s3 varchar(6) null,lsh varchar(6) null,"+&
+				  "len integer null,zd char(6) null);"
+		execute immediate :mysql using sqlca;
+      myindex = "Create UNIQUE INDEX px_bzzh_x on djylrq.px_bzzh (id);"
+		execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from px_bzzh;
+	if sqlca.sqlcode = -1  then   
+	   delsql = "drop table px_bzzh"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_bzzh (id integer not null,"+&
+		        "s1 varchar(6) null,bs1 varchar(6) null,s2 varchar(6) null,"+&
+				  "bs2 varchar(6) null,s3 varchar(6) null,lsh varchar(6) null,"+&
+				  "len integer null,zd char(6) null,PRIMARY KEY (id));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+//*begin*
+//px_ghlb_dm *¸ÖºÅÀà±ð¼°¸ÖºÅËù¶ÔÓ¦µÄÏàÓ¦´úÂë*×Öµä*
+//xh integer not null *Ö÷¼ü*
+//lb varchar(30) *¸ÖºÅÀà±ð*
+//dm varchar(4)  *¸ÖºÅÀà±ð´úÂë*
+//gh varchar(25) *µäÐÍ¸ÖºÅ*ÔÚÄ³Ò»Àà±ðÖÐ*
+//*end*
+ll_Count = 0
+if mark = 'sqlserver' then   
+   select count(*) into :ll_Count from px_ghlb_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	   delsql = "drop table djylrq.px_ghlb_dm"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_ghlb_dm (xh integer not null,"+&
+		        "lb varchar(30) null,dm varchar(4) null,gh varchar(25) null);"
+
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_ghlb_dm_x on djylrq.px_ghlb_dm (xh)"
+		execute immediate :myindex using sqlca;
+		//**²åÈë¸ÖºÅ±íÖÐ»ù±¾Êý¾Ý**//
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (1,'Ì¼ËØ¸Ö','¢ñ','Q195');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (2,'Ì¼ËØ¸Ö','¢ñ','Q215');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (3,'Ì¼ËØ¸Ö','¢ñ','Q235');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (4,'Ì¼ËØ¸Ö','¢ñ','10');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (5,'Ì¼ËØ¸Ö','¢ñ','15');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (6,'Ì¼ËØ¸Ö','¢ñ','20');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (7,'Ì¼ËØ¸Ö','¢ñ','25');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (8,'Ì¼ËØ¸Ö','¢ñ','20R');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (9,'Ì¼ËØ¸Ö','¢ñ','20g');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (10,'Ì¼ËØ¸Ö','¢ñ','20G');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (11,'Ì¼ËØ¸Ö','¢ñ','22G');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (12,'Ì¼ËØ¸Ö','¢ñ','HP245');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (13,'Ì¼ËØ¸Ö','¢ñ','HP265');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (14,'Ì¼ËØ¸Ö','¢ñ','L175');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (15,'Ì¼ËØ¸Ö','¢ñ','L210');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (16,'Ì¼ËØ¸Ö','¢ñ','S205');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (17,'µÍºÏ½ð¸Ö','¢ò','HP295');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (18,'µÍºÏ½ð¸Ö','¢ò','HP325');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (19,'µÍºÏ½ð¸Ö','¢ò','HP345');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (20,'µÍºÏ½ð¸Ö','¢ò','HP365');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (21,'µÍºÏ½ð¸Ö','¢ò','L245');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (22,'µÍºÏ½ð¸Ö','¢ò','L290');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (23,'µÍºÏ½ð¸Ö','¢ò','L320');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (24,'µÍºÏ½ð¸Ö','¢ò','L360');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (25,'µÍºÏ½ð¸Ö','¢ò','L415');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (26,'µÍºÏ½ð¸Ö','¢ò','L450');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (27,'µÍºÏ½ð¸Ö','¢ò','L485');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (28,'µÍºÏ½ð¸Ö','¢ò','L555');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (29,'µÍºÏ½ð¸Ö','¢ò','S240');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (30,'µÍºÏ½ð¸Ö','¢ò','S290');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (31,'µÍºÏ½ð¸Ö','¢ò','S315');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (32,'µÍºÏ½ð¸Ö','¢ò','S360');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (33,'µÍºÏ½ð¸Ö','¢ò','S385');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (34,'µÍºÏ½ð¸Ö','¢ò','S415');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (35,'µÍºÏ½ð¸Ö','¢ò','S450');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (36,'µÍºÏ½ð¸Ö','¢ò','S480');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (37,'µÍºÏ½ð¸Ö','¢ò','12Mng');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (38,'µÍºÏ½ð¸Ö','¢ò','16Mn');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (39,'µÍºÏ½ð¸Ö','¢ò','16Mng');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (40,'µÍºÏ½ð¸Ö','¢ò','16MnR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (41,'µÍºÏ½ð¸Ö','¢ò','15MnNbR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (42,'µÍºÏ½ð¸Ö','¢ò','15MnV');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (43,'µÍºÏ½ð¸Ö','¢ò','15MnVR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (44,'µÍºÏ½ð¸Ö','¢ò','20MnMo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (45,'µÍºÏ½ð¸Ö','¢ò','10MnWVNb');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (46,'µÍºÏ½ð¸Ö','¢ò','13MnNiMoNbR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (47,'µÍºÏ½ð¸Ö','¢ò','20MnMoNb');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (48,'µÍºÏ½ð¸Ö','¢ò','07MnCrMoVR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (49,'µÍºÏ½ð¸Ö','¢ò','12CrMo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (50,'µÍºÏ½ð¸Ö','¢ò','12CrMoG');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (51,'µÍºÏ½ð¸Ö','¢ò','15CrMo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (52,'µÍºÏ½ð¸Ö','¢ò','15CrMoR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (53,'µÍºÏ½ð¸Ö','¢ò','14Cr1Mo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (54,'µÍºÏ½ð¸Ö','¢ò','14Cr1MoR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (55,'µÍºÏ½ð¸Ö','¢ò','12Cr1MoV');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (56,'µÍºÏ½ð¸Ö','¢ò','12Cr1MoVG');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (57,'µÍºÏ½ð¸Ö','¢ò','12Cr2Mo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (58,'µÍºÏ½ð¸Ö','¢ò','12Cr2Mo1');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (59,'µÍºÏ½ð¸Ö','¢ò','12Cr2MolR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (60,'µÍºÏ½ð¸Ö','¢ò','12Cr2MoG');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (61,'µÍºÏ½ð¸Ö','¢ò','12Cr2MoWVTiB');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (62,'µÍºÏ½ð¸Ö','¢ò','12Cr3MoVSiTiB');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (63,'µÍºÏ½ð¸Ö','¢ò','09MnD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (64,'µÍºÏ½ð¸Ö','¢ò','09MnNiD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (65,'µÍºÏ½ð¸Ö','¢ò','09MnNiDR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (66,'µÍºÏ½ð¸Ö','¢ò','16MnD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (67,'µÍºÏ½ð¸Ö','¢ò','16MnDR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (68,'µÍºÏ½ð¸Ö','¢ò','15MnNiDR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (69,'µÍºÏ½ð¸Ö','¢ò','20MnMoD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (70,'µÍºÏ½ð¸Ö','¢ò','07MnNiCrMoVDR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (71,'µÍºÏ½ð¸Ö','¢ò','08MnNiCrMoVD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (72,'µÍºÏ½ð¸Ö','¢ò','10Ni3MoVD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (73,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','1Cr5Mo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (74,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','0Cr13');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (75,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','1Cr13');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (76,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','1Cr17');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (77,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','1Cr9Mol');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (78,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr19Ni9');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (79,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr18Ni9Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (80,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr18Ni11Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (81,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr18Ni10');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (82,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr19Ni10');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (83,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr19Ni11');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (84,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr18Ni12Mo2Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (85,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr17Ni14Mo2');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (86,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr18Ni12Mo3Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (87,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr19Ni13Mo3');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (88,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr19Ni13Mo3');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (89,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr23Ni13');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (90,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr25Ni20');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (91,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr18Ni5Mo3Si2');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (92,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','1Cr19Ni9');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (93,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','1Cr19Ni11Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (94,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','1Cr23Ni18');
+		//**end²åÈë¸ÖºÅ±íÊý¾Ý**//
+	end if
+else
+   select count(*) into :ll_Count from px_ghlb_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	   delsql = "drop table px_ghlb_dm"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_ghlb_dm (xh integer not null,"+&
+		        "lb varchar(30) null,dm varchar(4) null,gh varchar(25) null,PRIMARY KEY (xh));"
+		execute immediate :mysql using sqlca;
+		//**²åÈë¸ÖºÅ±íÖÐ»ù±¾Êý¾Ý**//
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (1,'Ì¼ËØ¸Ö','¢ñ','Q195');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (2,'Ì¼ËØ¸Ö','¢ñ','Q215');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (3,'Ì¼ËØ¸Ö','¢ñ','Q235');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (4,'Ì¼ËØ¸Ö','¢ñ','10');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (5,'Ì¼ËØ¸Ö','¢ñ','15');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (6,'Ì¼ËØ¸Ö','¢ñ','20');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (7,'Ì¼ËØ¸Ö','¢ñ','25');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (8,'Ì¼ËØ¸Ö','¢ñ','20R');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (9,'Ì¼ËØ¸Ö','¢ñ','20g');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (10,'Ì¼ËØ¸Ö','¢ñ','20G');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (11,'Ì¼ËØ¸Ö','¢ñ','22G');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (12,'Ì¼ËØ¸Ö','¢ñ','HP245');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (13,'Ì¼ËØ¸Ö','¢ñ','HP265');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (14,'Ì¼ËØ¸Ö','¢ñ','L175');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (15,'Ì¼ËØ¸Ö','¢ñ','L210');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (16,'Ì¼ËØ¸Ö','¢ñ','S205');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (17,'µÍºÏ½ð¸Ö','¢ò','HP295');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (18,'µÍºÏ½ð¸Ö','¢ò','HP325');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (19,'µÍºÏ½ð¸Ö','¢ò','HP345');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (20,'µÍºÏ½ð¸Ö','¢ò','HP365');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (21,'µÍºÏ½ð¸Ö','¢ò','L245');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (22,'µÍºÏ½ð¸Ö','¢ò','L290');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (23,'µÍºÏ½ð¸Ö','¢ò','L320');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (24,'µÍºÏ½ð¸Ö','¢ò','L360');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (25,'µÍºÏ½ð¸Ö','¢ò','L415');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (26,'µÍºÏ½ð¸Ö','¢ò','L450');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (27,'µÍºÏ½ð¸Ö','¢ò','L485');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (28,'µÍºÏ½ð¸Ö','¢ò','L555');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (29,'µÍºÏ½ð¸Ö','¢ò','S240');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (30,'µÍºÏ½ð¸Ö','¢ò','S290');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (31,'µÍºÏ½ð¸Ö','¢ò','S315');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (32,'µÍºÏ½ð¸Ö','¢ò','S360');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (33,'µÍºÏ½ð¸Ö','¢ò','S385');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (34,'µÍºÏ½ð¸Ö','¢ò','S415');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (35,'µÍºÏ½ð¸Ö','¢ò','S450');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (36,'µÍºÏ½ð¸Ö','¢ò','S480');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (37,'µÍºÏ½ð¸Ö','¢ò','12Mng');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (38,'µÍºÏ½ð¸Ö','¢ò','16Mn');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (39,'µÍºÏ½ð¸Ö','¢ò','16Mng');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (40,'µÍºÏ½ð¸Ö','¢ò','16MnR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (41,'µÍºÏ½ð¸Ö','¢ò','15MnNbR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (42,'µÍºÏ½ð¸Ö','¢ò','15MnV');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (43,'µÍºÏ½ð¸Ö','¢ò','15MnVR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (44,'µÍºÏ½ð¸Ö','¢ò','20MnMo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (45,'µÍºÏ½ð¸Ö','¢ò','10MnWVNb');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (46,'µÍºÏ½ð¸Ö','¢ò','13MnNiMoNbR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (47,'µÍºÏ½ð¸Ö','¢ò','20MnMoNb');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (48,'µÍºÏ½ð¸Ö','¢ò','07MnCrMoVR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (49,'µÍºÏ½ð¸Ö','¢ò','12CrMo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (50,'µÍºÏ½ð¸Ö','¢ò','12CrMoG');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (51,'µÍºÏ½ð¸Ö','¢ò','15CrMo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (52,'µÍºÏ½ð¸Ö','¢ò','15CrMoR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (53,'µÍºÏ½ð¸Ö','¢ò','14Cr1Mo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (54,'µÍºÏ½ð¸Ö','¢ò','14Cr1MoR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (55,'µÍºÏ½ð¸Ö','¢ò','12Cr1MoV');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (56,'µÍºÏ½ð¸Ö','¢ò','12Cr1MoVG');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (57,'µÍºÏ½ð¸Ö','¢ò','12Cr2Mo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (58,'µÍºÏ½ð¸Ö','¢ò','12Cr2Mo1');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (59,'µÍºÏ½ð¸Ö','¢ò','12Cr2MolR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (60,'µÍºÏ½ð¸Ö','¢ò','12Cr2MoG');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (61,'µÍºÏ½ð¸Ö','¢ò','12Cr2MoWVTiB');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (62,'µÍºÏ½ð¸Ö','¢ò','12Cr3MoVSiTiB');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (63,'µÍºÏ½ð¸Ö','¢ò','09MnD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (64,'µÍºÏ½ð¸Ö','¢ò','09MnNiD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (65,'µÍºÏ½ð¸Ö','¢ò','09MnNiDR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (66,'µÍºÏ½ð¸Ö','¢ò','16MnD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (67,'µÍºÏ½ð¸Ö','¢ò','16MnDR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (68,'µÍºÏ½ð¸Ö','¢ò','15MnNiDR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (69,'µÍºÏ½ð¸Ö','¢ò','20MnMoD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (70,'µÍºÏ½ð¸Ö','¢ò','07MnNiCrMoVDR');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (71,'µÍºÏ½ð¸Ö','¢ò','08MnNiCrMoVD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (72,'µÍºÏ½ð¸Ö','¢ò','10Ni3MoVD');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (73,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','1Cr5Mo');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (74,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','0Cr13');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (75,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','1Cr13');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (76,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','1Cr17');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (77,'ÂíÊÏÌå¸Ö¡¢ÌúËÙÌå²»Ðâ¸Ö','¢ó','1Cr9Mol');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (78,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr19Ni9');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (79,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr18Ni9Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (80,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr18Ni11Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (81,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr18Ni10');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (82,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr19Ni10');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (83,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr19Ni11');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (84,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr18Ni12Mo2Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (85,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr17Ni14Mo2');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (86,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr18Ni12Mo3Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (87,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr19Ni13Mo3');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (88,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr19Ni13Mo3');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (89,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr23Ni13');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (90,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','0Cr25Ni20');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (91,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','00Cr18Ni5Mo3Si2');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (92,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','1Cr19Ni9');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (93,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','1Cr19Ni11Ti');
+		insert into px_ghlb_dm (xh,lb,dm,gh) values (94,'°ÂÊÏÌå²»Ðâ¸Ö¡¢Ë«Ïà²»Ðâ¸Ö','¢ô','1Cr23Ni18');
+		//**end²åÈë¸ÖºÅ±íÊý¾Ý**//
+	end if
+end if
+//*begin*
+//px_hjff_dm *º¸½Ó·½·¨¶ÔÓ¦´úÂë*×Öµä*
+//xh integer not null *Ö÷¼ü*
+//hjff varchar(20) *º¸½Ó·½·¨*
+//dm varchar(8) *º¸½Ó·½·¨´úÂë*
+//*end*
+ll_Count = 0
+if mark = 'sqlserver' then   
+   select count(*) into :ll_Count from px_hjff_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	   delsql = "drop table djylrq.px_hjff_dm"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_hjff_dm (xh integer not null,"+&
+		        "hjff varchar(20) null,dm varchar(8) null);"
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_hjff_dm_x on djylrq.px_hjff_dm (xh)"
+		execute immediate :myindex using sqlca;
+		//**²åÈë»ù±¾Êý¾Ý**//
+		insert into px_hjff_dm (xh,hjff,dm) values (1,'º¸Ìõµç»¡º¸','SMAW');
+		insert into px_hjff_dm (xh,hjff,dm) values (2,'Æøº¸','OFW');
+		insert into px_hjff_dm (xh,hjff,dm) values (3,'ÎÙ¼«ÆøÌå±£»¤º¸','GTAW');
+		insert into px_hjff_dm (xh,hjff,dm) values (4,'ÈÜ»¯¼«ÆøÌå±£»¤º¸','GMAW');
+		insert into px_hjff_dm (xh,hjff,dm) values (5,'Âñ»¡º¸','SAW');
+		insert into px_hjff_dm (xh,hjff,dm) values (6,'µçÔüº¸','ESW');
+		insert into px_hjff_dm (xh,hjff,dm) values (7,'Ä¦²Áº¸','FRW');
+		insert into px_hjff_dm (xh,hjff,dm) values (8,'ÂÝÖùº¸','SW');
+		insert into px_hjff_dm (xh,hjff,dm) values (9,'Ò©Ð¾º¸Ë¿µç»¡º¸','FCAW');
+		//**²åÈë½áÊø**//
+	end if
+else
+   select count(*) into :ll_Count from px_hjff_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	   delsql = "drop table px_hjff_dm"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_hjff_dm (xh integer not null,"+&
+		        "hjff varchar(20) null,dm varchar(8) null,PRIMARY KEY (xh));"
+		execute immediate :mysql using sqlca;
+		//**²åÈë»ù±¾Êý¾Ý**//
+		insert into px_hjff_dm (xh,hjff,dm) values (1,'º¸Ìõµç»¡º¸','SMAW');
+		insert into px_hjff_dm (xh,hjff,dm) values (2,'Æøº¸','OFW');
+		insert into px_hjff_dm (xh,hjff,dm) values (3,'ÎÙ¼«ÆøÌå±£»¤º¸','GTAW');
+		insert into px_hjff_dm (xh,hjff,dm) values (4,'ÈÜ»¯¼«ÆøÌå±£»¤º¸','GMAW');
+		insert into px_hjff_dm (xh,hjff,dm) values (5,'Âñ»¡º¸','SAW');
+		insert into px_hjff_dm (xh,hjff,dm) values (6,'µçÔüº¸','ESW');
+		insert into px_hjff_dm (xh,hjff,dm) values (7,'Ä¦²Áº¸','FRW');
+		insert into px_hjff_dm (xh,hjff,dm) values (8,'ÂÝÖùº¸','SW');
+		insert into px_hjff_dm (xh,hjff,dm) values (9,'Ò©Ð¾º¸Ë¿µç»¡º¸','FCAW');
+		//**²åÈë½áÊø**//
+	end if
+end if
+
+
+//*begin*
+//px_hjys_dm *º¸½ÓÒªËØ¶ÔÓ¦´úÂë*×Öµä*
+//xh integer not null *Ö÷¼ü*
+//hjys varchar(30) *º¸½ÓÒªËØ*
+//tchs varchar(20) *Ìî³äº¸Ë¿*
+//dm varchar(8) *º¸½ÓÒªËØ¶ÔÓ¦´úÂë*
+//*end*
+ll_Count = 0
+if mark = 'sqlserver' then   
+   select count(*) into :ll_Count from px_hjys_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	   delsql = "drop table djylrq.px_hjys_dm"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_hjys_dm (xh integer not null,"+&
+		        "hjys varchar(30) null,tchs varchar(20) null,dm varchar(8) null);"
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_hjys_dm_x on djylrq.px_hjys_dm (xh)"
+		execute immediate :myindex using sqlca;
+		//**²åÈëº¸½ÓÒªËØÊý¾Ý**//
+		insert into px_hjys_dm (xh,hjys,tchs,dm) values (1,'ÊÖ¹¤ÎÙ¼«ÆøÌå±£»¤º¸Ìî³ä½ðÊôº¸Ë¿','ÎÞ','01');
+		insert into px_hjys_dm (xh,hjys,tchs,dm) values (2,'ÊÖ¹¤ÎÙ¼«ÆøÌå±£»¤º¸Ìî³ä½ðÊôº¸Ë¿','ÊµÐ¾','02');
+		insert into px_hjys_dm (xh,hjys,tchs,dm) values (3,'ÊÖ¹¤ÎÙ¼«ÆøÌå±£»¤º¸Ìî³ä½ðÊôº¸Ë¿','Ò©Ð¾','03');
+		//**end ²åÈë**//
+	end if
+else
+   select count(*) into :ll_Count from px_hjys_dm;
+	if sqlca.sqlcode = -1 then   
+	   delsql = "drop table px_hjys_dm"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_hjys_dm (xh integer not null,"+&
+		        "hjys varchar(30) null,tchs varchar(20) null,dm varchar(8) null,PRIMARY KEY (xh));"
+		execute immediate :mysql using sqlca;
+		//**²åÈëº¸½ÓÒªËØÊý¾Ý**//
+		insert into px_hjys_dm (xh,hjys,tchs,dm) values (1,'ÊÖ¹¤ÎÙ¼«ÆøÌå±£»¤º¸Ìî³ä½ðÊôº¸Ë¿','ÎÞ','01');
+		insert into px_hjys_dm (xh,hjys,tchs,dm) values (2,'ÊÖ¹¤ÎÙ¼«ÆøÌå±£»¤º¸Ìî³ä½ðÊôº¸Ë¿','ÊµÐ¾','02');
+		insert into px_hjys_dm (xh,hjys,tchs,dm) values (3,'ÊÖ¹¤ÎÙ¼«ÆøÌå±£»¤º¸Ìî³ä½ðÊôº¸Ë¿','Ò©Ð¾','03');
+		//**end ²åÈë**//
+	end if
+end if
+
+
+//*begin*
+//px_jsdjb *½ÌÊ¦µÇ¼Ç±í*
+//xh integer not null *Ö÷¼ü*
+//xm char(8) *ÐÕÃû*
+//xb char(1) *ÐÔ±ð*
+//nl char(3) *ÄêÁä*
+//xl char(12) *Ñ§Àú*
+//zc char(12) *Ö°³Æ*
+//zy char(12) *×¨Òµ*
+//sklb char(20) *ÊÚ¿ÎÀà±ð*
+//zgzbh char(11) *×Ê¸ñÖ¤±àºÅ*
+//dw varchar(50) *µ¥Î»*
+//dh char(15) *µç»°*
+//bz varchar(50) *±¸×¢*
+//*end*
+if mark = 'sqlserver' then   
+   select count(*) into :ll_Count from px_jsdjb;
+	if sqlca.sqlcode = -1 then   
+	   delsql = "drop table djylrq.px_jsdjb"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_jsdjb (xh integer not null,"+&
+		        "xm char(8) null,xb char(1) null,nl char(3) null,xl char(12) null,"+&
+				  "zc char(12) null,zy char(12) null,sklb char(20) null,zgzbh char(11) null,"+&
+				  "dw varchar(50) null,dh char(15) null,bz varchar(50) null);"
+		execute immediate :mysql using sqlca;
+		myindex = "create UNIQUE INDEX px_jsdjb_x on djylrq.px_jsdjb (xh)"
+		execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from px_jsdjb;
+	if sqlca.sqlcode = -1 then   
+	   delsql = "drop table px_jsdjb"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_jsdjb(xh integer not null,"+&
+		        "xm char(8) null,xb char(1) null,nl char(3) null,xl char(12) null,"+&
+				  "zc char(12) null,zy char(12) null,sklb char(20) null,zgzbh char(11) null,"+&
+				  "dw varchar(50) null,dh char(15) null,bz varchar(50) null,PRIMARY KEY (xh));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+//*begin*
+//px_kbmx *¿ª°àÃ÷Ï¸*Äê¶È¼Æ»®ÖÐµÄÄê¡¢ÆÚ´ÎÐÅÏ¢*
+//dtbh char(8) not null *Ö÷¼ü*
+//nd char(10) *Äê¶È*
+//month varchar(6) *ÔÂ·Ý*
+//qc varchar(5) *ÆÚ´Î*
+//pxxm char(2) *ÅàÑµÏîÄ¿´úÂë*
+//kbsj varchar(10) *¿ª°àÊ±¼ä*
+//rs integer *ÈËÊý*
+//jc varchar(40) *½Ì²Ä*
+//xh char(10) *ÐòºÅ*
+//jsxh char(8) *½ÌÊ¦ÐòºÅ*
+//*end*
+ll_Count = 0
+if mark ='sqlserver' then   
+   select count(*) into :ll_Count from px_kbmx;
+	if sqlca.sqlcode = -1 then   
+	   delsql = "drop table djylrq.px_kbmx"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_kbmx (dtbh char(8) not null,"+&
+		        "nd char(10) null,month varchar(6) null,qc varchar(5) null,"+&
+				  "pxxm char(2) null,kbsj varchar(10) null,rs integer null,"+&
+				  "jc varchar(40) null,xh char(10) null,jsxh char(8) null);"
+	   execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_kbmx_x on djylrq.px_kbmx (dtbh)"
+		execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from px_kbmx;
+	if sqlca.sqlcode = -1 then   
+	   delsql = "drop table px_kbmx"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_kbmx (dtbh char(8) not null,"+&
+		        "nd char(10) null,month varchar(6) null,qc varchar(5) null,"+&
+				  "pxxm char(2) null,kbsj varchar(10) null,rs integer null,"+&
+				  "jc varchar(40) null,xh char(10) null,jsxh char(8) null,PRIMARY KEY (dtbh));"
+	   execute immediate :mysql using sqlca;
+	end if
+end if
+
+//*begin*
+//px_ndjh *Äê¶È¼Æ»®*
+//xh char(6) not null *Ö÷¼ü*
+//bh char(2) *±àºÅ*
+//nd char(10) *Äê¶È*
+//pxxm char(2) *ÅàÑµÏîÄ¿*
+//jan integer *Ò»ÔÂ°àÊý*
+//feb integer *¶þÔÂ°àÊý*
+//mar integer *ÈýÔÂ°àÊý*
+//apr integer *ËÄÔÂ°àÊý*
+//may integer *ÎåÔÂ°àÊý*
+//jun integer *ÁùÔÂ°àÊý*
+//jul integer *ÆßÔÂ°àÊý*
+//aug integer *°ËÔÂ°àÊý*
+//sep integer *¾ÅÔÂ°àÊý*
+//oct integer *Ê®ÔÂ°àÊý*
+//nov integer *Ê®Ò»ÔÂ°àÊý*
+//dec1 integer *Ê®¶þÔÂ°àÊý*
+//bz varchar(100) *±¸×¢*
+//cjsj timestamp *²»Öª*
+//*end*
+if mark = 'sqlserver' then   
+   select count(*) into :li_temp from px_ndjh where dec1 like '%';
+	if sqlca.sqlcode = -1 then   
+	   delsql = "drop table djylrq.px_ndjh"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_ndjh (xh char(6) not null,"+&
+		        "bh char(2) null,nd char(10) null,pxxm char(2) null,"+&
+				  "jan integer null,feb integer null,mar integer null,"+&
+				  "apr integer null,may integer null,"+&
+				  "jun integer null,jul integer null,aug integer null,"+&
+				  "sep integer null,oct integer null,nov integer null,"+&
+				  "dec1 integer null,bz varchar(100) null,cjsj timestamp null);"
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_ndjh_x on djylrq.px_ndjh"
+		execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :li_temp from px_ndjh where dec1 like '%';
+	if sqlca.sqlcode = -1 then   
+	   delsql = "drop table px_ndjh"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_ndjh (xh char(6) not null,"+&
+		        "bh char(2) null,nd char(10) null,pxxm char(2) null,"+&
+				  "jan integer null,feb integer null,mar integer null,"+&
+				  "apr integer null,may integer null,"+&
+				  "jun integer null,jul integer null,aug integer null,"+&
+				  "sep integer null,oct integer null,nov integer null,"+&
+				  "dec1 integer null,bz varchar(100) null,cjsj timestamp null,PRIMARY KEY (xh));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+//*begin*
+//px_pxxm *ÅàÑµÏîÄ¿*¼Æ»®Ê±Ê¹ÓÃ*
+//xh char(2) not null *Ö÷¼ü*
+//mc char(40) *ÅàÑµÏîÄ¿Ãû³Æ*
+//czzldm varchar(2) *ÅàÑµÏîÄ¿´úÂë*
+//*end*
+ll_Count = 0
+lb_insert = false
+if mark = 'sqlserver' then   
+   select count(*) into :ls_temp from px_pxxm where czzldm like '%' ;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then
+	   lb_insert = true
+      delsql = "drop table djylrq.px_pxxm"
+	   execute immediate :delsql using sqlca;
+	   mysql = "Create table djylrq.px_pxxm (xh char(2) not null,"+&
+	           "mc char(40) null,czzldm varchar(2) null);"
+	   execute immediate :mysql using sqlca;
+	   myindex = "Create UNIQUE INDEX px_pxxm_x on djylrq.px_pxxm (xh)"
+	   execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ls_temp from px_pxxm where czzldm like '%';
+	if sqlca.sqlcode = -1 or ll_Count = 0 then
+	   lb_insert = true
+	   delsql = "drop table px_pxxm"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_pxxm (xh char(2) not null,"+&
+		        "mc char(40) null,czzldm varchar(2) null,PRIMARY KEY (xh));"
+	   execute immediate :mysql using sqlca;
+	end if
+end if
+//**Êý¾ÝÐèÒª²åÈë**//
+if lb_insert then   
+insert into px_pxxm (xh,mc,czzldm) values ('01','¼à²ìÔ±','JC');
+insert into px_pxxm (xh,mc,czzldm) values ('02','¼ìÑéÔ±','JY');
+insert into px_pxxm (xh,mc,czzldm) values ('03','ÎÞËð¼ì²â','WS');
+insert into px_pxxm (xh,mc,czzldm) values ('04','Ñ¹Á¦¹ÜµÀ','GD');
+insert into px_pxxm (xh,mc,czzldm) values ('05','º¸¹¤','HG');
+insert into px_pxxm (xh,mc,czzldm) values ('06','Éè¼ÆÉó²é','SC');
+insert into px_pxxm (xh,mc,czzldm) values ('07','Éè¼ÆÈËÔ±','SR');
+insert into px_pxxm (xh,mc,czzldm) values ('08','ÈÝÆ÷ÖÊÁ¿ÌåÏµÔðÈÎÈË','RZ');
+insert into px_pxxm (xh,mc,czzldm) values ('09','ÌØÖÖÉè±¸²Ù×÷Ô±','TC');
+insert into px_pxxm (xh,mc,czzldm) values ('10','Ë¾Â¯¹¤','GL');
+insert into px_pxxm (xh,mc,czzldm) values ('11','ÆøÌå³ä×°¹¤','QC');
+insert into px_pxxm (xh,mc,czzldm) values ('12','¹øÂ¯ÈÝÆ÷¹ÜÀíÈËÔ±','GG');
+end if
+//**²åÈëÍê³É**//
+//*begin*
+//px_slg_xygl_ban *Ñ§Ô±°à¼¶ÐÅÏ¢±í*
+//bh integer not null *Ö÷¼ü*
+//nian varchar(4) *Äê¶È*
+//qc varchar(3) *ÆÚ´Î*
+//kbsj varchar(10) *¿ª°àÊ±¼ä*
+//khsj varchar(10) *¿¼ºËÊ±¼ä*
+//fzsj varchar(10) *·¢Ö¤Ê±¼ä*
+//yxq varchar(10) *ÓÐÐ§ÆÚ*
+//czzldm varchar(2) *²Ù×÷ÖÖÀà´úÂë*
+//*end*
+ll_Count = 0
+if mark = 'sqlserver' then
+   select count(*) into :ll_Count from px_slg_xygl_ban;
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table djylrq.px_slg_xygl_ban"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.px_slg_xygl_ban (bh integer not null,"+&
+	        "nian varchar(4) null,qc varchar(3) null,kbsj varchar(10) null,"+&
+			  "khsj varchar(10) null,fzsj varchar(10) null,yxq varchar(10) null,"+&
+			  "czzldm varchar(2) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "Create UNIQUE INDEX px_slg_xygl_ban_x on djylrq.px_slg_xygl_ban (bh)"
+	execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from px_slg_xygl_ban;
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table px_slg_xygl_ban"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table px_slg_xygl_ban (bh integer not null,"+&
+	        "nian varchar(4) null,qc varchar(3) null,kbsj varchar(10) null,"+&
+			  "khsj varchar(10) null,fzsj varchar(10) null,yxq varchar(10) null,"+&
+			  "czzldm varchar(2) null,PRIMARY KEY (bh));"
+	execute immediate :mysql using sqlca;
+	end if
+end if
+//*begin*
+//px_slg_xygl_bmb *Ñ§Ô±»ù±¾ÐÅÏ¢±í*(ÆäÖÐÓÐ²¿·ÖÎ´Ê¹ÓÃµÄ×Ö¶Î**ÎÞÓÃ×Ö¶Î£©
+//bh integer not null *Ö÷¼ü*
+//xh char(6) *ÐòºÅ*
+//xm char(8) *ÐÕÃû*
+//xb char(2) *ÐÔ±ð*
+//nl integer *ÄêÁä*
+//whcd char(20) *ÎÄ»¯³Ì¶È*
+//sfzh char(21) *Éí·ÝÖ¤ºÅ*
+//gzdw varchar(50) *¹¤×÷µ¥Î»*
+//bm char(20) *²¿ÃÅ*
+//zc char(20) *Ö°³Æ*
+//zw char(20) *Ö°Îñ*
+//lxdh char(16) *µç»°*
+//ch char(16) *²»Öª*
+//dwdz varchar(50) *µ¥Î»µØÖ·*
+//yb char(10) *ÓÊ±à*
+//xx varchar(50) *Ñ§Ð££¬Ñ§Ôº*
+//zy char(20) *×¨Òµ*
+//zh char(12) *Ö¤ºÅ¡ª¡ªÎ´Ê¹ÓÃµÄ*
+//bz varchar(80) *±¸×¢*
+//kbsj varchar(10) *¿ª°àÊ±¼ä¡ª¡ªÎ´Ê¹ÓÃ*
+//jfqk char(10) *ë¸·ÑÇé¿ö¡ª¡ªÎ´Ê¹ÓÃ*
+//qc varchar(3) *ÆÚ´Î¡ª¡ªÎ´Ê¹ÓÃ*
+//lb integer *Àà±ð¡ª¡ªÎ´Ê¹ÓÃ*
+//bmrq varchar(10) *±¨ÃûÈÕÆÚ*
+//nian varchar(4) *Äê¶È*
+//kh varchar(20) *¿¼ºÅ¡ª¡ªÎ´Ê¹ÓÃ*
+//sflag varchar(8) *±êÖ¾¡ª¡ªÑ¡ÖÐÑ§Ô±Ê±Ê¹ÓÃ*
+//*end*
+ll_Count = 0
+if mark = 'sqlserver' then
+   select count(*) into :ls_temp from px_slg_xygl_bmb where nian like '%';
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table djylrq.px_slg_xygl_bmb"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.px_slg_xygl_bmb (bh integer not null,"+&
+	        "xh char(6) null,xm char(8) null,xb char(2) null,nl integer null,"+&
+			  "whcd char(20) null,sfzh char(21) null,gzdw varchar(50) null,"+&
+			  "bm char(20) null,zc char(20) null,zw char(20) null,lxdh char(16) null,"+&
+			  "ch char(16) null,dwdz varchar(50) null,yb char(10) null,xx varchar(50) null,"+&
+			  "zy char(20) null,zh char(12) null,bz varchar(80) null,kbsj varchar(10) null,"+&
+			  "jfqk char(10) null,qc varchar(3) null,lb integer null,bmrq varchar(10) null,"+&
+			  "nian varchar(4) null,kh varchar(20) null,sflag varchar(8) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "Create UNIQUE INDEX px_slg_xygl_bmb_x on djylrq.px_slg_xygl_bmb (bh)"
+	execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ls_Temp from px_slg_xygl_bmb where nian like '%';
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table px_slg_xygl_bmb"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table px_slg_xygl_bmb (bh integer not null,"+&
+	        "xh char(6) null,xm char(8) null,xb char(2) null,nl integer null,"+&
+			  "whcd char(20) null,sfzh char(21) null,gzdw varchar(50) null,"+&
+			  "bm char(20) null,zc char(20) null,zw char(20) null,lxdh char(16) null,"+&
+			  "ch char(16) null,dwdz varchar(50) null,yb char(10) null,xx varchar(50) null,"+&
+			  "zy char(20) null,zh char(12) null,bz varchar(80) null,kbsj varchar(10) null,"+&
+			  "jfqk char(10) null,qc varchar(3) null,lb integer null,bmrq varchar(10) null,"+&
+			  "nian varchar(4) null,kh varchar(20) null,sflag varchar(8) null,PRIMARY KEY (bh));"
+	execute immediate :mysql using sqlca;
+	end if
+end if
+//*begin*
+//px_slg_xygl_fzb *Ñ§Ô±·¢Ö¤±í*³É¼¨¼°Ö¤¼þ¹ÜÀí*
+//xh char(9) not null *Ö÷¼ü*
+//bh integer *±àºÅ¡ª¡ªÑ§Ô±»ù±¾ÐÅÏ¢µÄÖ÷¼ü*
+//llcj varchar(20) *ÀíÂÛ³É¼¨*
+//sjcj varchar(20) *Êµ¼Ê³É¼¨*
+//pxxm_gllb char(10) *ÏîÄ¿Àà±ð*²Ù×÷ÖÖÀà*
+//pxxm_zgxm char(30) *×Ê¸ñÏîÄ¿*
+//pxxm_jb char(30) *×Ê¸ñ¼¶±ð*
+//kbsj varchar(10) *¿ª°àÊ±¼ä¡ª¡ªÎ´Ê¹ÓÃ*
+//fzrq varchar(10) *·¢Ö¤Ê±¼ä¡ª¡ªÎ´Ê¹ÓÃ*
+//yxq varchar(10) *ÓÐÐ§ÆÚ¡ª¡ªÎ´Ê¹ÓÃ*
+//bz varchar(100) *±¸×¢*
+//zh varchar(20) *Ö¤ºÅ*
+//khrq varchar(10) *¿¼ºËÈÕÆÚ¡ª¡ªÎ´Ê¹ÓÃ*
+//nian varchar(4) *Äê¶È*
+//qc varchar(3) *ÆÚ´Î*
+//kh varchar(20) *¿¼ºÅ*
+//jfqk varchar(10) *ë¸·ÑÇé¿ö*
+//bmrq varchar(10) *±¨ÃûÇé¿ö*
+//*end*
+ll_Count = 0
+if mark = 'sqlserver' then 
+   select count(*) into :ls_temp from px_slg_xygl_fzb where nian like '%';
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table djylrq.px_slg_xygl_fzb"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.px_slg_xygl_fzb (xh char(9) not null,"+&
+	        "bh integer null,llcj varchar(20) null,sjcj varchar(20) null,"+&
+			  "pxxm_gllb char(10) null,pxxm_zgxm char(30) null,pxxm_jb char(30) null,"+&
+			  "kbsj varchar(10) null,fzrq varchar(10) null,yxq varchar(10) null,"+&
+			  "bz varchar(100) null,zh varchar(20) null,khrq varchar(10) null,nian varchar(4) null,"+&
+			  "qc varchar(3) null,kh varchar(20) null,jfqk varchar(10) null,bmrq varchar(10) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "Create UNIQUE INDEX px_slg_xygl_fzb_x on djylrq.px_slg_xygl_fzb (xh)"
+	execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ls_temp from px_slg_xygl_fzb where nian like '%';
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table px_slg_xygl_fzb"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table px_slg_xygl_fzb (xh char(9) not null,"+&
+	        "bh integer null,llcj varchar(20) null,sjcj varchar(20) null,"+&
+			  "pxxm_gllb char(10) null,pxxm_zgxm char(30) null,pxxm_jb char(30) null,"+&
+			  "kbsj varchar(10) null,fzrq varchar(10) null,yxq varchar(10) null,"+&
+			  "bz varchar(100) null,zh varchar(20) null,khrq varchar(10) null,nian varchar(4) null,"+&
+			  "qc varchar(3) null,kh varchar(20) null,jfqk varchar(10) null,bmrq varchar(10) null,PRIMARY KEY (xh));"
+	execute immediate :mysql using sqlca;
+	end if
+end if
+//*begin*
+//px_yue *ÔÂ·Ý*×Öµä*
+//xh varchar(6) not null *ÔÂ·Ý´úÂë*
+//mc varchar(6) *ÔÂ·ÝÃû³Æ*
+//*end*
+ll_Count = 0
+lb_insert = false
+if mark = 'sqlserver' then
+   select count(*) into :ll_Count from px_yue;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	lb_insert = true
+   delsql = "drop table djylrq.px_yue"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.px_yue (xh varchar(6) not null,mc varchar(6) null)"
+	execute immediate :mysql using sqlca;
+	myindex = "Create UNIQUE INDEX px_yue_x on djylrq.px_yue (xh)"
+	execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from px_yue;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then
+	lb_insert = true
+   delsql = "drop table px_yue"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table px_yue (xh varchar(6) not null,mc varchar(6) null,PRIMARY KEY (xh))" 
+	execute immediate :mysql using sqlca;
+	end if
+end if
+//**²åÈëÊý¾Ý**//
+if lb_insert then   
+insert into px_yue (xh,mc) values ('1','Ò»');
+insert into px_yue (xh,mc) values ('2','¶þ');
+insert into px_yue (xh,mc) values ('3','Èý');
+insert into px_yue (xh,mc) values ('4','ËÄ');
+insert into px_yue (xh,mc) values ('5','Îå');
+insert into px_yue (xh,mc) values ('6','Áù');
+insert into px_yue (xh,mc) values ('7','Æß');
+insert into px_yue (xh,mc) values ('8','°Ë');
+insert into px_yue (xh,mc) values ('9','¾Å');
+insert into px_yue (xh,mc) values ('10','Ê®');
+insert into px_yue (xh,mc) values ('11','Ê®Ò»');
+insert into px_yue (xh,mc) values ('12','Ê®¶þ');
+end if
+//**end**//
+//*begin*
+//sfzh_zh *Éí·ÝÖ¤ºÅ-Ö¤ºÅ*±£³ÖÉí·ÝÏàÍ¬µÄÑ§Ô±µÄÖ¤ºÅÏàÍ¬*
+//sfzh varchar(21) not null *Éí·ÝÖ¤ºÅ*
+//zh varchar(20) *Ö¤ºÅ*
+//pxxm varchar(12) *ÅàÑµÏîÄ¿*
+//lb varchar(12) *×Ê¸ñÏîÄ¿*
+//*end*
+ll_Count = 0
+if mark = 'sqlserver' then
+   select count(*) into :ll_Count from sfzh_zh;
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table djylrq.sfzh_zh"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.sfzh_zh (sfzh varchar(21) not null,"+&
+	        "zh varchar(20) null,pxxm varchar(12) null,lb varchar(12) null);"
+	execute immediate :mysql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from sfzh_zh;
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table sfzh_zh"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table sfzh_zh (sfzh varchar(21) not null,"+&
+	        "zh varchar(20) null,pxxm varchar(12) null,lb varchar(12) null);"
+	execute immediate :mysql using sqlca;
+	end if
+end if
+//*begin*
+//xmjb_dm *×Ê¸ñ¼¶±ð´úÂë*
+//xh integer not null 
+//czzldm varchar(2) *²Ù×÷ÖÖÀà´úÂë*
+//zgxmdm varchar(3) *×Ê¸ñÏîÄ¿´úÂë*
+//zgjb varchar(30) *×Ê¸ñ¼¶±ð*
+//zgjbdm varchar(4) *×Ê¸ñ¼¶±ð´úÂë*
+//*end*
+ll_Count = 0
+lb_insert = false
+if mark = 'sqlserver' then   
+   select count(*) into :ll_Count from xmjb_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	lb_insert = true
+   delsql = "drop table djylrq.xmjb_dm"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.xmjb_dm (xh integer not null,"+&
+	        "czzldm varchar(2) null,zgxmdm varchar(3) null,zgjb varchar(30) null,"+&
+			  "zgjbdm varchar(4) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "Create UNIQUE INDEX xmjb_dm_x on djylrq.xmjb_dm (xh)"
+	execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from xmjb_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	lb_insert = true
+   delsql = "drop table xmjb_dm"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table xmjb_dm (xh integer not null,"+&
+	        "czzldm varchar(2) null,zgxmdm varchar(3) null,zgjb varchar(30) null,"+&
+			  "zgjbdm varchar(4) null,PRIMARY KEY (xh));"
+	execute immediate :mysql using sqlca;
+	end if
+end if
+if lb_insert then   
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (1,'JY','GL','¼ìÑéÊ¦','JYS');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (2,'JY','GL','¼ìÑéÔ±','JYY');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (3,'JY','GRG','¸ß¼¶¼ìÑéÊ¦','GS');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (4,'JY','TS','¸ß¼¶¼ìÑéÊ¦','GS');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (5,'JY','TS','¼ìÑéÊ¦','JYS');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (6,'JY','TS','¼ìÑéÔ±','JYY');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (7,'JY','YGD','¼ìÑéÊ¦','JYS');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (8,'JY','YGD','¼ìÑéÔ±','JYY');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (9,'JY','YL','¼ìÑéÊ¦','JYS');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (10,'JY','YL','¼ìÑéÔ±','JYY');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (11,'WS','AE','¢ñ¼¶','1J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (12,'WS','AE','¢ò¼¶','2J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (13,'WS','AE','¢ó¼¶','3J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (14,'WS','ET','¢ñ¼¶','1J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (15,'WS','ET','¢ò¼¶','2J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (16,'WS','ET','¢ó¼¶','3J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (17,'WS','MT','¢ñ¼¶','1J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (18,'WS','MT','¢ò¼¶','2J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (19,'WS','MT','¢ó¼¶','3J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (20,'WS','PT','¢ñ¼¶','1J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (21,'WS','PT','¢ò¼¶','2J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (22,'WS','PT','¢ó¼¶','3J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (23,'WS','RT','¢ñ¼¶','1J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (24,'WS','RT','¢ò¼¶','2J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (25,'WS','RT','¢ó¼¶','3J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (26,'WS','UT','¢ñ¼¶','1J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (27,'WS','UT','¢ò¼¶','2J');
+insert into xmjb_dm (xh,czzldm,zgxmdm,zgjb,zgjbdm) values (28,'WS','UT','¢ó¼¶','3J');
+end if
+//**end **
+//*begin*
+//xmlb_dm *²Ù×÷ÖÖÀà´úÂë*
+//xh integer not null
+//czzldm varchar(2) *²Ù×÷ÖÖÀà´úÂë*
+//czzl varchar(20) *²Ù×÷ÖÖÀà*
+//old varchar(1) *ÎÞÊµ¼ÊÒâÒå-T*
+//*end*
+ll_Count = 0
+lb_insert = false
+if mark = 'sqlserver' then
+   select count(*) into :ll_Count from xmlb_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	lb_insert = true
+   delsql = "drop table djylrq.xmlb_dm"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.xmlb_dm (xh integer not null,"+&
+	        "czzldm varchar(2) null,czzl varchar(20) null,old varchar(1) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "Create UNIQUE INDEX xmlb_dm_x on djylrq.xmlb_dm (xh)"
+	execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from xmlb_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	lb_insert = true
+   delsql = "drop table xmlb_dm"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table xmlb_dm (xh integer not null,"+&
+	        "czzldm varchar(2) null,czzl varchar(20) null,old varchar(1) null,PRIMARY KEY (xh));"
+	execute immediate :mysql using sqlca;
+	end if
+end if
+//**²åÈëÀà±ð´úÂë**//
+if lb_insert then   
+insert into xmlb_dm (xh,czzldm,czzl,old) values (1,'JC','¼à²ìÔ±','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (2,'JY','¼ìÑéÔ±','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (3,'WS','ÎÞËð¼ì²â','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (4,'GD','Ñ¹Á¦¹ÜµÀ','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (5,'HG','º¸¹¤','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (6,'SC','Éè¼ÆÉó²é','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (7,'SR','Éè¼ÆÈËÔ±','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (8,'RZ','ÈÝÆ÷ÖÊÁ¿ÌåÏµÔðÈÎÈË','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (9,'TC','ÌØÖÖÉè±¸²Ù×÷Ô±','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (10,'GL','Ë¾Â¯¹¤','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (11,'QC','ÆøÌå³ä×°¹¤','T');
+insert into xmlb_dm (xh,czzldm,czzl,old) values (12,'GG','¹øÂ¯ÈÝÆ÷¹ÜÀíÈËÔ±','T');
+end if
+//**end**//
+//*begin*
+//xmzg_dm *×Ê¸ñÏîÄ¿´úÂë*
+//xh integer not null
+//czzldm varchar(2) *²Ù×÷ÖÖÀà´úÂë*
+//zgxm varchar(30) *×Ê¸ñÏîÄ¿*
+//zgxmdm varchar(3) *×Ê¸ñÏîÄ¿´úÂë*
+//*end*
+ll_count = 0
+lb_insert = false
+if mark = 'sqlserver' then
+   select count(*) into :ll_Count from xmzg_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	lb_insert = true
+   delsql = "drop table djylrq.xmzg_dm"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.xmzg_dm (xh integer not null,"+&
+	        "czzldm varchar(2) null,zgxm varchar(30) null,"+&
+			  "zgxmdm varchar(3) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "Create UNIQUE INDEX xmzg_dm_x on djylrq.xmzg_dm (xh)"
+	execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from xmzg_dm;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then   
+	lb_insert = true
+   delsql = "drop table xmzg_dm"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table xmzg_dm (xh integer not null,"+&
+	        "czzldm varchar(2) null,zgxm varchar(30) null,"+&
+			  "zgxmdm varchar(3) null,PRIMARY KEY (xh));"
+	execute immediate :mysql using sqlca;
+	end if
+end if
+//**Êý¾Ý**//
+if lb_insert then   
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(3,'WS','ÉäÏß','RT');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(4,'JY','¹øÂ¯','GL');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(5,'JY','Ñ¹Á¦ÈÝÆ÷','YL');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(6,'JY','Ñ¹Á¦¹ÜµÀ','YGD');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(7,'JY','ÌØÖÖÉè±¸','TS');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(8,'JY','¹øÂ¯Ñ¹Á¦ÈÝÆ÷¼°Ñ¹Á¦¹ÜµÀ','GRG');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(9,'GL','¢ñÀàË¾Â¯','SL1');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(10,'GL','¢òÀàË¾Â¯','SL2');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(11,'GL','¢óÀàË¾Â¯','SL3');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(12,'GL','¢ôÀàË¾Â¯','SL4');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(13,'WS','³¬Éù','UT');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(14,'WS','Ì¼·Û','MT');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(15,'WS','ÉøÍ¸','PT');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(16,'WS','ÎÐÁ÷','ET');
+insert into xmzg_dm (xh,czzldm,zgxm,zgxmdm) values(17,'WS','Éù·¢Éä','AE');
+end if
+//**end**//
+//*begin*
+//px_z_szzzqktjb *ë¸·Ñ*
+//lsh char(9) not null *Á÷Ë®ºÅ*
+//qc varchar(10) *ÆÚ´Î*
+//kbrq varchar(14) *¿ª°àÈÕÆÚ*
+//pxbmc varchar(50) *ÅàÑµ°àÃû³Æ*
+//rs varchar(10) *ÈËÊý*
+//lb varchar(20) *Àà±ð*
+//xs varchar(10) *²»Öª*
+//pxrqq varchar(14) *ÅàÑµÈÕÆÚÆð*
+//pxrqz varchar(14) *ÅàÑµÈÕÆÚÖ¹*
+//llpxf varchar(10) *ÀíÂÛÅàÑµ·Ñ*
+//sjpxf varchar(10) *Êµ¼ÊÅàÑµ·Ñ*
+//khf varchar(10) *¿¼ºË·Ñ*
+//srzf varchar(10) **
+//srqt varchar(10) **
+//srhj varchar(10) **
+//jkf varchar(10) **
+//zlf varchar(10) **
+//clf varchar(10) **
+//zczf varchar(10) **
+//zcqt varchar(10) **
+//zchj varchar(10) **
+//jsr varchar(10) *¾²ÊÕÈë*
+//bz varchar(200) *±¸×¢*
+//tbr varchar(10) *Ìî±íÈË*
+//tbrq varchar(14) *Ìî±íÈÕÆÚ*
+//zr varchar(10) **
+//zrrq varchar(14) **
+//sp varchar(60) **
+//zq varchar(10) **
+//sj varchar(10) **
+//lastrqy varchar(4) **
+//lastrqm varchar(2) **
+//lastrqd varchar(2) **
+//*end*
+ll_Count = 0
+if mark = 'sqlserver' then   
+   select count(*) into :ll_Count from px_z_szzzqktjb;
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table djylrq.px_z_szzzqktjb"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.px_z_szzzqktjb (lsh char(9) not null,"+&
+	        "qc varchar(10) null,kbrq varchar(14) null,pxbmc varchar(50) null,"+&
+			  "rs varchar(10) null,lb varchar(20) null,xs varchar(10) null,"+&
+			  "pxrqq varchar(14) null,pxrqz varchar(14) null,llpxf varchar(10) null,"+&
+			  "sjpxf varchar(10) null,khf varchar(10) null,srzf varchar(10) null,"+&
+			  "srqt varchar(10) null,srhj varchar(10) null,jkf varchar(10) null,"+&
+			  "zlf varchar(10) null,clf varchar(10) null,zczf varchar(10) null,"+&
+			  "zcqt varchar(10) null,zchj varchar(10) null,jsr varchar(10) null,"+&
+			  "bz varchar(200) null,tbr varchar(10) null,tbrq varchar(14) null,"+&
+			  "zr varchar(10) null,zrrq varchar(14) null,sp varchar(60) null,"+&
+			  "zq varchar(10) null,sj varchar(10) null,lastrqy varchar(4) null,"+&
+			  "lastrqm varchar(2) null,lastrqd varchar(2) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "Create UNIQUE INDEX px_z_szzzqktjb_x on djylrq.px_z_szzzqktjb (lsh)"
+	execute immediate :myindex using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from px_z_szzzqktjb;
+	if sqlca.sqlcode = -1 then   
+   delsql = "drop table px_z_szzzqktjb"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table px_z_szzzqktjb (lsh char(9) not null,"+&
+	        "qc varchar(10) null,kbrq varchar(14) null,pxbmc varchar(50) null,"+&
+			  "rs varchar(10) null,lb varchar(20) null,xs varchar(10) null,"+&
+			  "pxrqq varchar(14) null,pxrqz varchar(14) null,llpxf varchar(10) null,"+&
+			  "sjpxf varchar(10) null,khf varchar(10) null,srzf varchar(10) null,"+&
+			  "srqt varchar(10) null,srhj varchar(10) null,jkf varchar(10) null,"+&
+			  "zlf varchar(10) null,clf varchar(10) null,zczf varchar(10) null,"+&
+			  "zcqt varchar(10) null,zchj varchar(10) null,jsr varchar(10) null,"+&
+			  "bz varchar(200) null,tbr varchar(10) null,tbrq varchar(14) null,"+&
+			  "zr varchar(10) null,zrrq varchar(14) null,sp varchar(60) null,"+&
+			  "zq varchar(10) null,sj varchar(10) null,lastrqy varchar(4) null,"+&
+			  "lastrqm varchar(2) null,lastrqd varchar(2) null,PRIMARY KEY (lsh));"
+	execute immediate :mysql using sqlca;
+	end if
+end if
+//px_wsjc_ryxb *ÈËÔ±ÐÔ±ð¡ª¡ªÎÞÊý¾Ý*ÐèÒªÌî¼ÓÊý¾Ý*
+//bh char(1) not null *ÐÔ±ð´úºÅ*
+//mc char(2) *ÐÔ±ðÃû³Æ*
+//*end*
+ll_Count = 0 
+if mark = 'sqlserver' then   
+   delsql = "drop table djylrq.px_wsjc_ryxb"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table djylrq.px_wsjc_ryxb (bh char(1) not null,mc char(2) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "Create UNIQUE INDEX px_wsjc_ryxb_x on djylrq.px_wsjc_ryxb (bh)"
+	execute immediate :myindex using sqlca;
+else
+   delsql = "drop table px_wsjc_ryxb"
+	execute immediate :delsql using sqlca;
+	mysql = "Create table px_wsjc_ryxb (bh char(1) not null,mc char(2) null,PRIMARY KEY (bh));"
+	execute immediate :mysql using sqlca;
+end if
+//**Êý¾Ý**//
+insert into px_wsjc_ryxb (bh,mc) values('0','Å®');
+insert into px_wsjc_ryxb (bh,mc) values('1','ÄÐ');
+//**px_st_stlx** ÊÔÌâÀàÐÍ**
+ll_Count = 0
+lb_Insert = false
+if mark = 'sqlserver' then
+	Select count(*) into :ll_Count from px_st_stlx;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then
+		lb_Insert = true
+		delsql = "Drop table djylrq.px_st_stlx"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_st_stlx (xh integer not null,stlx varchar(16) null);"
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_st_stlx_x on djylrq.px_st_stlx (xh)"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ll_Count from px_st_stlx;
+	if sqlca.sqlcode = -1 or ll_Count = 0 then
+		lb_Insert = true
+		delsql = "drop talbe px_st_stlx"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_st_stlx (xh integer not null,stlx varchar(16) null,PRIMARY KEY (xh));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+if lb_Insert then
+	insert into px_st_stlx(xh,stlx) values (1,'ÅÐ¶Ï');
+	insert into px_st_stlx(xh,stlx) values (2,'Ñ¡Ôñ');
+	insert into px_st_stlx(xh,stlx) values (3,'Ìî¿Õ');
+	insert into px_st_stlx(xh,stlx) values (4,'Ãû´Ê');
+	insert into px_st_stlx(xh,stlx) values (5,'ÎÊ´ð');
+	insert into px_st_stlx(xh,stlx) values (6,'¼ÆËã');
+end if
+
+//**px_st_stjc**//
+ll_Count = 0
+if mark = 'sqlserver' then
+	Select count(*) into :ll_Count from px_st_stjc;
+	if sqlca.sqlcode = -1 then
+		delsql = "Drop table djylrq.px_st_stjc"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_st_stjc (xh integer not null,czzldm varchar(2) null,stjc varchar(20) null);"
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_st_stjc_x on djylrq.px_st_stjc (xh)"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ll_Count from px_st_stjc;
+	if sqlca.sqlcode = -1 then
+		delsql = "drop table px_st_stjc"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_st_stjc (xh integer not null,czzldm varchar(2) null,stjc varchar(20) null,PRIMARY KEY (xh));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+//**px_st_stnr**//
+ll_Count = 0
+if mark = 'sqlserver' then
+	Select count(*) into :ll_Count from px_st_stnr;
+	if sqlca.sqlcode = -1 then
+		delsql = "Drop table djylrq.px_st_stnr"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_st_stnr (xh integer not null,czzldm varchar(2) null,stnr varchar(20) null);"
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_st_stnr_x on djylrq.px_st_stnr (xh)"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ll_Count from px_st_stnr;
+	if sqlca.sqlcode = -1 then
+		delsql = "drop table px_st_stnr"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_st_stnr (xh integer not null,czzldm varchar(2) null,stnr varchar(20) null,PRIMARY KEY (xh));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+//**px_st_stqt**//
+ll_Count = 0
+if mark = 'sqlserver' then
+	Select count(*) into :ll_Count from px_st_stqt;
+	if sqlca.sqlcode = -1 then
+		delsql = "Drop table djylrq.px_st_stqt"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table djylrq.px_st_stqt (xh integer not null,czzldm varchar(2) null,stqt varchar(20) null);"
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_st_stqt_x on djylrq.px_st_stqt (xh)"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ll_Count from px_st_stqt;
+	if sqlca.sqlcode = -1 then
+		delsql = "drop table px_st_stqt"
+		execute immediate :delsql using sqlca;
+		mysql = "Create table px_st_stqt (xh integer not null,czzldm varchar(2) null,stqt varchar(20) null,PRIMARY KEY (xh));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+//**px_st_stmain**//
+ll_Count = 0
+if mark = 'sqlserver' then
+	Select count(*) into :ll_Count from px_st_stmain;
+	if sqlca.sqlcode = -1 then
+		delsql = "Drop table djylrq.px_st_stmain"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE djylrq.px_st_stmain (xh char(9) NOT NULL,"+&
+	           "th int NULL,"+&
+	           "czzldm varchar(2) NULL,"+&
+	           "zgxmdm varchar(3) NULL,"+&
+	           "zgjbdm varchar(4) NULL,"+&
+	           "stlx varchar(16) NULL,"+&
+	           "stnr varchar(20) NULL,"+&
+	           "stjc varchar(20) NULL,"+&
+	           "stqt varchar(20) NULL,"+&
+	           "stmain text NULL,"+&
+	           "stmainfz image DEFAULT 0x,"+&
+	           "fzbz char(1) NULL,"+&
+		   "stda text NULL,"+&
+		   "stdafz image DEFAULT 0x,"+&
+		   "fzbzda char(1) NULL,"+&
+	           "xzbz char(1) NULL);"
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_st_stmain_x on djylrq.px_st_stmain (xh)"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	Select count(*) into :ll_Count from px_st_stmain;
+	if sqlca.sqlcode = -1 then
+		delsql = "Drop table djylrq.px_st_stmain"
+		execute immediate :delsql using sqlca;
+		mysql ="CREATE TABLE px_st_stmain (xh char(9) NOT NULL,"+&
+	           "th integer NULL,"+&
+	           "czzldm varchar(2) NULL,"+&
+	           "zgxmdm varchar(3) NULL,"+&
+	           "zgjbdm varchar(4) NULL,"+&
+	           "stlx varchar(16) NULL,"+&
+	           "stnr varchar(20) NULL,"+&
+	           "stjc varchar(20) NULL,"+&
+	           "stqt varchar(20) NULL,"+&
+	           "stmain long varchar NULL,"+&
+	           "stmainfz long binary NULL,"+&
+	           "fzbz char(1) NULL,"+&
+		   "stda long varchar NULL,"+&
+		   "stdafz long binary NULL,"+&
+		   "fzbzda char(1) NULL,"+&
+	           "xzbz char(1) NULL,PRIMARY KEY (xh));" 
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+//**px_st_shijuan**//
+ll_Count = 0
+if mark = 'sqlserver' then
+	Select count(*) into :ll_Count from px_st_shijuan;
+	if sqlca.sqlcode = -1 then
+		delsql = "Drop table djylrq.px_st_shijuan"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE djylrq.px_st_shijuan (xh char(9) NOT NULL,"+&
+	           "czzldm varchar(2) NULL,"+&
+	           "zgxmdm varchar(3) NULL,"+&
+	           "zgjbdm varchar(4) NULL,"+&
+	           "stnr varchar(20) NULL,"+&
+	           "stjc varchar(20) NULL,"+&
+	           "stqt varchar(20) NULL,"+&
+	           "khrq varchar(10) NULL,"+&
+		   "sjh int NULL,"+&
+		   "shijuanda image DEFAULT 0x,"+&
+	           "shijuan image DEFAULT 0x);"
+		execute immediate :mysql using sqlca;
+		myindex = "Create UNIQUE INDEX px_st_shijuan_x on djylrq.px_st_shijuan (xh)"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	Select count(*) into :ll_Count from px_st_shijuan;
+	if sqlca.sqlcode = -1 then
+		delsql = "Drop table djylrq.px_st_shijuan"
+		execute immediate :delsql using sqlca;
+		mysql ="CREATE TABLE px_st_shijuan (xh char(9) NOT NULL,"+&
+	           "czzldm varchar(2) NULL,"+&
+	           "zgxmdm varchar(3) NULL,"+&
+	           "zgjbdm varchar(4) NULL,"+&
+	           "stnr varchar(20) NULL,"+&
+	           "stjc varchar(20) NULL,"+&
+	           "stqt varchar(20) NULL,"+&
+		   "khrq varchar(10) NULL,"+&
+		   "sjh int NULL,"+&
+		   "shijuanda long binary NULL,"+&
+		   "shijuan long binary NULL,PRIMARY KEY (xh));" 
+		execute immediate :mysql using sqlca;
+	end if
+end if
+//**end **px_st_shijuan**//
+f_px_table1()
+
+end subroutine
+

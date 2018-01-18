@@ -1,0 +1,106 @@
+﻿$PBExportHeader$fun_sjzd.srf
+global type fun_sjzd from function_object
+end type
+
+forward prototypes
+global subroutine fun_sjzd (transaction sjzd, transaction sqlserver)
+end prototypes
+
+global subroutine fun_sjzd (transaction sjzd, transaction sqlserver);string delsql,mysql,myindex,ls_mc,ls_nr
+integer ls_id,ls_bglb_id,ls_bg_id,ls_xh_id,ls_xh
+transaction sql_sjzd1,sql_new
+
+sql_sjzd1= sjzd;
+sql_new= sqlserver;
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+ if mark = 'sqlserver' then
+//sjzdn_bglb
+delsql = "drop table djylrq.sjzdn_bglb"
+		execute immediate :delsql using sql_new ;
+mysql="CREATE TABLE djylrq.sjzdn_bglb(id integer NOT NULL,mc varchar(30) NULL);"
+execute immediate :mysql using sql_new ;
+myindex="CREATE UNIQUE INDEX sjzdn_bglb ON djylrq.sjzdn_bglb(id);"
+execute immediate :myindex using sql_new ;
+commit using sql_new;
+else
+	delsql = "drop table sjzdn_bglb"
+		execute immediate :delsql using sql_new ;
+	mysql="CREATE TABLE sjzdn_bglb(id integer NOT NULL,mc varchar(30) NULL);"
+execute immediate :mysql using sql_new ;
+
+commit using sql_new;
+end if
+declare cur_ct cursor for
+select id,mc from sjzdn_bglb using sql_sjzd1;
+open cur_ct ;
+fetch cur_ct into :ls_id,:ls_mc;
+do while sql_sjzd1.sqlcode=0
+	insert into sjzdn_bglb(id,mc)values(:ls_id,:ls_mc);
+     fetch cur_ct into :ls_id,:ls_mc;
+loop
+close cur_ct;
+ commit using sql_new;
+ 
+ //sjzd_bg_bgmc
+
+  if mark = 'sqlserver' then
+	  delsql = "drop table djylrq.sjzd_bg_bgmc"
+		execute immediate :delsql using sql_new ;
+mysql="CREATE TABLE djylrq.sjzd_bg_bgmc(bglb_id integer NOT NULL,id integer NOT NULL,nr varchar(40) NULL);"
+execute immediate :mysql using sql_new ;
+myindex="CREATE UNIQUE INDEX sjzd_bg_bgmc ON djylrq.sjzd_bg_bgmc(bglb_id,id);"
+execute immediate :myindex using sql_new ;
+commit using sql_new;
+else
+	  delsql = "drop table sjzd_bg_bgmc"
+		execute immediate :delsql using sql_new ;
+	mysql="CREATE TABLE sjzd_bg_bgmc(bglb_id integer NOT NULL,id integer NOT NULL,nr varchar(40) NULL);"
+execute immediate :mysql using sql_new ;
+end if
+
+setnull(ls_id)
+declare cur_ct2 cursor for
+select bglb_id,id,nr from sjzd_bg_bgmc using sql_sjzd1;
+open cur_ct2 ;
+fetch cur_ct2 into :ls_bglb_id,:ls_id,:ls_nr;
+do while sql_sjzd1.sqlcode=0
+	insert into sjzd_bg_bgmc(bglb_id,id,nr)values(:ls_bglb_id,:ls_id,:ls_nr);
+  
+   fetch cur_ct2 into :ls_bglb_id,:ls_id,:ls_nr;
+loop
+close cur_ct2;
+ commit using sql_new;
+ 
+ //sjzd_bg_bgzd
+
+   if mark = 'sqlserver' then
+		      delsql = "drop table djylrq.sjzd_bg_bgzd"
+		execute immediate :delsql using sql_new ;
+mysql="CREATE TABLE djylrq.sjzd_bg_bgzd(bglb_id integer NOT NULL,bg_id integer not null,id integer NOT NULL,nr varchar(40) NULL);"
+execute immediate :mysql using sql_new ;
+myindex="CREATE UNIQUE INDEX sjzd_bg_bgzd ON djylrq.sjzd_bg_bgzd(bglb_id,bg_id,id);"
+execute immediate :myindex using sql_new ;
+commit using sql_new;
+else
+	delsql = "drop table sjzd_bg_bgzd"
+		execute immediate :delsql using sql_new ;
+	mysql="CREATE TABLE sjzd_bg_bgzd(bglb_id integer NOT NULL,bg_id integer not null,id integer NOT NULL,nr varchar(40) NULL);"
+execute immediate :mysql using sql_new ;
+end if
+setnull(ls_nr)
+setnull(ls_bglb_id);
+setnull(ls_id);
+declare cur_ct3 cursor for
+select bglb_id,bg_id,id,nr from sjzd_bg_bgzd using sql_sjzd1;
+open cur_ct3 ;
+fetch cur_ct3 into :ls_bglb_id,:ls_bg_id,:ls_id,:ls_nr;
+do while sql_sjzd1.sqlcode=0
+	insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr)values(:ls_bglb_id,:ls_bg_id,:ls_id,:ls_nr);
+    fetch cur_ct3 into :ls_bglb_id,:ls_bg_id,:ls_id,:ls_nr;
+loop
+close cur_ct3;
+commit using sql_new;
+
+end subroutine
+

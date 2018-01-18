@@ -1,0 +1,50 @@
+﻿$PBExportHeader$fun_expass.srf
+global type fun_expass from function_object
+end type
+
+forward prototypes
+global function string fun_expass (string ls_oldstr)
+end prototypes
+
+global function string fun_expass (string ls_oldstr);//**PASS ¼ÓÃÜ**//
+string ls_NowStr,ls_TempStr
+int    li_i,li_StrLen
+int    li_Key1,li_Key2
+//if ls_OldStr = '' or isnull(ls_OldStr) then   
+//   MessageBox("ÌáÊ¾","ÃÜÂë²»ÄÜÎª¿Õ")
+//	return 
+//end if
+li_StrLen = len(ls_OldStr)
+//if li_StrLen > 20 then   
+//   MessageBox("ÌáÊ¾","ÃÜÂë²»ÄÜ³¬¹ý20Î»")
+//	return
+//end if
+
+ls_NowStr = ''
+
+li_Key1 = 11
+li_Key2 = 3
+int li_TT
+//**  35 to 125  **//
+//for li_i = 1 to li_StrLen
+//   ls_TempStr = mid(ls_OldStr,li_i,1)
+//	li_TT = Asc(ls_TempStr) + li_Key1 +li_Key2 * li_i
+//	
+//	do while li_TT > 125
+//		li_TT = li_TT - 125
+//	loop
+//	do while li_TT < 35
+//		li_TT = li_TT + 35
+//	loop
+//	ls_TempStr = Char(li_TT)
+//	ls_NowStr = ls_NowStr + ls_TempStr
+//next
+for li_i = 1 to li_StrLen
+	ls_TempStr = mid(ls_OldStr,li_i,1)
+	li_TT = Asc(ls_TempStr) - li_Key1 -li_Key2 * li_i
+   ls_TempStr = Char(li_TT)
+	ls_NowStr = ls_NowStr + ls_TempStr
+next	
+return ls_NowStr
+end function
+

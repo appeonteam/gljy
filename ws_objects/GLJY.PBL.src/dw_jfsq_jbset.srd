@@ -1,0 +1,17 @@
+﻿$PBExportHeader$dw_jfsq_jbset.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=80269524 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=89 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=93 color="536870912" )
+table(column=(type=char(5) update=yes updatewhereclause=yes key=yes name=xh dbname="jfsq_jb.xh" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=jb dbname="jfsq_jb.jb" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=mc dbname="jfsq_jb.mc" )
+ column=(type=char(4) update=yes updatewhereclause=yes name=mark dbname="jfsq_jb.mark" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=bz dbname="jfsq_jb.bz" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"jfsq_jb~" ) COLUMN(NAME=~"jfsq_jb.xh~") COLUMN(NAME=~"jfsq_jb.jb~") COLUMN(NAME=~"jfsq_jb.mc~") COLUMN(NAME=~"jfsq_jb.mark~") COLUMN(NAME=~"jfsq_jb.bz~")WHERE(    EXP1 =~"jfsq_jb.mark~"   OP =~"=~"    EXP2 =~":mark~" ) ) ORDER(NAME=~"jfsq_jb.jb~" ASC=yes ) ARG(NAME = ~"mark~" TYPE = string) " update="jfsq_jb" updatewhere=1 updatekeyinplace=no arguments=(("mark", string)) )
+text(band=header alignment="2" text="¼¶±ðÃû³Æ"border="6" color="8388608" x="261" y="8" height="81" width="993"  name=mc_t  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="¼¶±ð"border="6" color="8388608" x="78" y="8" height="81" width="165"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="0" x="78" y="4" height="77" width="165" format="[general]"  name=jb edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=10 border="5" color="0" x="261" y="4" height="77" width="993" format="[general]"  name=mc  tag=" " edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

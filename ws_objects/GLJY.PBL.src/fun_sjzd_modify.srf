@@ -1,0 +1,738 @@
+﻿$PBExportHeader$fun_sjzd_modify.srf
+global type fun_sjzd_modify from function_object
+end type
+
+forward prototypes
+global subroutine fun_sjzd_modify ()
+end prototypes
+
+global subroutine fun_sjzd_modify ();//**FFFÐÞ¸ÄÊý¾Ý¿â²¿·Ö×Ö¶Î±ä»¯**//
+string delsql,mysql,myindex,modsql
+int    li_temp
+boolean lb_insert
+string ls_temp
+string mark = 'sybase'
+if sqlca.dbms = "MSS (Msoft) SQL Server 6.0" then 
+   mark = 'sqlserver'
+end if
+long ll_Count
+ll_Count = 0
+
+//**Ñ¹Á¦¹ÜµÀºÏ×÷¶à¼ìÑéÔ±**//
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.b_jj_ylgd_jlbg add jyz1 varchar(8) null,jyz2 varchar(8) null,jyz3 varchar(8) null,jyz4 varchar(8) null,jyz5 varchar(8) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table b_jj_ylgd_jlbg add jyz1 varchar(8) null,add jyz2 varchar(8) null,add jyz3 varchar(8) null,add jyz4 varchar(8) null,add jyz5 varchar(8) null"
+end if
+//**½ø³ö¿Ú¼ìÑéÀà±ð£¬ÃÅÀà**//
+if mark = 'sqlserver' then   
+   modsql = "Alter Table djylrq.a_rycode add ryjk varchar(20) null,ryjkml varchar(40) null,ryjklb varchar(40) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table a_rycode add ryjk varchar(20) null,add ryjkml varchar(40) null,add ryjklb varchar(40) null"
+	execute immediate :modsql using sqlca;
+end if
+//**Ôö¼Ó±í**//
+lb_Insert = false
+if mark = "sqlserver" then   
+   select count(*) into :ll_Count from a_bgml;
+	if sqlca.sqlcode = -1 then   
+	   lb_Insert = true
+	   modsql = "Drop Table djylrq.a_bgml"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.a_bgml(id varchar(4) NOT NULL,"+&
+              "jymk varchar(12) null,"+&
+              "jytype varchar(4) null,"+&
+              "typename varchar(40) null)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index a_bgml_id On djylrq.a_bgml (id)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from a_bgml;
+	if sqlca.sqlcode = -1 then
+	   lb_Insert = true
+		modsql = "Drop Table a_bgml"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE a_bgml(id varchar(4) NOT NULL,"+&
+              "jymk varchar(12) null,"+&
+              "jytype varchar(4) null,"+&
+              "typename varchar(40) null,PRIMARY KEY (id))"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+if lb_Insert then 
+
+   insert into a_bgml (id,jymk,jytype,typename) values ('1001','dj','Ic','Ñ¹Á¦ÈÝÆ÷¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1002','dj','Jc','ÌúÂ·¹Þ³µ¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1003','dj','Os','Ò½ÓÃÑõ²ÕÈ«Ãæ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1004','dj','6c','ÐÂÑ¹Á¦ÈÝÆ÷¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1005','dj','6n','ÐÂÑ¹Á¦ÈÝÆ÷Äê¶È¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1006','dj','1c','Ð¡ÐÍÈÝÆ÷¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1007','dj','2c','ºæÍ²¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1008','dj','5t','¹¤Òµ¹ÜµÀÔÚÏß¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1009','dj','5s','¹¤Òµ¹ÜµÀÈ«Ãæ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1010','dj','Da','¹¤Òµ¹øÂ¯ÄÚ²¿¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1011','dj','Db','¹¤Òµ¹øÂ¯Íâ²¿¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1012','dj','Di','¹¤Òµ¹øÂ¯Ë®Ñ¹ÊÔÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1013','dj','Kc','Æû³µ²Û³µ¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1014','dj','Oc','Ò½ÓÃÑõ²Õ¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1015','dj','Pc','Ó¤¶ùÑõ²Õ¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1016','dj','Aa','µçÕ¾¹øÂ¯ÄÚ²¿¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1017','dj','Fa','ÓÐ»úÈÈÔØÌåÄÚ²¿¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1018','dj','Fb','ÓÐ»úÈÈÔØÌåÍâ²¿¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1019','dj','Bc','µçÌÝ¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1020','dj','Cc','ÒºÑ¹µçÌÝ¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1021','dj','Tc','ËþÊ½ÆðÖØ»ú¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1022','dj','Rc','µ¥ÁºÆðÖØ»ú¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1023','dj','Sc','Á÷¶¯ÆðÖØ»ú¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1024','dj','Uc','Ê©¹¤Éý½µ»ú¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1025','dj','Vc','ÇÅÆðÖØ»ú¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1026','dj','Wc','ÃÅÆðÖØ»ú¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1027','dj','3c','ÔÓÎïµçÌÝ¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1028','dj','Nn','¹Ì¶¨Ë÷µÀÄê¶È¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1029','dj','Xn','ÍÑ¹ÒË÷µÀÄê¶È¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1030','dj','Yn','Íù¸´Ë÷µÀÄê¶È¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1031','dj','Mc','×Ô¶¯·öÌÝ¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1032','dj','Ec','ÓÎÀÖÉèÊ©¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1033','dj','On','Ò½ÓÃÑõ²ÕÄê¶È¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1034','aj','Dj','¹¤Òµ¹øÂ¯É¢×°°²×°');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1035','aj','Dk','¹¤Òµ¹øÂ¯Õû×°°²×°');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1036','aj','Dr','¹¤Òµ¹øÂ¯Á¢Ê½¿ì×°');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1037','aj','Id','Ñ¹Á¦ÈÝÆ÷°²×°¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1038','aj','Od','Ò½ÓÃÑõ²Õ°²×°¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1039','aj','Dm','¹¤Òµ¹øÂ¯°²¼ìÁªÂçµ¥');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1040','aj','Bo','µçÌÝÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1041','aj','3o','ÔÓÎïµçÌÝÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1042','aj','Co','ÒºÑ¹µçÌÝÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1043','aj','To','ËþÊ½ÆðÖØ»úÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1044','aj','Ro','µ¥ÁºÆðÖØ»úÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1045','aj','Uo','Ê©¹¤Éý½µ»úÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1046','aj','Vo','ÇÅÆðÖØ»úÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1047','aj','Wo','ÃÅÆðÖØ»úÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1048','aj','Mo','×Ô¶¯·öÌÝÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1049','aj','Yo','Íù¸´Ë÷µÀÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1050','aj','Xo','ÍÑ¹ÒË÷µÀÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1051','aj','No','¹Ì¶¨Ë÷µÀÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1052','aj','Eo','ÓÎÀÖÉèÊ©ÑéÊÕ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1053','aj','8d','Ñ¹Á¦¹ÜµÀ°²×°¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1054','jj','8q','Ñ¹Á¦¹ÜµÀÉê±¨Êé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1055','jj','8v','Ñ¹Á¦¹ÜµÀ¼à¼ìÒâ¼ûÊé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1056','jj','8w','Ñ¹Á¦¹ÜµÀ¼à¼ìÖ¤Êé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1057','jj','Dp','¹¤Òµ¹øÂ¯¼à¼ìÏîÄ¿±í');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1058','jj','Ip','Ñ¹Á¦ÈÝÆ÷¼à¼ìÏîÄ¿±í');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1059','jj','Qp','ÆøÆ¿¼à¼ìÏîÄ¿±í');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1060','jj','Ap','µçÕ¾¹øÂ¯¼à¼ìÏîÄ¿±í');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1061','jj','Op','Ò½ÓÃÑõ²Õ¼à¼ìÏîÄ¿±í');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1062','dj','He','³§³µ¼à¶½¼ìÑé');
+	//insert into a_bgml (id,jymk,jytype,typename) values ('1063','jj','6u','ÐÂÑ¹Á¦ÈÝÆ÷¼à¼ìÁªÂçµ¥');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1064','dj','9v','ÌØÖÖÉè±¸¼à¼ìÒâ¼ûÊé');
+	//insert into a_bgml (id,jymk,jytype,typename) values ('1065','jj','Iu','Ñ¹Á¦ÈÝÆ÷¼à¼ìÁªÂçµ¥');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1066','jj','Du','¹¤Òµ¹øÂ¯¼à¼ìÁªÂçµ¥');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1067','jj','Qu','ÆøÆ¿¼à¼ìÁªÂçµ¥');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1068','jj','Au','µçÕ¾¹øÂ¯¼à¼ìÁªÂçµ¥');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1069','jj','Ou','Ò½ÓÃÑõ²Õ¼à¼ìÁªÂçµ¥');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1070','jj','Iv','Ñ¹Á¦ÈÝÆ÷¼à¼ìÒâ¼ûÊé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1071','jj','Dv','¹¤Òµ¹øÂ¯¼à¼ìÒâ¼ûÊé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1072','jj','Qv','ÆøÆ¿¼à¼ìÒâ¼ûÊé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1073','jj','Av','µçÕ¾¹øÂ¯¼à¼ìÒâ¼ûÊé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1074','jj','Ov','Ò½ÓÃÑõ²Õ¼à¼ìÒâ¼ûÊé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1075','jj','Iw','Ñ¹Á¦ÈÝÆ÷¼à¼ìÖ¤Êé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1076','jj','Dw','¹¤Òµ¹øÂ¯¼à¼ìÖ¤Êé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1077','jj','Qw','ÆøÆ¿¼à¼ìÖ¤Êé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1078','jj','Aw','µçÕ¾¹øÂ¯¼à¼ìÖ¤Êé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1079','jj','Ow','Ò½ÓÃÑõ²Õ¼à¼ìÖ¤Êé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1080','jj','7w','³ÐÑ¹Ôª¼þ¼à¼ìÖ¤Êé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1081','jk','Ge','½ø¿Ú¹øÂ¯¼à¶½¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1082','jk','Le','½ø¿ÚÈÝÆ÷¼à¶½¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1083','jk','4w','³ö¿ÚÈÝÆ÷¼à¶½¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1084','qj','Zf','ÆäËüÉè±¸°²È«·§Ð£Ñé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1085','qj','Zg','ÆäËüÉè±¸Ë®ÖÊ»¯Ñé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1086','qj','Zh','ÆäËüÉè±¸·Ç¹æ·¶¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1087','qj','Zl','ÆäËüÉè±¸ÎÞËð¼ì²â');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1088','qj','Zx','ÆäËüÉè±¸¹øÂ¯Ä£°å¼¯');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1089','qj','Zy','ÆäËüÉè±¸ÈÝÆ÷Ä£°å¼¯');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1090','qj','Zz','ÆäËüÉè±¸×ÛºÏÄ£°å¼¯');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1091','qj','Z9','ÆäËüÉè±¸ÐÂ°²È«·§Ð£Ñé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1092','aj','D3','¹¤Òµ¹øÂ¯°²×°¼à¶½Ö¤Êé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1093','dj','Dc','¹¤Òµ¹øÂ¯¶¨ÆÚ¼ìÑé');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1094','jj','9u','ÌØÖÖÉè±¸¼à¼ìÁªÂçµ¥');
+	insert into a_bgml (id,jymk,jytype,typename) values ('1095','qj','Z7','ÆäËüÉè±¸ÌØÖÖÉè±¸Ä£°å');
+end if
+if mark = "sqlserver" then   
+   select count(*) into :ll_Count from a_jykey;
+	if sqlca.sqlcode = -1 then   
+	   modsql = "Drop Table djylrq.a_jykey"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.a_jykey(ryid varchar(8) NOT NULL,"+&
+              "jytype varchar(4) NOT NULL,"+&
+              "ryqc varchar(4) null,"+&
+              "rysh varchar(4) null,"+&
+              "rysq varchar(4) null,"+&
+              "sqid varchar(8) null,"+&
+              "jymk varchar(12) null,"+&
+              "bsqid varchar(8) null)"
+	   execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index a_jykey_x On djylrq.a_jykey (ryid,jytype)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Index a_jykey_ryid On djylrq.a_jykey (ryid)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Index a_jykey_jymk On djylrq.a_jykey (jymk)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from a_jykey;
+	if sqlca.sqlcode = -1 then   
+	   modsql = "Drop Table a_jykey"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE a_jykey(ryid varchar(8) NOT NULL,"+&
+              "jytype varchar(4) NOT NULL,"+&
+              "ryqc varchar(4) null,"+&
+              "rysh varchar(4) null,"+&
+              "rysq varchar(4) null,"+&
+              "sqid varchar(8) null,"+&
+              "jymk varchar(12) null,"+&
+              "bsqid varchar(8) null,PRIMARY KEY (ryid,jytype))"
+	   execute immediate :modsql using sqlca;
+		modsql = "Create Index a_jykey_ryid On a_jykey (ryid)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Index a_jykey_jymk On a_jykey (jymk)"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+if mark = "sqlserver" then   
+   select count(*) into :ll_Count from a_print;
+	if sqlca.sqlcode = -1  then   
+	   modsql = "Drop Table djylrq.a_print"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.a_print(jyid varchar(20) NOT NULL,"+&
+              "xh varchar(20) NOT NULL,"+&
+              "ryid varchar(20) null,"+&
+              "rymc varchar(20) null,"+&
+              "dydate varchar(20) null,"+&
+              "jyjb varchar(1) null,"+&
+              "shmark varchar(10) null,"+&
+              "dyfs varchar(5) null,"+&
+              "zys varchar(5) null,"+&
+              "shwang varchar(10) null,"+&
+              "shtui varchar(10) null,"+&
+              "shsp varchar(10) null)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index a_print_x On djylrq.a_print (jyid,xh)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from a_print;
+	if sqlca.sqlcode = -1  then   
+	   modsql = "Drop Table a_print"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE a_print(jyid varchar(20) NOT NULL,"+&
+              "xh varchar(20) NOT NULL,"+&
+              "ryid varchar(20) null,"+&
+              "rymc varchar(20) null,"+&
+              "dydate varchar(20) null,"+&
+              "jyjb varchar(1) null,"+&
+              "shmark varchar(10) null,"+&
+              "dyfs varchar(5) null,"+&
+              "zys varchar(5) null,"+&
+              "shwang varchar(10) null,"+&
+              "shtui varchar(10) null,"+&
+              "shsp varchar(10) null,PRIMARY KEY (jyid,xh))"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+lb_Insert = false
+if mark = "sqlserver" then   
+   select count(*) into :ll_Count from sjzd_cs_sbmc;
+	if sqlca.sqlcode = -1 then   
+	   lb_Insert = true
+		modsql = "Drop Table djylrq.sjzd_cs_sbmc"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.sjzd_cs_sbmc(id integer NOT NULL,mc varchar(30) null)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index sjzd_cs_sbmc_x On djylrq.sjzd_cs_sbmc (id)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from sjzd_cs_sbmc;
+	if sqlca.sqlcode = -1 then   
+	   lb_Insert = true
+		modsql = "Drop Table sjzd_cs_sbmc"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE sjzd_cs_sbmc(id integer NOT NULL,mc varchar(30) null,PRIMARY KEY (id))"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+if lb_Insert then   
+   insert into sjzd_cs_sbmc (id,mc) values (1,'µçÌÝ');
+	insert into sjzd_cs_sbmc (id,mc) values (2,'ÆðÖØ»ú');
+	insert into sjzd_cs_sbmc (id,mc) values (3,'³§ÄÚ»ú¶¯³µÁ¾');
+	insert into sjzd_cs_sbmc (id,mc) values (4,'ÓÎÀÖÉèÊ©');
+	insert into sjzd_cs_sbmc (id,mc) values (5,'¹øÂ¯');
+	insert into sjzd_cs_sbmc (id,mc) values (6,'Ñ¹Á¦ÈÝÆ÷');
+	insert into sjzd_cs_sbmc (id,mc) values (7,'Ñ¹Á¦¹ÜµÀ');
+	insert into sjzd_cs_sbmc (id,mc) values (8,'ÒÆ¶¯Ê½Ñ¹Á¦ÈÝÆ÷');
+	insert into sjzd_cs_sbmc (id,mc) values (9,'±Úºñ²â¶¨');
+	insert into sjzd_cs_sbmc (id,mc) values (10,'´Å·ÛÌ½ÉË');
+	insert into sjzd_cs_sbmc (id,mc) values (11,'ÉøÍ¸Ì½ÉË');
+	insert into sjzd_cs_sbmc (id,mc) values (12,'ÉäÏßÌ½ÉË');
+	insert into sjzd_cs_sbmc (id,mc) values (13,'³¬Éù²¨Ì½ÉË');
+	insert into sjzd_cs_sbmc (id,mc) values (14,'»¯Ñ§³É·Ý');
+	insert into sjzd_cs_sbmc (id,mc) values (15,'Ó²¶È²â¶¨');
+	insert into sjzd_cs_sbmc (id,mc) values (16,'½ðÏà·ÖÎö');
+	insert into sjzd_cs_sbmc (id,mc) values (17,'°²È«¸½¼þ');
+	insert into sjzd_cs_sbmc (id,mc) values (18,'ÄÍÑ¹ÊÔÑé');
+	insert into sjzd_cs_sbmc (id,mc) values (19,'ÆøÃÜÐÔÊÔÑé');
+	insert into sjzd_cs_sbmc (id,mc) values (20,'Ç¿¶ÈÐ£ºË');
+end if
+lb_Insert = false
+if mark = "sqlserver" then   
+   select count(*) into :ll_Count from sjzd_cs_csmc;
+	if sqlca.sqlcode = -1 then
+	   lb_Insert = true
+		modsql = "Drop Table djylrq.sjzd_cs_csmc"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.sjzd_cs_csmc(sbmc_id integer NOT NULL,id integer NOT NULL,"+&
+              "mc varchar(30) null,child_ml char(2) null)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index sjzd_cs_csmc_x On djylrq.sjzd_cs_csmc (sbmc_id,id)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from sjzd_cs_csmc;
+	if sqlca.sqlcode = -1 then
+	   lb_Insert = true
+		modsql = "Drop Table sjzd_cs_csmc"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE sjzd_cs_csmc(sbmc_id integer NOT NULL,id integer NOT NULL,"+&
+              "mc varchar(30) null,child_ml char(2) null,PRIMARY KEY (sbmc_id,id))"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+if lb_Insert then   
+   //**µçÌÝ**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,1,'µçÌÝÃû³Æ','Y');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,2,'µçÌÝ²¿¼þ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,3,'µçÌÝ°²È«¸½¼þ¼°°²È«±£»¤×°ÖÃ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,4,'µçÌÝ²úÆ·¹ú±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,5,'µçÌÝ¿ØÖÆ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,6,'µçÌÝÇý¶¯·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,7,'µçÌÝÍÏ¶¯·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,8,'µçÌÝ¿ªÃÅ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,9,'µçÌÝ¹¤×÷»·¾³','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,10,'µçÌÝ²¹³¥·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,11,'µçÌÝÒ·Òý»úÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,12,'µçÌÝÉþ²ÛÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,13,'µçÌÝ°²È«Ç¯ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,14,'µçÌÝ»º³åÆ÷ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,15,'µçÌÝÏÞËÙÆ÷ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,16,'µçÌÝ½ÎÏáµ¼¹ìÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,17,'µçÌÝË«ÖØµ¼¹ìÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,18,'ÒºÑ¹µçÌÝ¶¥ÉýÐÎÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,19,'µçÌÝÓÍ¸×ÐÎÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,20,'µçÌÝÉè¼Æ¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,21,'µçÌÝÖÆÔì°²×°°²È«¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,22,'µçÌÝÉè±¸ÐÂ¾É×´¿ö','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,23,'µçÌÝ¼à¼ìÐÎÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,24,'×Ô¶¯·öÌÝ²úÆ·¹ú±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,25,'×Ô¶¯·öÌÝ¹¤×÷»·¾³','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,26,'×Ô¶¯·öÌÝÖÆ¶¯Æ÷ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,27,'×Ô¶¯·öÌÝ¸½¼ÓÖÆ¶¯Æ÷ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,28,'×Ô¶¯·öÌÝÕ½Á¢²¿¼þÀàÐÍ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,29,'×Ô¶¯·öÌÝ·öÊÖÀ¸°åÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,30,'×Ô¶¯·öÌÝÌÝ¼¶ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,31,'×Ô¶¯·öÌÝÉè¼Æ¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,32,'×Ô¶¯·öÌÝÖÆÔì¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,33,'×Ô¶¯·öÌÝÉè±¸ÐÂ¾É×´¿ö','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (1,34,'×Ô¶¯·öÌÝ¼à¼ìÐÎÊ½','N');
+	//**ÆðÖØ»ú**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,1,'ÆðÖØ»úÐµÃû³Æ','Y');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,2,'°²È«¸½¼þ¼°°²È«±£»¤×°ÖÃ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,3,'²úÆ·¹ú±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,4,'¹¤×÷¼¶±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,5,'¹¤×÷»·¾³','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,6,'ÃÅ¼ÜÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,7,'È¡Îï×°ÖÃ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,8,'Ë¾»úÊÒÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,9,'²Ù×Ý·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,10,'µ¼µç·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,11,'Ðý×ªÖ§³Ð×°ÖÃÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,12,'Ðý×ªÇý¶¯×°ÖÃÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,13,'±ä·ù·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,14,'±ä·ùÆ½ºâ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,15,'±ä·ùÇý¶¯·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,16,'±Û¼ÜÏµÍ³ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,17,'³öÈë¿â·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,18,'Éý½µÇý¶¯·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,19,'ºáÐÐÇý¶¯·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,20,'Éè¼Æ¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,21,'ÖÆÔì¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,22,'Éè±¸ÐÂ¾É×´¿ö','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,23,'¼à¼ìÐÎÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (2,24,'»úÐµÊ½Í£³µÉè±¸','N');
+	//**³§ÄÚ»ú¶¯³µÁ¾**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,1,'²úÆ·¹ú±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,2,'×ªÏòÎ»ÖÃ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,3,'È¼ÁÏÖÖÀà','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,4,'¶¯Á¦·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,5,'ÊÇ·ñÍÏ¹Ò³µ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,6,'¹¤×÷»·¾³','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,7,'Éè¼Æ¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,8,'ÖÆÔì¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,9,'Éè±¸ÐÂ¾É×´¿ö','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (3,10,'¼à¼ìÐÎÊ½','N');
+	//**ÓÎÀÖÉèÊ©**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (4,1,'ÓÎÀÖÉèÊ©Ãû³Æ','Y');
+	//**¹øÂ¯**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,1,'È¼ÁÏÖÖÀà','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,2,'¹øÂ¯·¿Àà±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,3,'È¼ÉÕ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,4,'Ë®´¦Àí·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,5,'½á¹¹ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,6,'Ê¹ÓÃ×´Ì¬','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,7,'ÓÃÍ¾','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,8,'³öÔü·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,9,'³ýÑõ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,10,'¼ÓÈÈ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,11,'ÏûÑÌ³ý³¾·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,12,'¹ýÈÈÕôÆûµ÷ÎÂ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,13,'²¹¸øË®´¦Àí·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,14,'¹øÂ¯Ë®Ñ­»··½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,15,'ÆûË®·ÖÀë×°ÖÃ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,16,'È¼ÉÕÆ÷²¼ÖÃ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,17,'ÔÙÈÈÕôÆûµ÷ÎÂ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,18,'Éè¼Æ¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,19,'ÖÆÔì¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,20,'Éè±¸ÐÂ¾É×´¿ö','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,21,'¼à¼ìÐÎÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,22,'Ë®ÖÊ±¨¸æË®´¦Àí·½·¨','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,23,'Ë®Ñ¹±¨¸æÊÔÑéÀíÓÉ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (5,24,'ÓÍÑ¹±¨¸æÊÔÑéÀíÓÉ','N');
+	//**Ñ¹Á¦ÈÝÆ÷**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,1,'Éè¼Æ¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,2,'ÖÆÔì¹æ·¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,3,'·âÍ·ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,4,'Ö§×ùÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,5,'Ñ¹Á¦ÈÝÆ÷ÐÍÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,6,'ÓÐÎÞ±£ÎÂ¾øÈÈ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,7,'ÊÇ·ñ¿ì¿ªÃÅ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,8,'Ñõ²ÕÕÕÃ÷','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,9,'Ñõ²Õ¿Õµ÷µçÊÓ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,10,'Ñõ²Õ²âÑõ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,11,'Ñ¹Á¦ÈÝÆ÷Àà±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,12,'Ñ¹Á¦µÈ¼¶','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,13,'·ÖÀà£¨ÓÃÍ¾£©','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,14,'Ê¹ÓÃ×´Ì¬','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,15,'¼ìÑéÀà±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,16,'Éè±¸ÐÂ¾É×´¿ö','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,17,'¼à¼ìÐÎÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,18,'°²È«·§ÐÍºÅ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,19,'°²È«·§¹æ¸ñ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,20,'Ñ¹Á¦±íÁ¿³Ì','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,21,'Ñ¹Á¦±í¾«¶È','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,22,'ÒºÃæ¼ÆÐÎÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,23,'±¬ÆÆÆ¬ÐÍºÅ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,24,'½ô¼±ÇÐ¶Ï·§ÐÎÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (6,25,'ÎÂ¶È¼ÆÐÎÊ½','N');
+	//**Ñ¹Á¦¹ÜµÀ**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (7,1,'ÊäËÍ½éÖÊ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (7,2,'¹ÜµÀÆÌÉè·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (7,3,'±£ÎÂ¾øÈÈ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (7,4,'·À¸¯·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (7,5,'±êÊ¶','N');
+	//**ÒÆ¶¯Ê½Ñ¹Á¦ÈÝÆ÷**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,1,'Éè±¸ÖÆÔì³§','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,2,'°²È«·§ÐÍºÅ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,3,'±¬ÆÆÆ¬ÐÍºÅ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,4,'½ô¼±ÇÐ¶Ï·§ÐÍºÅ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,5,'ÒºÃæ¼ÆÐÍºÅ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,6,'¹ÞÌå²ÄÁÏ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,7,'³ä×°½éÖÊ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,8,'Èë¿×Î»ÖÃ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,9,'¹ÞÌåÑÕÉ«','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,10,'½á¹¹ÐÎÊ½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,11,'±£ÎÂ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (8,12,'×°Ð¶·½Ê½','N');
+	//**±Ûºñ²â¶¨**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (9,1,'±íÃæ×´¿ö','N');
+	//**´Å·ÛÌ½ÉË**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (10,1,'´Å»¯µçÁ÷','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (10,2,'´Å·ÛÀàÐÍ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (10,3,'´Å·Û±íÃæ×´¿ö','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (10,4,'´Å·Û±ê×¼ÊÔ¿é','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (10,5,'´Å»¯·½·¨','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (10,6,'ÅçÈ÷·½·¨','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (10,7,'Ö´ÐÐ±ê×¼','N');
+	//**ÉøÍ¸Ì½ÉË**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (11,1,'Ì½ÉË·½·¨','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (11,2,'¹Û²ì·½·¨','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (11,3,'±íÃæ×´¿ö','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (11,4,'Ö´ÐÐ±ê×¼','N');
+	//**ÉäÏßÌ½ÉË**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (12,1,'Ì½ÉË»úÐÍºÅ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (12,2,'Ì½ÉË»ú¹æ¸ñ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (12,3,'ÏóÖÊ¼ÆÖ¸Êý','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (12,4,'Ôö¸Ð·¨','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (12,5,'Í¸ÕÕ·½Ê½','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (12,6,'ÆÀ¶¨¼¶±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (12,7,'Ö´ÐÐ±ê×¼','N');
+	//**³¬Éù²¨Ì½ÉË**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (13,1,'Ì½Í·ÀàÐÍ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (13,2,'ñîºÏ¼Á','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (13,3,'ÆÂ¿ÚÀàÐÍ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (13,4,'È±ÏÝ²¨·´ÉäÇø','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (13,5,'ÆÀ¶¨¼¶±ð','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (13,6,'Ö´ÐÐ±ê×¼','N');
+	//**»¯Ñ§³É·Ý**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (14,1,'È¡Ñù²¿Î»','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (14,2,'È¡Ñù·½·¨','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (14,3,'»¯Ñ§ÔªËØ','N');
+	//**Ó²¶È²â¶¨**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (15,1,'ÈÈ´¦Àí×´Ì¬','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (15,2,'Ó²¶ÈÖµµ¥Î»','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (15,3,'²â¶¨²¿Î»','N');
+	//**½ðÏà·ÖÎö**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (16,1,'Å×¹â·½·¨','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (16,2,'ÈÈ´¦Àí×´Ì¬','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (16,3,'È¡Ñù²¿Î»','N');
+	//**°²È«¸½¼þ**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,1,'½ô¼±ÇÐ¶Ï·§Ç¦·â','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,2,'½ô¼±ÇÐ¶Ï·§ÄÍÑ¹ÊÔÑé','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,3,'½ô¼±ÇÐ¶Ï·§ÃÜ·âÑ¹Á¦ÊÔÑé','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,4,'°²È«·§Íâ¹ÛÖÊÁ¿','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,5,'°²È«·§°²×°Î»ÖÃ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,6,'°²È«·§Ç¦·â','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,7,'±¬ÆÆÆ¬°²×°Î»ÖÃ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,8,'±¬ÆÆÆ¬Íâ¹ÛÖÊÁ¿','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,9,'Ñ¹Á¦±í°²×°Î»ÖÃ','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,10,'Ñ¹Á¦±íÍâ¹ÛÖÊÁ¿','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (17,11,'ÒºÎ»¼ÆÍâ¹ÛÖÊÁ¿','N');
+	//**ÄÍÑ¹ÊÔÑé**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (18,1,'ÓÐÎÞÐ¹Â©','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (18,2,'ÓÐÎÞ±äÐÎ','N');
+	//**ÆøÃÜÐÔÊÔÑé**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (19,1,'ÓÐÎÞÐ¹Â©','N');
+	//**Ç¿¶ÈÐ£ºË**//
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (20,1,'¼ÆËã²¿Î»','N');
+	insert into sjzd_cs_csmc (sbmc_id,id,mc,child_ml) values (20,2,'½áÂÛ','N');
+end if
+lb_Insert = false
+if mark = "sqlserver" then   
+   select count(*) into :ll_Count from sjzd_data;
+	if sqlca.sqlcode = -1 then
+	   lb_Insert = true
+	   modsql = "Drop Table djylrq.sjzd_data"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.sjzd_data(sbmc_id integer NOT NULL,id integer NOT NULL,"+&
+              "xh integer NOT NULL,nr varchar(80) null,"+&
+	      "mark varchar(4) null)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index sjzd_data_x On djylrq.sjzd_data (sbmc_id,id,xh)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from sjzd_data;
+	if sqlca.sqlcode = -1 then   
+	   lb_Insert = true
+	   modsql = "Drop Table sjzd_data"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE sjzd_data(sbmc_id integer NOT NULL,id integer NOT NULL,"+&
+              "xh integer NOT NULL,nr varchar(80) null,"+&
+	      "mark varchar(4) null,PRIMARY KEY (sbmc_id,id,xh))"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+if lb_Insert then   
+   //**µçÌÝÃû³Æ**//
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (1,1,1,'³Ë¿ÍµçÌÝ');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (1,1,2,'ÔØ»õµçÌÝ');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (1,1,3,'ÒºÑ¹µçÌÝ');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (1,1,4,'ÔÓÎïµçÌÝ');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (1,1,5,'×Ô¶¯·öÌÝ');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (1,1,6,'×Ô¶¯ÈËÐÐµÀ');
+	//**ÆðÖØ»úÐµÃû³Æ**//
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,1,'ÇÅÊ½ÆðÖØ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,2,'ÃÅÊ½ÆðÖØ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,3,'ËþÊ½ÆðÖØ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,4,'Á÷¶¯Ê½ÆðÖØ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,5,'Ëæ³µÆðÖØ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,6,'ÃÅ×ùÆðÖØ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,7,'Éý½µ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,8,'ÀÂË÷ÆðÖØ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,9,'Î¦¸ËÆðÖØ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,10,'±ÛÐýÊ½ÆðÖØ»ú');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,11,'ÇáÐ¡ÐÍÆðÖØÉè±¸');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (2,1,12,'µçÕ¾Ç£ÕÅÉè±¸');
+	//**ÓÎÀÖÉèÊ©Ãû³Æ**//
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,1,'¹ÛÀÀ³µÀà');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,2,'»¬ÐÐ³µÀà');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,3,'¼Ü¿ÕÓÎÀÀ³µÀà');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,4,'Èü³µÀà');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,5,'Ð¡»ð³µÀà');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,6,'ÅöÅö³µÀà');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,7,'µç³Ø³µÀà');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,8,'¹Û¹â³µÀà');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,9,'Ë®ÉÏÓÎÀÖÉèÊ©');
+	insert into sjzd_data (sbmc_id,id,xh,nr) values (4,1,10,'ÎÞ¶¯Á¦ÓÎÀÖÉèÊ©');
+end if
+if mark = "sqlserver" then   
+   select count(*) into :ll_Count from sjzd_data_mx;
+	if sqlca.sqlcode = -1 then   
+	   modsql = "Drop Table djylrq.sjzd_data_mx"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.sjzd_data_mx(sbmc_id integer NOT NULL,csmc_id integer NOT NULL,"+&
+              "xh_id integer NOT NULL,xh integer NOT NULL,nr varchar(80) null,"+&
+              "mark varchar(4) null)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index sjzd_data_mx_x On djylrq.sjzd_data_mx (sbmc_id,csmc_id,xh_id,xh)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from sjzd_data_mx;
+	if sqlca.sqlcode = -1 then   
+	   modsql = "Drop Table sjzd_data_mx"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE sjzd_data_mx(sbmc_id integer NOT NULL,csmc_id integer NOT NULL,"+&
+              "xh_id integer NOT NULL,xh integer NOT NULL,nr varchar(80) null,"+&
+              "mark varchar(4) null,PRIMARY KEY (sbmc_id,csmc_id,xh_id,xh))"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+lb_Insert = false
+if mark = "sqlserver" then   
+   select count(*) into :ll_Count from sjzd_tzsb;
+	if sqlca.sqlcode = -1 then   
+	   lb_Insert = true
+		modsql = "Drop Table djylrq.sjzd_tzsb"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.sjzd_tzsb(id integer NOT NULL,"+&
+              "mc varchar(30) null)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index sjzd_tzsb_x On djylrq.sjzd_tzsb (id)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from sjzd_tzsb;
+	if sqlca.sqlcode = -1 then   
+	   lb_Insert = true
+		modsql = "Drop Table sjzd_tzsb"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE sjzd_tzsb(id integer NOT NULL,"+&
+              "mc varchar(30) null,PRIMARY KEY (id))"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+if lb_Insert  then   
+   insert into sjzd_tzsb (id,mc) values (1,'ÌØÖÖÉè±¸ÖÖÀà´úÂë');
+	insert into sjzd_tzsb (id,mc) values (2,'ÌØÖÖÉè±¸·ÖÀà´úÂë');
+	insert into sjzd_tzsb (id,mc) values (3,'Éè±¸ÓÃÍ¾´úÂë');
+	insert into sjzd_tzsb (id,mc) values (4,'Éè±¸Ê¹ÓÃ×´Ì¬´úÂë');
+	insert into sjzd_tzsb (id,mc) values (5,'ÌØÖÖÉè±¸Î¬±£×´Ì¬´úÂë');
+	insert into sjzd_tzsb (id,mc) values (6,'Éè±¸¼ìÑéÀà±ð´úÂë');
+	insert into sjzd_tzsb (id,mc) values (7,'Éè±¸Ö÷ÒªÎÊÌâ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (8,'Éè±¸¼ìÑé½áÂÛ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (9,'¼à²ì»ú¹¹ÐÔÖÊ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (10,'¼ìÑé¼ì²â»ú¹¹ÀàÐÍ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (11,'¼ìÑé¼ì²âÀàÐÍ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (12,'¼ø¶¨ÆÀÉó×Ê¸ñÀàÐÍ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (13,'×¨ÒµÈËÔ±Àà±ð´úÂë');
+	insert into sjzd_tzsb (id,mc) values (14,'ÈËÔ±³ÖÖ¤×´Ì¬´úÂë');
+	insert into sjzd_tzsb (id,mc) values (15,'ÈËÔ±³ÖÖ¤¼¶±ð´úÂë');
+	insert into sjzd_tzsb (id,mc) values (16,'ÎÞËð¼ì²â·½·¨´úÂë');
+	insert into sjzd_tzsb (id,mc) values (17,'ÎÞËð¼ì²â¼¶±ð´úÂë');
+	insert into sjzd_tzsb (id,mc) values (18,'ÊÂ¹ÊÔ­ÒòÀà±ð´úÂë');
+	insert into sjzd_tzsb (id,mc) values (19,'ÊÂ¹ÊÔ­Òò´úÂë');
+	insert into sjzd_tzsb (id,mc) values (20,'Î¥¹æÔ­Òò´úÂë');
+	insert into sjzd_tzsb (id,mc) values (21,'ÉËÍöÇé¿ö´úÂë');
+	insert into sjzd_tzsb (id,mc) values (22,'ÊÂ¹ÊÌØÕ÷´úÂë');
+	insert into sjzd_tzsb (id,mc) values (23,'ÊÂ¹Ê¼¶±ð´úÂë');
+	insert into sjzd_tzsb (id,mc) values (24,'ÊÂ¹ÊÐÎÊ½´úÂë');
+	insert into sjzd_tzsb (id,mc) values (25,'¼à¶½¼ì²éÀà±ð´úÂë');
+	insert into sjzd_tzsb (id,mc) values (26,'±»¼ì²éµ¥Î»Àà±ð´úÂë');
+	insert into sjzd_tzsb (id,mc) values (27,'ÐÐÕþÖ´·¨´¦Àí´ëÊ©´úÂë');
+	insert into sjzd_tzsb (id,mc) values (28,'Éè±¸¼ìÑéÎÊÌâÀà±ð´úÂë');
+	insert into sjzd_tzsb (id,mc) values (29,'Éè±¸¼ìÑéÈ±ÏÝÐÎÊ½´úÂë');
+	insert into sjzd_tzsb (id,mc) values (30,'Éè±¸¼ìÑéÈ±ÏÝ²¿Î»´úÂë');
+	insert into sjzd_tzsb (id,mc) values (31,'Éè±¸¼ìÑéÎÊÌâÐÔÖÊ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (32,'Éè±¸¼ìÑéÈ±ÏÝÔ­Òò´úÂë');
+	insert into sjzd_tzsb (id,mc) values (33,'Éè±¸¼ìÑé´¦ÀíÒâ¼û´úÂë');
+	insert into sjzd_tzsb (id,mc) values (34,'¹øÂ¯¼¼ÊõÊôÐÔ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (35,'Ñ¹Á¦ÈÝÆ÷¼¼ÊõÊôÐÔ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (36,'µçÌÝ¼¼ÊõÊôÐÔ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (37,'ÆðÖØ»úÐµ¼¼ÊõÊôÐÔ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (38,'´óÐÍÓÎÀÖÉèÊ©¼¼ÊõÊôÐÔ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (39,'Ñ¹Á¦¹ÜµÀ¼¼ÊõÊôÐÔ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (40,'¿ÍÔËË÷µÀ¼¼ÊõÊôÐÔ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (41,'°²È«¸½¼þ¼¼ÊõÊôÐÔ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (42,'¹øÂ¯¼¼ÊõÊôÐÔÖµ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (43,'Ñ¹Á¦ÈÝÆ÷¼¼ÊõÊôÐÔÖµ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (44,'µçÌÝ¼¼ÊõÊôÐÔÖµ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (45,'ÆðÖØ»úÐµ¼¼ÊõÊôÐÔÖµ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (46,'Ñ¹Á¦¹ÜµÀ¼¼ÊõÊôÐÔÖµ´úÂë');
+	insert into sjzd_tzsb (id,mc) values (47,'°²È«¸½¼þ¼¼ÊõÊôÐÔÖµ´úÂë');
+end if
+if mark = "sqlserver" then   
+   select count(*) into :ll_Count from sjzd_tzsb_data;
+	if sqlca.sqlcode = -1 then   
+	   modsql = "Drop Table djylrq.sjzd_tzsb_data"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.sjzd_tzsb_data(tzsb_id integer NOT NULL,xh integer NOT NULL,"+&
+              "dm varchar(30) null,mc varchar(80) null,sm varchar(40) null,"+&
+              "mark varchar(4) null)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index sjzd_tzsb_data_x On djylrq.sjzd_tzsb_data (tzsb_id,xh)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ll_Count from sjzd_tzsb_data;
+	if sqlca.sqlcode = -1 then   
+	   modsql = "Drop Table sjzd_tzsb_data"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE sjzd_tzsb_data(tzsb_id integer NOT NULL,xh integer NOT NULL,"+&
+              "dm varchar(30) null,mc varchar(80) null,sm varchar(40) null,"+&
+              "mark varchar(4) null,PRIMARY KEY (tzsb_id,xh))"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+//**¸ü»»Æä¼ìÉè±¸ÎªÆäËüÉè±¸**//
+update a_jyml_id set mc = 'ÆäËüÉè±¸' where id = 'Z';
+
+//**ÈÕÖ¾±í**//
+if mark = "sqlserver" then
+	select count(*) into :ll_Count from jyoa_log;
+	if sqlca.sqlcode = -1 then
+		modsql = "Drop Table djylrq.jyoa_log"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE djylrq.jyoa_log (logid numeric(10, 0) IDENTITY (1, 1) NOT NULL,"+&
+	             "name varchar (10) NULL,logtime varchar (20) NULL,dept varchar (20) NULL,"+&
+					 "operate varchar (30) NULL,dx varchar (12) NULL,lb varchar (12) NULL,"+&
+					 "bgbh varchar (20) NULL)"
+		execute immediate :modsql using sqlca;
+		modsql = "Create Unique Index jyoa_log_x On djylrq.jyoa_log (logid)"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ll_Count from jyoa_log;
+	if sqlca.sqlcode = -1 then
+		modsql = "Drop Table jyoa_log"
+		execute immediate :modsql using sqlca;
+		modsql = "CREATE TABLE jyoa_log (logid numeric(10,0) NOT NULL DEFAULT autoincrement,"+&
+              "name varchar(10) null,logtime varchar(20) null,dept varchar(20) null,"+&
+              "operate varchar(50) null,dx varchar(20) null,lb varchar(20) null,"+&
+              "bgbh varchar(20) null,PRIMARY KEY (logid))"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+if mark = "sqlserver" then
+	modsql = "Alter Table djylrq.z_rw_sb add sb_zcdm varchar(30) null,lsh integer null"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "Alter Table z_rw_sb add sb_zcdm varchar(30) null,add lsh integer null"
+	execute immediate :modsql using sqlca;
+end if
+commit;
+end subroutine
+

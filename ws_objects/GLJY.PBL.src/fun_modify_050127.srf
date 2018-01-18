@@ -1,0 +1,2145 @@
+﻿$PBExportHeader$fun_modify_050127.srf
+global type fun_modify_050127 from function_object
+end type
+
+forward prototypes
+global subroutine fun_modify_050127 (string cs1)
+end prototypes
+
+global subroutine fun_modify_050127 (string cs1);string delsql,mysql,myindex,modsql
+int    li_temp
+boolean lb_insert
+string ls_temp
+string mark = 'sybase'
+if sqlca.dbms = "MSS (Msoft) SQL Server 6.0" then 
+   mark = 'sqlserver'
+end if
+long ll_Count 
+ll_Count = 0
+
+if mark = 'sqlserver' then
+	select count(*) into :ll_count from glc_ylrq;
+	if sqlca.sqlcode = 0 then
+		modsql = "Alter table glc_ylrq add ccbh varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table glc_ylrq add jtcz1 varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table glc_ylrq add jthd1 varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table glc_ylrq add jthd2 varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ll_count from glc_ylrq;
+	if sqlca.sqlcode = 0 then
+		modsql = "Alter table glc_ylrq add ccbh varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table glc_ylrq add jtcz1 varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table glc_ylrq add jthd1 varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table glc_ylrq add jthd2 varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.glc_ylrq add ccbh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_total add ccbh varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_total add jyyj1 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_total add jyyj2 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_total add jyyj3 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_total add jyyj4 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_total add jyyj5 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_total add pdjg varchar(60) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_jgjc add jg25 varchar(20) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_jgjc add jg26 varchar(20) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_jgjc add jg27 varchar(20) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_jgjc add bz25 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_jgjc add bz26 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_jgjc add bz27 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table glc_ylrq add ccbh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_total add ccbh varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_total add jyyj1 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_total add jyyj2 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_total add jyyj3 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_total add jyyj4 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_total add jyyj5 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_total add pdjg varchar(60) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_jgjc add jg25 varchar(20) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_jgjc add jg26 varchar(20) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_jgjc add jg27 varchar(20) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_jgjc add bz25 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_jgjc add bz26 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_jgjc add bz27 varchar(30) null;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.f_gl_sgs alter column c1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c2 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c3 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c4 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c5 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c6 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c7 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c8 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c9 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c10 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c11 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c12 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c13 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c14 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c15 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c16 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c17 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c18 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c19 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c20 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c21 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c22 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c23 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c24 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c25 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c26 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c27 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c28 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c29 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c30 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c31 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c32 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_gl_sgs alter column c33 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_01 alter column c41 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_01 alter column c42 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_01 alter column c43 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_01 alter column c44 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_01 alter column c45 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_02 alter column c46 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_02 alter column c47 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_02 alter column c48 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_02 alter column c49 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_02 alter column c50 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_02 alter column c51 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_02 alter column c52 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_dzgl_02 alter column c53 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c2 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c3 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c4 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c5 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c6 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c7 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c8 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c9 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c10 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c11 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c12 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c13 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c14 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c15 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c16 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c17 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c18 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c19 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c20 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c21 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c22 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c23 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column clyj1 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column clyj2 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column clyj3 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column clyj4 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column clyj5 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column clyj5 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table f_gl_sgs modify c1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c2 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c3 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c4 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c5 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c6 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c7 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c8 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c9 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c10 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c11 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c12 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c13 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c14 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c15 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c16 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c17 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c18 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c19 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c20 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c21 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c22 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c23 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c24 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c25 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c26 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c27 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c28 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c29 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c30 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c31 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c32 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_gl_sgs modify c33 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_01 modify c41 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_01 modify c42 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_01 modify c43 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_01 modify c44 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_01 modify c45 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_02 modify c46 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_02 modify c47 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_02 modify c48 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_02 modify c49 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_02 modify c50 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_02 modify c51 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_02 modify c52 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_dzgl_02 modify c53 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c2 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c3 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c4 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c5 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c6 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c7 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c8 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c9 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c10 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c11 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c12 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c13 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c14 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c15 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c16 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c17 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c18 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c19 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c20 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c21 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c22 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify c23 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify clyj1 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify clyj2 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify clyj3 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify clyj4 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify clyj5 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+/////gh++µçÕ¾¹øÂ¯²¿¼þ
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_sz_total add bj_list varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_sz_total add bj_list varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+/////////////////////////³¤¹ÜÍÏ³µ/////////////////////////////////////
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_cgtc alter column zzbm varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column qpwj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column qpcd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column gcbh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column dprj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column qpsl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column zmj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column gzyl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column gzwd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column gzjz varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column csyl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column cswd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column csjz varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_cgtc alter column csqt varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_cgtc modify zzbm varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify qpwj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify qpcd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify gcbh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify dprj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify qpsl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify zmj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify gzyl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify gzwd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify gzjz varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify csyl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify cswd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify csjz varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_cgtc modify csqt varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+//////////ftxmb
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jd_glylrq add cpbh_1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jd_glylrq add cpgg_1 varchar(5) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jd_glylrq add cpgd varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	mysql = "alter table djylrq.b_jd_glylrq alter column cpbh varchar(50) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_glylrq alter column cpbh_1 varchar(50) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_glylrq alter column xkzh varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+else
+	modsql = "alter table b_jd_glylrq add cpbh_1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jd_glylrq add cpgg_1 varchar(5) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jd_glylrq add cpgd varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	mysql = "alter table b_jd_glylrq modify cpbh varchar(50) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_glylrq modify cpbh_1 varchar(50) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_glylrq modify xkzh varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then
+	mysql = "alter table djylrq.b_jd_ftcpxn add lb_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_ftcpxn add jcjg_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_ftcpxn add gzjz_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_ftcpxn add jyy_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_ftcpxn add date_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_ftcpxn add jyy_24 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_ftcpxn add date_24 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_ftcpxn add pj varchar(60) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jd_ftcpxn alter column zzdw varchar(60) NULL;"
+	execute immediate :mysql using sqlca;
+else
+	mysql = "alter table b_jd_ftcpxn add lb_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_ftcpxn add jcjg_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_ftcpxn add gzjz_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_ftcpxn add jyy_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_ftcpxn add date_23 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_ftcpxn add jyy_24 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_ftcpxn add date_24 varchar(30) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_ftcpxn add pj varchar(60) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jd_ftcpxn modify zzdw varchar(60) NULL;"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jj_total add sbxh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_total add jz varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_total add shyear varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_total add shmonth varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_total add jyyear varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_total add jymonth varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_total add jyday varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_jj_total add sbxh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_total add jz varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_total add shyear varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_total add shmonth varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_total add jyyear varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_total add jymonth varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_total add jyday varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+//ÆøÆ¿ÐøÒ³
+If mark="sqlserver" THEN
+	mysql="CREATE TABLE djylrq.b_dj_qptotal_xy(jyid varchar(20) not null,bgbh varchar(20) null,xh varchar(20) not null,"+&
+	      "js varchar(200) null,jg varchar(100) null,a1 varchar(60) null,a2 varchar(60) null,a3 varchar(60) null,a4 varchar(60) null,"+&
+			"a5 varchar(60) null,a6 varchar(60) null,a7 varchar(60) null,a8 varchar(60) null,a9 varchar(60) null,a10 varchar(60) null,"+&
+			"a11 varchar(60) null,a12 varchar(60) null,a13 varchar(60) null,a14 varchar(60) null,a15 varchar(60) null,a16 varchar(60) null,"+&
+			"a17 varchar(60) null,a18 varchar(60) null,a19 varchar(60) null,a20 varchar(60) null,a21 varchar(60) null,a22 varchar(60) null,"+&
+			"a23 varchar(60) null,a24 varchar(60) null,a25 varchar(60) null,a26 varchar(60) null,a27 varchar(60) null,a28 varchar(60) null,"+&
+			"a29 varchar(60) null,a30 varchar(60) null,a31 varchar(60) null,a32 varchar(60) null,a33 varchar(60) null,a34 varchar(60) null,"+&
+			"a35 varchar(60) null,a36 varchar(60) null,a37 varchar(60) null,a38 varchar(60) null,a39 varchar(60) null,a40 varchar(60) null,"+&
+			"a41 varchar(60) null,a42 varchar(60) null,a43 varchar(60) null,a44 varchar(60) null,a45 varchar(60) null,a46 varchar(60) null,"+&
+			"a47 varchar(60) null,a48 varchar(60) null,a49 varchar(60) null,a50 varchar(60) null,a51 varchar(60) null,a52 varchar(60) null,"+&
+			"a53 varchar(60) null,a54 varchar(60) null,a55 varchar(60) null,a56 varchar(60) null,a57 varchar(60) null,a58 varchar(60) null,"+&
+			"a59 varchar(60) null,a60 varchar(60) null,a61 varchar(60) null,a62 varchar(60) null,a63 varchar(60) null,a64 varchar(60) null,"+&
+			"a65 varchar(60) null,a66 varchar(60) null,a67 varchar(60) null,a68 varchar(60) null,a69 varchar(60) null,a70 varchar(60) null,"+&
+			"a71 varchar(60) null,a72 varchar(60) null,a73 varchar(60) null,a74 varchar(60) null,a75 varchar(60) null,a76 varchar(60) null,"+&
+			"a77 varchar(60) null,a78 varchar(60) null,a79 varchar(60) null,a80 varchar(60) null,a81 varchar(60) null,a82 varchar(60) null,"+&
+			"a83 varchar(60) null,a84 varchar(60) null,a85 varchar(60) null,a86 varchar(60) null,a87 varchar(60) null,a88 varchar(60) null,"+&
+			"a89 varchar(60) null,a90 varchar(60) null,a91 varchar(60) null,a92 varchar(60) null,a93 varchar(60) null,a94 varchar(60) null,"+&
+			"a95 varchar(60) null,a96 varchar(60) null,a97 varchar(60) null,a98 varchar(60) null,a99 varchar(60) null,a100 varchar(60) null,"+&
+			"b1 varchar(60) null,b2 varchar(60) null,b3 varchar(60) null,b4 varchar(60) null,b5 varchar(60) null,b6 varchar(60) null,"+&
+			"b7 varchar(60) null,b8 varchar(60) null,b9 varchar(60) null,b10 varchar(60) null,b11 varchar(60) null,b12 varchar(60) null,"+&
+			"b13 varchar(60) null,b14 varchar(60) null,b15 varchar(60) null,b16 varchar(60) null,b17 varchar(60) null,b18 varchar(60) null,"+&
+			"b19 varchar(60) null,b20 varchar(60) null,b21 varchar(60) null,b22 varchar(60) null,b23 varchar(60) null,b24 varchar(60) null,"+&
+			"b25 varchar(60) null,b26 varchar(60) null,b27 varchar(60) null,b28 varchar(60) null,"+&
+			"b29 varchar(60) null,b30 varchar(60) null,b31 varchar(60) null,b32 varchar(60) null,b33 varchar(60) null,b34 varchar(60) null,"+&
+			"b35 varchar(60) null,b36 varchar(60) null,b37 varchar(60) null,b38 varchar(60) null,b39 varchar(60) null,b40 varchar(60) null,"+&
+			"b41 varchar(60) null,b42 varchar(60) null,b43 varchar(60) null,b44 varchar(60) null,b45 varchar(60) null,b46 varchar(60) null,"+&
+			"b47 varchar(60) null,b48 varchar(60) null,b49 varchar(60) null,b50 varchar(60) null);"
+		execute immediate :mysql using sqlca;
+		myindex = "CREATE UNIQUE INDEX b_dj_qptotal_xy_X ON DJYLRQ.b_dj_qptotal_xy (jyid,xh)"
+	   execute immediate :myindex using sqlca;
+	ELSE
+	mysql="CREATE TABLE b_dj_qptotal_xy(jyid varchar(20) not null,bgbh varchar(20) null,xh varchar(20) not null,"+&
+	      "js varchar(200) null,jg varchar(100) null,a1 varchar(60) null,a2 varchar(60) null,a3 varchar(60) null,a4 varchar(60) null,"+&
+			"a5 varchar(60) null,a6 varchar(60) null,a7 varchar(60) null,a8 varchar(60) null,a9 varchar(60) null,a10 varchar(60) null,"+&
+			"a11 varchar(60) null,a12 varchar(60) null,a13 varchar(60) null,a14 varchar(60) null,a15 varchar(60) null,a16 varchar(60) null,"+&
+			"a17 varchar(60) null,a18 varchar(60) null,a19 varchar(60) null,a20 varchar(60) null,a21 varchar(60) null,a22 varchar(60) null,"+&
+			"a23 varchar(60) null,a24 varchar(60) null,a25 varchar(60) null,a26 varchar(60) null,a27 varchar(60) null,a28 varchar(60) null,"+&
+			"a29 varchar(60) null,a30 varchar(60) null,a31 varchar(60) null,a32 varchar(60) null,a33 varchar(60) null,a34 varchar(60) null,"+&
+			"a35 varchar(60) null,a36 varchar(60) null,a37 varchar(60) null,a38 varchar(60) null,a39 varchar(60) null,a40 varchar(60) null,"+&
+			"a41 varchar(60) null,a42 varchar(60) null,a43 varchar(60) null,a44 varchar(60) null,a45 varchar(60) null,a46 varchar(60) null,"+&
+			"a47 varchar(60) null,a48 varchar(60) null,a49 varchar(60) null,a50 varchar(60) null,a51 varchar(60) null,a52 varchar(60) null,"+&
+			"a53 varchar(60) null,a54 varchar(60) null,a55 varchar(60) null,a56 varchar(60) null,a57 varchar(60) null,a58 varchar(60) null,"+&
+			"a59 varchar(60) null,a60 varchar(60) null,a61 varchar(60) null,a62 varchar(60) null,a63 varchar(60) null,a64 varchar(60) null,"+&
+			"a65 varchar(60) null,a66 varchar(60) null,a67 varchar(60) null,a68 varchar(60) null,a69 varchar(60) null,a70 varchar(60) null,"+&
+			"a71 varchar(60) null,a72 varchar(60) null,a73 varchar(60) null,a74 varchar(60) null,a75 varchar(60) null,a76 varchar(60) null,"+&
+			"a77 varchar(60) null,a78 varchar(60) null,a79 varchar(60) null,a80 varchar(60) null,a81 varchar(60) null,a82 varchar(60) null,"+&
+			"a83 varchar(60) null,a84 varchar(60) null,a85 varchar(60) null,a86 varchar(60) null,a87 varchar(60) null,a88 varchar(60) null,"+&
+			"a89 varchar(60) null,a90 varchar(60) null,a91 varchar(60) null,a92 varchar(60) null,a93 varchar(60) null,a94 varchar(60) null,"+&
+			"a95 varchar(60) null,a96 varchar(60) null,a97 varchar(60) null,a98 varchar(60) null,a99 varchar(60) null,a100 varchar(60) null,"+&
+			"b1 varchar(60) null,b2 varchar(60) null,b3 varchar(60) null,b4 varchar(60) null,b5 varchar(60) null,b6 varchar(60) null,"+&
+			"b7 varchar(60) null,b8 varchar(60) null,b9 varchar(60) null,b10 varchar(60) null,b11 varchar(60) null,b12 varchar(60) null,"+&
+			"b13 varchar(60) null,b14 varchar(60) null,b15 varchar(60) null,b16 varchar(60) null,b17 varchar(60) null,b18 varchar(60) null,"+&
+			"b19 varchar(60) null,b20 varchar(60) null,b21 varchar(60) null,b22 varchar(60) null,b23 varchar(60) null,b24 varchar(60) null,"+&
+			"b25 varchar(60) null,b26 varchar(60) null,b27 varchar(60) null,b28 varchar(60) null,"+&
+			"b29 varchar(60) null,b30 varchar(60) null,b31 varchar(60) null,b32 varchar(60) null,b33 varchar(60) null,b34 varchar(60) null,"+&
+			"b35 varchar(60) null,b36 varchar(60) null,b37 varchar(60) null,b38 varchar(60) null,b39 varchar(60) null,b40 varchar(60) null,"+&
+			"b41 varchar(60) null,b42 varchar(60) null,b43 varchar(60) null,b44 varchar(60) null,b45 varchar(60) null,b46 varchar(60) null,"+&
+			"b47 varchar(60) null,b48 varchar(60) null,b49 varchar(60) null,b50 varchar(60) null,PRIMARY KEY (jyid,xh));"
+		execute immediate :mysql using sqlca;
+	END IF
+	///////////////////////////////////////////////////////
+	if mark = 'sqlserver' then
+	mysql = "CREATE TABLE djylrq.f_gl_gqs1 (jyid varchar(20) NOT NULL,cpxh varchar(50) NULL,bh1 varchar(30) NULL,"+&
+              "bh2 varchar(30) NULL,bh3 varchar(30) NULL,bh4 varchar(30) NULL,bh5 varchar(30) NULL,"+&
+              "bh6 varchar(30) NULL,bh7 varchar(30) NULL,bh8 varchar(30) NULL,bh9 varchar(30) NULL,"+&
+				  "bh10 varchar(30) NULL,bh11 varchar(30) NULL,bh12 varchar(30) NULL,bh13 varchar(30) NULL,"+&
+				  "bh14 varchar(30) NULL,bh15 varchar(30) NULL,bh16 varchar(30) NULL,bh17 varchar(30) NULL,"+&
+				  "bh18 varchar(30) NULL,bh19 varchar(30) NULL,bh20 varchar(30) NULL,bh21 varchar(30) NULL,"+&
+				  "bh22 varchar(30) NULL,ph1 varchar(30) NULL,ph2 varchar(30) NULL,ph3 varchar(30) NULL,"+&
+				  "ph4 varchar(30) NULL,ph5 varchar(30) NULL,ph6 varchar(30) NULL,ph7 varchar(30) NULL,"+&
+				  "ph8 varchar(30) NULL,ph9 varchar(30) NULL,ph10 varchar(30) NULL,ph11 varchar(30) NULL,"+&
+				  "ph12 varchar(30) NULL,ph13 varchar(30) NULL,ph14 varchar(30) NULL,ph15 varchar(30) NULL,"+&
+				  "ph16 varchar(30) NULL,ph17 varchar(30) NULL,ph18 varchar(30) NULL,ph19 varchar(30) NULL,"+&
+				  "ph20 varchar(30) NULL,ph21 varchar(30) NULL,ph22 varchar(30) NULL,jg1 varchar(50) NULL,"+&
+				  "jg2 varchar(50) NULL,jg3 varchar(50) NULL,jg4 varchar(50) NULL,jg5 varchar(50) NULL,"+&
+				  "jg6 varchar(50) NULL,jg7 varchar(50) NULL,jg8 varchar(50) NULL,jg9 varchar(50) NULL,"+&
+				  "jg10 varchar(50) NULL,jg11 varchar(50) NULL,jg12 varchar(50) NULL,jg13 varchar(50) NULL,"+&
+				  "jg14 varchar(50) NULL,jg15 varchar(50) NULL,jg16 varchar(50) NULL,jg17 varchar(50) NULL,"+&
+				  "jg18 varchar(50) NULL,jg19 varchar(50) NULL,jg20 varchar(50) NULL,jg21 varchar(50) NULL,"+&
+				  "jg22 varchar(50) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,"+&
+				  "bz4 varchar(30) NULL,bz5 varchar(30) NULL,bz6 varchar(30) NULL,bz7 varchar(30) NULL,"+&
+				  "bz8 varchar(30) NULL,bz9 varchar(30) NULL,bz10 varchar(30) NULL,bz11 varchar(30) NULL,"+&
+				  "bz12 varchar(30) NULL,bz13 varchar(30) NULL,bz14 varchar(30) NULL,bz15 varchar(30) NULL,"+&
+				  "bz16 varchar(30) NULL,bz17 varchar(30) NULL,bz18 varchar(30) NULL,bz19 varchar(30) NULL,"+&
+				  "bz20 varchar(30) NULL,bz21 varchar(30) NULL,bz22 varchar(30) NULL,pzzs varchar(20) NULL,"+&
+				  "ccps varchar(20) NULL,fxps varchar(20) NULL,ccbl varchar(20) NULL,year varchar(4) NULL,month varchar(2) NULL,day varchar(2) NULL,jyname varchar(10) NULL);"
+	execute immediate :mysql using sqlca;
+	myindex = "CREATE UNIQUE INDEX f_gl_gqs1_X ON DJYLRQ.f_gl_gqs1 (jyid)"
+	execute immediate :myindex using sqlca;
+else
+	mysql = "CREATE TABLE f_gl_gqs1 (jyid varchar(20) NOT NULL,cpxh varchar(50) NULL,bh1 varchar(30) NULL,"+&
+              "bh2 varchar(30) NULL,bh3 varchar(30) NULL,bh4 varchar(30) NULL,bh5 varchar(30) NULL,"+&
+              "bh6 varchar(30) NULL,bh7 varchar(30) NULL,bh8 varchar(30) NULL,bh9 varchar(30) NULL,"+&
+				  "bh10 varchar(30) NULL,bh11 varchar(30) NULL,bh12 varchar(30) NULL,bh13 varchar(30) NULL,"+&
+				  "bh14 varchar(30) NULL,bh15 varchar(30) NULL,bh16 varchar(30) NULL,bh17 varchar(30) NULL,"+&
+				  "bh18 varchar(30) NULL,bh19 varchar(30) NULL,bh20 varchar(30) NULL,bh21 varchar(30) NULL,"+&
+				  "bh22 varchar(30) NULL,ph1 varchar(30) NULL,ph2 varchar(30) NULL,ph3 varchar(30) NULL,"+&
+				  "ph4 varchar(30) NULL,ph5 varchar(30) NULL,ph6 varchar(30) NULL,ph7 varchar(30) NULL,"+&
+				  "ph8 varchar(30) NULL,ph9 varchar(30) NULL,ph10 varchar(30) NULL,ph11 varchar(30) NULL,"+&
+				  "ph12 varchar(30) NULL,ph13 varchar(30) NULL,ph14 varchar(30) NULL,ph15 varchar(30) NULL,"+&
+				  "ph16 varchar(30) NULL,ph17 varchar(30) NULL,ph18 varchar(30) NULL,ph19 varchar(30) NULL,"+&
+				  "ph20 varchar(30) NULL,ph21 varchar(30) NULL,ph22 varchar(30) NULL,jg1 varchar(50) NULL,"+&
+				  "jg2 varchar(50) NULL,jg3 varchar(50) NULL,jg4 varchar(50) NULL,jg5 varchar(50) NULL,"+&
+				  "jg6 varchar(50) NULL,jg7 varchar(50) NULL,jg8 varchar(50) NULL,jg9 varchar(50) NULL,"+&
+				  "jg10 varchar(50) NULL,jg11 varchar(50) NULL,jg12 varchar(50) NULL,jg13 varchar(50) NULL,"+&
+				  "jg14 varchar(50) NULL,jg15 varchar(50) NULL,jg16 varchar(50) NULL,jg17 varchar(50) NULL,"+&
+				  "jg18 varchar(50) NULL,jg19 varchar(50) NULL,jg20 varchar(50) NULL,jg21 varchar(50) NULL,"+&
+				  "jg22 varchar(50) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,"+&
+				  "bz4 varchar(30) NULL,bz5 varchar(30) NULL,bz6 varchar(30) NULL,bz7 varchar(30) NULL,"+&
+				  "bz8 varchar(30) NULL,bz9 varchar(30) NULL,bz10 varchar(30) NULL,bz11 varchar(30) NULL,"+&
+				  "bz12 varchar(30) NULL,bz13 varchar(30) NULL,bz14 varchar(30) NULL,bz15 varchar(30) NULL,"+&
+				  "bz16 varchar(30) NULL,bz17 varchar(30) NULL,bz18 varchar(30) NULL,bz19 varchar(30) NULL,"+&
+				  "bz20 varchar(30) NULL,bz21 varchar(30) NULL,bz22 varchar(30) NULL,pzzs varchar(20) NULL,"+&
+				  "ccps varchar(20) NULL,fxps varchar(20) NULL,ccbl varchar(20) NULL,year varchar(4) NULL,month varchar(2) NULL,day varchar(2) NULL,jyname varchar(10) NULL,PRIMARY KEY (jyid));"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then
+	mysql = "CREATE TABLE djylrq.f_gl_gqs1_xy (jyid varchar(20) NOT NULL,xh varchar(20) not null,bh1 varchar(30) NULL,"+&
+				  "bh2 varchar(30) NULL,bh3 varchar(30) NULL,bh4 varchar(30) NULL,bh5 varchar(30) NULL,"+&
+              "bh6 varchar(30) NULL,bh7 varchar(30) NULL,bh8 varchar(30) NULL,bh9 varchar(30) NULL,"+&
+				  "bh10 varchar(30) NULL,bh11 varchar(30) NULL,bh12 varchar(30) NULL,bh13 varchar(30) NULL,"+&
+				  "bh14 varchar(30) NULL,bh15 varchar(30) NULL,bh16 varchar(30) NULL,bh17 varchar(30) NULL,"+&
+				  "bh18 varchar(30) NULL,bh19 varchar(30) NULL,bh20 varchar(30) NULL,bh21 varchar(30) NULL,"+&
+				  "bh22 varchar(30) NULL,ph1 varchar(30) NULL,ph2 varchar(30) NULL,ph3 varchar(30) NULL,"+&
+				  "ph4 varchar(30) NULL,ph5 varchar(30) NULL,ph6 varchar(30) NULL,ph7 varchar(30) NULL,"+&
+				  "ph8 varchar(30) NULL,ph9 varchar(30) NULL,ph10 varchar(30) NULL,ph11 varchar(30) NULL,"+&
+				  "ph12 varchar(30) NULL,ph13 varchar(30) NULL,ph14 varchar(30) NULL,ph15 varchar(30) NULL,"+&
+				  "ph16 varchar(30) NULL,ph17 varchar(30) NULL,ph18 varchar(30) NULL,ph19 varchar(30) NULL,"+&
+				  "ph20 varchar(30) NULL,ph21 varchar(30) NULL,ph22 varchar(30) NULL,jg1 varchar(50) NULL,"+&
+				  "jg2 varchar(50) NULL,jg3 varchar(50) NULL,jg4 varchar(50) NULL,jg5 varchar(50) NULL,"+&
+				  "jg6 varchar(50) NULL,jg7 varchar(50) NULL,jg8 varchar(50) NULL,jg9 varchar(50) NULL,"+&
+				  "jg10 varchar(50) NULL,jg11 varchar(50) NULL,jg12 varchar(50) NULL,jg13 varchar(50) NULL,"+&
+				  "jg14 varchar(50) NULL,jg15 varchar(50) NULL,jg16 varchar(50) NULL,jg17 varchar(50) NULL,"+&
+				  "jg18 varchar(50) NULL,jg19 varchar(50) NULL,jg20 varchar(50) NULL,jg21 varchar(50) NULL,"+&
+				  "jg22 varchar(50) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,"+&
+				  "bz4 varchar(30) NULL,bz5 varchar(30) NULL,bz6 varchar(30) NULL,bz7 varchar(30) NULL,"+&
+				  "bz8 varchar(30) NULL,bz9 varchar(30) NULL,bz10 varchar(30) NULL,bz11 varchar(30) NULL,"+&
+				  "bz12 varchar(30) NULL,bz13 varchar(30) NULL,bz14 varchar(30) NULL,bz15 varchar(30) NULL,"+&
+				  "bz16 varchar(30) NULL,bz17 varchar(30) NULL,bz18 varchar(30) NULL,bz19 varchar(30) NULL,"+&
+				  "bz20 varchar(30) NULL,bz21 varchar(30) NULL,bz22 varchar(30) NULL,lh1 varchar(10) NULL,"+&
+				  "lh2 varchar(10) NULL,lh3 varchar(10) NULL,lh4 varchar(10) NULL,lh5 varchar(10) NULL,"+&
+				  "lh6 varchar(10) NULL,lh7 varchar(10) NULL,lh8 varchar(10) NULL,lh9 varchar(10) NULL,"+&
+				  "lh10 varchar(10) NULL,lh11 varchar(10) NULL,lh12 varchar(10) NULL,lh13 varchar(10) NULL,"+&
+				  "lh14 varchar(10) NULL,lh15 varchar(10) NULL,lh16 varchar(10) NULL,lh17 varchar(10) NULL,"+&
+				  "lh18 varchar(10) NULL,lh19 varchar(10) NULL,lh20 varchar(10) NULL,lh21 varchar(10) NULL,"+&
+				  "lh22 varchar(10) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "CREATE UNIQUE INDEX f_gl_gqs1_xy_X ON DJYLRQ.f_gl_gqs1_xy (jyid,xh)"
+	execute immediate :myindex using sqlca;
+else
+	mysql = "CREATE TABLE f_gl_gqs1_xy (jyid varchar(20) NOT NULL,xh varchar(20) not null,bh1 varchar(30) NULL,"+&
+				  "bh2 varchar(30) NULL,bh3 varchar(30) NULL,bh4 varchar(30) NULL,bh5 varchar(30) NULL,"+&
+              "bh6 varchar(30) NULL,bh7 varchar(30) NULL,bh8 varchar(30) NULL,bh9 varchar(30) NULL,"+&
+				  "bh10 varchar(30) NULL,bh11 varchar(30) NULL,bh12 varchar(30) NULL,bh13 varchar(30) NULL,"+&
+				  "bh14 varchar(30) NULL,bh15 varchar(30) NULL,bh16 varchar(30) NULL,bh17 varchar(30) NULL,"+&
+				  "bh18 varchar(30) NULL,bh19 varchar(30) NULL,bh20 varchar(30) NULL,bh21 varchar(30) NULL,"+&
+				  "bh22 varchar(30) NULL,ph1 varchar(30) NULL,ph2 varchar(30) NULL,ph3 varchar(30) NULL,"+&
+				  "ph4 varchar(30) NULL,ph5 varchar(30) NULL,ph6 varchar(30) NULL,ph7 varchar(30) NULL,"+&
+				  "ph8 varchar(30) NULL,ph9 varchar(30) NULL,ph10 varchar(30) NULL,ph11 varchar(30) NULL,"+&
+				  "ph12 varchar(30) NULL,ph13 varchar(30) NULL,ph14 varchar(30) NULL,ph15 varchar(30) NULL,"+&
+				  "ph16 varchar(30) NULL,ph17 varchar(30) NULL,ph18 varchar(30) NULL,ph19 varchar(30) NULL,"+&
+				  "ph20 varchar(30) NULL,ph21 varchar(30) NULL,ph22 varchar(30) NULL,jg1 varchar(50) NULL,"+&
+				  "jg2 varchar(50) NULL,jg3 varchar(50) NULL,jg4 varchar(50) NULL,jg5 varchar(50) NULL,"+&
+				  "jg6 varchar(50) NULL,jg7 varchar(50) NULL,jg8 varchar(50) NULL,jg9 varchar(50) NULL,"+&
+				  "jg10 varchar(50) NULL,jg11 varchar(50) NULL,jg12 varchar(50) NULL,jg13 varchar(50) NULL,"+&
+				  "jg14 varchar(50) NULL,jg15 varchar(50) NULL,jg16 varchar(50) NULL,jg17 varchar(50) NULL,"+&
+				  "jg18 varchar(50) NULL,jg19 varchar(50) NULL,jg20 varchar(50) NULL,jg21 varchar(50) NULL,"+&
+				  "jg22 varchar(50) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,"+&
+				  "bz4 varchar(30) NULL,bz5 varchar(30) NULL,bz6 varchar(30) NULL,bz7 varchar(30) NULL,"+&
+				  "bz8 varchar(30) NULL,bz9 varchar(30) NULL,bz10 varchar(30) NULL,bz11 varchar(30) NULL,"+&
+				  "bz12 varchar(30) NULL,bz13 varchar(30) NULL,bz14 varchar(30) NULL,bz15 varchar(30) NULL,"+&
+				  "bz16 varchar(30) NULL,bz17 varchar(30) NULL,bz18 varchar(30) NULL,bz19 varchar(30) NULL,"+&
+				  "bz20 varchar(30) NULL,bz21 varchar(30) NULL,bz22 varchar(30) NULL,lh1 varchar(10) NULL,"+&
+				  "lh2 varchar(10) NULL,lh3 varchar(10) NULL,lh4 varchar(10) NULL,lh5 varchar(10) NULL,"+&
+				  "lh6 varchar(10) NULL,lh7 varchar(10) NULL,lh8 varchar(10) NULL,lh9 varchar(10) NULL,"+&
+				  "lh10 varchar(10) NULL,lh11 varchar(10) NULL,lh12 varchar(10) NULL,lh13 varchar(10) NULL,"+&
+				  "lh14 varchar(10) NULL,lh15 varchar(10) NULL,lh16 varchar(10) NULL,lh17 varchar(10) NULL,"+&
+				  "lh18 varchar(10) NULL,lh19 varchar(10) NULL,lh20 varchar(10) NULL,lh21 varchar(10) NULL,"+&
+				  "lh22 varchar(10) null,PRIMARY KEY (jyid,xh));"
+	execute immediate :mysql using sqlca;
+end if
+//¹¤Òµ¹øÂ¯Ë®¹ÜÊ½ÏîÄ¿±í
+if mark = 'sqlserver' then
+	mysql = "CREATE TABLE djylrq.f_gl_sgs1 (jyid varchar(20) NOT NULL,cpxh varchar(50) NULL,bh1 varchar(30) NULL,"+&
+              "bh2 varchar(30) NULL,bh3 varchar(30) NULL,bh4 varchar(30) NULL,bh5 varchar(30) NULL,"+&
+              "bh6 varchar(30) NULL,bh7 varchar(30) NULL,bh8 varchar(30) NULL,bh9 varchar(30) NULL,"+&
+				  "bh10 varchar(30) NULL,bh11 varchar(30) NULL,bh12 varchar(30) NULL,bh13 varchar(30) NULL,"+&
+				  "bh14 varchar(30) NULL,bh15 varchar(30) NULL,bh16 varchar(30) NULL,bh17 varchar(30) NULL,"+&
+				  "bh18 varchar(30) NULL,bh19 varchar(30) NULL,bh20 varchar(30) NULL,bh21 varchar(30) NULL,"+&
+				  "bh22 varchar(30) NULL,ph1 varchar(30) NULL,ph2 varchar(30) NULL,ph3 varchar(30) NULL,"+&
+				  "ph4 varchar(30) NULL,ph5 varchar(30) NULL,ph6 varchar(30) NULL,ph7 varchar(30) NULL,"+&
+				  "ph8 varchar(30) NULL,ph9 varchar(30) NULL,ph10 varchar(30) NULL,ph11 varchar(30) NULL,"+&
+				  "ph12 varchar(30) NULL,ph13 varchar(30) NULL,ph14 varchar(30) NULL,ph15 varchar(30) NULL,"+&
+				  "ph16 varchar(30) NULL,ph17 varchar(30) NULL,ph18 varchar(30) NULL,ph19 varchar(30) NULL,"+&
+				  "ph20 varchar(30) NULL,ph21 varchar(30) NULL,ph22 varchar(30) NULL,jg1 varchar(50) NULL,"+&
+				  "jg2 varchar(50) NULL,jg3 varchar(50) NULL,jg4 varchar(50) NULL,jg5 varchar(50) NULL,"+&
+				  "jg6 varchar(50) NULL,jg7 varchar(50) NULL,jg8 varchar(50) NULL,jg9 varchar(50) NULL,"+&
+				  "jg10 varchar(50) NULL,jg11 varchar(50) NULL,jg12 varchar(50) NULL,jg13 varchar(50) NULL,"+&
+				  "jg14 varchar(50) NULL,jg15 varchar(50) NULL,jg16 varchar(50) NULL,jg17 varchar(50) NULL,"+&
+				  "jg18 varchar(50) NULL,jg19 varchar(50) NULL,jg20 varchar(50) NULL,jg21 varchar(50) NULL,"+&
+				  "jg22 varchar(50) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,"+&
+				  "bz4 varchar(30) NULL,bz5 varchar(30) NULL,bz6 varchar(30) NULL,bz7 varchar(30) NULL,"+&
+				  "bz8 varchar(30) NULL,bz9 varchar(30) NULL,bz10 varchar(30) NULL,bz11 varchar(30) NULL,"+&
+				  "bz12 varchar(30) NULL,bz13 varchar(30) NULL,bz14 varchar(30) NULL,bz15 varchar(30) NULL,"+&
+				  "bz16 varchar(30) NULL,bz17 varchar(30) NULL,bz18 varchar(30) NULL,bz19 varchar(30) NULL,"+&
+				  "bz20 varchar(30) NULL,bz21 varchar(30) NULL,bz22 varchar(30) NULL,pzzs varchar(20) NULL,"+&
+				  "ccps varchar(20) NULL,fxps varchar(20) NULL,ccbl varchar(20) NULL,year varchar(4) NULL,month varchar(2) NULL,day varchar(2) NULL,jyname varchar(10) NULL);"
+	execute immediate :mysql using sqlca;
+	myindex = "CREATE UNIQUE INDEX f_gl_sgs1_X ON DJYLRQ.f_gl_sgs1 (jyid)"
+	execute immediate :myindex using sqlca;
+else
+	mysql = "CREATE TABLE f_gl_sgs1 (jyid varchar(20) NOT NULL,cpxh varchar(50) NULL,bh1 varchar(30) NULL,"+&
+              "bh2 varchar(30) NULL,bh3 varchar(30) NULL,bh4 varchar(30) NULL,bh5 varchar(30) NULL,"+&
+              "bh6 varchar(30) NULL,bh7 varchar(30) NULL,bh8 varchar(30) NULL,bh9 varchar(30) NULL,"+&
+				  "bh10 varchar(30) NULL,bh11 varchar(30) NULL,bh12 varchar(30) NULL,bh13 varchar(30) NULL,"+&
+				  "bh14 varchar(30) NULL,bh15 varchar(30) NULL,bh16 varchar(30) NULL,bh17 varchar(30) NULL,"+&
+				  "bh18 varchar(30) NULL,bh19 varchar(30) NULL,bh20 varchar(30) NULL,bh21 varchar(30) NULL,"+&
+				  "bh22 varchar(30) NULL,ph1 varchar(30) NULL,ph2 varchar(30) NULL,ph3 varchar(30) NULL,"+&
+				  "ph4 varchar(30) NULL,ph5 varchar(30) NULL,ph6 varchar(30) NULL,ph7 varchar(30) NULL,"+&
+				  "ph8 varchar(30) NULL,ph9 varchar(30) NULL,ph10 varchar(30) NULL,ph11 varchar(30) NULL,"+&
+				  "ph12 varchar(30) NULL,ph13 varchar(30) NULL,ph14 varchar(30) NULL,ph15 varchar(30) NULL,"+&
+				  "ph16 varchar(30) NULL,ph17 varchar(30) NULL,ph18 varchar(30) NULL,ph19 varchar(30) NULL,"+&
+				  "ph20 varchar(30) NULL,ph21 varchar(30) NULL,ph22 varchar(30) NULL,jg1 varchar(50) NULL,"+&
+				  "jg2 varchar(50) NULL,jg3 varchar(50) NULL,jg4 varchar(50) NULL,jg5 varchar(50) NULL,"+&
+				  "jg6 varchar(50) NULL,jg7 varchar(50) NULL,jg8 varchar(50) NULL,jg9 varchar(50) NULL,"+&
+				  "jg10 varchar(50) NULL,jg11 varchar(50) NULL,jg12 varchar(50) NULL,jg13 varchar(50) NULL,"+&
+				  "jg14 varchar(50) NULL,jg15 varchar(50) NULL,jg16 varchar(50) NULL,jg17 varchar(50) NULL,"+&
+				  "jg18 varchar(50) NULL,jg19 varchar(50) NULL,jg20 varchar(50) NULL,jg21 varchar(50) NULL,"+&
+				  "jg22 varchar(50) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,"+&
+				  "bz4 varchar(30) NULL,bz5 varchar(30) NULL,bz6 varchar(30) NULL,bz7 varchar(30) NULL,"+&
+				  "bz8 varchar(30) NULL,bz9 varchar(30) NULL,bz10 varchar(30) NULL,bz11 varchar(30) NULL,"+&
+				  "bz12 varchar(30) NULL,bz13 varchar(30) NULL,bz14 varchar(30) NULL,bz15 varchar(30) NULL,"+&
+				  "bz16 varchar(30) NULL,bz17 varchar(30) NULL,bz18 varchar(30) NULL,bz19 varchar(30) NULL,"+&
+				  "bz20 varchar(30) NULL,bz21 varchar(30) NULL,bz22 varchar(30) NULL,pzzs varchar(20) NULL,"+&
+				  "ccps varchar(20) NULL,fxps varchar(20) NULL,ccbl varchar(20) NULL,year varchar(4) NULL,month varchar(2) NULL,day varchar(2) NULL,jyname varchar(10) NULL,PRIMARY KEY (jyid));"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then
+	mysql = "CREATE TABLE djylrq.f_gl_sgs1_xy (jyid varchar(20) NOT NULL,xh varchar(20) not null,bh1 varchar(30) NULL,"+&
+				  "bh2 varchar(30) NULL,bh3 varchar(30) NULL,bh4 varchar(30) NULL,bh5 varchar(30) NULL,"+&
+              "bh6 varchar(30) NULL,bh7 varchar(30) NULL,bh8 varchar(30) NULL,bh9 varchar(30) NULL,"+&
+				  "bh10 varchar(30) NULL,bh11 varchar(30) NULL,bh12 varchar(30) NULL,bh13 varchar(30) NULL,"+&
+				  "bh14 varchar(30) NULL,bh15 varchar(30) NULL,bh16 varchar(30) NULL,bh17 varchar(30) NULL,"+&
+				  "bh18 varchar(30) NULL,bh19 varchar(30) NULL,bh20 varchar(30) NULL,bh21 varchar(30) NULL,"+&
+				  "bh22 varchar(30) NULL,ph1 varchar(30) NULL,ph2 varchar(30) NULL,ph3 varchar(30) NULL,"+&
+				  "ph4 varchar(30) NULL,ph5 varchar(30) NULL,ph6 varchar(30) NULL,ph7 varchar(30) NULL,"+&
+				  "ph8 varchar(30) NULL,ph9 varchar(30) NULL,ph10 varchar(30) NULL,ph11 varchar(30) NULL,"+&
+				  "ph12 varchar(30) NULL,ph13 varchar(30) NULL,ph14 varchar(30) NULL,ph15 varchar(30) NULL,"+&
+				  "ph16 varchar(30) NULL,ph17 varchar(30) NULL,ph18 varchar(30) NULL,ph19 varchar(30) NULL,"+&
+				  "ph20 varchar(30) NULL,ph21 varchar(30) NULL,ph22 varchar(30) NULL,jg1 varchar(50) NULL,"+&
+				  "jg2 varchar(50) NULL,jg3 varchar(50) NULL,jg4 varchar(50) NULL,jg5 varchar(50) NULL,"+&
+				  "jg6 varchar(50) NULL,jg7 varchar(50) NULL,jg8 varchar(50) NULL,jg9 varchar(50) NULL,"+&
+				  "jg10 varchar(50) NULL,jg11 varchar(50) NULL,jg12 varchar(50) NULL,jg13 varchar(50) NULL,"+&
+				  "jg14 varchar(50) NULL,jg15 varchar(50) NULL,jg16 varchar(50) NULL,jg17 varchar(50) NULL,"+&
+				  "jg18 varchar(50) NULL,jg19 varchar(50) NULL,jg20 varchar(50) NULL,jg21 varchar(50) NULL,"+&
+				  "jg22 varchar(50) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,"+&
+				  "bz4 varchar(30) NULL,bz5 varchar(30) NULL,bz6 varchar(30) NULL,bz7 varchar(30) NULL,"+&
+				  "bz8 varchar(30) NULL,bz9 varchar(30) NULL,bz10 varchar(30) NULL,bz11 varchar(30) NULL,"+&
+				  "bz12 varchar(30) NULL,bz13 varchar(30) NULL,bz14 varchar(30) NULL,bz15 varchar(30) NULL,"+&
+				  "bz16 varchar(30) NULL,bz17 varchar(30) NULL,bz18 varchar(30) NULL,bz19 varchar(30) NULL,"+&
+				  "bz20 varchar(30) NULL,bz21 varchar(30) NULL,bz22 varchar(30) NULL,lh1 varchar(10) NULL,"+&
+				  "lh2 varchar(10) NULL,lh3 varchar(10) NULL,lh4 varchar(10) NULL,lh5 varchar(10) NULL,"+&
+				  "lh6 varchar(10) NULL,lh7 varchar(10) NULL,lh8 varchar(10) NULL,lh9 varchar(10) NULL,"+&
+				  "lh10 varchar(10) NULL,lh11 varchar(10) NULL,lh12 varchar(10) NULL,lh13 varchar(10) NULL,"+&
+				  "lh14 varchar(10) NULL,lh15 varchar(10) NULL,lh16 varchar(10) NULL,lh17 varchar(10) NULL,"+&
+				  "lh18 varchar(10) NULL,lh19 varchar(10) NULL,lh20 varchar(10) NULL,lh21 varchar(10) NULL,"+&
+				  "lh22 varchar(10) null);"
+	execute immediate :mysql using sqlca;
+	myindex = "CREATE UNIQUE INDEX f_gl_sgs1_xy_X ON DJYLRQ.f_gl_sgs1_xy (jyid,xh)"
+	execute immediate :myindex using sqlca;
+else
+	mysql = "CREATE TABLE f_gl_sgs1_xy (jyid varchar(20) NOT NULL,xh varchar(20) not null,bh1 varchar(30) NULL,"+&
+				  "bh2 varchar(30) NULL,bh3 varchar(30) NULL,bh4 varchar(30) NULL,bh5 varchar(30) NULL,"+&
+              "bh6 varchar(30) NULL,bh7 varchar(30) NULL,bh8 varchar(30) NULL,bh9 varchar(30) NULL,"+&
+				  "bh10 varchar(30) NULL,bh11 varchar(30) NULL,bh12 varchar(30) NULL,bh13 varchar(30) NULL,"+&
+				  "bh14 varchar(30) NULL,bh15 varchar(30) NULL,bh16 varchar(30) NULL,bh17 varchar(30) NULL,"+&
+				  "bh18 varchar(30) NULL,bh19 varchar(30) NULL,bh20 varchar(30) NULL,bh21 varchar(30) NULL,"+&
+				  "bh22 varchar(30) NULL,ph1 varchar(30) NULL,ph2 varchar(30) NULL,ph3 varchar(30) NULL,"+&
+				  "ph4 varchar(30) NULL,ph5 varchar(30) NULL,ph6 varchar(30) NULL,ph7 varchar(30) NULL,"+&
+				  "ph8 varchar(30) NULL,ph9 varchar(30) NULL,ph10 varchar(30) NULL,ph11 varchar(30) NULL,"+&
+				  "ph12 varchar(30) NULL,ph13 varchar(30) NULL,ph14 varchar(30) NULL,ph15 varchar(30) NULL,"+&
+				  "ph16 varchar(30) NULL,ph17 varchar(30) NULL,ph18 varchar(30) NULL,ph19 varchar(30) NULL,"+&
+				  "ph20 varchar(30) NULL,ph21 varchar(30) NULL,ph22 varchar(30) NULL,jg1 varchar(50) NULL,"+&
+				  "jg2 varchar(50) NULL,jg3 varchar(50) NULL,jg4 varchar(50) NULL,jg5 varchar(50) NULL,"+&
+				  "jg6 varchar(50) NULL,jg7 varchar(50) NULL,jg8 varchar(50) NULL,jg9 varchar(50) NULL,"+&
+				  "jg10 varchar(50) NULL,jg11 varchar(50) NULL,jg12 varchar(50) NULL,jg13 varchar(50) NULL,"+&
+				  "jg14 varchar(50) NULL,jg15 varchar(50) NULL,jg16 varchar(50) NULL,jg17 varchar(50) NULL,"+&
+				  "jg18 varchar(50) NULL,jg19 varchar(50) NULL,jg20 varchar(50) NULL,jg21 varchar(50) NULL,"+&
+				  "jg22 varchar(50) NULL,bz1 varchar(30) NULL,bz2 varchar(30) NULL,bz3 varchar(30) NULL,"+&
+				  "bz4 varchar(30) NULL,bz5 varchar(30) NULL,bz6 varchar(30) NULL,bz7 varchar(30) NULL,"+&
+				  "bz8 varchar(30) NULL,bz9 varchar(30) NULL,bz10 varchar(30) NULL,bz11 varchar(30) NULL,"+&
+				  "bz12 varchar(30) NULL,bz13 varchar(30) NULL,bz14 varchar(30) NULL,bz15 varchar(30) NULL,"+&
+				  "bz16 varchar(30) NULL,bz17 varchar(30) NULL,bz18 varchar(30) NULL,bz19 varchar(30) NULL,"+&
+				  "bz20 varchar(30) NULL,bz21 varchar(30) NULL,bz22 varchar(30) NULL,lh1 varchar(10) NULL,"+&
+				  "lh2 varchar(10) NULL,lh3 varchar(10) NULL,lh4 varchar(10) NULL,lh5 varchar(10) NULL,"+&
+				  "lh6 varchar(10) NULL,lh7 varchar(10) NULL,lh8 varchar(10) NULL,lh9 varchar(10) NULL,"+&
+				  "lh10 varchar(10) NULL,lh11 varchar(10) NULL,lh12 varchar(10) NULL,lh13 varchar(10) NULL,"+&
+				  "lh14 varchar(10) NULL,lh15 varchar(10) NULL,lh16 varchar(10) NULL,lh17 varchar(10) NULL,"+&
+				  "lh18 varchar(10) NULL,lh19 varchar(10) NULL,lh20 varchar(10) NULL,lh21 varchar(10) NULL,"+&
+				  "lh22 varchar(10) null,PRIMARY KEY (jyid,xh));"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then
+	mysql = "alter table djylrq.f_gl_gqs1 add year varchar(4) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.f_gl_gqs1 add month varchar(2) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.f_gl_gqs1 add day varchar(2) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.f_gl_gqs1 add jyname varchar(10) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.f_gl_gqs1 add bjmc varchar(50) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.f_gl_gqs1 add bjbh varchar(20) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.f_gl_sgs1 add year varchar(4) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.f_gl_sgs1 add month varchar(2) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.f_gl_sgs1 add day varchar(2) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.f_gl_sgs1 add jyname varchar(10) NULL;"
+	execute immediate :mysql using sqlca;
+	modsql = "alter table djylrq.f_sgsgl_total add dpid varchar(1) NULL;"
+	execute immediate  :modsql using sqlca;
+else
+	mysql = "alter table f_gl_gqs1 add year varchar(4) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table f_gl_gqs1 add month varchar(2) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table f_gl_gqs1 add day varchar(2) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table f_gl_gqs1 add jyname varchar(10) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table f_gl_gqs1 add bjmc varchar(50) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table f_gl_gqs1 add bjbh varchar(20) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table f_gl_sgs1 add year varchar(4) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table f_gl_sgs1 add month varchar(2) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table f_gl_sgs1 add day varchar(2) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table f_gl_sgs1 add jyname varchar(10) NULL;"
+	execute immediate :mysql using sqlca;	
+	modsql = "alter table f_sgsgl_total add dpid varchar(1) NULL;"
+	execute immediate  :modsql using sqlca;
+end if
+if  mark ='sqlserver' then
+	modsql = "alter table djylrq.f_gksgl_total add dpid varchar(1) NULL;"
+	execute immediate  :modsql using sqlca;
+else
+	modsql = "alter table f_gksgl_total add dpid varchar(1) NULL;"
+	execute immediate  :modsql using sqlca;
+end if
+//if  mark ='sqlserver' then
+//	modsql = "alter table djylrq.f_sgsgl_total add dpid varchar(1) NULL;"
+//	execute immediate  :modsql using sqlca;
+//else
+//	modsql = "alter table f_sgsgl_total add dpid varchar(1) NULL;"
+//	execute immediate  :modsql using sqlca;
+//end if
+//////////////////////////µçÈÝÑ¹Á¦ÈÝÆ÷²úÆ·°²È«ÐÔÄÜ¼à¶½¼ìÑéÏîÄ¿±í/////////////////////
+IF mark = 'sqlserver' THEN
+mysql = "CREATE TABLE djylrq.f_drylrq_aqxnxmb(jyid varchar(20) NOT NULL,bgbh varchar(20) NULL,zzdw varchar(60) NULL,"+&
+              "jjbh varchar(30) NULL,cpmc varchar(50) NULL,cpbh varchar(50) NULL,cplb varchar(50) NULL,"+&
+              "gc varchar(20) NULL,kc varchar(20) NULL,sjwd varchar(20) NULL,jz varchar(30) NULL,tt varchar(20) NULL,"+&
+              "ft varchar(20) NULL,zzrq varchar(20) NULL,a1 varchar(10) NULL,a2 varchar(10) NULL,a3 varchar(10) NULL,"+&
+              "a4 varchar(10) NULL,a5 varchar(10) NULL,a6 varchar(10) NULL,a7 varchar(10) NULL,a8 varchar(10) NULL,"+&
+              "a9 varchar(10) NULL,a10 varchar(10) NULL,a11 varchar(10) NULL,a12 varchar(10) NULL,a13 varchar(10) NULL,"+&
+              "a14 varchar(10) NULL,a15 varchar(10) NULL,a16 varchar(10) NULL,a17 varchar(10) NULL,a18 varchar(10) NULL,"+&
+              "a19 varchar(10) NULL,a20 varchar(10) NULL,a21 varchar(10) NULL,a22 varchar(10) NULL,a23 varchar(10) NULL,"+&
+              "b1 varchar(10) NULL,b2 varchar(10) NULL,b3 varchar(10) NULL,b4 varchar(10) NULL,b5 varchar(10) NULL,"+&
+              "b6 varchar(10) NULL,b7 varchar(10) NULL,b8 varchar(10) NULL,b9 varchar(10) NULL,b10 varchar(10) NULL,"+&
+              "b11 varchar(10) NULL,b12 varchar(10) NULL,b13 varchar(10) NULL,b14 varchar(10) NULL,b15 varchar(10) NULL,"+&
+              "b16 varchar(10) NULL,b17 varchar(10) NULL,b18 varchar(10) NULL,b19 varchar(10) NULL,b20 varchar(10) NULL,"+&
+              "b21 varchar(10) NULL,b22 varchar(10) NULL,b23 varchar(10) NULL,c1 varchar(40) NULL,c2 varchar(40) NULL,"+&
+              "c3 varchar(40) NULL,c4 varchar(40) NULL,c5 varchar(40) NULL,c6 varchar(40) NULL,c7 varchar(40) NULL,"+&
+              "c8 varchar(40) NULL,c9 varchar(40) NULL,c10 varchar(40) NULL,c11 varchar(40) NULL,c12 varchar(40) NULL,"+&
+              "c13 varchar(40) NULL,c14 varchar(40) NULL,c15 varchar(40) NULL,c16 varchar(40) NULL,c17 varchar(40) NULL,"+&
+              "c18 varchar(40) NULL,c19 varchar(40) NULL,c20 varchar(40) NULL,c21 varchar(40) NULL,c22 varchar(40) NULL,"+&
+              "c23 varchar(40) NULL,d1 varchar(10) NULL,d2 varchar(10) NULL,d3 varchar(10) NULL,d4 varchar(10) NULL,"+&
+              "d5 varchar(10) NULL,d6 varchar(10) NULL,d7 varchar(10) NULL,d8 varchar(10) NULL,d9 varchar(10) NULL,"+&
+              "d10 varchar(10) NULL,d11 varchar(10) NULL,d12 varchar(10) NULL,d13 varchar(10) NULL,d14 varchar(10) NULL,"+&
+              "d15 varchar(10) NULL,d16 varchar(10) NULL,d17 varchar(10) NULL,d18 varchar(10) NULL,d19 varchar(10) NULL,"+&
+              "d20 varchar(10) NULL,d21 varchar(10) NULL,d22 varchar(10) NULL,d23 varchar(10) NULL,d24 varchar(10) NULL,e1 varchar(20) NULL,"+&
+              "e2 varchar(20) NULL,e3 varchar(20) NULL,e4 varchar(20) NULL,e5 varchar(20) NULL,e6 varchar(20) NULL,"+&
+              "e7 varchar(20) NULL,e8 varchar(20) NULL,e9 varchar(20) NULL,e10 varchar(20) NULL,e11 varchar(20) NULL,"+&
+              "e12 varchar(20) NULL,e13 varchar(20) NULL,e14 varchar(20) NULL,e15 varchar(20) NULL,e16 varchar(20) NULL,"+&
+              "e17 varchar(20) NULL,e18 varchar(20) NULL,e19 varchar(20) NULL,e20 varchar(20) NULL,e21 varchar(20) NULL,"+&
+              "e22 varchar(20) NULL,e23 varchar(20) NULL,e24 varchar(20) NULL,"+&
+              "gcpj01 varchar(200) NULL,gcpj02 varchar(200) NULL,gcpj03 varchar(200) NULL,gcpj04 varchar(200) NULL,gcpj05 varchar(200) NULL,"+&
+              "jsl01 varchar(200) NULL,jsl02 varchar(200) NULL,jsl03 varchar(200) NULL,jsl04 varchar(200) NULL,jsl05 varchar(200) NULL,"+&
+              "jjname varchar(10) NULL,jjy varchar(4) NULL,jjm varchar(2) NULL,jjd varchar(2) NULL,gcmc varchar(40) null,jgsl varchar(10) null,cjps varchar(10) null);"
+				       execute immediate :mysql using sqlca;
+				  myindex = "CREATE UNIQUE INDEX f_drylrq_aqxnxmb_X ON DJYLRQ.f_drylrq_aqxnxmb (jyid)"
+                   execute immediate :myindex using sqlca ;	
+   ELSE
+      mysql = "CREATE TABLE f_drylrq_aqxnxmb(jyid varchar(20) NOT NULL,bgbh varchar(20) NULL,zzdw varchar(60) NULL,"+&
+              "jjbh varchar(30) NULL,cpmc varchar(50) NULL,cpbh varchar(50) NULL,cplb varchar(50) NULL,"+&
+              "gc varchar(20) NULL,kc varchar(20) NULL,sjwd varchar(20) NULL,jz varchar(30) NULL,tt varchar(20) NULL,"+&
+              "ft varchar(20) NULL,zzrq varchar(20) NULL,a1 varchar(10) NULL,a2 varchar(10) NULL,a3 varchar(10) NULL,"+&
+              "a4 varchar(10) NULL,a5 varchar(10) NULL,a6 varchar(10) NULL,a7 varchar(10) NULL,a8 varchar(10) NULL,"+&
+              "a9 varchar(10) NULL,a10 varchar(10) NULL,a11 varchar(10) NULL,a12 varchar(10) NULL,a13 varchar(10) NULL,"+&
+              "a14 varchar(10) NULL,a15 varchar(10) NULL,a16 varchar(10) NULL,a17 varchar(10) NULL,a18 varchar(10) NULL,"+&
+              "a19 varchar(10) NULL,a20 varchar(10) NULL,a21 varchar(10) NULL,a22 varchar(10) NULL,a23 varchar(10) NULL,"+&
+              "b1 varchar(10) NULL,b2 varchar(10) NULL,b3 varchar(10) NULL,b4 varchar(10) NULL,b5 varchar(10) NULL,"+&
+              "b6 varchar(10) NULL,b7 varchar(10) NULL,b8 varchar(10) NULL,b9 varchar(10) NULL,b10 varchar(10) NULL,"+&
+              "b11 varchar(10) NULL,b12 varchar(10) NULL,b13 varchar(10) NULL,b14 varchar(10) NULL,b15 varchar(10) NULL,"+&
+              "b16 varchar(10) NULL,b17 varchar(10) NULL,b18 varchar(10) NULL,b19 varchar(10) NULL,b20 varchar(10) NULL,"+&
+              "b21 varchar(10) NULL,b22 varchar(10) NULL,b23 varchar(10) NULL,c1 varchar(40) NULL,c2 varchar(40) NULL,"+&
+              "c3 varchar(40) NULL,c4 varchar(40) NULL,c5 varchar(40) NULL,c6 varchar(40) NULL,c7 varchar(40) NULL,"+&
+              "c8 varchar(40) NULL,c9 varchar(40) NULL,c10 varchar(40) NULL,c11 varchar(40) NULL,c12 varchar(40) NULL,"+&
+              "c13 varchar(40) NULL,c14 varchar(40) NULL,c15 varchar(40) NULL,c16 varchar(40) NULL,c17 varchar(40) NULL,"+&
+              "c18 varchar(40) NULL,c19 varchar(40) NULL,c20 varchar(40) NULL,c21 varchar(40) NULL,c22 varchar(40) NULL,"+&
+              "c23 varchar(40) NULL,d1 varchar(10) NULL,d2 varchar(10) NULL,d3 varchar(10) NULL,d4 varchar(10) NULL,"+&
+              "d5 varchar(10) NULL,d6 varchar(10) NULL,d7 varchar(10) NULL,d8 varchar(10) NULL,d9 varchar(10) NULL,"+&
+              "d10 varchar(10) NULL,d11 varchar(10) NULL,d12 varchar(10) NULL,d13 varchar(10) NULL,d14 varchar(10) NULL,"+&
+              "d15 varchar(10) NULL,d16 varchar(10) NULL,d17 varchar(10) NULL,d18 varchar(10) NULL,d19 varchar(10) NULL,"+&
+              "d20 varchar(10) NULL,d21 varchar(10) NULL,d22 varchar(10) NULL,d23 varchar(10) NULL,d24 varchar(10) NULL,e1 varchar(20) NULL,"+&
+              "e2 varchar(20) NULL,e3 varchar(20) NULL,e4 varchar(20) NULL,e5 varchar(20) NULL,e6 varchar(20) NULL,"+&
+              "e7 varchar(20) NULL,e8 varchar(20) NULL,e9 varchar(20) NULL,e10 varchar(20) NULL,e11 varchar(20) NULL,"+&
+              "e12 varchar(20) NULL,e13 varchar(20) NULL,e14 varchar(20) NULL,e15 varchar(20) NULL,e16 varchar(20) NULL,"+&
+              "e17 varchar(20) NULL,e18 varchar(20) NULL,e19 varchar(20) NULL,e20 varchar(20) NULL,e21 varchar(20) NULL,"+&
+              "e22 varchar(20) NULL,e23 varchar(20) NULL,e24 varchar(20) NULL,"+&
+              "gcpj01 varchar(200) NULL,gcpj02 varchar(200) NULL,gcpj03 varchar(200) NULL,gcpj04 varchar(200) NULL,gcpj05 varchar(200) NULL,"+&
+              "jsl01 varchar(200) NULL,jsl02 varchar(200) NULL,jsl03 varchar(200) NULL,jsl04 varchar(200) NULL,jsl05 varchar(200) NULL,"+&
+              "jjname varchar(10) NULL,jjy varchar(4) NULL,jjm varchar(2) NULL,jjd varchar(2) NULL,gcmc varchar(40) null,jgsl varchar(10) null,cjps varchar(10) null,PRIMARY KEY (jyid));"
+				  execute immediate :mysql using sqlca;
+			end if
+			if mark = 'sqlserver' then
+	          mysql = "alter table djylrq.f_drylrq_aqxnxmb add shname varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+			else
+				 mysql = "alter table f_drylrq_aqxnxmb add shname varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+			end if 
+			if mark = 'sqlserver' then 
+	          mysql = "alter table djylrq.f_ylrq_aqxn_jj add ggxh varchar(50) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table djylrq.t_tzsb_gzlnd add jylb1 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table djylrq.t_tzsb_gzlnd add jylb2 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table djylrq.t_tzsb_gzlnd add jylb3 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table djylrq.t_tzsb_gzlnd add sbzl varchar(30) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table djylrq.t_tzsb_gzlnd add sbnbh varchar(30) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table djylrq.t_tzsb_yjtzs2 add jylb1 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table djylrq.t_tzsb_yjtzs2 add jylb2 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table djylrq.t_tzsb_yjtzs2 add jylb3 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+			else
+				 mysql = "alter table f_ylrq_aqxn_jj add ggxh varchar(50) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table t_tzsb_gzlnd add jylb1 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table t_tzsb_gzlnd add jylb2 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table t_tzsb_gzlnd add jylb3 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table t_tzsb_gzlnd add sbzl varchar(30) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table t_tzsb_gzlnd add sbnbh varchar(30) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table t_tzsb_yjtzs2 add jylb1 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table t_tzsb_yjtzs2 add jylb2 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+				 mysql = "alter table t_tzsb_yjtzs2 add jylb3 varchar(10) NULL;"
+	          execute immediate :mysql using sqlca;
+			end if 
+			if mark = 'sqlserver' then
+			modsql = "alter table djylrq.f_ylrq_aqxn_jj add sjwd1 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.f_ylrq_aqxn_jj add jz1 varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column jz varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.f_ylrq_aqxn_jj add d24 varchar(10) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.f_ylrq_aqxn_jj add e24 varchar(10) NULL;"
+			execute immediate :modsql using sqlca;
+//			modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column tt varchar(20) NULL;"
+//			execute immediate :modsql using sqlca;
+//			modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column ft varchar(20) NULL;"
+//			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.f_ylrq_aqxn_total add dpid varchar(2) NULL;"
+			execute immediate :modsql using sqlca;
+			mysql = "alter table djylrq.b_aj_ylgd_jbqk add gdcd varchar(20) NULL;"
+	      execute immediate :mysql using sqlca;
+		else
+			modsql = "alter table f_ylrq_aqxn_jj add sjwd1 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table f_ylrq_aqxn_jj add jz1 varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table f_ylrq_aqxn_jj modify jz varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table f_ylrq_aqxn_jj add d24 varchar(10) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table f_ylrq_aqxn_jj add e24 varchar(10) NULL;"
+			execute immediate :modsql using sqlca;
+//			modsql = "alter table f_ylrq_aqxn_jj modify tt varchar(20) NULL;"
+//			execute immediate :modsql using sqlca;
+//			modsql = "alter table f_ylrq_aqxn_jj modify ft varchar(20) NULL;"
+//			execute immediate :modsql using sqlca;
+			modsql = "alter table f_ylrq_aqxn_total add dpid varchar(2) NULL;"
+			execute immediate :modsql using sqlca;
+//			mysql = "alter table b_aj_ylgd_jbqk add gdcd varchar(20) NULL;"
+//	      execute immediate :mysql using sqlca;
+		end if
+		if mark = 'sqlserver' then
+			int i
+	for i = 15 to 19 
+		modsql = "alter table djylrq.b_aj_ylgd_qdymxjjbg add gdbh" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_aj_ylgd_qdymxjjbg add qyl" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_aj_ylgd_qdymxjjbg add qjz" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_aj_ylgd_qdymxjjbg add yyl" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_aj_ylgd_qdymxjjbg add yjz" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_aj_ylgd_qdymxjjbg add xs" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_aj_ylgd_qdymxjjbg add jjy" + string(i) + " varchar(8) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_aj_ylgd_qdymxjjbg add rq" + string(i) + " varchar(15) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 15 to 19 
+		modsql = "alter table b_aj_ylgd_qdymxjjbg add gdbh" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_aj_ylgd_qdymxjjbg add qyl" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_aj_ylgd_qdymxjjbg add qjz" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_aj_ylgd_qdymxjjbg add yyl" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_aj_ylgd_qdymxjjbg add yjz" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_aj_ylgd_qdymxjjbg add xs" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_aj_ylgd_qdymxjjbg add jjy" + string(i) + " varchar(8) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_aj_ylgd_qdymxjjbg add rq" + string(i) + " varchar(15) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+//int i
+		if mark = 'sqlserver' then
+			modsql = "alter table djylrq.y_ylrq_total add jzmc varchar(60) null;"
+	      execute immediate :modsql using sqlca;
+			for i = 16 to 20 
+				modsql = "alter table djylrq.y_ylrq_hgjy add jcxm" + string(i) + " varchar(80) NULL;"
+				execute immediate :modsql using sqlca;
+				modsql = "alter table djylrq.y_ylrq_hgjy add jcid" + string(i) + " varchar(2) NULL;"
+				execute immediate :modsql using sqlca;
+	      next
+			for i = 1 to 5 
+				modsql = "alter table djylrq.y_ylrq_zlsc add add" + string(i) + " varchar(30) NULL;"
+				execute immediate :modsql using sqlca;
+	      next
+			modsql = "alter table djylrq.y_ylrq_total add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_zlsc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_jgjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_hgjy add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_qdjh add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_sxjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_stjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_sfsjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_clcffx add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_ydjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_jxfx add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_nysy add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_qmsy add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_aqfj add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_fjjcjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+		else
+			modsql = "alter table y_ylrq_total add jzmc varchar(60) null;"
+	      execute immediate :modsql using sqlca;
+			for i = 16 to 20
+				modsql = "alter table y_ylrq_hgjy add jcxm" + string(i) + " varchar(80) NULL;"
+				execute immediate :modsql using sqlca;
+				modsql = "alter table y_ylrq_hgjy add jcid" + string(i) + " varchar(2) NULL;"
+				execute immediate :modsql using sqlca;
+			next
+			for i = 1 to 5 
+				modsql = "alter table y_ylrq_zlsc add add" + string(i) + " varchar(30) NULL;"
+				execute immediate :modsql using sqlca;
+	      next
+			modsql = "alter table y_ylrq_total add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_zlsc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_jgjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_hgjy add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_qdjh add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_sxjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_stjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_sfsjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_clcffx add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_ydjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_jxfx add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_nysy add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_qmsy add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_aqfj add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_fjjcjc add ym varchar(5) null;"
+	      execute immediate :modsql using sqlca;
+		end if
+		if mark = 'sqlserver' then
+			modsql = "alter table djylrq.t_tzsb_jxstcdj2 add jyjg53 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.t_tzsb_jxstcdj2 add jyjl53 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.t_tzsb_jxstcdj2 add bz53 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+		else
+			modsql = "alter table t_tzsb_jxstcdj2 add jyjg53 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table t_tzsb_jxstcdj2 add jyjl53 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table t_tzsb_jxstcdj2 add bz53 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+		end if
+		
+		
+		////////////////////////////////////////////////////////////////////
+		/////////////////Òº»¯ÆøÌå¹ÞÊ½¼¯×°ÏäÄê¶È¼ìÑé
+		if mark = 'sqlserver' then
+			modsql = "alter table djylrq.y_ylrq_ndjy add aqxfzz1 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_ndjy add aqxfzz2 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_ndjy add aqxfzz3 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_ndjy add zxfm1 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_ndjy add zxfm2 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_ndjy add cyfj1 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_ndjy add cyfj2 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_ndjy add cyfj3 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_ndjy add jzmc varchar(50) NULL;"
+			execute immediate :modsql using sqlca;
+		else
+			modsql = "alter table y_ylrq_ndjy add aqxfzz1 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_ndjy add aqxfzz2 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_ndjy add aqxfzz3 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_ndjy add cyfj1 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_ndjy add cyfj2 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_ndjy add cyfj3 varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_ndjy add jzmc varchar(50) NULL;"
+			execute immediate :modsql using sqlca;
+		end if
+		///////////////////////ÔÚÓÃ³¬¸ßÑ¹ÈÝÆ÷Ô­Ê¼×ÊÁÏÉó²é±¨¸æ
+		if mark = 'sqlserver' then
+			modsql = "alter table djylrq.y_ylrq_zlsc add rqlb varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_zlsc add sjbh varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_zlsc add ggxh varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_zlsc add hdfjl varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_zlsc add rdoxh varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_zlsc add lcjjd varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_zlsc add bzd1 varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_zlsc add bzd2 varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add rqlb varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add rqgg varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add ztcz varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add jg3 varchar(80) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add jg4 varchar(80) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add jg5 varchar(80) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add yqds varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add sjbh varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_bhcd add zxbh varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add rqmc varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add rqlb varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add rqgg varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add sjyl varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add bmzk varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add sjbh varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add bzsk varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add chdl varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add chsj varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_cfjc add azs varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add rqmc varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add sjyl varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add zxbz varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add jywz varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add rqlb varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add bmzk varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add cz varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add rqgg varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table djylrq.y_ylrq_csbjc add bih varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+		else
+			modsql = "alter table y_ylrq_zlsc add rqlb varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_zlsc add sjbh varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_zlsc add ggxh varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_zlsc add hdfjl varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_zlsc add rdoxh varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_zlsc add lcjjd varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_zlsc add bzd1 varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_zlsc add bzd2 varchar(30) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add rqlb varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add rqgg varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add ztcz varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add jg3 varchar(80) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add jg4 varchar(80) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add jg5 varchar(80) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add yqds varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add sjbh varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_bhcd add zxbh varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add rqmc varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add rqlb varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add rqgg varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add sjyl varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add bmzk varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add sjbh varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add bzsk varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add chdl varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add chsj varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_cfjc add azs varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add rqmc varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add sjyl varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add zxbz varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add jywz varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add rqlb varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add bmzk varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add cz varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add rqgg varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+			modsql = "alter table y_ylrq_csbjc add bih varchar(20) NULL;"
+			execute immediate :modsql using sqlca;
+		end if
+if mark = 'sqlserver' then
+		for i = 1 to 5 
+		modsql = "alter table djylrq.y_ylrq_zlsc add jyxm" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_zlsc add sjyqz" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_zlsc add sjcszl" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_zlsc add jyjg" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 1 to 5 
+		modsql = "alter table y_ylrq_zlsc add jyxm" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_zlsc add sjyqz" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_zlsc add sjcszl" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_zlsc add jyjg" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+	for i = 1 to 6 
+		modsql = "alter table djylrq.y_ylrq_zlsc add bjmc" + string(i) + " varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_zlsc add jcjg" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 1 to 6 
+		modsql = "alter table y_ylrq_zlsc add bjmc" + string(i) + " varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_zlsc add jcjg" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+	for i = 1 to 6 
+		modsql = "alter table djylrq.y_ylrq_bhcd add g" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_bhcd add m" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 1 to 6 
+		modsql = "alter table y_ylrq_bhcd add g" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_bhcd add m" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+	for i = 1 to 8 
+		modsql = "alter table djylrq.y_ylrq_bhcd add z" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 1 to 8 
+		modsql = "alter table y_ylrq_bhcd add z" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+		for i = 1 to 8 
+		modsql = "alter table djylrq.y_ylrq_cfjc add jybj" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_cfjc add cz" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_cfjc add tsbl" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_cfjc add jcjg" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 1 to 8
+		modsql = "alter table y_ylrq_cfjc add jybj" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_cfjc add cz" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_cfjc add tsbl" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_cfjc add jcjg" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+		for i = 6 to 10
+		modsql = "alter table djylrq.y_ylrq_csbjc add bz" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 6 to 10
+		modsql = "alter table y_ylrq_csbjc add bz" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+		for i = 6 to 8
+		modsql = "alter table djylrq.y_ylrq_csbjc add bh" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_csbjc add qxmcsd" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_csbjc add qxzscd" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_csbjc add qxgd" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_csbjc add qxwz" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 6 to 8
+		modsql = "alter table y_ylrq_csbjc add bh" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_csbjc add qxmcsd" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_csbjc add qxzscd" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_csbjc add qxgd" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_csbjc add qxwz" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+		for i = 1 to 5
+		modsql = "alter table djylrq.y_ylrq_csbjc add beiz" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 1 to 5
+		modsql = "alter table y_ylrq_csbjc add beiz" + string(i) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+		for i = 1 to 6
+		modsql = "alter table djylrq.y_ylrq_csbjc add bzd" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 1 to 6
+		modsql = "alter table y_ylrq_csbjc add bzd" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+/////////////ÎªÔÚÓÃ¸ßÑ¹ÈÝÆ÷¶øÌí¼Ó×Ö¶Î090525
+int m
+if mark = 'sqlserver' then
+	modsql = "Alter table djylrq.y_ylrq_nysy add rqmc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_nysy add rqlb varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_nysy add rqgg varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_aqfj add rqmc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_aqfj add rqlb varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_aqfj add rqgg varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_aqfj add jcjg4 varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_aqfj add jcjg5 varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_ydjc add rqmc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_ydjc add rqlb varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_ydjc add rqgg varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.y_ylrq_ydjc add cdbw varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	for m = 3 to 10
+		modsql = "Alter table djylrq.y_ylrq_ydjc add jcjg" + string(m) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for m = 1 to 12
+		modsql = "Alter table djylrq.y_ylrq_nysy add bz" + string(m) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	modsql = "Alter table y_ylrq_nysy add rqmc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_nysy add rqlb varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_nysy add rqgg varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_aqfj add rqmc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_aqfj add rqlb varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_aqfj add rqgg varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_aqfj add jcjg4 varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_aqfj add jcjg5 varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_ydjc add rqmc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_ydjc add rqlb varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_ydjc add rqgg varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table y_ylrq_ydjc add cdbw varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	for m = 3 to 10
+		modsql = "Alter table y_ylrq_ydjc add jcjg" + string(m) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for m = 1 to 12
+		modsql = "Alter table y_ylrq_nysy add bz" + string(m) + " varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+IF mark = 'sqlserver' THEN
+	mysql = 	"CREATE TABLE djylrq.f_rq_sxdp(jyid varchar (20) NOT NULL,cpbh varchar (30) NULL,"+&
+				"ph1 varchar (30) NULL,ph2 varchar (30) NULL,ph3 varchar (30) NULL,ph4 varchar (30) NULL,"+&
+				"ph5 varchar (30) NULL,ph6 varchar (30) NULL,	ph7 varchar (30) NULL,ph8 varchar (30) NULL,"+&
+				"ph9 varchar (30) NULL,ph10 varchar (30) NULL,ph11 varchar (30) NULL,ph12 varchar (30) NULL,"+&
+				"ph13 varchar (30) NULL,ph14 varchar (30) NULL,ph15 varchar (30) NULL,ph16 varchar (30) NULL,"+&
+				"ph17 varchar (30) NULL,ph18 varchar (30) NULL,ph19 varchar (30) NULL,ph20 varchar (30) NULL,"+&
+				"ph21 varchar (30) NULL,ph22 varchar (30) NULL,ph23 varchar (30) NULL,ph24 varchar (30) NULL,"+&
+				"ph25 varchar (30) NULL,"+&
+				"jg1 varchar (50) NULL,jg2 varchar (50) NULL,jg3 varchar (50) NULL,jg4 varchar (50) NULL,"+&
+				"jg5 varchar (50) NULL,jg6 varchar (50) NULL,jg7 varchar (50) NULL,jg8 varchar (50) NULL,"+&
+				"jg9 varchar (50) NULL,jg10 varchar (50) NULL,jg11 varchar (50) NULL,jg12 varchar (50) NULL,"+&
+				"jg13 varchar (50) NULL,jg14 varchar (50) NULL,jg15 varchar (50) NULL,jg16 varchar (50) NULL,"+&
+				"jg17 varchar (50) NULL,jg18 varchar (50) NULL,jg19 varchar (50) NULL,jg20 varchar (50) NULL,"+&
+				"jg21 varchar (50) NULL,jg22 varchar (50) NULL,jg23 varchar (50) NULL,jg24 varchar (50) NULL,"+&
+				"jg25 varchar (50) NULL,"+&
+				"bz1 varchar (30) NULL,bz2 varchar (30) NULL,bz3 varchar (30) NULL,bz4 varchar (30) NULL,"+&
+				"bz5 varchar (30) NULL,bz6 varchar (30) NULL,bz7 varchar (30) NULL,bz8 varchar (30) NULL,"+&
+				"bz9 varchar (30) NULL,bz10 varchar (30) NULL,bz11 varchar (30) NULL,bz12 varchar (30) NULL,"+&
+				"bz13 varchar (30) NULL,bz14 varchar (30) NULL,bz15 varchar (30) NULL,bz16 varchar (30) NULL,"+&
+				"bz17 varchar (30) NULL,bz18 varchar (30) NULL,bz19 varchar (30) NULL,bz20 varchar (30) NULL,"+&
+				"bz21 varchar (30) NULL,bz22 varchar (30) NULL,bz23 varchar (30) NULL,bz24 varchar (30) NULL,"+&
+				"bz25 varchar (30) NULL,"+&
+				"pzzs varchar (20) NULL,ccps varchar (20) NULL,fxps varchar (20) NULL,ccbl varchar (20) NULL,"+&
+				"year varchar (4) NULL,month varchar (2) NULL,day varchar (2) NULL,jyname varchar (10) NULL );"
+	execute immediate :mysql using sqlca;
+	myindex = "CREATE UNIQUE INDEX f_rq_sxdp_X ON DJYLRQ.f_rq_sxdp (jyid)"
+	execute immediate :myindex using sqlca ;	
+ELSE
+   mysql = 	"CREATE TABLE f_rq_sxdp(jyid varchar (20) NOT NULL,cpbh varchar (30) NULL,"+&
+				"ph1 varchar (30) NULL,ph2 varchar (30) NULL,ph3 varchar (30) NULL,ph4 varchar (30) NULL,"+&
+				"ph5 varchar (30) NULL,ph6 varchar (30) NULL,	ph7 varchar (30) NULL,ph8 varchar (30) NULL,"+&
+				"ph9 varchar (30) NULL,ph10 varchar (30) NULL,ph11 varchar (30) NULL,ph12 varchar (30) NULL,"+&
+				"ph13 varchar (30) NULL,ph14 varchar (30) NULL,ph15 varchar (30) NULL,ph16 varchar (30) NULL,"+&
+				"ph17 varchar (30) NULL,ph18 varchar (30) NULL,ph19 varchar (30) NULL,ph20 varchar (30) NULL,"+&
+				"ph21 varchar (30) NULL,ph22 varchar (30) NULL,ph23 varchar (30) NULL,ph24 varchar (30) NULL,"+&
+				"ph25 varchar (30) NULL,"+&
+				"jg1 varchar (50) NULL,jg2 varchar (50) NULL,jg3 varchar (50) NULL,jg4 varchar (50) NULL,"+&
+				"jg5 varchar (50) NULL,jg6 varchar (50) NULL,jg7 varchar (50) NULL,jg8 varchar (50) NULL,"+&
+				"jg9 varchar (50) NULL,jg10 varchar (50) NULL,jg11 varchar (50) NULL,jg12 varchar (50) NULL,"+&
+				"jg13 varchar (50) NULL,jg14 varchar (50) NULL,jg15 varchar (50) NULL,jg16 varchar (50) NULL,"+&
+				"jg17 varchar (50) NULL,jg18 varchar (50) NULL,jg19 varchar (50) NULL,jg20 varchar (50) NULL,"+&
+				"jg21 varchar (50) NULL,jg22 varchar (50) NULL,jg23 varchar (50) NULL,jg24 varchar (50) NULL,"+&
+				"jg25 varchar (50) NULL,"+&
+				"bz1 varchar (30) NULL,bz2 varchar (30) NULL,bz3 varchar (30) NULL,bz4 varchar (30) NULL,"+&
+				"bz5 varchar (30) NULL,bz6 varchar (30) NULL,bz7 varchar (30) NULL,bz8 varchar (30) NULL,"+&
+				"bz9 varchar (30) NULL,bz10 varchar (30) NULL,bz11 varchar (30) NULL,bz12 varchar (30) NULL,"+&
+				"bz13 varchar (30) NULL,bz14 varchar (30) NULL,bz15 varchar (30) NULL,bz16 varchar (30) NULL,"+&
+				"bz17 varchar (30) NULL,bz18 varchar (30) NULL,bz19 varchar (30) NULL,bz20 varchar (30) NULL,"+&
+				"bz21 varchar (30) NULL,bz22 varchar (30) NULL,bz23 varchar (30) NULL,bz24 varchar (30) NULL,"+&
+				"bz25 varchar (30) NULL,"+&
+				"pzzs varchar (20) NULL,ccps varchar (20) NULL,fxps varchar (20) NULL,ccbl varchar (20) NULL,"+&
+				"year varchar (4) NULL,month varchar (2) NULL,day varchar (2) NULL,jyname varchar (10) NULL,PRIMARY KEY (jyid));"
+	  execute immediate :mysql using sqlca;
+end if	
+//////////////////////////////////////////////////////////
+insert into a_jyml_id(id,mc) values ('6e','ÔÚÓÃ³¬¸ßÑ¹ÈÝÆ÷');
+insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('6e','117','ÔÚÓÃ³¬¸ßÑ¹ÈÝÆ÷','¶¨ÆÚ¼ìÑé');
+insert into a_bgml(id,jymk,jytype,typename) values ('2108','dj','6e2','ÔÚÓÃ³¬¸ßÑ¹ÈÝÆ÷¼ìÑé±¨¸æ');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('6e2','13','³¬Éù²¨¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('6e2','11','´Å·Û¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('6e2','12','ÉøÍ¸¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('6e2','17','Ó²¶È¼ì²â','·Ö³öÒ³','¸½Ò³');
+insert into a_sz_nr (jytype,xh,nr,fcy,fy) values ('6e2','18','½ðÏà·ÖÎö','·Ö³öÒ³','¸½Ò³');
+
+/////
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.a_jydw add sydwmark varchar(1) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_bg_ggbg add syzh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jy_ggw_zy add syzh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_gygd_zxjlbg add jyz1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.y_ylrq_ndjy add jyz1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table a_jydw add sydwmark varchar(1) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_bg_ggbg add syzh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jy_ggw_zy add syzh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_gygd_zxjlbg add jyz1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table y_ylrq_ndjy add jyz1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+insert into a_sz_nr (jytype,xh,nr,fy,dw,ct) values ('6w','01','¼à¼ìÖ¤Êé','¸½Ò³','jj_newzs','¸ÖÓ¡');
+
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_gl_yjrztl2 alter column gyjz11 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_gl_yjrztl2 alter column azdd varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_gl_yjrztl2 add lb37 varchar(5) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_gl_yjrztl2 add jyjg37 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_gl_yjrztl2 add gyjz37 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_gl_yjrztl2 add jyrq37 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	////
+	modsql = "alter table djylrq.b_gl_yjrztl1 alter column azdw varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_gl_yjrztl1 alter column sydw varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_gl_yjrztl1 alter column zzdw varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	////
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column tt varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column ft varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj add e19_1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj add e21_1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	////
+	modsql = "alter table djylrq.b_aj_ylgd_jybg_total alter column jlzzzsh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_ylgd_jybg_total alter column jdjyqzrq varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_ylgd_jybg_total alter column zsbh varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_ylgd_jybg_total add zsbh1 varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	////
+	for i = 1 to 19
+		modsql = "alter table djylrq.b_aj_ylgd_jbqk alter column qzd" + string(i) + " varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 39 to 57
+		modsql = "alter table djylrq.b_aj_ylgd_xy alter column a" + string(i) + " varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	modsql = "alter table djylrq.b_jj_gygd_cldj alter column qzwz varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_gygd_cldj add gdgg varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_xbqzj add sbmc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_xbqzj add sb_zcdm varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_xbqzj add gzjb varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_xbqzj add sydd varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_xbqzj add xcjyy varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_xbqzj add xcjym varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_xbqzj add xcjyd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_xbqzj add djid varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_xbqzj add jyjg1 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	for i = 28 to 37
+		modsql = "alter table djylrq.t_tzsb_xbqzj1 add jyjg" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 28 to 37
+		modsql = "alter table djylrq.t_tzsb_xbqzj1 add jyjl" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	modsql = "alter table djylrq.b_jj_gygd_qmjybg add jyz1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	for i = 29 to 42
+		modsql = "alter table djylrq.b_aj_ylgd_xy alter column a" + string(i) + " varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 37 to 41
+		modsql = "alter table djylrq.b_aj_ylgd_xy alter column b" + string(i) + " varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 1 to 19
+		modsql = "alter table djylrq.b_aj_ylgd_abmfjjbg alter column aj" + string(i) + " varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 1 to 19
+		modsql = "alter table djylrq.b_aj_ylgd_abmfjjbg alter column gdbh" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 1 to 14
+		modsql = "alter table djylrq.b_aj_ylgd_qdymxjjbg alter column gdbh" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	modsql = "alter table b_gl_yjrztl2 modify gyjz11 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_gl_yjrztl2 modify azdd varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_gl_yjrztl2 add lb37 varchar(5) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_gl_yjrztl2 add jyjg37 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_gl_yjrztl2 add gyjz37 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_gl_yjrztl2 add jyrq37 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	////
+	modsql = "alter table b_gl_yjrztl1 modify azdw varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_gl_yjrztl1 modify sydw varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_gl_yjrztl1 modify zzdw varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	////
+	modsql = "alter table f_ylrq_aqxn_jj modify tt varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj modify ft varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj add e19_1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table f_ylrq_aqxn_jj add e21_1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	////
+	modsql = "alter table b_aj_ylgd_jybg_total modify jlzzzsh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_ylgd_jybg_total modify jdjyqzrq varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_ylgd_jybg_total modify zsbh varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_ylgd_jybg_total add zsbh1 varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	////
+	for i = 1 to 19
+		modsql = "alter table b_aj_ylgd_jbqk modify qzd" + string(i) + " varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+//	for i = 39 to 57
+//		modsql = "alter table b_aj_ylgd_xy modify a" + string(i) + " varchar(30) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+	modsql = "alter table b_jj_gygd_cldj modify qzwz varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_gygd_cldj add gdgg varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_xbqzj add sbmc varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_xbqzj add sb_zcdm varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_xbqzj add gzjb varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_xbqzj add sydd varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_xbqzj add xcjyy varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_xbqzj add xcjym varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_xbqzj add xcjyd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_xbqzj add djid varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_xbqzj add jyjg1 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	for i = 28 to 37
+		modsql = "alter table t_tzsb_xbqzj1 add jyjg" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 28 to 37
+		modsql = "alter table t_tzsb_xbqzj1 add jyjl" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	modsql = "alter table b_jj_gygd_qmjybg add jyz1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+//	for i = 29 to 42
+//		modsql = "alter table b_aj_ylgd_xy modify a" + string(i) + " varchar(30) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+//	for i = 37 to 41
+//		modsql = "alter table b_aj_ylgd_xy modify b" + string(i) + " varchar(30) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+	for i = 1 to 19
+		modsql = "alter table b_aj_ylgd_abmfjjbg modify aj" + string(i) + " varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 1 to 19
+		modsql = "alter table b_aj_ylgd_abmfjjbg modify gdbh" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 1 to 14
+		modsql = "alter table b_aj_ylgd_qdymxjjbg modify gdbh" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_xzgl_azjdjyxmb_bg add azrqd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_zzglxl_jybg add xlday varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_gyglscl add add1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_gyglscl add add2 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_tlscl_total add add1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_tlscl_total add add2 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_cnjdcl_jj1 add sydjzh varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_qms_qzjbg add add1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jxstc_qzjbg add add1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_qzjbg add add1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_ts_qzjbg add add1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+//	modsql = "alter table djylrq.t_tzsb_dt_dq1 add z3 varchar(60) NULL;"
+//	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_dt_ys1 add z3 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_xzgl_azjdjyxmb_bg add azrqd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_zzglxl_jybg add xlday varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_gyglscl add add1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_gyglscl add add2 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_tlscl_total add add1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_tlscl_total add add2 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_cnjdcl_jj1 add sydjzh varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_qms_qzjbg add add1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jxstc_qzjbg add add1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_qzjbg add add1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_ts_qzjbg add add1 varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+//	modsql = "alter table t_tzsb_dt_dq1 add z3 varchar(60) NULL;"
+//	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_dt_ys1 add z3 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+update a_sz_nr set fy = '¸½Ò³' where jytype = '5s' and xh = '13';
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jy_ggd_jdzs add jyyj varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jy_ggd_jdzs add jyyj1 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+else 
+	modsql = "alter table b_jy_ggd_jdzs add jyyj varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jy_ggd_jdzs add jyyj1 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jj_qzjxxmb add lb_15_1 varchar(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_qzjxxmb add jcjg_15_1 varchar(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_qzjxxmb add gzjz_15_1 varchar(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_qzjxxmb add qrdate_15_1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+else 
+	modsql = "alter table b_jj_qzjxxmb add lb_15_1 varchar(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_qzjxxmb add jcjg_15_1 varchar(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_qzjxxmb add gzjz_15_1 varchar(8) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_qzjxxmb add qrdate_15_1 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj add e19_1 varchar(8) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table f_ylrq_aqxn_jj add e19_1 varchar(8) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+/////////////³§ÄÚ»ú¶¯³µ¶¨ÆÚ
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_cnjdcl_jj1 add sbmc varchar(50) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_cnjdcl_jj1 add bz1 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_cnjdcl_jj1 add bz2 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table t_tzsb_cnjdcl_jj1 add sbmc varchar(50) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_cnjdcl_jj1 add bz1 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_cnjdcl_jj1 add bz2 varchar(80) null;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_cnjdcl_jj1 alter column bz varchar(100) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.glc_gygd alter column gdjb varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.glc_gygd alter column qswz varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.glc_gygd alter column zzwz varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_gygd_chbg alter column sczxbh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_gygd_yszlsc alter column qswz varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_gygd_yszlsc alter column zzwz varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table t_tzsb_cnjdcl_jj1 modify bz varchar(100) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table glc_gygd modify gdjb varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table glc_gygd modify qswz varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table glc_gygd modify zzwz varchar(80) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_gygd_chbg modify sczxbh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_gygd_yszlsc modify qswz varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_gygd_yszlsc modify zzwz varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jj_gygd_zxjlbg add jyjg1 varchar(50) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_jj_gygd_zxjlbg add jyjg1 varchar(50) null;"
+	execute immediate :modsql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jy_total add shsm varchar(1) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_aj_total add shsm varchar(1) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jj_total add shsm varchar(1) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_qj_total add shsm varchar(1) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_sjd_mx add secord_je numeric(18,2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_sjd_mx add ks varchar(20) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_jy_total add shsm varchar(1) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_aj_total add shsm varchar(1) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jj_total add shsm varchar(1) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_qj_total add shsm varchar(1) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_sjd_mx add secord_je numeric(18,2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_sjd_mx add ks varchar(20) null;"
+	execute immediate :modsql using sqlca;
+end if
+//////////////////////µçÕ¾¹øÂ¯Ë®ÖÊ»¯Ñé
+if gs_jydw='¹óÖÝÊ¡¹øÂ¯Ñ¹Á¦ÈÝÆ÷¼ìÑéÖÐÐÄ' then
+	update a_sz_nr set dw='dat_dj_dzglsz_gz' where jytype like 'Ag' and xh like '01';
+end if
+//////////////////////¹¤Òµ¹øÂ¯Ë®ÖÊ»¯Ñé
+if gs_jydw='¹óÖÝÊ¡¹øÂ¯Ñ¹Á¦ÈÝÆ÷¼ìÑéÖÐÐÄ' then
+	update a_sz_nr set dw='dat_dj_gyglsz_gz' where jytype like 'Dg' and xh like '01';
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.y_ylrq_ndjy alter column yxcs3 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.glc_ylrq alter column czyl1 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.glc_ylrq alter column czyl2 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.glc_ylrq alter column czwd1 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.glc_ylrq alter column czwd2 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table y_ylrq_ndjy modify yxcs3 varchar(50) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table glc_ylrq modify czyl1 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table glc_ylrq modify czyl2 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table glc_ylrq modify czwd1 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table glc_ylrq modify czwd2 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+
+end subroutine
+

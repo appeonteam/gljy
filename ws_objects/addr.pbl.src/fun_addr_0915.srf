@@ -1,0 +1,131 @@
+﻿$PBExportHeader$fun_addr_0915.srf
+global type fun_addr_0915 from function_object
+end type
+
+forward prototypes
+global subroutine fun_addr_0915 ()
+end prototypes
+
+global subroutine fun_addr_0915 ();//Êý¾Ý¿âÐÞ¸Ä2006Äê09ÔÂ15ÈÕ°æ±¾(Ôö¼Ó±íu_addr_fcy)
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+string mark = "sybase"
+if sqlca.dbms = "MSS (Msoft) SQL Server 6.0" then mark = "sqlserver"
+
+if mark = "sqlserver" then
+	select count(*) into :ls_count from u_addr_staff;
+	if sqlca.sqlcode = -1 then
+		delsql = "drop table djylrq.u_addr_staff"
+		execute immediate :delsql using sqlca;
+		mysql = "create table djylrq.u_addr_staff(" + &
+							"ry_id varchar(10) not null," + &
+							"ry_addrid varchar(6) null," + &
+							"ry_addrname varchar(50) null," + &
+							"primary key(ry_id))"
+		execute immediate :mysql using sqlca;
+		myindex = "create unique index u_addr_staff_X on djylrq.u_addr_staff(ry_id)"
+		execute immediate :myindex using sqlca;
+	end if
+	select count(*) into :ls_count from u_addr_bg;
+	if sqlca.sqlcode = -1 then
+		delsql = "drop table djylrq.u_addr_bg"
+		execute immediate :delsql using sqlca;
+		mysql = "create table djylrq.u_addr_bg(" + &
+							"bg_id varchar(20) not null,bg_jytype varchar(4) not null," + &
+							"bg_qc_addrid varchar(6) null,bg_sh_addrid varchar(6) null,bg_sp_addrid varchar(6) null," + &
+							"bg_jyz1_addrid varchar(6) null,bg_jyz2_addrid varchar(6) null,bg_jyz3_addrid varchar(6) null," + &
+							"bg_jyz4_addrid varchar(6) null,bg_jyz5_addrid varchar(6) null,bg_rq varchar(15) null," + &
+							"fl varchar(2) null," + &
+							"primary key(bg_id,bg_jytype))"
+		execute immediate :mysql using sqlca;
+		myindex = "create unique index u_addr_bg_X on djylrq.u_addr_bg(bg_id,bg_jytype)"
+		execute immediate :myindex using sqlca;
+	end if
+	select count(*) into :ls_count from u_addr_fcy;
+	if sqlca.sqlcode = -1 then
+		delsql = "drop table djylrq.u_addr_fcy"
+		execute immediate :delsql using sqlca;
+		mysql = "create table djylrq.u_addr_fcy(" + &
+							"fcy_id varchar(20) not null,fcy_xh varchar(4) not null,fcy_nh varchar(4) null," + &
+							"fcy_come_addrid varchar(6) null,fcy_to_qc_addrid varchar(6) null," + &
+							"fcy_to_sh_addrid varchar(6) null)"
+		execute immediate :mysql using sqlca;
+		myindex = "create unique index u_addr_fcy_X on djylrq.u_addr_fcy(fcy_id,fcy_xh)"
+		execute immediate :myindex using sqlca;
+	end if
+	delsql = "drop view djylrq.view_cx_rw"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW djylrq.view_cx_rw " + &
+			  "AS select m.djbid as djbid,mark,nh,bsjks,lzcl,totalts,totalfy,djr,djrdate,fpr,fprdate," + &
+			  				"sfr,sfrdate,sydw,lxr,dh,zgdw,dwdz,yb,bjxx,jhdate,qt,rwid,jymlid,jylbid," + &
+							"fl,rymc,jyid,je,djid,yjrq,m.addrid as addrid " + &
+							"from djylrq.z_rw_main as m,djylrq.z_rw_sb as s " + &
+							"where m.djbid = s.djbid and m.addrid = s.addrid"
+	execute immediate :mysql using sqlca;
+	modsql = "alter table djylrq.q_jyfa_total add addrid varchar(6) null"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_rw_main add addrid varchr(6) null"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_rw_sb add addrid varchar(6) null"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.a_bmcode add addrid varchar(6) null"
+	execute immediate :modsql using sqlca;
+else
+	if mark = "sybase" then
+		select count(*) into :ls_count from u_addr_staff;
+		if sqlca.sqlcode = -1 then
+			delsql = "drop table u_addr_staff"
+			execute immediate :delsql using sqlca;
+			mysql = "create table u_addr_staff(" + &
+								"ry_id varchar(10) not null," + &
+								"ry_addrid varchar(6) null," + &
+								"ry_addrname varchar(50) null," + &
+								"primary key(ry_id))"
+			execute immediate :mysql using sqlca;
+		end if
+		select count(*) into :ls_count from u_addr_bg;
+		if sqlca.sqlcode = -1 then
+			delsql = "drop table u_addr_bg"
+			execute immediate :delsql using sqlca;
+			mysql = "create table u_addr_bg(" + &
+								"bg_id varchar(20) not null,bg_jytype varchar(4) not null," + &
+								"bg_qc_addrid varchar(6) null,bg_sh_addrid varchar(6) null,bg_sp_addrid varchar(6) null," + &
+								"bg_jyz1_addrid varchar(6) null,bg_jyz2_addrid varchar(6) null,bg_jyz3_addrid varchar(6) null," + &
+								"bg_jyz4_addrid varchar(6) null,bg_jyz5_addrid varchar(6) null,bg_rq varchar(15) null," + &
+								"fl varchar(2) null," + &
+								"primary key(bg_id,bg_jytype))"
+			execute immediate :mysql using sqlca;
+		end if
+		select count(*) into :ls_count from u_addr_fcy;
+		if sqlca.sqlcode = -1 then
+			delsql = "drop table u_addr_fcy"
+			execute immediate :delsql using sqlca;
+			mysql = "create table u_addr_fcy(" + &
+								"fcy_id varchar(20) not null,fcy_xh varchar(4) not null,fcy_nh varchar(4) null," + &
+								"fcy_come_addrid varchar(6) null,fcy_to_qc_addrid varchar(6) null," + &
+								"fcy_to_sh_addrid varchar(6) null)"
+			execute immediate :mysql using sqlca;
+		end if
+		delsql = "drop view view_cx_rw"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE VIEW view_cx_rw (djbid,mark,nh,bsjks,lzcl,totalts,totalfy,djr,djrdate,fpr,fprdate," + &
+								"sfr,sfrdate,sydw,lxr,dh,zgdw,dwdz,yb,bjxx,jhdate,qt,rwid,jymlid,jylbid," + &
+								"fl,rymc,jyid,je,djid,yjrq,addrid) " + &
+				  "AS select z_rw_main.djbid as djbid,mark,nh,bsjks,lzcl,totalts,totalfy,djr,djrdate,fpr,fprdate," + &
+				  				"sfr,sfrdate,sydw,lxr,dh,zgdw,dwdz,yb,bjxx,jhdate,qt,rwid,jymlid,jylbid," + &
+								"fl,rymc,jyid,je,djid,yjrq,z_rw_main.addrid as addrid " + &
+								"from z_rw_main,z_rw_sb " + &
+								"where z_rw_main.djbid=z_rw_sb.djbid and z_rw_main.addrid = z_rw_sb.addrid"
+		execute immediate :mysql using sqlca;
+		modsql = "alter table q_jyfa_total add addrid varchar(6) null"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table z_rw_main add addrid varchar(6) null"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table z_rw_sb add addrid varchar(6) null"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_bmcode add addrid varchar(6) null"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+end subroutine
+

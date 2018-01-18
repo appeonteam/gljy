@@ -1,0 +1,48 @@
+﻿$PBExportHeader$f_ddlb.srf
+global type f_ddlb from function_object
+end type
+
+forward prototypes
+global function string f_ddlb (string jyml, string wz, string cs)
+end prototypes
+
+global function string f_ddlb (string jyml, string wz, string cs);string ok_str
+
+choose case cs
+	case 'a'
+      ok_str = '¸ß£¨³¤£©'
+	case 'b'
+      ok_str = '³¤¶È'
+	case 'c'
+      ok_str = 'ÄÚ¾¶'
+	case 'd'
+      ok_str = 'ÈÝ»ý'
+	case 'e'
+      ok_str = '¹«³Æ±Úºñ'
+	case 'o'
+      ok_str = '²»ÓÃ'
+	case else
+		if jyml = 'ylrq' then
+			choose case wz
+				case '1'
+		         ok_str = 'ÄÚ¾¶'
+				case '2'
+					ok_str = '¹«³Æ±Úºñ'
+				case '3'
+					ok_str = 'ÈÝ»ý'
+			end choose
+		else
+			choose case wz
+				case '1'
+		         ok_str = 'ÄÚ¾¶'
+				case '2'
+					ok_str = '³¤¶È'
+				case '3'
+					ok_str = 'ÈÝ»ý'
+			end choose
+		end if
+end choose
+
+return ok_str
+end function
+

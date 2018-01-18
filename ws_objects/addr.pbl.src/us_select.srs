@@ -1,0 +1,6 @@
+﻿$PBExportHeader$us_select.srs
+global type us_select from structure
+	string		jytype
+	string		addrid
+end type
+

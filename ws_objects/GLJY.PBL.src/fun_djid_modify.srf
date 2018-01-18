@@ -1,0 +1,616 @@
+﻿$PBExportHeader$fun_djid_modify.srf
+global type fun_djid_modify from function_object
+end type
+
+forward prototypes
+global subroutine fun_djid_modify (string cs1)
+end prototypes
+
+global subroutine fun_djid_modify (string cs1);if cs1 <> 'OK' then return
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//select count(*) into :ls_count from djylrq.a_rycode;
+//if ls_count > 0 and sqlca.sqlcode = 0 then mark = 'sqlserver'
+// END
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_aj_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_aj_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_aj_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_aj_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_dzgl where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_dzgl alter column djid varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from glc_dzgl where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table glc_dzgl modify djid varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jj_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jj_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jj_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jj_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jy_gg_info where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jy_gg_info alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jy_gg_info where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jy_gg_info modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jy_ggd_jybg where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jy_ggd_jybg alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jy_ggd_jybg where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jy_ggd_jybg modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jy_ggs where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jy_ggs alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jy_ggs where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jy_ggs modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jy_ggw_zy where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jy_ggw_zy alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jy_ggw_zy where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jy_ggw_zy modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jy_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jy_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jy_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jy_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_qj_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_qj_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_qj_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_qj_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_sz_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_sz_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_sz_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_sz_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from c_ylrq_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.c_ylrq_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from c_ylrq_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table c_ylrq_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from e_qcgc_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.e_qcgc_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from e_qcgc_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table e_qcgc_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_dzgl where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_dzgl alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_dzgl where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table glc_dzgl modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_gg_y where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_gg_y alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_gg_y where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table glc_gg_y modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_gljh_mx where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_gljh_mx alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_gljh_mx where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table glc_gljh_mx modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_qcgc where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_qcgc alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_qcgc where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table glc_qcgc modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_ylrq where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_ylrq alter column djid varchar(30) NOT NULL; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_ylrq where djid like '%';
+	if sqlca.sqlcode = 0 then
+		myindex = "create index glc_ylrq_index on glc_ylrq(cpid,djid);"
+		execute immediate :myindex using sqlca;
+		delsql = "alter table glc_ylrq drop primary key;"
+		execute immediate :delsql using sqlca;
+		modsql = "alter table glc_ylrq modify djid varchar(30) NOT NULL; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from d_dzgl_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.d_dzgl_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from d_dzgl_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table d_dzgl_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jyz_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jyz_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jyz_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jyz_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from z_jh_main where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.z_jh_main alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from z_jh_main where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table z_jh_main modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_gg where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_gg alter column djid varchar(30) NOT NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_gg where djid like '%';
+	if sqlca.sqlcode = 0 then
+		myindex = "create index glc_gg_index on glc_gg(cpid,djid);"
+		execute immediate :myindex using sqlca;
+		delsql = "alter table glc_gg drop primary key;"
+		execute immediate :delsql using sqlca;
+		modsql = "alter table glc_gg modify djid varchar(30) not null ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_tlgc where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_tlgc alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_tlgc where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table glc_tlgc modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from z_rw_sb where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.z_rw_sb alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from z_rw_sb where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table z_rw_sb modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jy_rztn_zy where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jy_rztn_zy alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jy_rztn_zy where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jy_rztn_zy modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jy_rztw_zy where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jy_rztw_zy alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jy_rztw_zy where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jy_rztw_zy modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jj_gygd_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jj_gygd_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from b_jj_gygd_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jj_gygd_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_gygd where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_gygd alter column djid varchar(30) NOT NULL; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_gygd where djid like '%';
+	if sqlca.sqlcode = 0 then
+		myindex = "create index glc_gygd_index on glc_gygd(cpid,djid);"
+		execute immediate :myindex using sqlca;
+		delsql = "alter table glc_gygd drop primary key;"
+		execute immediate :delsql using sqlca;
+		modsql = "alter table glc_gygd modify djid varchar(30) NOT NULL; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_total alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_total where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_total modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_gygd_pic where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_gygd_pic alter column djid varchar(30) NOT NULL; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_gygd_pic where djid like '%';
+	if sqlca.sqlcode = 0 then
+		myindex = "create index glc_gygd_pic_index on glc_gygd_pic(djid);"
+		execute immediate :myindex using sqlca;
+		delsql = "alter table glc_gygd_pic drop primary key;"
+		execute immediate :delsql using sqlca;
+		modsql = "alter table glc_gygd_pic modify djid varchar(30) NOT NULL; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from t_tzsb_dxgdbsq_nj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.t_tzsb_dxgdbsq_nj1 alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from t_tzsb_dxgdbsq_nj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table t_tzsb_dxgdbsq_nj1 modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from t_tzsb_dxxhtgbsq_nj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.t_tzsb_dxxhtgbsq_nj1 alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from t_tzsb_dxxhtgbsq_nj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table t_tzsb_dxxhtgbsq_nj1 modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from t_tzsb_sxwf_nj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.t_tzsb_sxwf_nj1 alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from t_tzsb_sxwf_nj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table t_tzsb_sxwf_nj1 modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from t_tzsb_ylss_dj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.t_tzsb_ylss_dj1 alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from t_tzsb_ylss_dj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table t_tzsb_ylss_dj1 modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from t_tzsb_zdfthrxd_dj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.t_tzsb_zdfthrxd_dj1 alter column djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from t_tzsb_zdfthrxd_dj1 where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table t_tzsb_zdfthrxd_dj1 modify djid varchar(30) NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_tzsb where djid like '%';
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_tzsb alter column djid varchar(30) NOT NULL; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from glc_tzsb where djid like '%';
+	if sqlca.sqlcode = 0 then
+		myindex = "create index glc_tzsb_index on glc_tzsb(cpid,djid);"
+		execute immediate :myindex using sqlca;
+		delsql = "alter table glc_tzsb drop primary key;"
+		execute immediate :delsql using sqlca;
+		modsql = "alter table glc_tzsb modify djid varchar(30) NOT NULL ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_Count = 0
+////ÐÞ¸Ä
+if mark = 'sqlserver' then   
+   select count(*) into :ls_Count from glc_tzsb;
+	if sqlca.sqlcode = 0 then   
+		modsql= "Alter table djylrq.glc_tzsb add baid varchar(20) null"
+		execute immediate :modsql using sqlca;
+	end if
+else
+   select count(*) into :ls_Count from glc_tzsb ;
+	if sqlca.sqlcode = 0 then   
+      modsql= "Alter table glc_tzsb add baid varchar(20) null"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+//**»Ö¸´Éè±¸±íµÄÖ÷¼ü**//
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.glc_gg add primary key (cpid,djid)"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table glc_gg add primary key (cpid,djid)"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.glc_gygd add primary key (cpid,djid)"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table glc_gygd add primary key (cpid,djid)"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.glc_ylrq add primary key (cpid,djid)"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table glc_ylrq add primary key (cpid,djid)"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.glc_tzsb add primary key (cpid,djid)"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table glc_tzsb add primary key (cpid,djid)"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.glc_qcgc add primary key (cpid)"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.glc_dzgl add primary key (cpid)"
+	execute immediate :modsql using sqlca;
+end if
+end subroutine
+

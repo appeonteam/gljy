@@ -1,0 +1,178 @@
+﻿$PBExportHeader$fun_a_sz_nr_ln_down.srf
+global type fun_a_sz_nr_ln_down from function_object
+end type
+
+forward prototypes
+global subroutine fun_a_sz_nr_ln_down ()
+end prototypes
+
+global subroutine fun_a_sz_nr_ln_down ();long ll_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+
+//Õë¶Ô±¨¸æÃÅÀà³õÊ¼»¯Ò»¶¨Ë³Ðò
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_bgml_total"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW djylrq.view_bgml_total as select id, jymk, jytype, typename, lbid, mark, " + &
+	"(CASE WHEN (Len(jytype) = 2) THEN LEFT(jytype,1) else LEFT(jytype,2) END) as jymlid,  " + &
+	"RIGHT(jytype,1) as jylbid,(CASE WHEN (LEFT(lbid, 2) = 'rq') THEN '10' WHEN (LEFT(lbid, 2) = 'gl')  " + &
+		"THEN '11' WHEN (LEFT(lbid, 2) = 'gd') THEN '12' WHEN (LEFT(lbid, 2) = 'qp')  " + &
+		"THEN '13' WHEN (LEFT(lbid, 2) = 'sz') THEN '14' WHEN (LEFT(lbid, 2) = 'aq')  " + &
+		"THEN '15' WHEN (LEFT(lbid, 2) = 'ws') THEN '16' WHEN (LEFT(lbid, 2) = 'dt')  " + &
+		"THEN '17' WHEN (LEFT(lbid, 2) = 'qz') THEN '18' WHEN (LEFT(lbid, 2) = 'cc')  " + &
+		"THEN '19' WHEN (LEFT(lbid, 2) = 'sd') THEN '20' WHEN (LEFT(lbid, 2) = 'yl')  " + &
+		"THEN '21' WHEN (LEFT(lbid, 2) = 'qt') THEN '22' ELSE '' END) as sh FROM a_bgml" 
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view view_bgml_total"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW view_bgml_total as select id, jymk, jytype, typename, lbid, mark, " + &
+			  "jymlid,jylbid,sx as sh FROM a_bgml" 
+	execute immediate :mysql using sqlca;
+end if	
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_djbh_total"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.view_djbh_total as select a.id as id,a.jymlid as jymlid,a.dc as dc,a.s1 as s1," + &
+      "a.l1 as l1,a.s2 as s2,a.l2 as l2,a.s3 as s3,a.lnh as lnh,a.llsh as llsh," + &
+		"b.mc as mc,b.sh as sh,b.mark as mark " + &
+		"from djylrq.a_djbh as a,djylrq.a_jyml_id as b where a.jymlid = b.id"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view djylrq.view_djbh_total"
+	execute immediate :delsql using sqlca;
+	mysql = "create View view_djbh_total as select a.id as id,a.jymlid as jymlid,a.dc as dc,a.s1 as s1," + &
+      "a.l1 as l1,a.s2 as s2,a.l2 as l2,a.s3 as s3,a.lnh as lnh,a.llsh as llsh," + &
+		"b.mc as mc,b.sh as sh,b.mark as mark " + &
+		"from djylrq.a_djbh as a,djylrq.a_jyml_id as b where a.jymlid = b.id"	
+	execute immediate :mysql using sqlca;
+end if
+
+//Éè¶¨µÇ¼Ç±àºÅÓÃ
+/////
+long temp_mark,ll_num
+string ll_mark,temp_jymlid,jymlid
+temp_mark = 9
+ll_num = 0
+SELECT id into :ll_num FROM view_bgml_total 
+WHERE jymk = 'dj' and lbid like 'rq%' and (jymlid like '6' or jymlid like '6b' or jymlid like '6c' or jymlid like '?' or jymlid like '+' or jymlid like 'K' or jymlid like 'J' or jymlid like '1' or jymlid like '2' or jymlid like ';' or jymlid like 'I');
+if ll_num = 0 then
+else
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = '6';
+end if
+
+ll_num = 0
+SELECT id into :ll_num FROM view_bgml_total 
+WHERE jymk = 'dj' and lbid like 'gl%' and jymlid like 'A';
+if ll_num = 0 then
+else
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = 'A';
+end if
+
+ll_num = 0
+SELECT id into :ll_num FROM view_bgml_total 
+WHERE (jymk = 'dj' or jymk = 'aj') and lbid like 'gl%' and (jymlid like 'D' or jymlid like 'F') and (jylbid <> '3' or jylbid <> 'm');
+if ll_num = 0 then
+	SELECT id into :ll_num FROM view_bgml_total 
+	WHERE lbid like 'gl%' and jytype = 'D#';
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = 'D';
+else
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = 'D';
+end if
+
+ll_num = 0
+SELECT id into :ll_num FROM view_bgml_total 
+WHERE (jymk = 'dj' or jymk = 'aj') and lbid like 'gd%' and (jymlid like '5' or jymlid like '8');
+if ll_num = 0 then
+else
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = '5';
+end if
+
+ll_num = 0
+SELECT id into :ll_num FROM view_bgml_total 
+WHERE jymk = 'dj' and lbid like 'gl%' and (jymlid like '|' or jymlid like '(' or jymlid like ',');
+if ll_num = 0 then
+else
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = '|';
+end if
+
+DECLARE dt_temp CURSOR FOR
+SELECT jymlid
+FROM view_bgml_total WHERE jymk = 'dj' and lbid like 'dt%' order by lbid;   
+OPEN dt_temp;
+FETCH dt_temp INTO :jymlid;
+do while sqlca.sqlcode = 0
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = :jymlid;
+	FETCH dt_temp INTO :jymlid;
+LOOP
+CLOSE dt_temp;
+
+DECLARE qzj_temp CURSOR FOR
+SELECT jymlid
+FROM view_bgml_total WHERE (jymk = 'dj' or jymk = 'aj') and lbid like 'qzj%' order by lbid;   
+OPEN qzj_temp;
+FETCH qzj_temp INTO :jymlid;
+do while sqlca.sqlcode = 0
+	if isnull(temp_jymlid) then temp_jymlid = '' 
+	if pos(temp_jymlid,jymlid) > 0 then
+	else
+		temp_jymlid = temp_jymlid + jymlid + ','
+		temp_mark = temp_mark + 1
+		ll_mark = string(temp_mark)
+		update a_jyml_id set mark = :ll_mark where id = :jymlid;
+	end if
+	FETCH qzj_temp INTO :jymlid;
+LOOP
+CLOSE qzj_temp;
+
+ll_num = 0
+SELECT id into :ll_num FROM view_bgml_total 
+WHERE jymk = 'dj' and lbid like 'cc%' and jymlid like 'H';
+if ll_num = 0 then
+else
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = 'H';
+end if
+
+DECLARE sd_temp CURSOR FOR
+SELECT jymlid
+FROM view_bgml_total WHERE jymk = 'dj' and lbid like 'sd%' order by lbid;   
+OPEN sd_temp;
+FETCH sd_temp INTO :jymlid;
+do while sqlca.sqlcode = 0
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = :jymlid;
+	FETCH sd_temp INTO :jymlid;
+LOOP
+CLOSE sd_temp;
+
+ll_num = 0
+SELECT id into :ll_num FROM view_bgml_total 
+WHERE jymk = 'dj' and lbid like 'yl%' and jymlid like 'E';
+if ll_num = 0 then
+else
+	temp_mark = temp_mark + 1
+	ll_mark = string(temp_mark)
+	update a_jyml_id set mark = :ll_mark where id = 'E';
+end if
+end subroutine
+

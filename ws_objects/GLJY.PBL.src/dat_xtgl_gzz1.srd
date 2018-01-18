@@ -1,0 +1,17 @@
+﻿$PBExportHeader$dat_xtgl_gzz1.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=80269528 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=85 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=85 color="536870912" )
+table(column=(type=char(10) update=yes updatewhereclause=yes key=yes name=zh dbname="a_gzz.zh" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=zm dbname="a_gzz.zm" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=mark dbname="a_gzz.mark" values="Ê¹ÓÃ	Ê¹ÓÃ/¿ÕÏÐ	¿ÕÏÐ/" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"a_gzz~" ) COLUMN(NAME=~"a_gzz.zh~") COLUMN(NAME=~"a_gzz.zm~") COLUMN(NAME=~"a_gzz.mark~")) ORDER(NAME=~"a_gzz.zh~" ASC=yes ) " update="a_gzz" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="5" color="0" x="10" y="4" height="77" width="293" format="[general]"  name=zh edit.limit=0 edit.case=any edit.autoselect=yes edit.required=yes  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="5" color="0" x="1203" y="4" height="77" width="357" format="[general]"  name=mark ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.required=yes  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="0" x="321" y="4" height="77" width="865" format="[general]"  name=zm edit.limit=0 edit.case=any edit.autoselect=yes edit.required=yes  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="ÊôÐÔ"border="5" color="128" x="1203" y="8" height="73" width="357"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269528" )
+text(band=header alignment="2" text="Ô¶³Ì¹¤×÷Õ¾Ãû"border="5" color="128" x="321" y="8" height="81" width="865"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269528" )
+text(band=header alignment="2" text="Õ¾ºÅ"border="5" color="128" x="10" y="8" height="73" width="293"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269528" )

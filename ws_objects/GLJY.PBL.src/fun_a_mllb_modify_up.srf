@@ -1,0 +1,332 @@
+﻿$PBExportHeader$fun_a_mllb_modify_up.srf
+global type fun_a_mllb_modify_up from function_object
+end type
+
+forward prototypes
+global function string fun_a_mllb_modify_up (string table)
+end prototypes
+
+global function string fun_a_mllb_modify_up (string table);string return_str = 'NO'
+string temp,ll_temp
+string id,mc,sh
+string temp_id,temp_mc,temp_sh
+string jymlid,jymldh,jymlmc,jymk
+string temp_jymlid,temp_jymldh,temp_jymlmc,temp_jymk
+string lb_temp_id,lb_temp_mc,lb_temp_sh
+string jylbid,jylbdh,jylbmc
+string temp_jylbid,temp_jylbdh,temp_jylbmc,lb_temp_jymk
+choose case table
+	case 'a_jyml_id'
+		temp = '1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'
+		DECLARE temp2 CURSOR FOR
+		SELECT id,mc,sh
+		FROM a_jyml_id ; 
+		OPEN temp2;
+		FETCH temp2 INTO :id,:mc,:sh;
+		do while sqlca.sqlcode = 0
+			IF pos(temp,id) > 0 then
+			ELSE
+				if temp_id = '' or isnull(temp_id) then
+					temp_id = id + ','
+				else
+					temp_id = temp_id + id + ','
+				end if
+				if temp_mc = '' or isnull(temp_mc) then
+					choose case mc	
+						case 'Æû³µ²Û³µ'
+							mc = 'Æû³µ¹Þ³µ'
+						case 'ÄÍÑ¹ÊÔÑé','¹øÂ¯Ë®´¦Àí','ÔËÐÐË®´¦Àí','Í£Â¯Ë®´¦Àí'
+                     mc = '0'
+						case '¸ß´¦×÷Òµ»úÐµ'
+							mc = '¸ß¿Õ×÷Òµ³µ'
+						case 'ÐÂÑ¹Á¦ÈÝÆ÷(1)'
+							mc = 'Ñ¹Á¦ÈÝÆ÷(1)'
+						case 'ÎÞ·ìÆøÆ¿'
+							mc = '¸ÖÖÊÎÞ·ìÆøÆ¿'
+						case '»úÐµÊ½Í£³µ'
+							mc = '»úÐµÊ½Í£³µÉè±¸'
+					end choose
+					temp_mc = mc + ','
+				else
+					choose case mc	
+						case 'Æû³µ²Û³µ'
+							mc = 'Æû³µ¹Þ³µ'
+						case 'ÄÍÑ¹ÊÔÑé','¹øÂ¯Ë®´¦Àí','ÔËÐÐË®´¦Àí','Í£Â¯Ë®´¦Àí'
+                     mc = '0'
+						case '¸ß´¦×÷Òµ»úÐµ'
+							mc = '¸ß¿Õ×÷Òµ³µ'
+						case 'ÐÂÑ¹Á¦ÈÝÆ÷(1)'
+							mc = 'Ñ¹Á¦ÈÝÆ÷(1)'
+						case 'ÎÞ·ìÆøÆ¿'
+							mc = '¸ÖÖÊÎÞ·ìÆøÆ¿'
+						case '»úÐµÊ½Í£³µ'
+							mc = '»úÐµÊ½Í£³µÉè±¸'
+					end choose
+					temp_mc = temp_mc + mc + ','
+				end if
+				if temp_sh = '' or isnull(temp_sh) then
+					if sh = '' or isnull(sh) then
+						sh = '0'
+						temp_sh = sh + ','
+					else
+						temp_sh = sh + ','
+					end if
+				else
+					if sh = '' or isnull(sh) then
+						sh = '0'
+						temp_sh = temp_sh + sh + ','
+					else
+						temp_sh = temp_sh + sh + ','
+					end if
+				end if
+				delete a_jyml_id where id like :id;
+			END IF
+		FETCH temp2 INTO :id,:mc,:sh;
+		LOOP
+		CLOSE temp2;
+		//////////////////////////a_jyml_id
+		update a_jyml_id set mc = '' where id = 'I';
+		update a_jyml_id set mc = 'Ñ¹Á¦ÈÝÆ÷' where id = '6';
+		update a_jyml_id set mc = 'Æû³µ¹Þ³µ' where id = 'K';
+		update a_jyml_id set mc = 'ÓÐ»úÈÈÔØÌåÂ¯' where id = 'F';
+		update a_jyml_id set mc = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where id = 'V';
+		update a_jyml_id set mc = 'ÃÅ×ùÊ½ÆðÖØ»ú' where id = 'W';
+		if isnull(temp_mc) then temp_mc = ''
+		if isnull(temp_sh) then temp_sh = ''
+		return_str = '(' + temp_mc + ')' + '(' + temp_sh + ')' 
+	case 'a_jyml'
+		delete a_jyml where jymlid = '4' and jymlmc = 'ÔÚÏß¹ÜµÀ';
+		update a_jyml set jymk = '¶¨ÆÚ¼ìÑé' where jymlid = 'H';
+		insert into a_jyml(jymlid,jymldh,jymlmc,jymk) values ('S','59','Á÷¶¯ÆðÖØ»ú','¶¨ÆÚ¼ìÑé');
+		insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('8','60','Ñ¹Á¦¹ÜµÀ','°²×°¼à¼ì');
+		if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+			update a_jyml set jymk = 'ÖÆÔì¼à¼ì' where jymlmc = 'Ñ¹Á¦±í';
+		end if
+		temp = '1a,2a,3a,3b,4d,5a,6a,6c,7c,8c,9c,Aa,Ad,Ba,Bb,Ca,Cb,Da,Db,Dc,Ea,Eb,Fa,Gc,Gd,Ha,Ia,Ib,Ic,Ja,Ka,Lc,Ld,Ma,Mb,Na,Nb,Oa,Ob,Oc,Pa,Qa,Qc,Ra,Rb,Sa,Ta,Tb,Ua,Ub,Va,Vb,Wa,Wb,Xa,Ya,Xb,Yb,Ze'
+		DECLARE temp3 CURSOR FOR
+		SELECT jymlid,jymldh,jymlmc,jymk
+		FROM a_jyml ; 
+		OPEN temp3;
+		FETCH temp3 INTO :jymlid,:jymldh,:jymlmc,:jymk;
+		do while sqlca.sqlcode = 0
+			choose case jymk 
+				case '¶¨ÆÚ¼ìÑé'
+					ll_temp = 'a'
+				case '°²×°¼à¼ì'
+					ll_temp = 'b'
+				case 'ÖÆÔì¼à¼ì'
+					ll_temp = 'c'
+				case '½ø³ö¿Ú¼ìÑé'
+					ll_temp = 'd'
+				case 'ÆäËü¼ìÑé'
+					ll_temp = 'e'
+			end choose
+			IF pos(temp,jymlid + ll_temp) > 0 then
+			ELSE
+				if temp_jymlid = '' or isnull(temp_jymlid) then
+					temp_jymlid = jymlid + ','
+				else
+					temp_jymlid = temp_jymlid + jymlid + ','
+				end if
+				if temp_jymlmc = '' or isnull(temp_jymlmc) then
+					choose case jymlmc
+						case 'Æû³µ²Û³µ'
+							mc = 'Æû³µ¹Þ³µ'
+						case 'ÄÍÑ¹ÊÔÑé','¹øÂ¯Ë®´¦Àí','ÔËÐÐË®´¦Àí','Í£Â¯Ë®´¦Àí'
+                     jymlmc = '0'
+						case '¸ß´¦×÷Òµ»úÐµ'
+							jymlmc = '¸ß¿Õ×÷Òµ³µ'
+						case 'ÐÂÑ¹Á¦ÈÝÆ÷(1)'
+							jymlmc = 'Ñ¹Á¦ÈÝÆ÷(1)'
+						case 'ÎÞ·ìÆøÆ¿'
+							jymlmc = '¸ÖÖÊÎÞ·ìÆøÆ¿'
+						case '»úÐµÊ½Í£³µ'
+							jymlmc = '»úÐµÊ½Í£³µÉè±¸'
+					end choose
+					temp_jymlmc = jymlmc + ','
+				else
+					choose case jymlmc	
+						case 'Æû³µ²Û³µ'
+							mc = 'Æû³µ¹Þ³µ'
+						case 'ÄÍÑ¹ÊÔÑé','¹øÂ¯Ë®´¦Àí','ÔËÐÐË®´¦Àí','Í£Â¯Ë®´¦Àí'
+                     jymlmc = '0'
+						case '¸ß´¦×÷Òµ»úÐµ'
+							jymlmc = '¸ß¿Õ×÷Òµ³µ'
+						case 'ÐÂÑ¹Á¦ÈÝÆ÷(1)'
+							jymlmc = 'Ñ¹Á¦ÈÝÆ÷(1)'
+						case 'ÎÞ·ìÆøÆ¿'
+							jymlmc = '¸ÖÖÊÎÞ·ìÆøÆ¿'
+						case '»úÐµÊ½Í£³µ'
+							jymlmc = '»úÐµÊ½Í£³µÉè±¸'
+					end choose
+					temp_jymlmc = temp_jymlmc + jymlmc + ','
+				end if
+				if temp_jymldh = '' or isnull(temp_jymldh) then
+					if jymldh = '' or isnull(jymldh) then
+						jymldh = '0'
+						temp_jymldh = jymldh + ','
+					else
+						temp_jymldh = jymldh + ','
+					end if
+				else
+					if jymldh = '' or isnull(jymldh) then
+						jymldh = '0'
+						temp_jymldh = temp_jymldh + jymldh + ','
+					else
+						temp_jymldh = temp_jymldh + jymldh + ','
+					end if
+				end if
+				if temp_jymk = '' or isnull(temp_jymk) then
+					temp_jymk = jymk + ','
+				else
+					temp_jymk = temp_jymk + jymk + ','
+				end if
+				delete a_jyml where jymlid like :jymlid;
+			END IF
+		FETCH temp3 INTO :jymlid,:jymldh,:jymlmc,:jymk;
+		LOOP
+		CLOSE temp3;
+		DELETE FROM a_jyml WHERE jymlid = 'I' and jymk = '¶¨ÆÚ¼ìÑé';
+		DELETE FROM a_jyml WHERE jymlid = 'I' and jymk = '°²×°¼à¼ì';
+		update a_jyml set jymlid = '6' WHERE jymlid = 'I' and jymk = 'ÖÆÔì¼à¼ì';
+		update a_jyml set jymlmc = 'Ñ¹Á¦ÈÝÆ÷' where jymlid = '6';
+		update a_jyml set jymlmc = 'Æû³µ¹Þ³µ' where jymlid = 'K';
+		update a_jyml set jymlmc = 'ÓÐ»úÈÈÔØÌåÂ¯' where jymlid = 'F';
+		update a_jyml set jymlmc = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jymlid = 'V';
+		update a_jyml set jymlmc = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jymlid = 'V';
+		update a_jyml set jymlmc = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jymlid = 'W';
+		update a_jyml set jymlmc = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jymlid = 'W';
+		insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('9','61','ÌØÖÖÉè±¸','¶¨ÆÚ¼ìÑé');
+		insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('9','62','ÌØÖÖÉè±¸','°²×°¼à¼ì');
+		if isnull(temp_jymlmc) then temp_jymlmc = ''
+		if isnull(temp_jymldh) then temp_jymldh = ''
+		if isnull(temp_jymk) then temp_jymk = ''
+		return_str = '(' + temp_jymlmc + ')' + '(' + temp_jymldh + ')' + '(' + temp_jymk + ')'
+	case 'a_jylb_id'
+		temp = '1,3,7,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z'
+		DECLARE temp4 CURSOR FOR
+		SELECT id,mc,sh
+		FROM a_jylb_id ; 
+		OPEN temp4;
+		FETCH temp4 INTO :id,:mc,:sh;
+		do while sqlca.sqlcode = 0
+			IF pos(temp,id) > 0 then
+			ELSE
+				if lb_temp_id = '' or isnull(lb_temp_id) then
+					lb_temp_id = id + ','
+				else
+					lb_temp_id = lb_temp_id + id + ','
+				end if
+				if lb_temp_mc = '' or isnull(lb_temp_mc) then
+					choose case mc	
+						case '¼ìÑé±¨¸æÊé'
+                     mc = '¼ìÑé±¨¸æ'
+					end choose
+					lb_temp_mc = mc + ','
+				else
+					choose case mc	
+						case '¼ìÑé±¨¸æÊé'
+                     mc = '¼ìÑé±¨¸æ'
+					end choose
+					lb_temp_mc = lb_temp_mc + mc + ','
+				end if
+				if lb_temp_sh = '' or isnull(lb_temp_sh) then
+					if sh = '' or isnull(sh) then
+						sh = '0'
+						lb_temp_sh = sh + ','
+					else
+						lb_temp_sh = sh + ','
+					end if
+				else
+					if sh = '' or isnull(sh) then
+						sh = '0'
+						lb_temp_sh = lb_temp_sh + sh + ','
+					else
+						lb_temp_sh = lb_temp_sh + sh + ','
+					end if
+				end if
+				delete a_jylb_id where id like :id;
+			END IF
+		FETCH temp4 INTO :id,:mc,:sh;
+		LOOP
+		CLOSE temp4;
+		if isnull(lb_temp_mc) then lb_temp_mc = ''
+		if isnull(lb_temp_sh) then lb_temp_sh = ''
+		return_str = '(' + lb_temp_mc + ')' + '(' + lb_temp_sh + ')' 
+	case 'a_jylb'
+		insert into a_jylb (jylbid,jylbdh,jylbmc,jymk) values ('1','29','Í¶ÓÃÇ°¼ìÑé','¶¨ÆÚ¼ìÑé');
+		insert into a_jylb (jylbid,jylbdh,jylbmc,jymk) values ('3','30','°²×°¼à¶½Ö¤Êé','°²×°¼à¼ì');
+		insert into a_jylb (jylbid,jylbdh,jylbmc,jymk) values ('7','31','ÌØÖÖÉè±¸Ä£°å','ÆäËü¼ìÑé');
+		insert into a_jylb (jylbid,jylbdh,jylbmc,jymk) values ('T','32','ÔÚÏß¼ìÑé','¶¨ÆÚ¼ìÑé');
+		temp = '1A,3B,7E,9E,aA,bA,cA,dB,eC,eD,fE,gE,hE,iB,jB,kB,lE,mB,nA,oB,pC,qC,rB,sA,tA,uC,vC,wC,wD,xE,yE,zE'
+		DECLARE temp5 CURSOR FOR
+		SELECT jylbid,jylbdh,jylbmc,jymk
+		FROM a_jylb ; 
+		OPEN temp5;
+		FETCH temp5 INTO :jylbid,:jylbdh,:jylbmc,:jymk;
+		do while sqlca.sqlcode = 0
+			choose case jymk 
+				case '¶¨ÆÚ¼ìÑé'
+					ll_temp = 'A'
+				case '°²×°¼à¼ì'
+					ll_temp = 'B'
+				case 'ÖÆÔì¼à¼ì'
+					ll_temp = 'C'
+				case '½ø³ö¿Ú¼ìÑé'
+					ll_temp = 'D'
+				case 'ÆäËü¼ìÑé'
+					ll_temp = 'E'
+			end choose
+			IF pos(temp,jylbid + ll_temp) > 0 then
+			ELSE
+				if temp_jylbid = '' or isnull(temp_jylbid) then
+					temp_jylbid = jylbid + ','
+				else
+					temp_jylbid = temp_jylbid + jylbid + ','
+				end if
+				if temp_jylbmc = '' or isnull(temp_jylbmc) then
+					choose case jylbmc	
+						case '¼ìÑé±¨¸æÊé'
+                     jylbmc = '¼ìÑé±¨¸æ'
+					end choose
+					temp_jylbmc = jylbmc + ','
+				else
+					choose case jylbmc	
+						case '¼ìÑé±¨¸æÊé'
+                     jylbmc = '¼ìÑé±¨¸æ'
+					end choose
+					temp_jylbmc = temp_jylbmc + jylbmc + ','
+				end if
+				if temp_jylbdh = '' or isnull(temp_jylbdh) then
+					if jylbdh = '' or isnull(jylbdh) then
+						jylbdh = '0'
+						temp_jylbdh = jylbdh + ','
+					else
+						temp_jylbdh = jylbdh + ','
+					end if
+				else
+					if jylbdh = '' or isnull(jylbdh) then
+						jylbdh = '0'
+						temp_jylbdh = temp_jylbdh + jylbdh + ','
+					else
+						temp_jylbdh = temp_jylbdh + jylbdh + ','
+					end if
+				end if
+				if lb_temp_jymk = '' or isnull(lb_temp_jymk) then
+					lb_temp_jymk = jymk + ','
+				else
+					lb_temp_jymk = lb_temp_jymk + jymk + ','
+				end if
+				delete a_jylb where jylbid like :jylbid;
+			END IF
+		FETCH temp5 INTO :jylbid,:jylbdh,:jylbmc,:jymk;
+		LOOP
+		CLOSE temp5;
+		if isnull(temp_jylbmc) then temp_jylbmc = ''
+		if isnull(temp_jylbdh) then temp_jylbdh = ''
+		if isnull(lb_temp_jymk) then lb_temp_jymk = ''
+		return_str = '(' + temp_jylbmc + ')' + '(' + temp_jylbdh + ')' + '(' + lb_temp_jymk + ')'
+end choose
+return return_str
+end function
+

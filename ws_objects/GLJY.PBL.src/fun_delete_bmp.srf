@@ -1,0 +1,21 @@
+﻿$PBExportHeader$fun_delete_bmp.srf
+global type fun_delete_bmp from function_object
+end type
+
+forward prototypes
+global subroutine fun_delete_bmp ()
+end prototypes
+
+global subroutine fun_delete_bmp ();FileDelete("c:\jyoa\temp.dat")
+FileDelete("c:\jyoa\jyname.bmp")
+FileDelete("c:\jyoa\shname.bmp")
+FileDelete("c:\jyoa\spname.bmp")
+FileDelete("c:\jyoa\jyz1.bmp")
+FileDelete("c:\jyoa\jyz2.bmp")
+FileDelete("c:\jyoa\jyz3.bmp")
+FileDelete("c:\jyoa\jyz4.bmp")
+FileDelete("c:\jyoa\jyz5.bmp")
+FileDelete("c:\jyoa\ft.bmp")
+FileDelete("c:\jyoa\ct.bmp")
+end subroutine
+

@@ -1,0 +1,11 @@
+﻿$PBExportHeader$us_ry.srs
+global type us_ry from structure
+	string		id
+	string		mc
+	string		dm
+	string		pass
+	string		bm
+	string		jyid
+	string		addrid
+end type
+

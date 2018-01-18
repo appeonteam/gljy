@@ -1,0 +1,66 @@
+﻿$PBExportHeader$fun_windows_position.srf
+global type fun_windows_position from function_object
+end type
+
+forward prototypes
+global subroutine fun_windows_position (window windwos_name)
+end prototypes
+
+global subroutine fun_windows_position (window windwos_name);//±äÁ¿ÉùÃ÷
+Environment lenv_System
+Integer li_ScrWidth,li_ScrHeight
+
+
+//¹Ø±ÕÆÁÄ»Ë¢ÐÂ
+windwos_name.SetRedraw(False)
+
+//»ñÈ¡ÆÁÄ»µÄ¿í¶ÈºÍ¸ß¶È
+GetEnvironment(lenv_System)
+li_ScrWidth = PixelsToUnits(lenv_System.ScreenWidth, XPixelsToUnits!)
+li_ScrHeight = PixelsToUnits(lenv_System.ScreenHeight, YPixelsToUnits!)
+
+//ÒÆ¶¯´°¿Úµ½ÆÁÄ»ÖÐÐÄ
+windwos_name.Move((li_ScrWidth - windwos_name.Width)/2 , (li_ScrHeight - windwos_name.Height)/2 )
+
+//´ò¿ªÆÁÄ»Ë¢ÐÂ
+windwos_name.SetRedraw(True)
+
+
+
+//choose case (GetsystemMetrics(1))
+//	case 480
+//		return
+//	case 600
+//		return
+//	case 768
+//		windwos_name.x = windwos_name.x + int(4680 - 3660)/2
+//		windwos_name.y = windwos_name.y + int(3100 - 2390)/2
+//	case 864
+//		windwos_name.x = windwos_name.x + int(5280 - 3660)/2
+//		windwos_name.y = windwos_name.y + int(3460 - 2390)/2
+//	case 720
+//		windwos_name.x = windwos_name.x + int(5800 - 3660)/2
+//		windwos_name.y = windwos_name.y + int(2800 - 2390)/2
+//	case 960
+//		windwos_name.x = windwos_name.x + int(5850 - 3660)/2
+//		windwos_name.y = windwos_name.y + int(3820 - 2390)/2
+//	case 1024
+//		windwos_name.x = windwos_name.x + int(5850 - 3660)/2
+//		windwos_name.y = windwos_name.y + int(4100 - 2390)/2
+//	case else
+//		return
+//end choose
+//
+//return
+//
+////
+////640*480   3000*2000
+////800*600   3660*2390 // ±ê×¼
+////1024*768  4680*3100
+////1152*864  5280*3460
+////1280*720  5800*2800
+////1280*960  5850*3820
+////1280*1024 5850*4100
+//		
+end subroutine
+

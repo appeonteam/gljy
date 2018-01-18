@@ -1,0 +1,175 @@
+﻿$PBExportHeader$fun_a_mllb_modify_down.srf
+global type fun_a_mllb_modify_down from function_object
+end type
+
+forward prototypes
+global subroutine fun_a_mllb_modify_down (string table, string temp_sh, string temp_mc, string temp_jymk)
+end prototypes
+
+global subroutine fun_a_mllb_modify_down (string table, string temp_sh, string temp_mc, string temp_jymk);string ll_temp
+string temp_a_mc[],temp_a_sh[],temp_a_jymk[]
+long i,li_temp,count
+choose case table
+	case 'a_jymlid'
+		li_temp = 0
+		ll_temp = ''
+		ll_temp = temp_mc
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_mc[i] = left(ll_temp,count - 1)
+			if temp_a_mc[i] = '0' then temp_a_mc[i] = ''
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+			if ll_temp = '' or isnull(ll_temp) then
+				li_temp = i
+				exit
+			end if
+		next
+		ll_temp = ''
+		ll_temp = temp_sh
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_sh[i] = left(ll_temp,count - 1)
+			if temp_a_sh[i] = '0' then temp_a_sh[i] = ''
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+		next
+		for i = 1 to li_temp
+			if temp_a_mc[i] = '' then
+			else
+				update a_jyml_id set sh = :temp_a_sh[i] where mc like :temp_a_mc[i];
+			end if
+			temp_a_mc[i] = ''
+			temp_a_sh[i] = ''
+		next
+	case 'a_jyml'
+		li_temp = 0
+		ll_temp = ''
+		ll_temp = temp_mc
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_mc[i] = left(ll_temp,count - 1)
+			if temp_a_mc[i] = '0' then temp_a_mc[i] = ''
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+			if ll_temp = '' or isnull(ll_temp) then
+				li_temp = i
+				exit
+			end if
+		next
+		ll_temp = ''
+		ll_temp = temp_sh
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_sh[i] = left(ll_temp,count - 1)
+			if temp_a_sh[i] = '0' then temp_a_sh[i] = ''
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+		next
+		ll_temp = ''
+		ll_temp = temp_jymk
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_jymk[i] = left(ll_temp,count - 1)
+			choose case temp_a_jymk[i]
+				case 'a'
+					temp_a_jymk[i] = '¶¨ÆÚ¼ìÑé'
+				case 'b'
+					temp_a_jymk[i] = '°²×°¼à¼ì'
+				case 'c'
+					temp_a_jymk[i] = 'ÖÆÔì¼à¼ì'
+				case 'd'
+					temp_a_jymk[i] = '½ø³ö¿Ú¼ìÑé'
+				case 'e'
+					temp_a_jymk[i] = 'ÆäËü¼ìÑé'
+			end choose
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+		next
+		for i = 1 to li_temp
+			if temp_a_mc[i] = '' then
+			else
+				update a_jyml set jymldh = :temp_a_sh[i] where jymlmc like :temp_a_mc[i] and jymk like :temp_a_jymk[i];
+			end if
+			temp_a_mc[i] = ''
+			temp_a_sh[i] = ''
+			temp_a_jymk[i] = ''
+		next
+	case 'a_jylb_id'
+		li_temp = 0
+		ll_temp = ''
+		ll_temp = temp_mc
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_mc[i] = left(ll_temp,count - 1)
+			if temp_a_mc[i] = '0' then temp_a_mc[i] = ''
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+			if ll_temp = '' or isnull(ll_temp) then
+				li_temp = i
+				exit
+			end if
+		next
+		ll_temp = ''
+		ll_temp = temp_sh
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_sh[i] = left(ll_temp,count - 1)
+			if temp_a_sh[i] = '0' then temp_a_sh[i] = ''
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+		next
+		for i = 1 to li_temp
+			if temp_a_mc[i] = '' then
+			else
+				update a_jylb_id set sh = :temp_a_sh[i] where mc like :temp_a_mc[i];
+			end if
+			temp_a_mc[i] = ''
+			temp_a_sh[i] = ''
+		next
+	case 'a_jylb'
+		li_temp = 0
+		ll_temp = ''
+		ll_temp = temp_mc
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_mc[i] = left(ll_temp,count - 1)
+			if temp_a_mc[i] = '0' then temp_a_mc[i] = ''
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+			if ll_temp = '' or isnull(ll_temp) then
+				li_temp = i
+				exit
+			end if
+		next
+		ll_temp = ''
+		ll_temp = temp_sh
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_sh[i] = left(ll_temp,count - 1)
+			if temp_a_sh[i] = '0' then temp_a_sh[i] = ''
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+		next
+		ll_temp = ''
+		ll_temp = temp_jymk
+		for i = 1 to len(ll_temp)
+			count=pos(ll_temp,",")
+			temp_a_jymk[i] = left(ll_temp,count - 1)
+			choose case temp_a_jymk[i]
+				case 'A'
+					temp_a_jymk[i] = '¶¨ÆÚ¼ìÑé'
+				case 'B'
+					temp_a_jymk[i] = '°²×°¼à¼ì'
+				case 'C'
+					temp_a_jymk[i] = 'ÖÆÔì¼à¼ì'
+				case 'D'
+					temp_a_jymk[i] = '½ø³ö¿Ú¼ìÑé'
+				case 'E'
+					temp_a_jymk[i] = 'ÆäËü¼ìÑé'
+			end choose
+			ll_temp = right(ll_temp,len(ll_temp)-count)
+		next
+		for i = 1 to li_temp
+			if temp_a_mc[i] = '' then
+			else
+				update a_jylb set jylbdh = :temp_a_sh[i] where jylbmc like :temp_a_mc[i] and jymk like :temp_a_jymk[i];
+			end if
+			temp_a_mc[i] = ''
+			temp_a_sh[i] = ''
+			temp_a_jymk[i] = ''
+		next
+end choose
+end subroutine
+

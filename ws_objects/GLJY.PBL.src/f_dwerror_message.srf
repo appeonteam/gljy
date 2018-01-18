@@ -1,0 +1,12 @@
+﻿$PBExportHeader$f_dwerror_message.srf
+global type f_dwerror_message from function_object
+end type
+
+forward prototypes
+global function long f_dwerror_message (long sqldbcode)
+end prototypes
+
+global function long f_dwerror_message (long sqldbcode);messagebox("ÏµÍ³ÌáÊ¾","Í¬Ò»¼ìÑéÃÅÀà¡¢¼ìÑéÀà±ðµÄ±¨¸æ±àºÅÖ»ÓÐÒ»ÖÖ¶¨Òå¸ñÊ½£¡")
+return(1)
+end function
+

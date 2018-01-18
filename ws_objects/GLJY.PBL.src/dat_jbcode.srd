@@ -1,0 +1,17 @@
+﻿$PBExportHeader$dat_jbcode.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 )
+header(height=89 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=89 color="536870912" )
+table(column=(type=char(20) update=yes updatewhereclause=yes key=yes name=jbid dbname="a_jbcode.jbid" initial="empty" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=jb dbname="a_jbcode.jb" initial="empty" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=jbmc dbname="a_jbcode.jbmc" initial="empty" )
+ retrieve="PBSELECT(TABLE(NAME=~"a_jbcode~") COLUMN(NAME=~"a_jbcode.jbid~")COLUMN(NAME=~"a_jbcode.jb~")COLUMN(NAME=~"a_jbcode.jbmc~"))" update="a_jbcode" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="8421504" x="10" y="8" height="73" width="631" format="[general]"  name=jbid  tag=" " edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="ËÎÌå" font.height="-11" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=10 border="0" color="0" x="1290" y="8" height="73" width="1683" format="[general]"  name=jbmc  tag=" " edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="ËÎÌå" font.height="-11" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="8421504" x="650" y="8" height="73" width="631" format="[general]"  name=jb  tag=" " edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="ËÎÌå" font.height="-11" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="ID"border="0" color="0" x="10" y="8" height="69" width="631"  name=jbid_t  font.face="ËÎÌå" font.height="-11" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="¼¶±ð"border="0" color="0" x="650" y="8" height="69" width="631"  name=jb_t  font.face="ËÎÌå" font.height="-11" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="      ¼¶  ±ð  Ãû  ³Æ  "border="0" color="0" x="1290" y="8" height="69" width="1683"  name=jbmc_t  font.face="ËÎÌå" font.height="-11" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )

@@ -1,0 +1,18 @@
+﻿$PBExportHeader$fun_sort.srf
+global type fun_sort from function_object
+end type
+
+forward prototypes
+global subroutine fun_sort (datawindow dw, string cs)
+end prototypes
+
+global subroutine fun_sort (datawindow dw, string cs);////ÅÅÐò
+string temp
+
+temp = left(cs,len(cs) - 2) + ' A'
+dw.setsort(temp)
+dw.sort()
+return 
+
+end subroutine
+

@@ -1,0 +1,1290 @@
+﻿$PBExportHeader$fun_view_create1.srf
+global type fun_view_create1 from function_object
+end type
+
+forward prototypes
+global subroutine fun_view_create1 ()
+end prototypes
+
+global subroutine fun_view_create1 ();//**fun_reCreatePX_DB**//
+string delsql,mysql,myindex,modsql
+int    li_temp
+boolean lb_insert
+string ls_temp
+string mark = 'sybase'
+if sqlca.dbms = "MSS (Msoft) SQL Server 6.0" then 
+   mark = 'sqlserver'
+end if
+long ll_Count 
+ll_Count = 0
+
+if mark = 'sqlserver' then
+	//////////////////////////////////
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_cnjdclys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_cnjdclys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang, " + &
+		"b.zzdw as zzdw,b.clmc as clmc,b.cpxh as cpxh,b.qd as qd,b.rlzl as rlzl,b.edzz as edzz,b.kczl as kczl," + &
+		"b.ys as ys,b.yftgc as yftgc,b.dpbh as dpbh,b.fdjbh as fdjbh,b.zgss as zgss," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_cnjdcl_jj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_cnjdclys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_cnjdclys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.zzdw as zzdw,b.clmc as clmc,b.cpxh as cpxh,b.qd as qd,b.rlzl as rlzl,b.edzz as edzz,b.kczl as kczl," + &
+		"b.ys as ys,b.yftgc as yftgc,b.dpbh as dpbh,b.fdjbh as fdjbh,b.zgss as zgss," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_aj_total as a,t_tzsb_cnjdcl_jj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+/////////////////////////////////
+	delsql = "drop view djylrq.View_tgsdys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_tgsdys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid, " + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang, " + &
+		"b.sdmc as sdmc,b.jylb as sdjylb,b.sjiandw as sjiandw,b.frdb as frdb,b.sdfzr as sdfzr,b.zgbm as zgbm, " + &
+		"b.sjdw as sjdw,b.tjsgdw as tjsgdw,b.azdw as azdw,b.jgrq as jgrq,b.fzqk as fzqk,b.sdlx as sdlx, " + &
+		"b.pjcs as pjcs,b.zjsmcs as zjsmcs,b.xccs as xccs,b.zjxscs as zjxscs,b.gccs as gccs,b.fjxscs as fjxscs, " + &
+		"b.ylcs as ylcs,b.zjinxscs as zjinxscs,b.sdcs as sdcs,b.yzscs as yzscs,b.sjcs as sjcs, " + &
+		"b.djlxcs as djlxcs,b.xltd as xltd,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_dxxhtgbsq_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_tgsdys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_tgsdys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid, " + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang, " + &
+		"b.sdmc as sdmc,b.jylb as sdjylb,b.sjiandw as sjiandw,b.frdb as frdb,b.sdfzr as sdfzr,b.zgbm as zgbm, " + &
+		"b.sjdw as sjdw,b.tjsgdw as tjsgdw,b.azdw as azdw,b.jgrq as jgrq,b.fzqk as fzqk,b.sdlx as sdlx, " + &
+		"b.pjcs as pjcs,b.zjsmcs as zjsmcs,b.xccs as xccs,b.zjxscs as zjxscs,b.gccs as gccs,b.fjxscs as fjxscs, " + &
+		"b.ylcs as ylcs,b.zjinxscs as zjinxscs,b.sdcs as sdcs,b.yzscs as yzscs,b.sjcs as sjcs, " + &
+		"b.djlxcs as djlxcs,b.xltd as xltd,b.sh as sh,b.pz as pz,b.jyjl as jyjl  " + &
+		"from b_aj_total as a,t_tzsb_dxxhtgbsq_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_tgsd_nrcx "
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_tgsd_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid, " + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday, " + &
+		"b.sdmc as sdmc,b.sdlx as sdlx,b.pj as pj,b.gc as gc,b.sd as sd,b.yl as yl,b.frdb as frdb, " + &
+		"b.sdzz as sdzz,b.jgrq as jgrq,b.fzqk as fzqk,b.sh as sh,b.pz as pz,b.jyjl as jyjl  " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_dxxhtgbsq_nj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_tgsd_nrcx "
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_tgsd_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid, " + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday, " + &
+		"b.sdmc as sdmc,b.sdlx as sdlx,b.pj as pj,b.gc as gc,b.sd as sd,b.yl as yl,b.frdb as frdb, " + &
+		"b.sdzz as sdzz,b.jgrq as jgrq,b.fzqk as fzqk,b.sh as sh,b.pz as pz,b.jyjl as jyjl  " + &
+		"from b_jy_total as a,t_tzsb_dxxhtgbsq_nj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_gdsdys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_gdsdys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid, " + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang, " + &
+		"b.sdmc as sdmc,b.jylb as sdjylb,b.sjiandw as sjiandw,b.frdb as frdb,b.sdfzr as sdfzr,b.zgbm as zgbm, " + &
+		"b.sjdw as sjdw,b.tjsgdw as tjsgdw,b.azdw as azdw,b.jgrq as jgrq,b.fzqk as fzqk,b.sdlx as sdlx, " + &
+		"b.pjcs as pjcs,b.zjsmcs as zjsmcs,b.xccs as xccs,b.zjxscs as zjxscs,b.gccs as gccs,b.fjxscs as fjxscs, " + &
+		"b.ylcs as ylcs,b.zjinxscs as zjinxscs,b.sdcs as sdcs,b.yzscs as yzscs,b.sjcs as sjcs, " + &
+		"b.djlxcs as djlxcs,b.xltd as xltd,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_dxgdbsq_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_gdsdys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_gdsdys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang, " + &
+		"b.sdmc as sdmc,b.jylb as sdjylb,b.sjiandw as sjiandw,b.frdb as frdb,b.sdfzr as sdfzr,b.zgbm as zgbm, " + &
+		"b.sjdw as sjdw,b.tjsgdw as tjsgdw,b.azdw as azdw,b.jgrq as jgrq,b.fzqk as fzqk,b.sdlx as sdlx, " + &
+		"b.pjcs as pjcs,b.zjsmcs as zjsmcs,b.xccs as xccs,b.zjxscs as zjxscs,b.gccs as gccs,b.fjxscs as fjxscs, " + &
+		"b.ylcs as ylcs,b.zjinxscs as zjinxscs,b.sdcs as sdcs,b.yzscs as yzscs,b.sjcs as sjcs, " + &
+		"b.djlxcs as djlxcs,b.xltd as xltd,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_aj_total as a,t_tzsb_dxgdbsq_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_gdsd_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_gdsd_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sdmc as sdmc,b.sdlx as sdlx,b.pj as pj,b.gc as gc,b.sd as sd,b.yl as yl,b.frdb as frdb," + &
+		"b.sdzz as sdzz,b.jgrq as jgrq,b.fzqk as fzqk,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_dxgdbsq_nj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_gdsd_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_gdsd_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sdmc as sdmc,b.sdlx as sdlx,b.pj as pj,b.gc as gc,b.sd as sd,b.yl as yl,b.frdb as frdb," + &
+		"b.sdzz as sdzz,b.jgrq as jgrq,b.fzqk as fzqk,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_jy_total as a,t_tzsb_dxgdbsq_nj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_zdftys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_zdftys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &		
+		"a.shwang as shwang,a.cqdw as cqdw,a.sblx as sblx,a.sbmc as sbmc,a.yqmc as yqmc," + &
+		"a.dtc as dtc,a.dtz as dtz," + &
+		"b.azdw as azdw,b.sydd as sydd,b.zzdw as zzdw,b.sbbh as sbbh,b.ccbh as ccbh,b.tz as tz," + &
+		"b.sbxh as sbxh,b.djgl as djgl,b.edsd as edsd,b.ssnl as ssnl,b.qxj as qxj,b.tjkd as tjkd," + &
+		"b.tsgd as tsgd,b.syqdcd as syqdcd,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_zdfthrxd_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_zdftys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_zdftys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &		
+		"a.shwang as shwang,a.cqdw as cqdw,a.sblx as sblx,a.sbmc as sbmc,a.yqmc as yqmc," + &
+		"a.dtc as dtc,a.dtz as dtz," + &
+		"b.azdw as azdw,b.sydd as sydd,b.zzdw as zzdw,b.sbbh as sbbh,b.ccbh as ccbh,b.tz as tz, " + &
+		"b.sbxh as sbxh,b.djgl as djgl,b.edsd as edsd,b.ssnl as ssnl,b.qxj as qxj,b.tjkd as tjkd, " + &
+		"b.tsgd as tsgd,b.syqdcd as syqdcd,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_aj_total as a,t_tzsb_zdfthrxd_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_zdft_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_zdft_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.wbdw as wbdw,b.sydd as sydd,b.zzdw as zzdw,b.sbbh as sbbh,b.ccbh as ccbh,b.tz as tz," + &
+		"b.sbxh as sbxh,b.djgl as djgl,b.edsd as edsd,b.ssnl as ssnl,b.qxj as qxj,b.tjkd as tjkd," + &
+		"b.tsgd as tsgd,b.syqdcd as syqdcd,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_zdfthrxd_dj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_zdft_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_zdft_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.wbdw as wbdw,b.sydd as sydd,b.zzdw as zzdw,b.sbbh as sbbh,b.ccbh as ccbh,b.tz as tz," + &
+		"b.sbxh as sbxh,b.djgl as djgl,b.edsd as edsd,b.ssnl as ssnl,b.qxj as qxj,b.tjkd as tjkd," + &
+		"b.tsgd as tsgd,b.syqdcd as syqdcd,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_jy_total as a,t_tzsb_zdfthrxd_dj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_cnjdcl_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_cnjdcl_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang, " + &
+		"b.zzdw as zzdw,b.clmc as clmc,b.cpxh as cpxh,b.qd as qd,b.rlzl as rlzl,b.edzz as edzz,b.kczl as kczl," + &
+		"b.ys as ys,b.yftgc as yftgc,b.dpbh as dpbh,b.fdjbh as fdjbh,b.zgss as zgss," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_cnjdcl_jj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_cnjdcl_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_cnjdcl_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.zzdw as zzdw,b.clmc as clmc,b.cpxh as cpxh,b.qd as qd,b.rlzl as rlzl,b.edzz as edzz,b.kczl as kczl," + &
+		"b.ys as ys,b.yftgc as yftgc,b.dpbh as dpbh,b.fdjbh as fdjbh,b.zgss as zgss," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_jy_total as a,t_tzsb_cnjdcl_jj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_ylssys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ylssys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid,"  + &
+		"a.shwang as shwang," + &
+		"b.sbmc as sbmc,b.cpllb as cpllb,b.xhgg as xhgg,b.zzdw as zzdw,b.azdw as azdw,b.azrq as azrq," + &
+		"b.zzrq as zzrq,b.azdd as azdd,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_ylss_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_ylssys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_ylssys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbmc as sbmc,b.cpllb as cpllb,b.xhgg as xhgg,b.zzdw as zzdw,b.azdw as azdw,b.azrq as azrq," + &
+		"b.zzrq as zzrq,b.azdd as azdd,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_aj_total as a,t_tzsb_ylss_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_ylss_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ylss_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.xhgg as xhgg,b.sbmc as sbmc,b.bcjydw as bcjydw,b.zzdw as zzdw,b.sbdd as sbdd,b.zzrq as zzrq," + &
+		"b.cplb as cplb,b.bcjyqk as bcjyqk,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_ylss_dj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_ylss_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_ylss_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.xhgg as xhgg,b.sbmc as sbmc,b.bcjydw as bcjydw,b.zzdw as zzdw,b.sbdd as sbdd,b.zzrq as zzrq," + &
+		"b.cplb as cplb,b.bcjyqk as bcjyqk,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_jy_total as a,t_tzsb_ylss_dj1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_mzsys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_mzsys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"  + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.sqsd as sqsd," + &
+		"b.qzjxtslj as qzjxtslj,b.fd as fd,b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,"  + &
+		"b.ccbh as ccbh,b.yhsbbh as yhsbbh,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_mzs_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_mzsys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_mzsys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.sqsd as sqsd," + &
+		"b.qzjxtslj as qzjxtslj,b.fd as fd,b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd," + &
+		"b.ccbh as ccbh,b.yhsbbh as yhsbbh,b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_aj_total as a,t_tzsb_mzs_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_mzs_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_mzs_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.sqsd as sqsd," + &
+		"b.qzjxtslj as qzjxtslj,b.fd as fd,b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd," + &
+		"b.ccbh as ccbh,b.yhsbbh as yhsbbh,b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_mzs_dq1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_mzs_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_mzs_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.sqsd as sqsd," + &
+		"b.qzjxtslj as qzjxtslj,b.fd as fd,b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd," + &
+		"b.ccbh as ccbh,b.yhsbbh as yhsbbh,b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from b_jy_total as a,t_tzsb_mzs_dq1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_qmsys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_qmsys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.kd as kd,b.zzdw as zzdw," + &
+		"b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.gzhj as gzhj,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_qms_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_qmsys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_qmsys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.kd as kd,b.zzdw as zzdw," + &
+		"b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.gzhj as gzhj,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_aj_total as a,t_tzsb_qms_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_qms_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_qms_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.kd as kd,b.zzdw as zzdw," + &
+		"b.wxbydw as wxbydw,b.sbsydd as sbsydd,b.ccbh as ccbh,b.gzhj as gzhj,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_qms_dq1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_qms_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_qms_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.kd as kd,b.zzdw as zzdw," + &
+		"b.wxbydw as wxbydw,b.sbsydd as sbsydd,b.ccbh as ccbh,b.gzhj as gzhj,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from b_jy_total as a,t_tzsb_qms_dq1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_sgsjjys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_sgsjjys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.qzjxzh as qzjxzh,b.dtyxsd as dtyxsd,b.dlgzxc as dlgzxc,b.zydgd as zydgd," + &
+		"b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_sjj_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_sgsjjys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_sgsjjys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.qzjxzh as qzjxzh,b.dtyxsd as dtyxsd,b.dlgzxc as dlgzxc,b.zydgd as zydgd," + &
+		"b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_aj_total as a,t_tzsb_sjj_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_sgsjj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_sgsjj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sbxh as sbxh,b.qzjxzh as qzjxzh,b.dtyxsd as dtyxsd,b.dlgzxc as dlgzxc,b.zydgd as zydgd," + &
+		"b.zzdw as zzdw,b.sbsydd as sbsydd,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_sjj_dq1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_sgsjj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_sgsjj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sbxh as sbxh,b.qzjxzh as qzjxzh,b.dtyxsd as dtyxsd,b.dlgzxc as dlgzxc,b.zydgd as zydgd," + &
+		"b.zzdw as zzdw,b.sbsydd as sbsydd,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from b_jy_total as a,t_tzsb_sjj_dq1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_lds_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_lds_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.fd as fd,b.qzjxzh as qzjxzh,b.qzjxtsgd as qzjxtsgd," + &
+		"b.zzdw as zzdw,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_lds1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_lds_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_lds_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday, " + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.fd as fd,b.qzjxzh as qzjxzh,b.qzjxtsgd as qzjxtsgd," + &
+		"b.zzdw as zzdw,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from b_jy_total as a,t_tzsb_lds1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+//if mark = 'sqlserver' then
+//	delsql = "drop view djylrq.View_dddlys_nrcx"
+//	execute immediate :delsql using sqlca;
+//	mysql = "create View djylrq.View_dddlys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+//      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+//		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+//		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+//		"a.shwang as shwang," + &
+//		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.kd as kd,b.zzdw as zzdw," + &
+//		"b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.gzhj as gzhj,b.yhsbbh as yhsbbh," + &
+//		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+//		"from djylrq.b_aj_total as a,djylrq.t_tzsb_dddl_ys1 as b where a.jyid = b.jyid"
+//	execute immediate :mysql using sqlca;
+//else
+//	delsql = "drop view View_dddlys_nrcx"
+//	execute immediate :delsql using sqlca;
+//	mysql = "create View View_dddlys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+//      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+//		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+//		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+//		"a.shwang as shwang," + &
+//		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.kd as kd,b.zzdw as zzdw," + &
+//		"b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.gzhj as gzhj,b.yhsbbh as yhsbbh," + &
+//		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+//		"from b_aj_total as a,t_tzsb_dddl_ys1 as b where a.jyid = b.jyid"
+//	execute immediate :mysql using sqlca;
+//end if
+
+//if mark = 'sqlserver' then
+//	delsql = "drop view djylrq.View_dddl_nrcx"
+//	execute immediate :delsql using sqlca;
+//	mysql = "create View djylrq.View_dddl_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+//      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+//		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+//		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+//		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+//		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.kd as kd,b.zzdw as zzdw," + &
+//		"b.wxbydw as wxbydw,b.sbsydd as sbsydd,b.ccbh as ccbh,b.gzhj as gzhj,b.yhsbbh as yhsbbh," + &
+//		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+//		"from djylrq.b_jy_total as a,djylrq.t_tzsb_dddl_dq1 as b where a.jyid = b.jyid"
+//	execute immediate :mysql using sqlca;
+//else
+//	delsql = "drop view View_dddl_nrcx"
+//	execute immediate :delsql using sqlca;
+//	mysql = "create View View_dddl_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+//      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+//		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+//		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+//		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+//		"b.sbxh as sbxh,b.sbmc as sbmc,b.gzjb as gzjb,b.qzjxzh as qzjxzh,b.kd as kd,b.zzdw as zzdw," + &
+//		"b.wxbydw as wxbydw,b.sbsydd as sbsydd,b.ccbh as ccbh,b.gzhj as gzhj,b.yhsbbh as yhsbbh," + &
+//		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+//		"from b_jy_total as a,t_tzsb_dddl_dq1 as b where a.jyid = b.jyid"
+//	execute immediate :mysql using sqlca;
+//end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_tsqzjys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_tsqzjys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.qzjxtsgd as qzjxtsgd,b.qzjxtslj as qzjxtslj,b.qzjxzh as qzjxzh," + &
+		"b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl "  + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_ts_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_tsqzjys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_tsqzjys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.qzjxtsgd as qzjxtsgd,b.qzjxtslj as qzjxtslj,b.qzjxzh as qzjxzh," + &
+		"b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_aj_total as a,t_tzsb_ts_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_tsqzj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_tsqzj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.qzjxtsgd as qzjxtsgd,b.qzjxtslj as qzjxtslj,b.qzjxzh as qzjxzh," + &
+		"b.zzdw as zzdw,b.wxbydw as wxbydw,b.sbsydd as sbsydd,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_ts_dq1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_tsqzj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_tsqzj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.sbxh as sbxh,b.sbmc as sbmc,b.qzjxtsgd as qzjxtsgd,b.qzjxtslj as qzjxtslj,b.qzjxzh as qzjxzh," + &
+		"b.zzdw as zzdw,b.wxbydw as wxbydw,b.sbsydd as sbsydd,b.ccbh as ccbh,b.yhsbbh as yhsbbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl,b.bbxx as bbxx " + &
+		"from b_jy_total as a,t_tzsb_ts_dq1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_zwdtys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_zwdtys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.cqdw as cqdw,a.sblx as sblx,a.sbmc as sbmc,a.yqmc as yqmc,a.sydd as sydd,a.tsgd as tsgd," + &
+		"b.sbxh as sbxh,b.dtedzh as dtedzh,b.dtyxsd as dtyxsd,b.jxcc as jxcc," + &
+		"b.kuan as kuan,b.gao as gao,b.kzfs as kzfs,b.dtcz as dtcz,b.zhan as zhan," + &
+		"b.men as men,b.kmfx as kmfx,b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.sgxz as sgxz,b.ccbh as ccbh," + &
+		"b.yhsbbh as yhsbbh,b.sh as sh,b.pz as pz,b.jyjl as jyjl  " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_zwdt_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_zwdtys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_zwdtys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.cqdw as cqdw,a.sblx as sblx,a.sbmc as sbmc,a.yqmc as yqmc,a.sydd as sydd,a.tsgd as tsgd," + &
+		"b.sbxh as sbxh,b.dtedzh as dtedzh,b.dtyxsd as dtyxsd,b.jxcc as jxcc," + &
+		"b.kuan as kuan,b.gao as gao,b.kzfs as kzfs,b.dtcz as dtcz,b.zhan as zhan," + &
+		"b.men as men,b.kmfx as kmfx,b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.sgxz as sgxz,b.ccbh as ccbh," + &
+		"b.yhsbbh as yhsbbh,b.sh as sh,b.pz as pz,b.jyjl as jyjl  " + &
+		"from b_aj_total as a,t_tzsb_zwdt_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_yydtys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_yydtys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.cqdw as cqdw,a.sblx as sblx,a.sbmc as sbmc,a.yqmc as yqmc,a.sydd as sydd," + &
+		"a.dtsd as dtsd,a.tsgd as tsgd," + &
+		"b.sbxh as sbxh,b.dtedzh as dtedzh,b.sxdtyxsd as sxdtyxsd," + &
+		"b.xxdtyxsd as xxdtyxsd,b.ygsl as ygsl,b.ygxs as ygxs,b.dtcz as dtcz,b.zhan as zhan," + &
+		"b.dsxs as dsxs,b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.yhsbbh as yhsbbh,b.jyjl as jyjl," + &
+		"b.sh as sh,b.pz as pz " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_yydt_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_yydtys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_yydtys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.cqdw as cqdw,a.sblx as sblx,a.sbmc as sbmc,a.yqmc as yqmc,a.sydd as sydd," + &
+		"a.dtsd as dtsd,a.tsgd as tsgd," + &
+		"b.sbxh as sbxh,b.dtedzh as dtedzh,b.sxdtyxsd as sxdtyxsd," + &
+		"b.xxdtyxsd as xxdtyxsd,b.ygsl as ygsl,b.ygxs as ygxs,b.dtcz as dtcz,b.zhan as zhan," + &
+		"b.dsxs as dsxs,b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.yhsbbh as yhsbbh,b.jyjl as jyjl," + &
+		"b.sh as sh,b.pz as pz " + &
+		"from b_aj_total as a,t_tzsb_yydt_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_dtys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_dtys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.dtedzh as dtedzh,b.dtyxsd as dtyxsd,b.dtcz as dtcz,b.zhan as zhan,b.kzfs as kzfs," + &
+		"b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.yhsbbh as yhsbbh,b.jyjl as jyjl,b.sh as sh,b.pz as pz " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_dt_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_dtys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_dtys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.sbxh as sbxh,b.dtedzh as dtedzh,b.dtyxsd as dtyxsd,b.dtcz as dtcz,b.zhan as zhan,b.kzfs as kzfs," + &
+		"b.zzdw as zzdw,b.azdw as azdw,b.azdd as azdd,b.ccbh as ccbh,b.yhsbbh as yhsbbh,b.jyjl as jyjl,b.sh as sh,b.pz as pz " + &
+		"from b_aj_total as a,t_tzsb_dt_ys1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+//**Modify By FFF**//
+//**View View_cx_rw **²éÑ¯Ê±Ê¹ÓÃ**//
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_cx_rw"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_cx_rw as select a.djbid as djbid,"+&
+	        "mark,nh,bsjks,lzcl,totalts,totalfy,djr,djrdate,fpr,fprdate,"+&
+			  "sfr,sfrdate,sydw,lxr,dh,zgdw,dwdz,yb,bjxx,jhdate,qt,rwid,jymlid,"+&
+			  "jylbid,fl,rymc,jyid,je,djid,yjrq from djylrq.z_rw_main as a,djylrq.z_rw_sb as b where a.djbid = b.djbid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view view_cx_rw"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_cx_rw as select z_rw_main.djbid as djbid,"+&
+	        "mark,nh,bsjks,lzcl,totalts,totalfy,djr,djrdate,fpr,fprdate,"+&
+			  "sfr,sfrdate,sydw,lxr,dh,zgdw,dwdz,yb,bjxx,jhdate,qt,rwid,jymlid,"+&
+			  "jylbid,fl,rymc,jyid,je,djid,yjrq from z_rw_main,z_rw_sb where z_rw_main.djbid = z_rw_sb.djbid"
+	execute immediate :mysql using sqlca;
+end if
+
+//**View_ylrq_nrcx**//
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_ylrq_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ylrq_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid,"+&
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,"+&
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.jyjl as jyjl,a.nextdate as nextdate,"+&
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid,"+&
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday,"+&
+		"b.rqbh as rqbh,b.rqmc as rqmc,b.rqlb as rqlb,b.rqjg as rqjg,b.gcbh2 as rqgaoc,b.tool2 as rqnj,"+&
+		"b.tool3 as rqrj,b.tool31 as rqrj1,b.list_mc as list_mc,"+&
+		"c.sjdw as sjdw,c.rqth as rqth,c.sjgf as sjgf,c.zzdw as zzdw,c.zzgf as zzgf,c.ccrq as ccrq,"+&
+		"c.azdw as azdw,c.ysrq as ysrq,c.shname02 as ysshname,c.shy02 as ysshy,c.shm02 as ysshm,c.shd02 as ysshd,"+&
+		"c.jyz1 as ysjyz1,c.jyz2 as ysjyz2,c.jyz3 as ysjyz3,c.jyz4 as ysjyz4,c.jyz5 as ysjyz5,"+&
+		"d.shname01 as jlshname,d.shy01 as jlshy,d.shm01 as jlshm,d.shd01 as jlshd,d.spname as spname,"+&
+		"d.spy as spy,d.spm as spm,d.spd as spd,d.jyz1 as jljyz1,d.jyz2 as jljyz2,d.jyz3 as jljyz3,d.jyz4 as jljyz4,d.jyz5 as jljyz5,"+&
+		"d.p1 as yxsyyl,d.p2 as yxsyyl1,d.l1 as yxsywd,d.l2 as yxsywd1,d.jz1 as yxsyjz,d.jz2 as yxsyjz1 "+& 
+		"from djylrq.b_jy_total as a,djylrq.c_ylrq_total as b,djylrq.c_ylrq_yszl as c,djylrq.c_ylrq_jyjl as d "+&
+		"where a.jyid = b.jyid and a.jyid = c.jyid and a.jyid = d.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view view_ylrq_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_ylrq_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid,"+&
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,"+&
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.jyjl as jyjl,a.nextdate as nextdate,"+&
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid,"+&
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday,"+&
+		"b.rqbh as rqbh,b.rqmc as rqmc,b.rqlb as rqlb,b.rqjg as rqjg,b.gcbh2 as rqgaoc,b.tool2 as rqnj,"+&
+		"b.tool3 as rqrj,b.tool31 as rqrj1,b.list_mc as list_mc,"+&
+		"c.sjdw as sjdw,c.rqth as rqth,c.sjgf as sjgf,c.zzdw as zzdw,c.zzgf as zzgf,c.ccrq as ccrq,"+&
+		"c.azdw as azdw,c.ysrq as ysrq,c.shname02 as ysshname,c.shy02 as ysshy,c.shm02 as ysshm,c.shd02 as ysshd,"+&
+		"c.jyz1 as ysjyz1,c.jyz2 as ysjyz2,c.jyz3 as ysjyz3,c.jyz4 as ysjyz4,c.jyz5 as ysjyz5,"+&
+		"d.shname01 as jlshname,d.shy01 as jlshy,d.shm01 as jlshm,d.shd01 as jlshd,d.spname as spname,"+&
+		"d.spy as spy,d.spm as spm,d.spd as spd,d.jyz1 as jljyz1,d.jyz2 as jljyz2,d.jyz3 as jljyz3,d.jyz4 as jljyz4,d.jyz5 as jljyz5,"+&
+		"d.p1 as yxsyyl,d.p2 as yxsyyl1,d.l1 as yxsywd,d.l2 as yxsywd1,d.jz1 as yxsyjz,d.jz2 as yxsyjz1 "+& 
+		"from b_jy_total as a,c_ylrq_total as b,c_ylrq_yszl as c,c_ylrq_jyjl as d "+&
+		"where a.jyid = b.jyid and a.jyid = c.jyid and a.jyid = d.jyid"
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_table_col"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.view_table_col as select tab.name as tab_name,col.name as Col from dbo.sysobjects as tab,dbo.syscolumns as col where tab.id = col.id"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view view_table_col"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_table_col as select tname as tab_name,cname as Col from sys.syscolumns"
+	execute immediate :mysql using sqlca;
+end if
+//**ENd View **//
+
+if mark = 'sqlserver' then   
+   modsql = "Drop View djylrq.view_zdsh_yyycqm"
+	execute immediate :modsql using sqlca;
+	modsql = "create view djylrq.view_zdsh_yyycqm as select a.jyid as jyid,b.ycgg as ycgg,b.zlrs as jlzlrs,"+&
+       "b.ccbh as ccbh,b.lxr as lxr,b.tyrq as tyrq,b.syzh as syzh,b.jyjl1 as jyjl1,b.jyjl2 as jyjl2,"+&
+		 "b.jyjl3 as jyjl3,b.yxgzyl as yxgzyl,b.yxgzwd as yxgzwd,b.yxgzjz as yxgzjz,"+&
+		 "c.sjdw as sjdw,c.zzdw as zzdw,c.zzgf as zzgf,c.zzrq as zzrq,"+&
+		 "c.azdw as azdw,c.jgrq as jgrq,c.zlrs as zlrs,c.sjyl as sjyl,c.sjwd as sjwd,c.jz as jz,"+&
+		 "c.ktcl as ktcl,c.kthd as kthd,c.ycrj as ycrj,c.ctzl as ctzl,c.ycxh as ycxh,c.jyfs as jyfs,"+&
+		 "c.yczm as yczm,c.cyfs as cyfs,c.ktdj as ktdj "+&
+"from djylrq.b_jy_total as a,djylrq.b_yyyc_qmjy_jlbg as b,djylrq.b_yyyc_qmjy_jbqkb as c "+&
+"where a.jyid = b.jyid and a.jyid = c.jyid"
+   execute immediate :modsql using sqlca;
+else
+   modsql = "Drop View view_zdsh_yyycqm"
+	execute immediate :modsql using sqlca;
+	modsql = "create view view_zdsh_yyycqm as select a.jyid as jyid,b.ycgg as ycgg,b.zlrs as jlzlrs,"+&
+       "b.ccbh as ccbh,b.lxr as lxr,b.tyrq as tyrq,b.syzh as syzh,b.jyjl1 as jyjl1,b.jyjl2 as jyjl2,"+&
+		 "b.jyjl3 as jyjl3,b.yxgzyl as yxgzyl,b.yxgzwd as yxgzwd,b.yxgzjz as yxgzjz,"+&
+		 "c.sjdw as sjdw,c.zzdw as zzdw,c.zzgf as zzgf,c.zzrq as zzrq,"+&
+		 "c.azdw as azdw,c.jgrq as jgrq,c.zlrs as zlrs,c.sjyl as sjyl,c.sjwd as sjwd,c.jz as jz,"+&
+		 "c.ktcl as ktcl,c.kthd as kthd,c.ycrj as ycrj,c.ctzl as ctzl,c.ycxh as ycxh,c.jyfs as jyfs,"+&
+		 "c.yczm as yczm,c.cyfs as cyfs,c.ktdj as ktdj "+&
+"from b_jy_total as a,b_yyyc_qmjy_jlbg as b,b_yyyc_qmjy_jbqkb as c "+&
+"where a.jyid = b.jyid and a.jyid = c.jyid"
+   execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then   
+   modsql = "Drop View djylrq.view_zdsh_xxrq"
+	execute immediate :modsql using sqlca;
+	modsql = "create view djylrq.view_zdsh_xxrq as select a.jyid as jyid,a.rqmc as rqmc,a.rqlb as rqlb,"+&
+       "a.sjyl1 as sjyl1,a.sjwd1 as sjwd1,a.czyl1 as czyl1,a.czwd1 as czwd1,"+&
+		 "a.gzjz1 as gzjz1,a.tool as tool,a.tool3 as tool3,a.tool31 as tool31,"+&
+		 "a.ztcz1 as ztcz1,a.ztcz2 as ztcz2,a.aqdj as aqdj,b.zzdw as zzdw,b.cczl as cczl,"+&
+		 "b.wsts as wsts "+&
+"from djylrq.c_ylrq_total as a,djylrq.c_xxrq_bg01 as b "+&
+"where a.jyid = b.jyid"
+   execute immediate :modsql using sqlca;
+else
+   modsql = "Drop View view_zdsh_xxrq"
+	execute immediate :modsql using sqlca;
+	modsql = "create view view_zdsh_xxrq as select a.jyid as jyid,a.rqmc as rqmc,a.rqlb as rqlb,"+&
+       "a.sjyl1 as sjyl1,a.sjwd1 as sjwd1,a.czyl1 as czyl1,a.czwd1 as czwd1,"+&
+		 "a.gzjz1 as gzjz1,a.tool as tool,a.tool3 as tool3,a.tool31 as tool31,"+&
+		 "a.ztcz1 as ztcz1,a.ztcz2 as ztcz2,a.aqdj as aqdj,b.zzdw as zzdw,b.cczl as cczl,"+&
+		 "b.wsts as wsts "+&
+"from c_ylrq_total as a,c_xxrq_bg01 as b "+&
+"where a.jyid = b.jyid"
+   execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then   
+   modsql = "Drop View djylrq.view_zdsh_ht"
+	execute immediate :modsql using sqlca;
+	modsql = "create view djylrq.view_zdsh_ht as select a.jyid as jyid,a.rqmc as rqmc,a.rqlb as rqlb,"+&
+       "a.sjyl1 as sjyl1,a.sjwd1 as sjwd1,a.czyl1 as czyl1,a.czwd1 as czwd1,"+&
+		 "a.gzjz1 as gzjz1,a.tool as tool,a.tool3 as tool3,"+&
+		 "a.ztcz1 as ztcz1,a.ztcz2 as ztcz2,a.aqdj as aqdj,b.zzdw as zzdw,b.cczl as cczl,"+&
+		 "b.wsts as wsts "+&
+"from djylrq.c_ylrq_total as a,djylrq.c_ht_bg01 as b "+&
+"where a.jyid = b.jyid"
+   execute immediate :modsql using sqlca;
+else
+   modsql = "Drop View view_zdsh_ht"
+	execute immediate :modsql using sqlca;
+	modsql = "create view view_zdsh_ht as select a.jyid as jyid,a.rqmc as rqmc,a.rqlb as rqlb,"+&
+       "a.sjyl1 as sjyl1,a.sjwd1 as sjwd1,a.czyl1 as czyl1,a.czwd1 as czwd1,"+&
+		 "a.gzjz1 as gzjz1,a.tool as tool,a.tool3 as tool3,"+&
+		 "a.ztcz1 as ztcz1,a.ztcz2 as ztcz2,a.aqdj as aqdj,b.zzdw as zzdw,b.cczl as cczl,"+&
+		 "b.wsts as wsts "+&
+"from c_ylrq_total as a,c_ht_bg01 as b "+&
+"where a.jyid = b.jyid"
+   execute immediate :modsql using sqlca;
+end if
+
+//**½ø³ö¿ÚÊÔÍ¼´´½¨**//
+if mark = "sqlserver" then   
+   modsql = "Drop view djylrq.b_jj_sf_view"
+	execute immediate :modsql using sqlca;
+   modsql = "create view djylrq.b_jj_sf_view as select jyid,cpid,djid,nh,bgid,jyml,jylb,"+&
+            "jytype,sydw,spmc,ryid,rymc,rybm,jydate,sjid,bgmoney,sjmoney,"+&
+            "qfje,shmark,shtui,shzb,shsp,qfqzname,shwang,dangan,qmjsm,qz,jyjl "+&
+            "from djylrq.b_jj_total where jytype <> 'Ge' and jytype <> 'Le' and jytype <> '4w'"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Drop View b_jj_sf_view"
+	execute immediate :modsql using sqlca;
+   modsql = "create view b_jj_sf_view as select jyid,cpid,djid,nh,bgid,jyml,jylb,"+&
+            "jytype,sydw,spmc,ryid,rymc,rybm,jydate,sjid,bgmoney,sjmoney,"+&
+            "qfje,shmark,shtui,shzb,shsp,qfqzname,shwang,dangan,qmjsm,qz,jyjl "+&
+            "from b_jj_total where jytype <> 'Ge' and jytype <> 'Le' and jytype <> '4w'"
+	execute immediate :modsql using sqlca;
+end if
+if mark = "sqlserver" then   
+   modsql = "Drop View djylrq.b_jk_sf_view"
+	execute immediate :modsql using sqlca;
+   modsql = "create view djylrq.b_jk_sf_view as select jyid,cpid,djid,nh,bgid,jyml,jylb,"+&
+            "jytype,sydw,spmc,ryid,rymc,rybm,jydate,sjid,bgmoney,sjmoney,"+&
+            "qfje,shmark,shtui,shzb,shsp,qfqzname,shwang,dangan,qmjsm,qz,jyjl "+&
+            "from djylrq.b_jj_total where jytype = 'Ge' or jytype = 'Le' or jytype = '4w' or jytype = '4p' "
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Drop View b_jk_sf_view"
+	execute immediate :modsql using sqlca;
+   modsql = "create view b_jk_sf_view as select jyid,cpid,djid,nh,bgid,jyml,jylb,"+&
+            "jytype,sydw,spmc,ryid,rymc,rybm,jydate,sjid,bgmoney,sjmoney,"+&
+            "qfje,shmark,shtui,shzb,shsp,qfqzname,shwang,dangan,qmjsm,qz,jyjl "+&
+            "from b_jj_total where jytype = 'Ge' or jytype = 'Le' or jytype = '4w' or jytype = '4p' "
+	execute immediate :modsql using sqlca;
+end if
+if mark = "sqlserver" then
+	modsql = "Drop View djylrq.b_jy_sf_view"
+	execute immediate :modsql using sqlca;
+	modsql = "create view djylrq.b_jy_sf_view as "+&
+           "SELECT jyid,cpid,djid,sb_zcdm,nh,"+&
+		     "bgid,jyml,jylb,jytype,sydw,"+&
+			  "spmc,ryid,rymc,rybm,jydate,"+&
+			  "sjid,bgmoney,sjmoney,qfje,"+&
+			  "shmark,shtui,shzb,shsp,"+&
+			  "qfqzname,shwang,dangan,qmjsm,"+&
+			  "qz,dymark,lqmark,ysdfrq,dyrq,jyjl,lqrdh,lqsj,jyz1,sydd FROM djylrq.b_jy_total "
+	execute immediate :modsql using sqlca;
+else
+	modsql = "Drop View b_jy_sf_view"
+	execute immediate :modsql using sqlca;
+	modsql = "create view b_jy_sf_view as "+&
+           "SELECT jyid,cpid,djid,sb_zcdm,nh,"+&
+		     "bgid,jyml,jylb,jytype,sydw,"+&
+			  "spmc,ryid,rymc,rybm,jydate,"+&
+			  "sjid,bgmoney,sjmoney,qfje,"+&
+			  "shmark,shtui,shzb,shsp,"+&
+			  "qfqzname,shwang,dangan,qmjsm,"+&
+			  "qz,dymark,lqmark,ysdfrq,dyrq,jyjl,lqrdh,lqsj,jyz1,sydd FROM b_jy_total "
+	execute immediate :modsql using sqlca;
+end if
+if mark = "sqlserver" then
+	modsql = "Drop view djylrq.b_jy_gldj_view"
+	execute immediate :modsql using sqlca;
+	modsql = "create view djylrq.b_jy_gldj_view as "+&
+	         "SELECT jyid,cpid,djid,sb_zcdm,nh,"+&
+				"bgid,jyml,jylb,jytype,"+&
+				"sydw,spmc,ryid,rymc,"+&
+				"rybm,jydate,jyyear,jymonth,"+&
+				"jyday,jyjl,nextdate,nextyear,"+&
+				"nextmonth,nextday,shmark,shtui,"+&
+				"shzb,shsp,shwang,dangan,qz,tory,sbmc,tuitime,rysh,rysp,cqdw "+&
+				"FROM djylrq.b_jy_total "
+	execute immediate :modsql using sqlca;
+else
+	modsql = "Drop view b_jy_gldj_view"
+	execute immediate :modsql using sqlca;
+	modsql = "create view b_jy_gldj_view as "+&
+	         "SELECT jyid,cpid,djid,sb_zcdm,nh,"+&
+				"bgid,jyml,jylb,jytype,"+&
+				"sydw,spmc,ryid,rymc,"+&
+				"rybm,jydate,jyyear,jymonth,"+&
+				"jyday,jyjl,nextdate,nextyear,"+&
+				"nextmonth,nextday,shmark,shtui,"+&
+				"shzb,shsp,shwang,dangan,qz,tory,sbmc,tuitime,rysh,rysp,cqdw "+&
+				"FROM b_jy_total "
+	execute immediate :modsql using sqlca;
+end if
+//////////µç¶¯ºùÂ«
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_ddhl_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ddhl_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.ggxh as ggxh,b.sbmc as sbmc,b.jb as jb,b.edqzl as edqzl,b.azdd as azdd,b.zzdw as zzdw," + &
+		"b.azdw as azdw,b.gzhj as gzhj,b.gzhj1 as gzhj1,b.gzhj2 as gzhj2,b.gzhj3 as gzhj3,b.gzhj4 as gzhj4,b.gzhj5 as gzhj5,b.yhsbh as yhsbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_jy_total as a,djylrq.t_tzsb_ddhl_bg as b where a.jyid = b.jyid"//b.cpccbh as cpccbh,b.qsgd as qsgd,
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_ddhl_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_ddhl_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday," + &
+		"b.ggxh as ggxh,b.sbmc as sbmc,b.jb as jb,b.edqzl as edqzl,b.azdd as azdd,b.zzdw as zzdw," + &
+		"b.azdw as azdw,b.gzhj as gzhj,b.gzhj1 as gzhj1,b.gzhj2 as gzhj2,b.gzhj3 as gzhj3,b.gzhj4 as gzhj4,b.gzhj5 as gzhj5,b.yhsbh as yhsbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_jy_total as a,t_tzsb_ddhl_bg as b where a.jyid = b.jyid"//b.qsgd as qsgd,b.cpccbh as cpccbh,
+	execute immediate :mysql using sqlca;
+end if
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_ddhlys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ddhlys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.ggxh as ggxh,b.sbmc as sbmc,b.jb as jb,b.edqzl as edqzl,b.azdd as azdd,b.zzdw as zzdw," + &
+		"b.azdw as azdw,b.gzhj as gzhj,b.gzhj1 as gzhj1,b.gzhj2 as gzhj2,b.gzhj3 as gzhj3,b.gzhj4 as gzhj4,b.gzhj5 as gzhj5,b.yhsbh as yhsbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_ddhl_bg as b where a.jyid = b.jyid"//b.qsgd as qsgd,b.cpccbh as cpccbh,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday,a.nextdate as nextdate,
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_ddhlys_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_ddhlys_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate," + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.ggxh as ggxh,b.sbmc as sbmc,b.jb as jb,b.edqzl as edqzl,b.azdd as azdd,b.zzdw as zzdw," + &
+		"b.azdw as azdw,b.gzhj as gzhj,b.gzhj1 as gzhj1,b.gzhj2 as gzhj2,b.gzhj3 as gzhj3,b.gzhj4 as gzhj4,b.gzhj5 as gzhj5,b.yhsbh as yhsbh," + &
+		"b.sh as sh,b.pz as pz,b.jyjl as jyjl " + &
+		"from b_aj_total as a,t_tzsb_ddhl_bg as b where a.jyid = b.jyid"//b.qsgd as qsgd,b.cpccbh as cpccbh,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday,a.nextdate as nextdate,
+	execute immediate :mysql using sqlca;
+end if
+////////////////////////////////Ñ¹Á¦ÈÝÆ÷°²×°////////////////////////
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_ylrq_az_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.view_ylrq_az_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid,"+&
+      "a.jyml as jyml,a.jylb as jylb,a.sbmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,"+&
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.jyjl as jyjl,"+&
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid,"+&
+		"a.shwang as shwang,"+&
+		"b.rqbh as rqbh,b.rqmc as rqmc,b.azdw as azdw,b.shname as shname,b.shy as shy,b.shm as shm,b.shd as shd,"+&
+		"b.spname as spname,b.spy as spy,b.spm as spm,b.spd as spd,"+&
+		"b.jyz1 as jyz1,b.jyz2 as jyz2,b.jyz3 as jyz3,b.jyz4 as jyz4,b.jyz5 as jyz5,"+&
+		"c.rqlx as rqlb,c.ztcz1 as ztcz1,c.ztcz2 as ztcz2,c.zzdw as zzdw,c.gcbh1 as gcbh1,c.gcbh2 as gcbh2,"+&
+		"c.rqgg as rqgg,c.zzxkzbh as zzxkzbh,c.ccrq as ccrq,c.azbz as azbz "+&
+		"from djylrq.b_aj_total as a,djylrq.b_aj_ylrq_total as b,djylrq.b_aj_ylrq_fy1 as c "+&
+		"where a.jyid = b.jyid and a.jyid = c.jyid "
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view view_ylrq_az_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View view_ylrq_az_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid,"+&
+      "a.jyml as jyml,a.jylb as jylb,a.sbmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,"+&
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.jyjl as jyjl,"+&
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid,"+&
+		"a.shwang as shwang,"+&
+		"b.rqbh as rqbh,b.rqmc as rqmc,b.azdw as azdw,b.shname as shname,b.shy as shy,b.shm as shm,b.shd as shd,"+&
+		"b.spname as spname,b.spy as spy,b.spm as spm,b.spd as spd,"+&
+		"b.jyz1 as jyz1,b.jyz2 as jyz2,b.jyz3 as jyz3,b.jyz4 as jyz4,b.jyz5 as jyz5,"+&
+		"c.rqlx as rqlb,c.ztcz1 as ztcz1,c.ztcz2 as ztcz2,c.zzdw as zzdw,c.gcbh1 as gcbh1,c.gcbh2 as gcbh2,"+&
+		"c.rqgg as rqgg,c.zzxkzbh as zzxkzbh,c.ccrq as ccrq,c.azbz as azbz "+&
+		"from djylrq.b_aj_total as a,djylrq.b_aj_ylrq_total as b,djylrq.b_aj_ylrq_fy1 as c "+&
+		"where a.jyid = b.jyid and a.jyid = c.jyid "
+	execute immediate :mysql using sqlca;
+end if
+//////////////////////////////////////////////////
+if mark = 'sqlserver' then ////b.qsgd as qsgd,b.yxbj as yxbj,
+   delsql = "drop view djylrq.view_xbqzj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create view djylrq.view_xbqzj_nrcx as select a.jyid as jyid,a.cpid as cpid,a.djid as djid,a.nh as nh,"+&
+	        "a.bgid as bgid,a.jyml as jyml,a.jylb as jylb,a.jytype as jytype,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,"+&
+			  "a.ryid as ryid,a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate,"+&
+			  "a.glcmark as glcmark,a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,"+&
+			  "a.sjid as sjid,a.bgmoney as bgmoney,a.sjmoney as sjmoney,a.qfje as qfje,a.dymark as dymark,a.jyyear as jyyear,"+&
+			  "a.jymonth as jymonth,a.jyday as jyday,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday,"+&
+			  "a.qfqzname as qfqzname,a.shwang as shwang,a.dangan as dangan,a.qmjsm as qmjsm,a.qz as qz,a.zgbmid as zgbmid,"+&
+			  "a.zgbmmc as zgbmmc,a.sb_zcdm as sb_zcdm,a.jyfaid as jyfaid,"+&
+			  "b.ggxh as ggxh,b.sbmc as sbmc,b.sydd as sydd,b.yhsbbh as yhsbbh,b.zzdw as zzdw,b.ccbh as ccbh,"+&
+			  "b.wxbydw as wxbydw,b.gzjb as gzjb,b.edzgl as edzgl," +&
+			  "b.xcjyy as xcjyy,b.xcjym as xcjym,b.xcjyd as xcjyd,b.qfrqy as qfrqy,b.qfrqm as qfrqm,"+&
+			  "b.qfrqd as qfrqd,b.pz as pz,b.sh as sh,b.bgbh as bgbh,b.jyjl1 as jyjl,b.bbxx as bbxx "+&
+			  " from djylrq.b_jy_total as a,djylrq.t_tzsb_xbqzj as b "+&
+		     " where a.jyid=b.jyid  "
+      
+	execute immediate :mysql using sqlca;
+else //b.qsgd as qsgd,b.yxbj as yxbj,
+	delsql = "drop view view_xbqzj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create view view_xbqzj_nrcx as select a.jyid as jyid,a.cpid as cpid,a.djid as djid,a.nh as nh,"+&
+	        "a.bgid as bgid,a.jyml as jyml,a.jylb as jylb,a.jytype as jytype,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,"+&
+			  "a.ryid as ryid,a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate,"+&
+			  "a.glcmark as glcmark,a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,"+&
+			  "a.sjid as sjid,a.bgmoney as bgmoney,a.sjmoney as sjmoney,a.qfje as qfje,a.dymark as dymark,a.jyyear as jyyear,"+&
+			  "a.jymonth as jymonth,a.jyday as jyday,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday,"+&
+			  "a.qfqzname as qfqzname,a.shwang as shwang,a.dangan as dangan,a.qmjsm as qmjsm,a.qz as qz,a.zgbmid as zgbmid,"+&
+			  "a.zgbmmc as zgbmmc,a.sb_zcdm as sb_zcdm,a.jyfaid as jyfaid,"+&
+			  "b.ggxh as ggxh,b.sbmc as sbmc,b.sydd as sydd,b.yhsbbh as yhsbbh,b.zzdw as zzdw,b.ccbh as ccbh,"+&
+			  "b.wxbydw as wxbydw,b.gzjb as gzjb,b.edzgl as edzgl,"+&
+			  "b.xcjyy as xcjyy,b.xcjym as xcjym,b.xcjyd as xcjyd,b.qfrqy as qfrqy,b.qfrqm as qfrqm,"+&
+			  "b.qfrqd as qfrqd,b.pz as pz,b.sh as sh,b.bgbh as bgbh,b.jyjl1 as jyjl,b.bbxx as bbxx "+&
+			  " from b_jy_total as a,t_tzsb_xbqzj as b "+&
+		     " where a.jyid=b.jyid  "
+	execute immediate :mysql using sqlca;
+end if
+///////////////////////////µ¥Áº¼à¶½//////////////////
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_dddljj_nrcx"
+	execute immediate :delsql using sqlca;//b.azdw as azdw,b.azdd as azdd,,b.yhsbbh as yhsbbh
+	mysql = "create View djylrq.View_dddljj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"  + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.ggxh as ggxh,b.sbmc as sbmc,b.gzjb as gzjb,b.edzgl as edzgl,b.qsgd as qsgd," + &
+		"b.sjdw as sjdw,b.kd as kd,b.zzdw as zzdw,b.xjsd as xjsd,"  + &
+		"b.cpccbh as cpccbh,c.shy as shy,c.spy as spy,b.jyjl1 as jyjl,c.cpxh as cpxh " + &
+		"from djylrq.b_jj_total as a,djylrq.b_dlqzj_aqxn_jj2 as b, djylrq.b_dlqzj_aqxn_jj1 as c where a.jyid = b.jyid and a.jyid = c.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_dddljj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_dddljj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"  + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.ggxh as ggxh,b.sbmc as sbmc,b.gzjb as gzjb,b.edzgl as edzgl,b.qsgd as qsgd," + &
+		"b.sjdw as sjdw,b.kd as kd,b.zzdw as zzdw,b.xjsd as xjsd,"  + &
+		"b.cpccbh as cpccbh,c.shy as shy,c.spy as spy,b.jyjl1 as jyjl,c.cpxh as cpxh " + &
+		"from b_jj_total as a,b_dlqzj_aqxn_jj2 as b, b_dlqzj_aqxn_jj1 as c where a.jyid = b.jyid and a.jyid = c.jyid"
+	execute immediate :mysql using sqlca;
+end if 
+///////////////////////////ÇÅÃÅ¼à¶½//////////////////
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_qmsjj_nrcx"
+	execute immediate :delsql using sqlca;//b.azdw as azdw,b.azdd as azdd,,b.yhsbbh as yhsbbh
+	mysql = "create View djylrq.View_qmsjj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"  + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.ggxh as ggxh,b.sbmc as sbmc,b.gzjb as gzjb,b.edzzl as edzzl,b.qsgd as qsgd," + &
+		"b.sjdw as sjdw,b.kd as kd,b.zzdw as zzdw,b.xjsd as xjsd,"  + &
+		"b.cpccbh as cpccbh,b.sh as sh,b.pz as pz,b.jyjl1 as jyjl,c.cpxh as cpxh " + &
+		"from djylrq.b_jj_total as a,djylrq.t_tzsb_qms2 as b, djylrq.t_tzsb_qms1 as c where a.jyid = b.jyid and a.jyid = c.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_qmsjj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_qmsjj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"  + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"b.ggxh as ggxh,b.sbmc as sbmc,b.gzjb as gzjb,b.edzzl as edzzl,b.qsgd as qsgd," + &
+		"b.sjdw as sjdw,b.kd as kd,b.zzdw as zzdw,b.xjsd as xjsd,"  + &
+		"b.cpccbh as cpccbh,b.sh as sh,b.pz as pz,b.jyjl1 as jyjl,c.cpxh as cpxh " + &
+		"from b_jj_total as a,t_tzsb_qms2 as b, t_tzsb_qms1 as c where a.jyid = b.jyid and a.jyid = c.jyid"
+	execute immediate :mysql using sqlca;
+end if 
+///////////////////////////ÃÅ×ù¼à¶½//////////////////
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_mzsjj_nrcx"
+	execute immediate :delsql using sqlca;//b.azdw as azdw,b.azdd as azdd,,b.yhsbbh as yhsbbh
+	mysql = "create View djylrq.View_mzsjj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"  + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"c.cpxh as cpxh,b.sbmc as sbmc,b.gzjb as gzjb,b.edqzl as edqzl,b.qsgd as qsgd," + &
+		"b.azdw as azdw,b.kd as kd,c.zzdw as zzdw,b.sydd as sydd,"  + &
+		"c.cpbh as cpbh,c.shr as shr,c.spr as spr,b.jyjl as jyjl,b.yhsbbh as yhsbbh,b.fd as fd " + &
+		"from djylrq.b_jj_total as a,djylrq.t_tzsb_mzsqzj_2 as b, djylrq.t_tzsb_mzsqzj_1 as c where a.jyid = b.jyid and a.jyid = c.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_mzsjj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_mzsjj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid," + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid," + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"  + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid," + &
+		"a.shwang as shwang," + &
+		"c.cpxh as cpxh,b.sbmc as sbmc,b.gzjb as gzjb,b.edqzl as edqzl,b.qsgd as qsgd," + &
+		"b.azdw as azdw,b.kd as kd,c.zzdw as zzdw,b.sydd as sydd,"  + &
+		"c.cpbh as cpbh,c.shr as shr,c.spr as spr,b.jyjl as jyjl,b.yhsbbh as yhsbbh,b.fd as fd " + &
+		"from b_jj_total as a,t_tzsb_mzsqzj_2 as b, t_tzsb_mzsqzj_1 as c where a.jyid = b.jyid and a.jyid = c.jyid"
+	execute immediate :mysql using sqlca;
+end if 
+/////////ÓÐ»úÈÈÔØÌåÂ¯°²×°¼ìÑé
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_yjrztl_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_yjrztl_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+           "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,a.jyjl as jyjl, " + &
+		     "a.rymc as rymc,a.rybm as rybm,a.jydate as jydate, " + &
+		     "a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		     "a.shwang as shwang, " + &
+			  "b.zzdw as zzdw,b.edrgl as edrgl,b.edckwd as edckwd,b.edsjyl as edsjyl,b.yxgzwd as yxgzwd,b.yxgzyl as yxgzyl, " + &
+			  "b.jjjl as jjjl,b.shr as shr,b.pzr as pzr " + &
+			  "from djylrq.b_aj_total as a,djylrq.b_gl_yjrztl1 as b where a.jyid = b.jyid"
+			  execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_yjrztl_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_yjrztl_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+           "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,a.jyjl as jyjl, " + &
+	        "a.rymc as rymc,a.rybm as rybm,a.jydate as jydate, " + &
+		     "a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		     "a.shwang as shwang, " + &
+		     "b.zzdw as zzdw,b.edrgl as edrgl,b.edckwd as edckwd,b.edsjyl as edsjyl,b.yxgzwd as yxgzwd,b.yxgzyl as yxgzyl, " + &
+		     "b.jjjl as jjjl,b.shr as shr,b.pzr as pzr " + &
+		     "from b_aj_total as a,b_gl_yjrztl1 as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+///////////ÓÐ»úÔØÌåÂ¯¼à¶½¼ìÑé
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_yjztlwxgz_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_yjztlwxgz_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid,a.jyml as jyml,"+&
+                             "a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,"+&
+									  "a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"+&
+									  "a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid,"+&
+									  "a.shwang as shwang,"+&
+                             "b.jjbh as jjbh,b.jydw as jydw,b.xlgzdw as xlgzdw,b.xldw as xldw," + &
+		                       "b.glxh as glxh,b.ccbh as ccbh,b.azrq as azrq,b.djh as djh," + &
+		                       "b.jyrqy as jyrqy,b.jyrqm as jyrqm,b.jyrqd as jyrqd,b.jyy as jyy," + &
+		                       "b.sh as sh,b.qfr as qfr,b.zzdw as zzdw,b.zzrq as zzrq,b.jjjl as jjjl, " + &
+									  "b.jyz1 as jyz1,b.jyz2 as jyz2,b.jyz3 as jyz3,b.jyz4 as jyz4,b.jyz5 as jyz5 " + &
+		                       "from djylrq.b_jj_total as a,djylrq.b_jj_yjztlwxgz as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_yjztlwxgz_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_yjztlwxgz_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid,a.jyml as jyml,"+&
+                             "a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,"+&
+									  "a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"+&
+									  "a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid,"+&
+									  "a.shwang as shwang,"+&
+                             "b.jjbh as jjbh,b.jydw as jydw,b.xlgzdw as xlgzdw,b.xldw as xldw," + &
+		                       "b.glxh as glxh,b.ccbh as ccbh,b.azrq as azrq,b.djh as djh," + &
+		                       "b.jyrqy as jyrqy,b.jyrqm as jyrqm,b.jyrqd as jyrqd,b.jyy as jyy," + &
+		                       "b.sh as sh,b.qfr as qfr,b.zzdw as zzdw,b.zzrq as zzrq,b.jjjl as jjjl," + &
+									  "b.jyz1 as jyz1,b.jyz2 as jyz2,b.jyz3 as jyz3,b.jyz4 as jyz4,b.jyz5 as jyz5 " + &
+		                       "from b_jj_total as a,b_jj_yjztlwxgz as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+///////////ÓÐ»úÔØÌåÂ¯¼à¶½¼ìÑéÏîÄ¿±í
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_yjztlxmb_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_yjztlxmb_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid,a.jyml as jyml,"+&
+                             "a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,"+&
+									  "a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"+&
+									  "a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid,"+&
+									  "a.shwang as shwang,"+&
+                             "b.jjbh as jjbh,b.cpmc as cpmc,b.cpbh as cpbh,b.cpxh as cpxh," + &
+		                       "b.zzdw as zzdw,b.zzrq as zzrq,b.xkzbh as xkzbh,b.jyy as jyy," + &
+		                       "b.sh as sh,b.jyz1 as jyz1,b.jyz2 as jyz2,b.jyz3 as jyz3,b.jyz4 as jyz4,b.jyz5 as jyz5 " +&
+		                       "from djylrq.b_jj_total as a,djylrq.b_jj_yjztlxmb as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_yjztlxmb_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_yjztlxmb_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid,a.jyml as jyml,"+&
+                             "a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid,"+&
+									  "a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,"+&
+									  "a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid,"+&
+									  "a.shwang as shwang,"+&
+                             "b.jjbh as jjbh,b.cpmc as cpmc,b.cpbh as cpbh,b.cpxh as cpxh," + &
+		                       "b.zzdw as zzdw,b.zzrq as zzrq,b.xkzbh as xkzbh,b.jyy as jyy," + &
+		                       "b.sh as sh,b.jyz1 as jyz1,b.jyz2 as jyz2,b.jyz3 as jyz3,b.jyz4 as jyz4,b.jyz5 as jyz5 " +&
+		                       "from b_jj_total as a,b_jj_yjztlxmb as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+/////////////½¨ÖþÎïÁÏÌáÉý»ú////////
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_jzwltsj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_jzwltsj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid, " + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang, " + &
+		"b.ggxh as ggxh,b.edzgl as edzgl,b.zdtssd as zdtssd,b.dlgzxc as dlgzxc,b.zdjsgd as zdjsgd, " + &
+		"b.zzdw as zzdw,b.azdw as azdw,b.ccbh as ccbh,b.azdd as azdd,b.yhsbbh as yhsbbh,b.jyjl1 as jyjl1, " + &
+		"b.sh as sh,b.pz as pz " + &
+		"from djylrq.b_aj_total as a,djylrq.t_tzsb_jzwltsj as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_jzwltsj_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_jzwltsj_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid, " + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang, " + &
+		"b.ggxh as ggxh,b.edzgl as edzgl,b.zdtssd as zdtssd,b.dlgzxc as dlgzxc,b.zdjsgd as zdjsgd, " + &
+		"b.zzdw as zzdw,b.azdw as azdw,b.ccbh as ccbh,b.azdd as azdd,b.yhsbbh as yhsbbh,b.jyjl1 as jyjl1, " + &
+		"b.sh as sh,b.pz as pz " + &
+		"from b_aj_total as a,t_tzsb_jzwltsj as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then
+delsql = "drop view djylrq.View_cgtc_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_cgtc_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid, " + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday, " + &
+		"b.sbmc as sbmc,b.acglry as acglry,b.zzbh as zzbh,b.zzdw as zzdw,b.syzh as syzh,b.dwnbh as dwnbh,b.qpwj as qpwj,b.qpcd as qpcd, " + &
+		"b.gcbh as gcbh,b.dprj as dprj,b.qpsl as qpsl,b.shname as shname,b.spname as spname,b.yxsy as yxsy,b.zmj as zmj,b.gzyl as gzyl,b.gzwd as gzwd,b.gzjz as gzjz " + &
+		"from djylrq.b_jy_total as a,djylrq.b_cgtc as b where a.jyid = b.jyid"
+		execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_cgtc_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View View_cgtc_nrcx as select a.jyid as jyid,a.djid as djid,a.sb_zcdm as sb_zcdm,a.nh as nh,a.bgid as bgid, " + &
+      "a.jyml as jyml,a.jylb as jylb,a.cpmc as cpmc,a.sydw as sydw,a.spmc as spmc,a.ryid as ryid, " + &
+		"a.rymc as rymc,a.rybm as rybm,a.jydate as jydate,a.nextdate as nextdate, " + &
+		"a.shib as shib,a.shmark as shmark,a.shtui as shtui,a.shzb as shzb,a.shsp as shsp,a.sjid as sjid, " + &
+		"a.shwang as shwang,a.nextyear as nextyear,a.nextmonth as nextmonth,a.nextday as nextday, " + &
+		"b.sbmc as sbmc,b.acglry as acglry,b.zzbh as zzbh,b.zzdw as zzdw,b.syzh as syzh,b.dwnbh as dwnbh,b.qpwj as qpwj,b.qpcd as qpcd, " + &
+		"b.gcbh as gcbh,b.dprj as dprj,b.qpsl as qpsl,b.shname as shname,b.spname as spname,b.yxsy as yxsy,b.zmj as zmj,b.gzyl as gzyl,b.gzwd as gzwd,b.gzjz as gzjz " + &
+		"from b_jy_total as a,b_cgtc as b where a.jyid = b.jyid"
+	execute immediate :mysql using sqlca;
+end if
+end subroutine
+

@@ -1,0 +1,132 @@
+﻿$PBExportHeader$fun_sjzd_modify_0919.srf
+global type fun_sjzd_modify_0919 from function_object
+end type
+
+forward prototypes
+global subroutine fun_sjzd_modify_0919 ()
+end prototypes
+
+global subroutine fun_sjzd_modify_0919 ();//**FFFÐÞ¸ÄÊý¾Ý¿â²¿·Ö×Ö¶Î±ä»¯**//
+string delsql,mysql,myindex,modsql
+int    li_temp
+boolean lb_insert
+string ls_temp
+string mark = 'sybase'
+if sqlca.dbms = "MSS (Msoft) SQL Server 6.0" then 
+   mark = 'sqlserver'
+end if
+long ll_Count
+ll_Count = 0
+
+//////////////////////////////////////////////////////////////jd_new
+insert into sjzdn_bglb(id,mc) values ('54','µç¶¯ºùÂ«¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('54','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('54','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('55','²æ³µ¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('55','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('55','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('56','¸ß¿Õ×÷Òµ³µ¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('56','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('56','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('57','ÀÂË÷¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('57','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('57','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('58','»úÐµÊ½Í£³µÉè±¸¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('58','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('58','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('59','Ðý±ÛÆðÖØ»ú¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('59','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('59','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('60','¼òÒ×Ê©¹¤Éý½µ»ú¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('60','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('60','1','1','¼ìÑéÒÀ¾Ý');
+
+update sjzdn_bglb set mc= 'Ê©¹¤Éý½µ»úºÍÉý½µ×÷ÒµÆ½Ì¨¶¨¼ì' where id= '23';
+//////////////////////////////////////////////////////////////////////////////tzsb_new
+insert into sjzdn_bglb(id,mc) values ('61','Éý½µÆðÖØ»ú¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('61','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('61','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('62','Æû³µ¾ÙÉý»ú¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('62','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('62','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('63','»úÐµÊ½Í£³µÉè±¸°²×°¼à¶½¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('63','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('63','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('64','µç¶¯ºùÂ«ÑéÊÕ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('64','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('64','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('65','½¨ÖþÎïÁÏÌáÉý»ú¼à¶½¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('65','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('65','1','1','¼ìÑéÒÀ¾Ý');
+//////////////////////////////////////////////////////////////////////////////tzsb_dw
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('40','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('40','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('43','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('43','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('44','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('44','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('45','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('45','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('46','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('46','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('47','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('47','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('66','ÒºÑ¹µçÌÝÑéÊÕ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('66','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('66','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('67','ÔÓÎïµçÌÝÑéÊÕ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('67','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('67','1','1','¼ìÑéÒÀ¾Ý');
+////////////////////////////////////////////////////////////////////////////////////qzj_new
+insert into sjzdn_bglb(id,mc) values ('68','¼òÒ×Ê©¹¤Éý½µ»ú°²×°¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('68','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('68','1','1','¼ìÑéÒÀ¾Ý');
+
+insert into sjzdn_bglb(id,mc) values ('69','ÀÂË÷°²×°¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('69','1','Ö÷Ò³');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('69','1','1','¼ìÑéÒÀ¾Ý');
+//¹¤Òµ¹ÜµÀÈ«Ãæ¼ìÑé
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('3','6','7','ÉøÍ¸¼ÁÐÍºÅ');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('3','6','8','ÇåÏ´¼ÁÐÍºÅ');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('3','6','9','ÏÔÏñ¼ÁÐÍºÅ');
+//¹¤Òµ¹ÜµÀÔÚÏß
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('4','2','²âÁ¿¼ÇÂ¼');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('4','2','1','ÒÇÆ÷ÐÍºÅ/¾«¶È');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('4','2','2','±íÃæ×´¿ö');
+////////////////Ñ¹Á¦¹ÜµÀ°²×°
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('53','1','½áÂÛ±¨¸æ');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('53','1','1','¼ìÑéÒÀ¾Ý');
+////////////////ÊªÕôÆûÄÚÍâ¼ìÑé
+insert into sjzdn_bglb(id,mc) values ('91','ÊªÕôÆûÄÚÍâ²¿¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('91','1','½áÂÛ±¨¸æ');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('91','1','1','¼ìÑéÒÀ¾Ý');
+///////////////////////////////////ÓãÀ×¹Þ³µ¶¨ÆÚ¼ìÑé
+insert into sjzdn_bglb(id,mc) values ('92','ÓãÀ×¹Þ³µ¶¨ÆÚ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('92','1','½áÂÛ±¨¸æ');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('92','1','1','¼ìÑéÒÀ¾Ý');
+///////////////////////////////////ÓãÀ×¹Þ³µÑéÊÕ¼ìÑé
+insert into sjzdn_bglb(id,mc) values ('93','ÓãÀ×¹Þ³µÑéÊÕ¼ìÑé');
+insert into sjzd_bg_bgmc(bglb_id,id,nr) values ('93','1','½áÂÛ±¨¸æ');
+insert into sjzd_bg_bgzd(bglb_id,bg_id,id,nr) values ('93','1','1','¼ìÑéÒÀ¾Ý');
+
+
+
+end subroutine
+

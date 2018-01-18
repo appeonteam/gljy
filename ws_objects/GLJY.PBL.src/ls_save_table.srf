@@ -1,0 +1,702 @@
+﻿$PBExportHeader$ls_save_table.srf
+global type ls_save_table from function_object
+end type
+
+forward prototypes
+global subroutine ls_save_table (string cs1)
+end prototypes
+
+global subroutine ls_save_table (string cs1);if cs1 <> 'OK' then return
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//select count(*) into :ls_count from djylrq.a_rycode;
+//if ls_count > 0 and sqlca.sqlcode = 0 then mark = 'sqlserver'
+// END
+
+ls_count = 0
+ //´´½¨ ÀÂË÷ÆðÖØ»ú//
+//IF mark = 'sqlserver' THEN
+////	select count(*) into :ls_count from t_tzsb_ls_dq1;
+////	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+////		delsql = "drop table djylrq.t_tzsb_ls_dq1"
+////		execute immediate :delsql using sqlca ;
+//		mysql="CREATE TABLE djylrq.t_tzsb_ls_dq1 " + &
+//				 "(jyid  varchar(20) NOT NULL," + &
+//				 "cpid  varchar(10)  null," + &
+//				 "djid  varchar(30)  null," + &
+//				 "bbxx  varchar(20)  null," + &
+//				 "sblsh  varchar(20)  null," + &
+//				 "sbsydw  varchar(60)  null," + &
+//				 "sbpz varchar(60)  null," + &
+//				 "sydjzbh varchar(20)  null," + &
+//				 "jyjg  varchar(60)  null," + &
+//				 "sbdm  varchar(30)  null," + &
+//				 "sb_zcdm  varchar(30)  null," + &
+//				 "jyrq  varchar(10)  null," + &
+//				 "jyjgdz  varchar(40)  null," + &
+//				 "jyjgyb  varchar(10)  null," + &
+//				 "jyjgdh  varchar(12)  null," + &
+//				 "bgsbh  varchar(20)  null," + &
+//				 "zzdw  varchar(50)  null," + &
+//				 "sbxh  varchar(20)  null," + &
+//				 "ccbh  varchar(20)  null," + &
+//				 "qfri  varchar(4)  null," + &
+//				 "moon  varchar(2)  null," + &
+//				 "day  varchar(2)  null," + &
+//				 "zyjyyqsb  varchar(60)  null," + &
+//				 "z1  varchar(60)  null," + &									
+//              "z2  varchar(60)  null," + &
+//              "jyjl  varchar(20)  null," + &
+//              "bz2  varchar(60)  null," + &
+//              "bz3  varchar(60)  null," + &
+//				  "bz4  varchar(60)  null," + &
+//              "pz  varchar(10)  null," + &
+//              "sh  varchar(10)  null," + &
+//              "jy  varchar(20)  null," + &
+//              "sydwdz  varchar(60)  null," + &
+//              "zzjgdm  varchar(25)  null," + &
+//              "sbsydd  varchar(50)  null," + &
+//              "aqglry  varchar(25)  null," + &
+//              "lxdh  varchar(26)  null," + &
+//              "dwnbh  varchar(26)  null," + &
+//              "zzckzbh  varchar(20)  null," + &
+//              "dm_bz  varchar(12)  null," + &
+//              "zzrq  varchar(20)  null," + &
+//				  "zdqzl  varchar(20)  null," + &
+//				  "edqzl  varchar(20)  null," + &
+//				  "zdqzlj  varchar(20)  null," + &
+//				  "qsgd  varchar(20)  null," + &
+//				  "qssd  varchar(20)  null," + &
+//				  "dcyxsd  varchar(20)  null," + &
+//				  "xcyxds  varchar(20)  null," + &
+//				  "jyyj1  varchar(60)  null," + &
+//				  "xcjyy  varchar(4)  null," + &
+//				  "xcjym  varchar(2)  null," + &
+//				  "xcjyd  varchar(2)  null," + &
+//				  "jyz1  varchar(10)  null," + &
+//				  "jyz2  varchar(10)  null," + &
+//				  "jyz3  varchar(10)  null," + &
+//				  "jyz4  varchar(10)  null," + &
+//				  "jyz5  varchar(10)  null," + &
+//				  "jyday  varchar(20)  null," + &
+//				  "shday  varchar(20)  null," + &
+//				  "pzday  varchar(20)  null," + &
+//				  "jyjghzzh varchar(30)  null," + &
+//				  "sblb  varchar(20)  null," + &
+//              "gzjb  varchar(20)  null);"
+//		execute immediate :mysql using sqlca ;
+//		myindex="CREATE UNIQUE INDEX t_tzsb_ls_dq1_x "&
+//		        +"ON djylrq.t_tzsb_ls_dq1"&
+//		        +"(jyid) ;"
+//		execute immediate :myindex using sqlca ;		
+////	end if
+//ELSE
+//	select count(*) into :ls_count from t_tzsb_ls_dq1;
+//	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+//		delsql = "drop table t_tzsb_ls_dq1"
+//		execute immediate :delsql using sqlca ;
+//		mysql="CREATE TABLE djylrq.t_tzsb_ls_dq1 " + &
+//              "(jyid  varchar(20) NOT NULL," + &
+//				  "cpid  varchar(10)  null," + &
+//				  "djid  varchar(30)  null," + &
+//				 "bbxx  varchar(20)  null," + &
+//				  "sblsh  varchar(20)  null," + &
+//              "sbsydw  varchar(60)  null," + &
+//				   "sbpz varchar(60)  null," + &
+//					"sydjzbh varchar(20)  null," + &
+//       			"jyjg  varchar(60)  null," + &
+//              "sbdm  varchar(30)  null," + &
+//				  "sb_zcdm  varchar(30)  null," + &
+//              "jyrq  varchar(10)  null," + &
+//				 "jyjgdz  varchar(40)  null," + &
+//				 "jyjgyb  varchar(10)  null," + &
+//				 "jyjgdh  varchar(12)  null," + &
+//              "bgsbh  varchar(20)  null," + &
+//              "zzdw  varchar(50)  null," + &
+//              "sbxh  varchar(20)  null," + &
+//              "ccbh  varchar(20)  null," + &
+//              "qfri  varchar(4)  null," + &
+//              "moon  varchar(2)  null," + &
+//              "day  varchar(2)  null," + &
+//              "zyjyyqsb  varchar(60)  null," + &
+//              "z1  varchar(60)  null," + &
+//              "z2  varchar(60)  null," + &
+//              "jyjl  varchar(20)  null," + &
+//              "bz2  varchar(60)  null," + &
+//              "bz3  varchar(60)  null," + &
+//				  "bz4  varchar(60)  null," + &
+//              "pz  varchar(10)  null," + &
+//              "sh  varchar(10)  null," + &
+//              "jy  varchar(20)  null," + &
+//              "sydwdz  varchar(60)  null," + &
+//              "zzjgdm  varchar(25)  null," + &
+//              "sbsydd  varchar(50)  null," + &
+//              "aqglry  varchar(25)  null," + &
+//              "lxdh  varchar(26)  null," + &
+//              "dwnbh  varchar(26)  null," + &
+//              "zzckzbh  varchar(20)  null," + &
+//              "dm_bz  varchar(12)  null," + &
+//              "zzrq  varchar(20)  null," + &
+//				  "zdqzl  varchar(20)  null," + &
+//				  "edqzl  varchar(20)  null," + &
+//				  "zdqzlj  varchar(20)  null," + &
+//				  "qsgd  varchar(20)  null," + &
+//				  "qssd  varchar(20)  null," + &
+//				  "dcyxsd  varchar(20)  null," + &
+//				  "xcyxds  varchar(20)  null," + &
+//				  "jyyj1  varchar(60)  null," + &
+//				  "xcjyy  varchar(4)  null," + &
+//				  "xcjym  varchar(2)  null," + &
+//				  "xcjyd  varchar(2)  null," + &
+//				  "jyz1  varchar(10)  null," + &
+//				  "jyz2  varchar(10)  null," + &
+//				  "jyz3  varchar(10)  null," + &
+//				  "jyz4  varchar(10)  null," + &
+//				  "jyz5  varchar(10)  null," + &
+//				  "jyday  varchar(20)  null," + &
+//				  "shday  varchar(20)  null," + &
+//				  "pzday  varchar(20)  null," + &
+//				  "jyjghzzh varchar(30)  null," + &
+//				  "sblb  varchar(20)  null," + &
+//              "gzjb  varchar(20)  null,Primary Key (jyid) ) ;"
+//		execute immediate :mysql using sqlca ;
+//	end if	
+//END IF
+//
+//ls_count = 0
+//// ´´½¨ ÀÂË÷ÆðÖØ»ú
+//IF mark = 'sqlserver' THEN
+//	select count(*) into :ls_count from t_tzsb_ls_dq2;
+//	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+//		delsql = "drop table djylrq.t_tzsb_ls_dq2"
+//		execute immediate :delsql using sqlca ;
+//		mysql="CREATE TABLE djylrq.t_tzsb_ls_dq2 " + &
+//              "(jyid  varchar(20) NOT NULL," + &
+//              "jyjl1  varchar(20)  null," + &
+//              "jyjl2  varchar(20)  null," + &
+//              "jyjl3  varchar(20)  null," + &
+//              "jyjl4  varchar(20)  null," + &
+//              "jyjl5  varchar(20)  null," + &
+//              "jyjl6  varchar(20)  null," + &
+//              "jyjl7  varchar(20)  null," + &
+//              "jyjl8  varchar(20)  null," + &
+//              "jyjl9  varchar(20)  null," + &
+//              "jyjl10  varchar(20)  null," + &
+//              "jyjl11  varchar(20)  null," + &
+//              "jyjl12  varchar(20)  null," + &
+//              "jyjl13  varchar(20)  null," + &
+//              "jyjl14  varchar(20)  null," + &
+//              "jyjl15  varchar(20)  null," + &
+//              "jyjl16  varchar(20)  null," + &
+//              "jyjl17  varchar(20)  null," + &
+//              "jyjl18  varchar(20)  null," + &
+//              "jyjl19  varchar(20)  null," + &
+//              "jyjl20  varchar(20)  null," + &
+//              "jyjl21  varchar(20)  null," + &
+//              "jyjl22  varchar(20)  null," + &
+//              "jyjl23  varchar(20)  null," + &
+//              "jyjl24  varchar(20)  null," + &
+//              "jyjl25  varchar(20)  null," + &
+//				  "jyjg1  varchar(70)  null," + &
+//              "jyjg2  varchar(70)  null," + &
+//              "jyjg3  varchar(70)  null," + &
+//              "jyjg4  varchar(70)  null," + &
+//              "jyjg5  varchar(70)  null," + &
+//              "jyjg6  varchar(70)  null," + &
+//              "jyjg7  varchar(70)  null," + &
+//              "jyjg8  varchar(70)  null," + &
+//              "jyjg9  varchar(70)  null," + &
+//              "jyjg10  varchar(70)  null," + &
+//              "jyjg11  varchar(70)  null," + &
+//              "jyjg12  varchar(70)  null," + &
+//              "jyjg13  varchar(70)  null," + &
+//              "jyjg14  varchar(70)  null," + &
+//              "jyjg15  varchar(70)  null," + &
+//              "jyjg16  varchar(70)  null," + &
+//              "jyjg17  varchar(70)  null," + &
+//              "jyjg18  varchar(70)  null," + &
+//              "jyjg19  varchar(70)  null," + &
+//              "jyjg20  varchar(70)  null," + &
+//              "jyjg21  varchar(70)  null," + &
+//              "jyjg22  varchar(70)  null," + &
+//              "jyjg23  varchar(70)  null," + &
+//              "jyjg24  varchar(70)  null," + &
+//              "jyjg25  varchar(70)  null," + & 
+//				  "bz1  varchar(20)  null," + &
+//				  "bz2  varchar(20)  null," + &
+//				  "bz3  varchar(20)  null," + &
+//				  "bz4  varchar(20)  null," + &
+//				  "bz5  varchar(20)  null," + &
+//				  "bz6  varchar(20)  null," + &
+//				  "bz7  varchar(20)  null," + &
+//				  "bz8  varchar(20)  null," + &
+//				  "bz9  varchar(20)  null," + &
+//				  "bz10  varchar(20)  null," + &
+//				  "bz11  varchar(20)  null," + &
+//				  "bz12  varchar(20)  null," + &
+//				  "bz13  varchar(20)  null," + &
+//				  "bz14  varchar(20)  null," + &
+//				  "bz15  varchar(20)  null," + &
+//				  "bz16  varchar(20)  null," + &
+//				  "bz17  varchar(20)  null," + &
+//				  "bz18  varchar(20)  null," + &
+//				  "bz19  varchar(20)  null," + &
+//				  "bz20  varchar(20)  null," + &
+//				  "bz21  varchar(20)  null," + &
+//				  "bz22  varchar(20)  null," + &
+//				  "bz23  varchar(20)  null," + &
+//				  "bz24  varchar(20)  null," + &
+//				  "bz25  varchar(20)  null);"
+//		execute immediate :mysql using sqlca ;
+//		myindex="CREATE UNIQUE INDEX t_tzsb_ls_dq2_x "&
+//		        +"ON djylrq.t_tzsb_ls_dq2"&
+//		        +"(jyid) ;"
+//		execute immediate :myindex using sqlca ;		
+//	end if
+//ELSE
+//	select count(*) into :ls_count from t_tzsb_ls_dq2;
+//	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+//		delsql = "drop table t_tzsb_ls_dq2"
+//		execute immediate :delsql using sqlca ;
+//		mysql="CREATE TABLE t_tzsb_ls_dq2 " + &
+//              "(jyid  varchar(20) NOT NULL," + &
+//              "jyjl1  varchar(20)  null," + &
+//              "jyjl2  varchar(20)  null," + &
+//              "jyjl3  varchar(20)  null," + &
+//              "jyjl4  varchar(20)  null," + &
+//              "jyjl5  varchar(20)  null," + &
+//              "jyjl6  varchar(20)  null," + &
+//              "jyjl7  varchar(20)  null," + &
+//              "jyjl8  varchar(20)  null," + &
+//              "jyjl9  varchar(20)  null," + &
+//              "jyjl10  varchar(20)  null," + &
+//              "jyjl11  varchar(20)  null," + &
+//              "jyjl12  varchar(20)  null," + &
+//              "jyjl13  varchar(20)  null," + &
+//              "jyjl14  varchar(20)  null," + &
+//              "jyjl15  varchar(20)  null," + &
+//              "jyjl16  varchar(20)  null," + &
+//              "jyjl17  varchar(20)  null," + &
+//              "jyjl18  varchar(20)  null," + &
+//              "jyjl19  varchar(20)  null," + &
+//              "jyjl20  varchar(20)  null," + &
+//              "jyjl21  varchar(20)  null," + &
+//              "jyjl22  varchar(20)  null," + &
+//              "jyjl23  varchar(20)  null," + &
+//              "jyjl24  varchar(20)  null," + &
+//              "jyjl25  varchar(20)  null," + &
+//              "jyjg1  varchar(70)  null," + &
+//              "jyjg2  varchar(70)  null," + &
+//              "jyjg3  varchar(70)  null," + &
+//              "jyjg4  varchar(70)  null," + &
+//              "jyjg5  varchar(70)  null," + &
+//              "jyjg6  varchar(70)  null," + &
+//              "jyjg7  varchar(70)  null," + &
+//              "jyjg8  varchar(70)  null," + &
+//              "jyjg9  varchar(70)  null," + &
+//              "jyjg10  varchar(70)  null," + &
+//              "jyjg11  varchar(70)  null," + &
+//              "jyjg12  varchar(70)  null," + &
+//              "jyjg13  varchar(70)  null," + &
+//              "jyjg14  varchar(70)  null," + &
+//              "jyjg15  varchar(70)  null," + &
+//              "jyjg16  varchar(70)  null," + &
+//              "jyjg17  varchar(70)  null," + &
+//              "jyjg18  varchar(70)  null," + &
+//              "jyjg19  varchar(70)  null," + &
+//              "jyjg20  varchar(70)  null," + &
+//              "jyjg21  varchar(70)  null," + &
+//              "jyjg22  varchar(70)  null," + &
+//              "jyjg23  varchar(70)  null," + &
+//              "jyjg24  varchar(70)  null," + &
+//              "jyjg25  varchar(70)  null," + &
+//				  "bz1  varchar(20)  null," + &
+//				  "bz2  varchar(20)  null," + &
+//				  "bz3  varchar(20)  null," + &
+//				  "bz4  varchar(20)  null," + &
+//				  "bz5  varchar(20)  null," + &
+//				  "bz6  varchar(20)  null," + &
+//				  "bz7  varchar(20)  null," + &
+//				  "bz8  varchar(20)  null," + &
+//				  "bz9  varchar(20)  null," + &
+//				  "bz10  varchar(20)  null," + &
+//				  "bz11  varchar(20)  null," + &
+//				  "bz12  varchar(20)  null," + &
+//				  "bz13  varchar(20)  null," + &
+//				  "bz14  varchar(20)  null," + &
+//				  "bz15  varchar(20)  null," + &
+//				  "bz16  varchar(20)  null," + &
+//				  "bz17  varchar(20)  null," + &
+//				  "bz18  varchar(20)  null," + &
+//				  "bz19  varchar(20)  null," + &
+//				  "bz20  varchar(20)  null," + &
+//				  "bz21  varchar(20)  null," + &
+//				  "bz22  varchar(20)  null," + &
+//				  "bz23  varchar(20)  null," + &
+//				  "bz24  varchar(20)  null," + &
+//				  "bz25  varchar(20)  null,Primary Key (jyid) ) ;"
+//		execute immediate :mysql using sqlca ;
+//	end if	
+//END IF
+//
+//ls_count = 0
+//// ´´½¨ ÀÂË÷ÆðÖØ»ú
+//IF mark = 'sqlserver' THEN
+//	select count(*) into :ls_count from t_tzsb_ls_dq3;
+//	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+//		delsql = "drop table djylrq.t_tzsb_ls_dq3"
+//		execute immediate :delsql using sqlca ;
+//		mysql="CREATE TABLE djylrq.t_tzsb_ls_dq3 " + &
+//              "(jyid  varchar(20) NOT NULL," + &
+//				  "jyjl26  varchar(20)  null," + &
+//              "jyjl27  varchar(20)  null," + &
+//              "jyjl28  varchar(20)  null," + &
+//              "jyjl29  varchar(20)  null," + &
+//              "jyjl30  varchar(20)  null," + &
+//              "jyjl31  varchar(20)  null," + &
+//              "jyjl32  varchar(20)  null," + &
+//              "jyjl33  varchar(20)  null," + &
+//              "jyjl34  varchar(20)  null," + &
+//              "jyjl35  varchar(20)  null," + &
+//              "jyjl36  varchar(20)  null," + &
+//              "jyjl37  varchar(20)  null," + &
+//              "jyjl38  varchar(20)  null," + &
+//              "jyjl39  varchar(20)  null," + &
+//              "jyjl40  varchar(20)  null," + &
+//              "jyjl41  varchar(20)  null," + &
+//              "jyjl42  varchar(20)  null," + &
+//              "jyjl43  varchar(20)  null," + &
+//              "jyjl44  varchar(20)  null," + &
+//              "jyjl45  varchar(20)  null," + &
+//              "jyjl46  varchar(20)  null," + &
+//              "jyjl47  varchar(20)  null," + &
+//              "jyjl48  varchar(20)  null," + &
+//              "jyjl49  varchar(20)  null," + &
+//              "jyjl50  varchar(20)  null," + &
+//              "jyjl51  varchar(20)  null," + &
+//              "jyjl52  varchar(20)  null," + &
+//              "jyjg26  varchar(70)  null," + &
+//              "jyjg27  varchar(70)  null," + &
+//              "jyjg28  varchar(70)  null," + &
+//              "jyjg29  varchar(70)  null," + &
+//              "jyjg30  varchar(70)  null," + &
+//              "jyjg31  varchar(70)  null," + &
+//              "jyjg32  varchar(70)  null," + &
+//              "jyjg33  varchar(70)  null," + &
+//              "jyjg34  varchar(70)  null," + &
+//              "jyjg35  varchar(70)  null," + &
+//              "jyjg36  varchar(70)  null," + &
+//              "jyjg37  varchar(70)  null," + &
+//              "jyjg38  varchar(70)  null," + &
+//              "jyjg39  varchar(70)  null," + &
+//              "jyjg40  varchar(70)  null," + &
+//              "jyjg41  varchar(70)  null," + &
+//              "jyjg42  varchar(70)  null," + &
+//              "jyjg43  varchar(70)  null," + &
+//              "jyjg44  varchar(70)  null," + &
+//              "jyjg45  varchar(70)  null," + &
+//              "jyjg46  varchar(70)  null," + &
+//              "jyjg47  varchar(70)  null," + &
+//              "jyjg48  varchar(70)  null," + &
+//              "jyjg49  varchar(70)  null," + &
+//              "jyjg50  varchar(70)  null," + &
+//              "jyjg51  varchar(70)  null," + &
+//              "jyjg52  varchar(70)  null," + &
+//				  "bz26  varchar(20)  null," + &
+//				  "bz27  varchar(20)  null," + &
+//				  "bz28  varchar(20)  null," + &
+//				  "bz29  varchar(20)  null," + &
+//				  "bz30  varchar(20)  null," + &
+//				  "bz31  varchar(20)  null," + &
+//				  "bz32  varchar(20)  null," + &
+//				  "bz33  varchar(20)  null," + &
+//				  "bz34  varchar(20)  null," + &
+//				  "bz35  varchar(20)  null," + &
+//				  "bz36  varchar(20)  null," + &
+//				  "bz37  varchar(20)  null," + &
+//				  "bz38  varchar(20)  null," + &
+//				  "bz39  varchar(20)  null," + &
+//				  "bz40  varchar(20)  null," + &
+//				  "bz41  varchar(20)  null," + &
+//				  "bz42  varchar(20)  null," + &
+//				  "bz43  varchar(20)  null," + &
+//				  "bz44  varchar(20)  null," + &
+//				  "bz45  varchar(20)  null," + &
+//				  "bz46  varchar(20)  null," + &
+//				  "bz47  varchar(20)  null," + &
+//				  "bz48  varchar(20)  null," + &
+//				  "bz49  varchar(20)  null," + &
+//				  "bz50  varchar(20)  null," + &
+//				  "bz51  varchar(20)  null," + &
+//				  "bz52  varchar(20)  null);"
+//		execute immediate :mysql using sqlca ;
+//		myindex="CREATE UNIQUE INDEX t_tzsb_ls_dq3_x "&
+//		        +"ON djylrq.t_tzsb_ls_dq3"&
+//		        +"(jyid) ;"
+//		execute immediate :myindex using sqlca ;		
+//	end if
+//ELSE
+//	select count(*) into :ls_count from t_tzsb_ls_dq3;
+//	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+//		delsql = "drop table t_tzsb_ls_dq3"
+//		execute immediate :delsql using sqlca ;
+//			mysql="CREATE TABLE djylrq.t_tzsb_ls_dq3 " + &
+//              "(jyid  varchar(20) NOT NULL," + &
+//				  "jyjl26  varchar(20)  null," + &
+//              "jyjl27  varchar(20)  null," + &
+//              "jyjl28  varchar(20)  null," + &
+//              "jyjl29  varchar(20)  null," + &
+//              "jyjl30  varchar(20)  null," + &
+//              "jyjl31  varchar(20)  null," + &
+//              "jyjl32  varchar(20)  null," + &
+//              "jyjl33  varchar(20)  null," + &
+//              "jyjl34  varchar(20)  null," + &
+//              "jyjl35  varchar(20)  null," + &
+//              "jyjl36  varchar(20)  null," + &
+//              "jyjl37  varchar(20)  null," + &
+//              "jyjl38  varchar(20)  null," + &
+//              "jyjl39  varchar(20)  null," + &
+//              "jyjl40  varchar(20)  null," + &
+//              "jyjl41  varchar(20)  null," + &
+//              "jyjl42  varchar(20)  null," + &
+//              "jyjl43  varchar(20)  null," + &
+//              "jyjl44  varchar(20)  null," + &
+//              "jyjl45  varchar(20)  null," + &
+//              "jyjl46  varchar(20)  null," + &
+//              "jyjl47  varchar(20)  null," + &
+//              "jyjl48  varchar(20)  null," + &
+//              "jyjl49  varchar(20)  null," + &
+//              "jyjl50  varchar(20)  null," + &
+//              "jyjl51  varchar(20)  null," + &
+//              "jyjl52  varchar(20)  null," + &
+//              "jyjg26  varchar(70)  null," + &
+//              "jyjg27  varchar(70)  null," + &
+//              "jyjg28  varchar(70)  null," + &
+//              "jyjg29  varchar(70)  null," + &
+//              "jyjg30  varchar(70)  null," + &
+//              "jyjg31  varchar(70)  null," + &
+//              "jyjg32  varchar(70)  null," + &
+//              "jyjg33  varchar(70)  null," + &
+//              "jyjg34  varchar(70)  null," + &
+//              "jyjg35  varchar(70)  null," + &
+//              "jyjg36  varchar(70)  null," + &
+//              "jyjg37  varchar(70)  null," + &
+//              "jyjg38  varchar(70)  null," + &
+//              "jyjg39  varchar(70)  null," + &
+//              "jyjg40  varchar(70)  null," + &
+//              "jyjg41  varchar(70)  null," + &
+//              "jyjg42  varchar(70)  null," + &
+//              "jyjg43  varchar(70)  null," + &
+//              "jyjg44  varchar(70)  null," + &
+//              "jyjg45  varchar(70)  null," + &
+//              "jyjg46  varchar(70)  null," + &
+//              "jyjg47  varchar(70)  null," + &
+//              "jyjg48  varchar(70)  null," + &
+//              "jyjg49  varchar(70)  null," + &
+//              "jyjg50  varchar(70)  null," + &
+//              "jyjg51  varchar(70)  null," + &
+//              "jyjg52  varchar(70)  null," + &
+//				  "bz26  varchar(20)  null," + &
+//				  "bz27  varchar(20)  null," + &
+//				  "bz28  varchar(20)  null," + &
+//				  "bz29  varchar(20)  null," + &
+//				  "bz30  varchar(20)  null," + &
+//				  "bz31  varchar(20)  null," + &
+//				  "bz32  varchar(20)  null," + &
+//				  "bz33  varchar(20)  null," + &
+//				  "bz34  varchar(20)  null," + &
+//				  "bz35  varchar(20)  null," + &
+//				  "bz36  varchar(20)  null," + &
+//				  "bz37  varchar(20)  null," + &
+//				  "bz38  varchar(20)  null," + &
+//				  "bz39  varchar(20)  null," + &
+//				  "bz40  varchar(20)  null," + &
+//				  "bz41  varchar(20)  null," + &
+//				  "bz42  varchar(20)  null," + &
+//				  "bz43  varchar(20)  null," + &
+//				  "bz44  varchar(20)  null," + &
+//				  "bz45  varchar(20)  null," + &
+//				  "bz46  varchar(20)  null," + &
+//				  "bz47  varchar(20)  null," + &
+//				  "bz48  varchar(20)  null," + &
+//				  "bz49  varchar(20)  null," + &
+//				  "bz50  varchar(20)  null," + &
+//				  "bz51  varchar(20)  null," + &
+//				  "bz52  varchar(20)  null,Primary Key (jyid) ) ;"
+//		execute immediate :mysql using sqlca ;
+//	end if	
+//END IF
+//
+//ls_count = 0
+//// ´´½¨ ÀÂË÷ÆðÖØ»ú
+//IF mark = 'sqlserver' THEN
+//	select count(*) into :ls_count from t_tzsb_ls_dq4;
+//	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+//		delsql = "drop table djylrq.t_tzsb_ls_dq4"
+//		execute immediate :delsql using sqlca ;
+//		mysql="CREATE TABLE djylrq.t_tzsb_ls_dq4 " + &
+//              "(jyid  varchar(20) NOT NULL," + &
+//				   "jyjl53  varchar(20)  null," + &
+//              "jyjl54  varchar(20)  null," + &
+//              "jyjl55  varchar(20)  null," + &
+//              "jyjl56  varchar(20)  null," + &
+//              "jyjl57  varchar(20)  null," + &
+//              "jyjl58  varchar(20)  null," + &
+//              "jyjl59  varchar(20)  null," + &
+//              "jyjl60  varchar(20)  null," + &
+//              "jyjl61  varchar(20)  null," + &
+//              "jyjl62  varchar(20)  null," + &
+//              "jyjl63  varchar(20)  null," + &
+//              "jyjl64  varchar(20)  null," + &
+//              "jyjl65  varchar(20)  null," + &
+//              "jyjl66  varchar(20)  null," + &
+//              "jyjl67  varchar(20)  null," + &
+//              "jyjl68  varchar(20)  null," + &
+//              "jyjl69  varchar(20)  null," + &
+//              "jyjl70  varchar(20)  null," + &
+//              "jyjl71  varchar(20)  null," + &
+//              "jyjl72  varchar(20)  null," + &
+//              "jyjl73  varchar(20)  null," + &
+//              "jyjg53  varchar(70)  null," + &
+//              "jyjg54  varchar(70)  null," + &
+//              "jyjg55  varchar(70)  null," + &
+//              "jyjg56  varchar(70)  null," + &
+//              "jyjg57  varchar(70)  null," + &
+//              "jyjg58  varchar(70)  null," + &
+//              "jyjg59  varchar(70)  null," + &
+//              "jyjg60  varchar(70)  null," + &
+//              "jyjg61  varchar(70)  null," + &
+//              "jyjg62  varchar(70)  null," + &
+//              "jyjg63  varchar(70)  null," + &
+//              "jyjg64  varchar(70)  null," + &
+//              "jyjg65  varchar(70)  null," + &
+//              "jyjg66  varchar(70)  null," + &
+//              "jyjg67  varchar(70)  null," + &
+//              "jyjg68  varchar(70)  null," + &
+//              "jyjg69  varchar(70)  null," + &
+//              "jyjg70  varchar(70)  null," + &
+//              "jyjg71  varchar(70)  null," + &
+//              "jyjg72  varchar(70)  null," + &
+//              "jyjg73  varchar(70)  null," + &
+//				  "bz53  varchar(20)  null," + &
+//				  "bz54  varchar(20)  null," + &
+//				  "bz55  varchar(20)  null," + &
+//				  "bz56  varchar(20)  null," + &
+//				  "bz57  varchar(20)  null," + &
+//				  "bz58  varchar(20)  null," + &
+//				  "bz59  varchar(20)  null," + &
+//				  "bz60  varchar(20)  null," + &
+//				  "bz61  varchar(20)  null," + &
+//				  "bz62  varchar(20)  null," + &
+//				  "bz63  varchar(20)  null," + &
+//				  "bz64  varchar(20)  null," + &
+//				  "bz65  varchar(20)  null," + &
+//				  "bz66  varchar(20)  null," + &
+//				  "bz67  varchar(20)  null," + &
+//				  "bz68  varchar(20)  null," + &
+//				  "bz69  varchar(20)  null," + &
+//				  "bz70  varchar(20)  null," + &
+//				  "bz71  varchar(20)  null," + &
+//				  "bz72  varchar(20)  null," + &
+//				  "bz73  varchar(20)  null," + &
+//				  "zyxm1  varchar(28)  null," + &
+//              "zyxm2  varchar(28)  null," + &
+//				  "zyxm3  varchar(28)  null);"
+//		execute immediate :mysql using sqlca ;
+//		myindex="CREATE UNIQUE INDEX t_tzsb_ls_dq4_x "&
+//		        +"ON djylrq.t_tzsb_ls_dq4"&
+//		        +"(jyid) ;"
+//		execute immediate :myindex using sqlca ;		
+//	end if
+//ELSE
+//	select count(*) into :ls_count from t_tzsb_ls_dq4;
+//	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+//		delsql = "drop table t_tzsb_ls_dq4"
+//		execute immediate :delsql using sqlca ;
+//			mysql="CREATE TABLE djylrq.t_tzsb_ls_dq4 " + &
+//              "(jyid  varchar(20) NOT NULL," + &
+//				  "jyjl53  varchar(20)  null," + &
+//              "jyjl54  varchar(20)  null," + &
+//              "jyjl55  varchar(20)  null," + &
+//              "jyjl56  varchar(20)  null," + &
+//              "jyjl57  varchar(20)  null," + &
+//              "jyjl58  varchar(20)  null," + &
+//              "jyjl59  varchar(20)  null," + &
+//              "jyjl60  varchar(20)  null," + &
+//              "jyjl61  varchar(20)  null," + &
+//              "jyjl62  varchar(20)  null," + &
+//              "jyjl63  varchar(20)  null," + &
+//              "jyjl64  varchar(20)  null," + &
+//              "jyjl65  varchar(20)  null," + &
+//              "jyjl66  varchar(20)  null," + &
+//              "jyjl67  varchar(20)  null," + &
+//              "jyjl68  varchar(20)  null," + &
+//              "jyjl69  varchar(20)  null," + &
+//              "jyjl70  varchar(20)  null," + &
+//              "jyjl71  varchar(20)  null," + &
+//              "jyjl72  varchar(20)  null," + &
+//              "jyjl73  varchar(20)  null," + &
+//              "jyjg53  varchar(70)  null," + &
+//              "jyjg54  varchar(70)  null," + &
+//              "jyjg55  varchar(70)  null," + &
+//              "jyjg56  varchar(70)  null," + &
+//              "jyjg57  varchar(70)  null," + &
+//              "jyjg58  varchar(70)  null," + &
+//              "jyjg59  varchar(70)  null," + &
+//              "jyjg60  varchar(70)  null," + &
+//              "jyjg61  varchar(70)  null," + &
+//              "jyjg62  varchar(70)  null," + &
+//              "jyjg63  varchar(70)  null," + &
+//              "jyjg64  varchar(70)  null," + &
+//              "jyjg65  varchar(70)  null," + &
+//              "jyjg66  varchar(70)  null," + &
+//              "jyjg67  varchar(70)  null," + &
+//              "jyjg68  varchar(70)  null," + &
+//              "jyjg69  varchar(70)  null," + &
+//              "jyjg70  varchar(70)  null," + &
+//              "jyjg71  varchar(70)  null," + &
+//              "jyjg72  varchar(70)  null," + &
+//              "jyjg73  varchar(70)  null," + &
+//				  "bz53  varchar(20)  null," + &
+//				  "bz54  varchar(20)  null," + &
+//				  "bz55  varchar(20)  null," + &
+//				  "bz56  varchar(20)  null," + &
+//				  "bz57  varchar(20)  null," + &
+//				  "bz58  varchar(20)  null," + &
+//				  "bz59  varchar(20)  null," + &
+//				  "bz60  varchar(20)  null," + &
+//				  "bz61  varchar(20)  null," + &
+//				  "bz62  varchar(20)  null," + &
+//				  "bz63  varchar(20)  null," + &
+//				  "bz64  varchar(20)  null," + &
+//				  "bz65  varchar(20)  null," + &
+//				  "bz66  varchar(20)  null," + &
+//				  "bz67  varchar(20)  null," + &
+//				  "bz68  varchar(20)  null," + &
+//				  "bz69  varchar(20)  null," + &
+//				  "bz70  varchar(20)  null," + &
+//				  "bz71  varchar(20)  null," + &
+//				  "bz72  varchar(20)  null," + &
+//				  "bz73  varchar(20)  null," + &
+//				  "zyxm1  varchar(28)  null," + &
+//              "zyxm2  varchar(28)  null," + &
+//				  "zyxm3  varchar(28)  null,Primary Key (jyid) ) ;"
+//		execute immediate :mysql using sqlca ;
+//	end if	
+//END IF	
+//insert into a_jyml_id (id,mc) values ('`','ÀÂË÷ÆðÖØ»ú');
+//insert into a_jyml (jymlid,jymldh,jymlmc,jymk) values ('`','1000','ÀÂË÷ÆðÖØ»ú','¶¨ÆÚ¼ìÑé');
+//delete from a_bgml where jytype like '`c';
+//insert into a_bgml (id,jymk,jytype,typename,lbid,sh) values ('3000','dj','`c','ÀÂË÷ÆðÖØ»ú¶¨ÆÚ¼ìÑé','qzj200','200');	
+//insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','01','±¨¸æ·âÆ¤','dw_qzj_ls_dq1');
+//insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','02','¼ìÑé½áÂÛ','dw_qzj_ls_dq2');
+//insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','03','½áÂÛ±¨¸æ','dw_qzj_ls_dq3');
+//insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','04','¸½Ò³1','dw_qzj_ls_dq4');
+//insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','05','¸½Ò³2','dw_qzj_ls_dq5');
+//insert into a_sz_nr (jytype,xh,nr,dw) values ('`c','06','¸½Ò³3','dw_qzj_ls_dq6');
+//
+end subroutine
+

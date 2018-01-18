@@ -1,0 +1,60 @@
+﻿$PBExportHeader$menu_main.srm
+forward
+global type menu_main from menu
+end type
+type m_exit from menu within menu_main
+end type
+type m_exit from menu within menu_main
+end type
+type m_help from menu within menu_main
+end type
+type m_help from menu within menu_main
+end type
+end forward
+
+global type menu_main from menu
+m_exit m_exit
+m_help m_help
+end type
+global menu_main menu_main
+
+on menu_main.create
+menu_main=this
+this.m_exit=create m_exit
+this.m_help=create m_help
+this.Item[]={this.m_exit, &
+this.m_help}
+end on
+
+on menu_main.destroy
+destroy(this.m_exit)
+destroy(this.m_help)
+end on
+
+type m_exit from menu within menu_main
+end type
+
+event clicked;opensheet(win_sys_version,win_all,8,layered!)
+
+end event
+
+on m_exit.create
+this.Text="ÏµÍ³ÐÅÏ¢"
+end on
+
+on m_exit.destroy
+end on
+
+type m_help from menu within menu_main
+end type
+
+event clicked;run("winhelp c:\lzoa\lzoa.hlp")
+end event
+
+on m_help.create
+this.Text="°ïÖú"
+end on
+
+on m_help.destroy
+end on
+

@@ -1,0 +1,84 @@
+﻿$PBExportHeader$fun_getopenwin.srf
+global type fun_getopenwin from function_object
+end type
+
+forward prototypes
+global function integer fun_getopenwin (string menuname)
+end prototypes
+
+global function integer fun_getopenwin (string menuname);gs_wh_dwbh = menuname
+string appstr , lenstr 
+
+//lenstr = "¼ìÑé¹ÜÀí" + "|" + "¶¨ÆÚ¼ìÑé"
+//appstr = left(win_all.title,len(lenstr))
+win_all.title ="ÏµÍ³Î¬»¤" + ' ------ ' &
+	               + trim(gs_deptname) + '(' + trim(gs_staffname) + ')'
+string flagmark3
+select flagmark3 into :flagmark3 from a_jydw;
+choose case menuname
+	case '²¿ÃÅ´úÂë'
+		if flagmark3 = '1' then 
+			opensheet(win_xtgl_bm,win_all,8,layered!)
+			return 0
+		else
+			return 1
+		end if
+	case 'ÈËÔ±´úÂë'
+		if flagmark3 = '1' then 
+			opensheet(win_xtgl_ry,win_all,8,layered!)
+			return 0
+		else
+			return 1
+		end if	
+	case '±¨¸æÀà±ð'
+		if flagmark3 = '1' then 
+			opensheet(win_xtgl_jytype,win_all,8,layered!)
+			return 0
+		else
+			return 1
+		end if	
+	case '¼ìÑé½áÂÛ'
+		if flagmark3 = '1' then 
+			opensheet(win_xtgl_jyjl,win_all,8,layered!) 	
+			return 0
+		else
+			return 1
+		end if	
+	case '¹«ÓÃÐÅÏ¢'
+		opensheet(win_xtgl_jydw_fy,win_all,8,layered!)
+		return 0
+	case '¿ÚÁîÎ¬»¤'
+		opensheet(win_xtgl_kl,win_all,8,layered!)
+		return 0
+	case 'Ö÷¹Ü²¿ÃÅ'
+		opensheet(win_xtgl_zgbm,win_all,8,layered!)
+		return 0
+	case '³£ÓÃÉè±¸'
+		open(win_xtgl_jyml_jylb)
+		return 0
+	case 'ÉóºË¹ý³Ì'
+		opensheet(win_zdsh_gcsd,win_all,8,layered!)
+		return 0
+	case 'Éè±¸Àà±ð'
+		opensheet(win_xtgl_jyml,win_all,8,layered!)
+		return 0
+	case '¼ìÑéÀà±ð'
+		opensheet(win_xtgl_jylb,win_all,8,layered!)
+		return 0
+	case 'Ã÷Ï¸ÏîÄ¿'
+		opensheet(win_xtgl_jymx,win_all,8,layered!)
+		return 0
+	case 'ÉóÅú¼¶±ð'
+		opensheet(win_jfsq_spjb,win_all,8,layered!) 
+		return 0
+	case 'ÈËÔ±ÉèÖÃ'
+		opensheet(win_jfsq_ryset,win_all,8,layered!)  
+		return 0
+	case 'Ö¸ÎÆµÇ¼Ç'
+		return 0
+end choose
+
+return 0
+
+end function
+

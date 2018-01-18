@@ -1,0 +1,75 @@
+﻿$PBExportHeader$fun_getmllb.srf
+global type fun_getmllb from function_object
+end type
+
+forward prototypes
+global function string fun_getmllb (string ls_nowry[], string ls_nowbz)
+end prototypes
+
+global function string fun_getmllb (string ls_nowry[], string ls_nowbz);string ls_NowMl[],ls_NowLb[]
+string ls_ReturnStr
+int li_i,li_Count,li_mllb,li_j
+boolean lb_Succ
+if ls_NowBz <> '1' and ls_NowBz <> '2' then
+	return ''
+end if
+li_Count = UpperBound(ls_NowRy)
+for li_i = 1 to li_Count
+	if len(ls_Nowry[li_i]) = 3 then
+	ls_NowMl[li_i] = mid(ls_NowRy[li_i],1,2)
+	ls_NowLb[li_i] = mid(ls_NowRy[li_i],3,1)
+else
+	ls_NowMl[li_i] = mid(ls_NowRy[li_i],1,1)
+	ls_NowLb[li_i] = mid(ls_NowRy[li_i],2,1)
+end if
+next
+if ls_NowBz = '1' then
+	li_mllb = 1
+	for li_i = 1 to li_Count
+		lb_Succ = true
+		for li_j = li_i + 1 to li_Count
+			if ls_NowMl[li_i] = ls_NowMl[li_j] then
+				lb_Succ =false
+			end if
+		next
+		if lb_Succ then
+			if li_mllb = 1 then
+				ls_ReturnStr = ls_NowMl[li_i]
+			else
+				ls_ReturnStr = ls_ReturnStr + ls_NowMl[li_i]
+			end if
+			li_mllb = li_mllb + 1
+		end if
+	next
+	if li_mllb = 1 then
+		return ''
+	else
+		return ls_ReturnStr
+	end if
+end if
+if ls_NowBz = '2' then
+	li_mllb = 1
+	for li_i = 1 to li_Count
+		lb_Succ = true
+		for li_j = li_i + 1 to li_Count
+			if ls_NowLb[li_i] = ls_NowLb[li_j] then
+				lb_Succ =false
+			end if
+		next
+		if lb_Succ then
+			if li_mllb = 1 then
+				ls_ReturnStr = ls_NowLb[li_i]
+			else
+				ls_ReturnStr = ls_ReturnStr + ls_NowLb[li_i]
+			end if
+			li_mllb = li_mllb + 1
+		end if
+	next
+	if li_mllb = 1 then
+		return ''
+	else
+		return ls_ReturnStr
+	end if
+end if
+end function
+

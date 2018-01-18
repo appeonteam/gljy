@@ -1,0 +1,30 @@
+﻿$PBExportHeader$f_ddlb_save.srf
+global type f_ddlb_save from function_object
+end type
+
+forward prototypes
+global function string f_ddlb_save (string cs)
+end prototypes
+
+global function string f_ddlb_save (string cs);string ok_str
+
+choose case cs
+	case '¸ß£¨³¤£©'
+		ok_str = 'a'
+	case '³¤¶È'
+		ok_str = 'b'
+   case 'ÄÚ¾¶'
+		ok_str = 'c'
+	case 'ÈÝ»ý'
+		ok_str = 'd'
+	case '¹«³Æ±Úºñ'
+		ok_str = 'e'
+	case '²»ÓÃ'
+		ok_str = 'o'
+   case else
+		ok_str = 'o'
+end choose
+
+return ok_str
+end function
+

@@ -1,0 +1,740 @@
+﻿$PBExportHeader$fun_create_jcgl_table.srf
+global type fun_create_jcgl_table from function_object
+end type
+
+forward prototypes
+global subroutine fun_create_jcgl_table ()
+end prototypes
+
+global subroutine fun_create_jcgl_table ();long ls_count = 0
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+// ´´½¨ µçÕ¾¹øÂ¯»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_GL_DZGL(SBZCDB VARCHAR(30) null,ZDLXZFL varchar(20) null,ZRZQLL varchar(20) null,"+&
+				"GTGZYL varchar(20) null,GRQCKYL varchar(20) null,ZRQRKYL varchar(20) null,ZRQCKYL varchar(20) null,"+&
+				"GSWD varchar(4) null,GRQCKWD varchar(4) null,ZRQRKWD varchar(4) null,ZRQCKWD varchar(4) null,"+&
+				"ZLGLQDYL varchar(20) null,ZLGLZDLL varchar(20) null,SXHFS VARCHAR(20) null,RRQBZFS VARCHAR(20) null,"+&
+				"SJKRJHFH VARCHAR(20) null,SJYYDFRZ varchar(20) null,BGSCLFS VARCHAR(20) null,GRZQDWFS VARCHAR(20) null,"+&
+				"ZRZQDWFS VARCHAR(20) null,QSFLZZ VARCHAR(20) null,QTQK VARCHAR(254) null,ZCID numeric(20) not null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_GL_DZGL_X ON DJYLRQ.DJB_GL_DZGL (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_GL_DZGL(SBZCDB VARCHAR(30) null,ZDLXZFL varchar(20) null,ZRZQLL varchar(20) null,"+&
+				"GTGZYL varchar(20) null,GRQCKYL varchar(20) null,ZRQRKYL varchar(20) null,ZRQCKYL varchar(20) null,"+&
+				"GSWD varchar(4) null,GRQCKWD varchar(4) null,ZRQRKWD varchar(4) null,ZRQCKWD varchar(4) null,"+&
+				"ZLGLQDYL varchar(20) null,ZLGLZDLL varchar(20) null,SXHFS VARCHAR(20) null,RRQBZFS VARCHAR(20) null,"+&
+				"SJKRJHFH VARCHAR(20) null,SJYYDFRZ varchar(20) null,BGSCLFS VARCHAR(20) null,GRZQDWFS VARCHAR(20) null,"+&
+				"ZRZQDWFS VARCHAR(20) null,QSFLZZ VARCHAR(20) null,QTQK VARCHAR(254) null,ZCID numeric(20) not null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ µçÕ¾¹øÂ¯±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_GL_DZGL_BF(SBZCDB VARCHAR(20) null,ZDLXZFL numeric(11,1) null,ZRZQLL numeric(11,1) null,"+&
+				"GTGZYL numeric(10,2) null,GRQCKYL numeric(10,2) null,ZRQRKYL numeric(10,2) null,ZRQCKYL numeric(10,2) null,"+&
+				"GSWD numeric(4) null,GRQCKWD numeric(4) null,ZRQRKWD numeric(4) null,ZRQCKWD numeric(4) null,"+&
+				"ZLGLQDYL numeric(10,2) null,ZLGLZDLL numeric(11,1) null,SXHFS VARCHAR(20) null,RRQBZFS VARCHAR(20) null,"+&
+				"SJKRJHFH VARCHAR(20) null,SJYYDFRZ numeric(11,1) null,BGSCLFS VARCHAR(20) null,GRZQDWFS VARCHAR(20) null,"+&
+				"ZRZQDWFS VARCHAR(20) null,QSFLZZ VARCHAR(20) null,QTQK VARCHAR(254) null,ZCID numeric(20) not null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_GL_DZGL_BF_X ON DJYLRQ.DJB_GL_DZGL_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_GL_DZGL_BF(SBZCDB VARCHAR(20) null,ZDLXZFL numeric(11,1) null,ZRZQLL numeric(11,1) null,"+&
+				"GTGZYL numeric(10,2) null,GRQCKYL numeric(10,2) null,ZRQRKYL numeric(10,2) null,ZRQCKYL numeric(10,2) null,"+&
+				"GSWD numeric(4) null,GRQCKWD numeric(4) null,ZRQRKWD numeric(4) null,ZRQCKWD numeric(4) null,"+&
+				"ZLGLQDYL numeric(10,2) null,ZLGLZDLL numeric(11,1) null,SXHFS VARCHAR(20) null,RRQBZFS VARCHAR(20) null,"+&
+				"SJKRJHFH VARCHAR(20) null,SJYYDFRZ numeric(11,1) null,BGSCLFS VARCHAR(20) null,GRZQDWFS VARCHAR(20) null,"+&
+				"ZRZQDWFS VARCHAR(20) null,QSFLZZ VARCHAR(20) null,QTQK VARCHAR(254) null,ZCID numeric(20) not null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Ñ¹Á¦ÈÝÆ÷»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ(DWNBBH VARCHAR(20) null,RQMC VARCHAR(30) null,RQLB VARCHAR(20) null,"+&
+				"RQFL VARCHAR(20) null,RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(20) null,RQZZDW VARCHAR(60) null,"+&
+				"ZZDQDM VARCHAR(20) null,ZZG VARCHAR(20) null,ZZRQ varchar(20) null,CCBH VARCHAR(30) null,CCJJDW VARCHAR(60) null,"+&
+				"JJDWDM VARCHAR(20) null,RQAZDW VARCHAR(60) null,AZDWDM VARCHAR(20) null,AZJGRQ varchar(20) null,TYRQ varchar(20) null,"+&
+				"SZCLFC VARCHAR(30) null,RQNJ varchar(20) null,TTCL VARCHAR(30) null,FTCL VARCHAR(30) null,NCCL VARCHAR(30) null,"+&
+				"JTCL VARCHAR(30) null,TTBH varchar(20) null,FTHD varchar(20) null,NCBH varchar(20) null,JTHD varchar(20) null,"+&
+				"RQRJ varchar(20) null,RQG varchar(20) null,QTZL varchar(20) null,NJZL varchar(20) null,CZZL varchar(20) null,"+&
+				"BWJR VARCHAR(20) null,QCSJYL varchar(20) null,QCSJWD varchar(20) null,QCZGYL varchar(20) null,"+&
+				"GCSJYL varchar(20) null,GCSJWD varchar(20) null,GCZGYL varchar(20) null,JTSJYL varchar(20) null,"+&
+				"JTSJWD varchar(20) null,JTZGYL varchar(20) null,QCJZ VARCHAR(20) null,GCJZ VARCHAR(20) null,"+&
+				"JTJZ VARCHAR(20) null,CQDW VARCHAR(60) null,CQDWDZ VARCHAR(20) null,ZCID numeric(20) not null,"+&
+				"JZTX_JT VARCHAR(20) null,JZTX_GC VARCHAR(20) null,JZTX_KC VARCHAR(20) null,SBJB VARCHAR(20) null,SBDM VARCHAR(30) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_X ON DJYLRQ.DJB_YLRQ (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ(DWNBBH VARCHAR(20) null,RQMC VARCHAR(30) null,RQLB VARCHAR(20) null,"+&
+				"RQFL VARCHAR(20) null,RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(20) null,RQZZDW VARCHAR(60) null,"+&
+				"ZZDQDM VARCHAR(20) null,ZZG VARCHAR(20) null,ZZRQ varchar(20) null,CCBH VARCHAR(30) null,CCJJDW VARCHAR(60) null,"+&
+				"JJDWDM VARCHAR(20) null,RQAZDW VARCHAR(60) null,AZDWDM VARCHAR(20) null,AZJGRQ varchar(20) null,TYRQ varchar(20) null,"+&
+				"SZCLFC VARCHAR(30) null,RQNJ varchar(20) null,TTCL VARCHAR(30) null,FTCL VARCHAR(30) null,NCCL VARCHAR(30) null,"+&
+				"JTCL VARCHAR(30) null,TTBH varchar(20) null,FTHD varchar(20) null,NCBH varchar(20) null,JTHD varchar(20) null,"+&
+				"RQRJ varchar(20) null,RQG varchar(20) null,QTZL varchar(20) null,NJZL varchar(20) null,CZZL varchar(20) null,"+&
+				"BWJR VARCHAR(20) null,QCSJYL varchar(20) null,QCSJWD varchar(20) null,QCZGYL varchar(20) null,"+&
+				"GCSJYL varchar(20) null,GCSJWD varchar(20) null,GCZGYL varchar(20) null,JTSJYL varchar(20) null,"+&
+				"JTSJWD varchar(20) null,JTZGYL varchar(20) null,QCJZ VARCHAR(20) null,GCJZ VARCHAR(20) null,"+&
+				"JTJZ VARCHAR(20) null,CQDW VARCHAR(60) null,CQDWDZ VARCHAR(20) null,ZCID numeric(20) not null,"+&
+				"JZTX_JT VARCHAR(20) null,JZTX_GC VARCHAR(20) null,JZTX_KC VARCHAR(20) null,SBJB VARCHAR(20) null,SBDM VARCHAR(30) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Ñ¹Á¦ÈÝÆ÷±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ_BF(DWNBBH VARCHAR(12) null,RQMC VARCHAR(30) null,RQLB VARCHAR(12) null,"+&
+				"RQFL VARCHAR(12) null,RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,RQZZDW VARCHAR(60) null,"+&
+				"ZZDQDM VARCHAR(12) null,ZZG VARCHAR(20) null,ZZRQ varchar(20) null,CCBH VARCHAR(30) null,CCJJDW VARCHAR(60) null,"+&
+				"JJDWDM VARCHAR(12) null,RQAZDW VARCHAR(60) null,AZDWDM VARCHAR(12) null,AZJGRQ varchar(20) null,TYRQ varchar(20) null,"+&
+				"SZCLFC VARCHAR(30) null,RQNJ numeric(10) null,TTCL VARCHAR(30) null,FTCL VARCHAR(30) null,NCCL VARCHAR(30) null,"+&
+				"JTCL VARCHAR(30) null,TTBH numeric(7,1) null,FTHD numeric(7,1) null,NCBH numeric(7,1) null,JTHD numeric(7,1) null,"+&
+				"RQRJ numeric(10,2) null,RQG numeric(10) null,QTZL numeric(11,1) null,NJZL numeric(11,1) null,CZZL numeric(11,1) null,"+&
+				"BWJR VARCHAR(16) null,QCSJYL numeric(10,2) null,QCSJWD numeric(4) null,QCZGYL numeric(10,2) null,"+&
+				"GCSJYL numeric(10,2) null,GCSJWD numeric(4) null,GCZGYL numeric(10,2) null,JTSJYL numeric(10,2) null,"+&
+				"JTSJWD numeric(4) null,JTZGYL numeric(10,2) null,QCJZ VARCHAR(14) null,GCJZ VARCHAR(14) null,"+&
+				"JTJZ VARCHAR(14) null,CQDW VARCHAR(60) null,CQDWDZ VARCHAR(12) null,ZCID numeric(20) not null,"+&
+				"JZTX_JT VARCHAR(10) null,JZTX_GC VARCHAR(10) null,JZTX_KC VARCHAR(10) null,SBJB VARCHAR(10) null,SBDM VARCHAR(30) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_BF_X ON DJYLRQ.DJB_YLRQ_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ_BF(DWNBBH VARCHAR(12) null,RQMC VARCHAR(30) null,RQLB VARCHAR(12) null,"+&
+				"RQFL VARCHAR(12) null,RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,RQZZDW VARCHAR(60) null,"+&
+				"ZZDQDM VARCHAR(12) null,ZZG VARCHAR(20) null,ZZRQ varchar(20) null,CCBH VARCHAR(30) null,CCJJDW VARCHAR(60) null,"+&
+				"JJDWDM VARCHAR(12) null,RQAZDW VARCHAR(60) null,AZDWDM VARCHAR(12) null,AZJGRQ varchar(20) null,TYRQ varchar(20) null,"+&
+				"SZCLFC VARCHAR(30) null,RQNJ numeric(10) null,TTCL VARCHAR(30) null,FTCL VARCHAR(30) null,NCCL VARCHAR(30) null,"+&
+				"JTCL VARCHAR(30) null,TTBH numeric(7,1) null,FTHD numeric(7,1) null,NCBH numeric(7,1) null,JTHD numeric(7,1) null,"+&
+				"RQRJ numeric(10,2) null,RQG numeric(10) null,QTZL numeric(11,1) null,NJZL numeric(11,1) null,CZZL numeric(11,1) null,"+&
+				"BWJR VARCHAR(16) null,QCSJYL numeric(10,2) null,QCSJWD numeric(4) null,QCZGYL numeric(10,2) null,"+&
+				"GCSJYL numeric(10,2) null,GCSJWD numeric(4) null,GCZGYL numeric(10,2) null,JTSJYL numeric(10,2) null,"+&
+				"JTSJWD numeric(4) null,JTZGYL numeric(10,2) null,QCJZ VARCHAR(14) null,GCJZ VARCHAR(14) null,"+&
+				"JTJZ VARCHAR(14) null,CQDW VARCHAR(60) null,CQDWDZ VARCHAR(12) null,ZCID numeric(20) not null,"+&
+				"JZTX_JT VARCHAR(10) null,JZTX_GC VARCHAR(10) null,JZTX_KC VARCHAR(10) null,SBJB VARCHAR(10) null,SBDM VARCHAR(30) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Ñõ²ÕÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ_YC(DWNBBH VARCHAR(20) null,RQLB VARCHAR(20) null,RQFL VARCHAR(20) null,"+&
+				"RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(20) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(20) null,"+&
+				"ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(20) null,AZJGRQ varchar(20) null,TYRQ varchar(20) null,"+&
+				"ZCID numeric(20) not null,YC_YCSZWZ VARCHAR(20) null,YC_YCZM VARCHAR(20) null,YC_YCKTDJ VARCHAR(20) null,"+&
+				"YC_YCCYFS VARCHAR(20) null,YC_YCGG VARCHAR(20) null,YC_YCJYJZ VARCHAR(20) null,YC_ZDZLRS VARCHAR(20) null,"+&
+				"YC_YCSJYL VARCHAR(20) null,YC_CCRQ varchar(20) null,YC_FTCL VARCHAR(20) null,YC_KTCL VARCHAR(20) null,"+&
+				"CCBH VARCHAR(20) null,SBJB VARCHAR(20) null,SBDM VARCHAR(30) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_YC_X ON DJYLRQ.DJB_YLRQ_YC (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ_YC(DWNBBH VARCHAR(20) null,RQLB VARCHAR(20) null,RQFL VARCHAR(20) null,"+&
+				"RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(20) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(20) null,"+&
+				"ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(20) null,AZJGRQ varchar(20) null,TYRQ varchar(20) null,"+&
+				"ZCID numeric(20) not null,YC_YCSZWZ VARCHAR(20) null,YC_YCZM VARCHAR(20) null,YC_YCKTDJ VARCHAR(20) null,"+&
+				"YC_YCCYFS VARCHAR(20) null,YC_YCGG VARCHAR(20) null,YC_YCJYJZ VARCHAR(20) null,YC_ZDZLRS VARCHAR(20) null,"+&
+				"YC_YCSJYL VARCHAR(20) null,YC_CCRQ varchar(20) null,YC_FTCL VARCHAR(20) null,YC_KTCL VARCHAR(20) null,"+&
+				"CCBH VARCHAR(20) null,SBJB VARCHAR(20) null,SBDM VARCHAR(30) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Ñõ²Õ±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ_YC_BF(DWNBBH VARCHAR(12) null,RQLB VARCHAR(12) null,RQFL VARCHAR(12) null,"+&
+				"RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(12) null,"+&
+				"ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(12) null,AZJGRQ varchar(20) null,TYRQ varchar(20) null,"+&
+				"ZCID numeric(20) not null,YC_YCSZWZ VARCHAR(16) null,YC_YCZM VARCHAR(8) null,YC_YCKTDJ VARCHAR(8) null,"+&
+				"YC_YCCYFS VARCHAR(12) null,YC_YCGG VARCHAR(12) null,YC_YCJYJZ VARCHAR(12) null,YC_ZDZLRS numeric(3) null,"+&
+				"YC_YCSJYL numeric(10,2) null,YC_CCRQ varchar(20) null,YC_FTCL VARCHAR(12) null,YC_KTCL VARCHAR(12) null,"+&
+				"CCBH VARCHAR(20) null,SBJB VARCHAR(10) null,SBDM VARCHAR(30) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_YC_BF_X ON DJYLRQ.DJB_YLRQ_YC_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ_YC_BF(DWNBBH VARCHAR(12) null,RQLB VARCHAR(12) null,RQFL VARCHAR(12) null,"+&
+				"RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(12) null,"+&
+				"ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(12) null,AZJGRQ varchar(20) null,TYRQ varchar(20) null,"+&
+				"ZCID numeric(20) not null,YC_YCSZWZ VARCHAR(16) null,YC_YCZM VARCHAR(8) null,YC_YCKTDJ VARCHAR(8) null,"+&
+				"YC_YCCYFS VARCHAR(12) null,YC_YCGG VARCHAR(12) null,YC_YCJYJZ VARCHAR(12) null,YC_ZDZLRS numeric(3) null,"+&
+				"YC_YCSJYL numeric(10,2) null,YC_CCRQ varchar(20) null,YC_FTCL VARCHAR(12) null,YC_KTCL VARCHAR(12) null,"+&
+				"CCBH VARCHAR(20) null,SBJB VARCHAR(10) null,SBDM VARCHAR(30) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ ¹Þ³µ»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ_GC(DWNBBH VARCHAR(20) null,RQMC VARCHAR(30) null,RQLB VARCHAR(20) null,"+&
+				"RQFL VARCHAR(20) null,RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(20) null,RQZZDW VARCHAR(60) null,"+&
+				"ZZDQDM VARCHAR(20) null,ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(20) null,"+&
+				"CQDW VARCHAR(60) null,CQDWDZ VARCHAR(20) null,ZCID numeric(20) not null,GC_JGXS VARCHAR(20) null,"+&
+				"GC_XH VARCHAR(20) null,GC_GTWJ varchar(20) null,GC_GTZC varchar(20) null,GC_GTRJ varchar(20) null,"+&
+				"GC_KZZL varchar(20) null,GC_MZZL varchar(20) null,GC_ZDCZL varchar(20) null,GC_CZXS varchar(20) null,"+&
+				"GC_GTSJYL varchar(20) null,GC_GTSJWD varchar(20) null,GC_SYYL varchar(20) null,GC_ZGYL varchar(20) null,"+&
+				"GC_NTSJBH varchar(20) null,GC_FTSJBH varchar(20) null,GC_WTSJBH varchar(20) null,GC_NTCL VARCHAR(20) null,"+&
+				"GC_FTCL VARCHAR(20) null,GC_WTCL VARCHAR(20) null,GC_GTBH VARCHAR(20) null,GC_GCDPHM VARCHAR(20) null,"+&
+				"GC_RKWZ VARCHAR(20) null,GC_MPWZ VARCHAR(20) null,GC_ZXFS VARCHAR(20) null,GC_BWFS VARCHAR(20) null,"+&
+				"GC_GTYS VARCHAR(20) null,GC_CPHM VARCHAR(20) null,GC_CZJZ VARCHAR(20) null,SBJB VARCHAR(20) null,TYRQ varchar(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_GC_X ON DJYLRQ.DJB_YLRQ_GC (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ_GC(DWNBBH VARCHAR(20) null,RQMC VARCHAR(30) null,RQLB VARCHAR(20) null,"+&
+				"RQFL VARCHAR(20) null,RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(20) null,RQZZDW VARCHAR(60) null,"+&
+				"ZZDQDM VARCHAR(20) null,ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(20) null,"+&
+				"CQDW VARCHAR(60) null,CQDWDZ VARCHAR(20) null,ZCID numeric(20) not null,GC_JGXS VARCHAR(20) null,"+&
+				"GC_XH VARCHAR(20) null,GC_GTWJ varchar(20) null,GC_GTZC varchar(20) null,GC_GTRJ varchar(20) null,"+&
+				"GC_KZZL varchar(20) null,GC_MZZL varchar(20) null,GC_ZDCZL varchar(20) null,GC_CZXS varchar(20) null,"+&
+				"GC_GTSJYL varchar(20) null,GC_GTSJWD varchar(20) null,GC_SYYL varchar(20) null,GC_ZGYL varchar(20) null,"+&
+				"GC_NTSJBH varchar(20) null,GC_FTSJBH varchar(20) null,GC_WTSJBH varchar(20) null,GC_NTCL VARCHAR(20) null,"+&
+				"GC_FTCL VARCHAR(20) null,GC_WTCL VARCHAR(20) null,GC_GTBH VARCHAR(20) null,GC_GCDPHM VARCHAR(20) null,"+&
+				"GC_RKWZ VARCHAR(20) null,GC_MPWZ VARCHAR(20) null,GC_ZXFS VARCHAR(20) null,GC_BWFS VARCHAR(20) null,"+&
+				"GC_GTYS VARCHAR(20) null,GC_CPHM VARCHAR(20) null,GC_CZJZ VARCHAR(20) null,SBJB VARCHAR(20) null,TYRQ varchar(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ ¹Þ³µ±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ_GC_BF(DWNBBH VARCHAR(12) null,RQMC VARCHAR(30) null,RQLB VARCHAR(12) null,"+&
+				"RQFL VARCHAR(12) null,RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,RQZZDW VARCHAR(60) null,"+&
+				"ZZDQDM VARCHAR(12) null,ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(12) null,"+&
+				"CQDW VARCHAR(60) null,CQDWDZ VARCHAR(12) null,ZCID numeric(20) not null,GC_JGXS VARCHAR(12) null,"+&
+				"GC_XH VARCHAR(12) null,GC_GTWJ numeric(4) null,GC_GTZC numeric(5) null,GC_GTRJ numeric(5,2) null,"+&
+				"GC_KZZL numeric(6,1) null,GC_MZZL numeric(7,1) null,GC_ZDCZL numeric(6,1) null,GC_CZXS numeric(5,3) null,"+&
+				"GC_GTSJYL numeric(8,2) null,GC_GTSJWD numeric(4) null,GC_SYYL numeric(8,2) null,GC_ZGYL numeric(8,2) null,"+&
+				"GC_NTSJBH numeric(3) null,GC_FTSJBH numeric(3) null,GC_WTSJBH numeric(3) null,GC_NTCL VARCHAR(10) null,"+&
+				"GC_FTCL VARCHAR(10) null,GC_WTCL VARCHAR(10) null,GC_GTBH VARCHAR(10) null,GC_GCDPHM VARCHAR(12) null,"+&
+				"GC_RKWZ VARCHAR(12) null,GC_MPWZ VARCHAR(12) null,GC_ZXFS VARCHAR(12) null,GC_BWFS VARCHAR(12) null,"+&
+				"GC_GTYS VARCHAR(12) null,GC_CPHM VARCHAR(12) null,GC_CZJZ VARCHAR(12) null,SBJB VARCHAR(10) null,TYRQ varchar(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_GC_BF_X ON DJYLRQ.DJB_YLRQ_GC_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ_GC_BF(DWNBBH VARCHAR(12) null,RQMC VARCHAR(30) null,RQLB VARCHAR(12) null,"+&
+				"RQFL VARCHAR(12) null,RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,RQZZDW VARCHAR(60) null,"+&
+				"ZZDQDM VARCHAR(12) null,ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(12) null,"+&
+				"CQDW VARCHAR(60) null,CQDWDZ VARCHAR(12) null,ZCID numeric(20) not null,GC_JGXS VARCHAR(12) null,"+&
+				"GC_XH VARCHAR(12) null,GC_GTWJ numeric(4) null,GC_GTZC numeric(5) null,GC_GTRJ numeric(5,2) null,"+&
+				"GC_KZZL numeric(6,1) null,GC_MZZL numeric(7,1) null,GC_ZDCZL numeric(6,1) null,GC_CZXS numeric(5,3) null,"+&
+				"GC_GTSJYL numeric(8,2) null,GC_GTSJWD numeric(4) null,GC_SYYL numeric(8,2) null,GC_ZGYL numeric(8,2) null,"+&
+				"GC_NTSJBH numeric(3) null,GC_FTSJBH numeric(3) null,GC_WTSJBH numeric(3) null,GC_NTCL VARCHAR(10) null,"+&
+				"GC_FTCL VARCHAR(10) null,GC_WTCL VARCHAR(10) null,GC_GTBH VARCHAR(10) null,GC_GCDPHM VARCHAR(12) null,"+&
+				"GC_RKWZ VARCHAR(12) null,GC_MPWZ VARCHAR(12) null,GC_ZXFS VARCHAR(12) null,GC_BWFS VARCHAR(12) null,"+&
+				"GC_GTYS VARCHAR(12) null,GC_CPHM VARCHAR(12) null,GC_CZJZ VARCHAR(12) null,SBJB VARCHAR(10) null,TYRQ varchar(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ ¹ÞÊ½¼¯×°Ïä»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ_GSJZX(DWNBBH  VARCHAR(20) null,RQLB VARCHAR(20) null,RQFL VARCHAR(20) null,"+&
+				"RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(20) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(20) null,"+&
+				"ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(20) null,ZCID numeric(20) not null,"+&
+				"GSJZX_BH VARCHAR(20) null,GSJZX_WXPBH VARCHAR(20) null,GSJZX_JZXC varchar(20) null,GSJZX_JZXK varchar(20) null,"+&
+				"GSJZX_JZXG varchar(20) null,GSJZX_GTWJ varchar(20) null,GSJZX_GTZC varchar(20) null,GSJZX_GTRJ varchar(20) null,"+&
+				"GSJZX_ZDCZL varchar(20) null,GSJZX_CZXS varchar(20) null,GSJZX_GTSJYL varchar(20) null,GSJZX_GTSJWD varchar(20) null,"+&
+				"GSJZX_SYYL varchar(20) null,GSJZX_ZGGZYL varchar(20) null,GSJZX_NTSJBH varchar(20) null,GSJZX_FTSJBH varchar(20) null,"+&
+				"GSJZX_WTSJBH varchar(20) null,GSJZX_NTCL VARCHAR(20) null,GSJZX_FTCL VARCHAR(20) null,GSJZX_WTCL VARCHAR(20) null,"+&
+				"GSJZX_GTBH VARCHAR(20) null,GSJZX_RKWZ VARCHAR(20) null,GSJZX_MPWZ VARCHAR(20) null,GSJZX_ZXFS VARCHAR(20) null,"+&
+				"GSJZX_BWFS VARCHAR(20) null,GSJZX_XTYS VARCHAR(20) null,GSJZX_CZJZ VARCHAR(20) null,SBJB VARCHAR(20) null,TYRQ varchar(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_GSJZX_X ON DJYLRQ.DJB_YLRQ_GSJZX (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ_GSJZX(DWNBBH  VARCHAR(20) null,RQLB VARCHAR(20) null,RQFL VARCHAR(20) null,"+&
+				"RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(20) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(20) null,"+&
+				"ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(20) null,ZCID numeric(20) not null,"+&
+				"GSJZX_BH VARCHAR(20) null,GSJZX_WXPBH VARCHAR(20) null,GSJZX_JZXC varchar(20) null,GSJZX_JZXK varchar(20) null,"+&
+				"GSJZX_JZXG varchar(20) null,GSJZX_GTWJ varchar(20) null,GSJZX_GTZC varchar(20) null,GSJZX_GTRJ varchar(20) null,"+&
+				"GSJZX_ZDCZL varchar(20) null,GSJZX_CZXS varchar(20) null,GSJZX_GTSJYL varchar(20) null,GSJZX_GTSJWD varchar(20) null,"+&
+				"GSJZX_SYYL varchar(20) null,GSJZX_ZGGZYL varchar(20) null,GSJZX_NTSJBH varchar(20) null,GSJZX_FTSJBH varchar(20) null,"+&
+				"GSJZX_WTSJBH varchar(20) null,GSJZX_NTCL VARCHAR(20) null,GSJZX_FTCL VARCHAR(20) null,GSJZX_WTCL VARCHAR(20) null,"+&
+				"GSJZX_GTBH VARCHAR(20) null,GSJZX_RKWZ VARCHAR(20) null,GSJZX_MPWZ VARCHAR(20) null,GSJZX_ZXFS VARCHAR(20) null,"+&
+				"GSJZX_BWFS VARCHAR(20) null,GSJZX_XTYS VARCHAR(20) null,GSJZX_CZJZ VARCHAR(20) null,SBJB VARCHAR(20) null,TYRQ varchar(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ ¹ÞÊ½¼¯×°Ïä±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ_GSJZX_BF(DWNBBH  VARCHAR(12) null,RQLB VARCHAR(12) null,RQFL VARCHAR(12) null,"+&
+				"RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(12) null,"+&
+				"ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(12) null,ZCID numeric(20) not null,"+&
+				"GSJZX_BH VARCHAR(20) null,GSJZX_WXPBH VARCHAR(20) null,GSJZX_JZXC numeric(5) null,GSJZX_JZXK numeric(4) null,"+&
+				"GSJZX_JZXG numeric(4) null,GSJZX_GTWJ numeric(4) null,GSJZX_GTZC numeric(5) null,GSJZX_GTRJ numeric(3) null,"+&
+				"GSJZX_ZDCZL numeric(5) null,GSJZX_CZXS numeric(5,3) null,GSJZX_GTSJYL numeric(8,2) null,GSJZX_GTSJWD numeric(4) null,"+&
+				"GSJZX_SYYL numeric(8,2) null,GSJZX_ZGGZYL numeric(8,2) null,GSJZX_NTSJBH numeric(4) null,GSJZX_FTSJBH numeric(4) null,"+&
+				"GSJZX_WTSJBH numeric(4) null,GSJZX_NTCL VARCHAR(12) null,GSJZX_FTCL VARCHAR(12) null,GSJZX_WTCL VARCHAR(12) null,"+&
+				"GSJZX_GTBH VARCHAR(20) null,GSJZX_RKWZ VARCHAR(16) null,GSJZX_MPWZ VARCHAR(16) null,GSJZX_ZXFS VARCHAR(16) null,"+&
+				"GSJZX_BWFS VARCHAR(12) null,GSJZX_XTYS VARCHAR(10) null,GSJZX_CZJZ VARCHAR(12) null,SBJB VARCHAR(10) null,TYRQ varchar(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_GSJZX_BF_X ON DJYLRQ.DJB_YLRQ_GSJZX_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ_GSJZX_BF(DWNBBH  VARCHAR(12) null,RQLB VARCHAR(12) null,RQFL VARCHAR(12) null,"+&
+				"RQSJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(12) null,"+&
+				"ZZG VARCHAR(20) null,CCJJDW VARCHAR(60) null,JJDWDM VARCHAR(12) null,ZCID numeric(20) not null,"+&
+				"GSJZX_BH VARCHAR(20) null,GSJZX_WXPBH VARCHAR(20) null,GSJZX_JZXC numeric(5) null,GSJZX_JZXK numeric(4) null,"+&
+				"GSJZX_JZXG numeric(4) null,GSJZX_GTWJ numeric(4) null,GSJZX_GTZC numeric(5) null,GSJZX_GTRJ numeric(3) null,"+&
+				"GSJZX_ZDCZL numeric(5) null,GSJZX_CZXS numeric(5,3) null,GSJZX_GTSJYL numeric(8,2) null,GSJZX_GTSJWD numeric(4) null,"+&
+				"GSJZX_SYYL numeric(8,2) null,GSJZX_ZGGZYL numeric(8,2) null,GSJZX_NTSJBH numeric(4) null,GSJZX_FTSJBH numeric(4) null,"+&
+				"GSJZX_WTSJBH numeric(4) null,GSJZX_NTCL VARCHAR(12) null,GSJZX_FTCL VARCHAR(12) null,GSJZX_WTCL VARCHAR(12) null,"+&
+				"GSJZX_GTBH VARCHAR(20) null,GSJZX_RKWZ VARCHAR(16) null,GSJZX_MPWZ VARCHAR(16) null,GSJZX_ZXFS VARCHAR(16) null,"+&
+				"GSJZX_BWFS VARCHAR(12) null,GSJZX_XTYS VARCHAR(10) null,GSJZX_CZJZ VARCHAR(12) null,SBJB VARCHAR(10) null,TYRQ varchar(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ ³¤¹ÜÍÏ³µ»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ_CGTC(DWNBBH  VARCHAR(20) null,RQMC VARCHAR(30) null,RQLB VARCHAR(20) null,"+&
+			"RQFL VARCHAR(20) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(20) null,ZZG VARCHAR(20) null,"+&
+			"CCJJDW VARCHAR(60) null,JJDWDM  VARCHAR(20) null,ZCID  numeric(20) not null,CGTC_CZJZ VARCHAR(20) null,"+&
+			"CGTC_QPS  varchar(20) null,CGTC_PTWJ varchar(20) null,CGTC_PTCD varchar(20) null,CGTC_DPRJ varchar(20) null,"+&
+			"CGTC_KZZL varchar(20) null,CGTC_MZZL varchar(20) null,CGTC_ZDCZL varchar(20) null,CGTC_CZXS varchar(20) null,"+&
+			"CGTC_CZYL varchar(20) null,CGTC_PTSJYL varchar(20) null,CGTC_PTSJWD varchar(20) null,CGTC_SYYL varchar(20) null,"+&
+			"CGTC_ZGGZYL varchar(20) null,CGTC_PTSJBH varchar(20) null,CGTC_PTCL VARCHAR(20) null,CGTC_MPWZ VARCHAR(20) null,"+&
+			"CGTC_ZXFS VARCHAR(20) null,CGTC_PTYS VARCHAR(20) null,CGTC_CJHM VARCHAR(20) null,CGTC_CZ_MARK VARCHAR(20) null,"+&
+			"SBJB VARCHAR(20) null,TYRQ varchar(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_CGTC_X ON DJYLRQ.DJB_YLRQ_CGTC (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ_CGTC(DWNBBH  VARCHAR(20) null,RQMC VARCHAR(30) null,RQLB VARCHAR(20) null,"+&
+			"RQFL VARCHAR(20) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(20) null,ZZG VARCHAR(20) null,"+&
+			"CCJJDW VARCHAR(60) null,JJDWDM  VARCHAR(20) null,ZCID  numeric(20) not null,CGTC_CZJZ VARCHAR(20) null,"+&
+			"CGTC_QPS  varchar(20) null,CGTC_PTWJ varchar(20) null,CGTC_PTCD varchar(20) null,CGTC_DPRJ varchar(20) null,"+&
+			"CGTC_KZZL varchar(20) null,CGTC_MZZL varchar(20) null,CGTC_ZDCZL varchar(20) null,CGTC_CZXS varchar(20) null,"+&
+			"CGTC_CZYL varchar(20) null,CGTC_PTSJYL varchar(20) null,CGTC_PTSJWD varchar(20) null,CGTC_SYYL varchar(20) null,"+&
+			"CGTC_ZGGZYL varchar(20) null,CGTC_PTSJBH varchar(20) null,CGTC_PTCL VARCHAR(20) null,CGTC_MPWZ VARCHAR(20) null,"+&
+			"CGTC_ZXFS VARCHAR(20) null,CGTC_PTYS VARCHAR(20) null,CGTC_CJHM VARCHAR(20) null,CGTC_CZ_MARK VARCHAR(20) null,"+&
+			"SBJB VARCHAR(20) null,TYRQ varchar(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ ³¤¹ÜÍÏ³µ±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLRQ_CGTC_BF(DWNBBH  VARCHAR(12) null,RQMC VARCHAR(30) null,RQLB VARCHAR(12) null,"+&
+			"RQFL VARCHAR(12) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(12) null,ZZG VARCHAR(20) null,"+&
+			"CCJJDW VARCHAR(60) null,JJDWDM  VARCHAR(12) null,ZCID  numeric(20) not null,CGTC_CZJZ VARCHAR(12) null,"+&
+			"CGTC_QPS  numeric(3) null,CGTC_PTWJ numeric(5) null,CGTC_PTCD numeric(5) null,CGTC_DPRJ numeric(3) null,"+&
+			"CGTC_KZZL numeric(6) null,CGTC_MZZL numeric(6) null,CGTC_ZDCZL numeric(6) null,CGTC_CZXS numeric(5,3) null,"+&
+			"CGTC_CZYL numeric(5,2) null,CGTC_PTSJYL numeric(5,2) null,CGTC_PTSJWD numeric(4) null,CGTC_SYYL numeric(4) null,"+&
+			"CGTC_ZGGZYL numeric(5,2) null,CGTC_PTSJBH numeric(3) null,CGTC_PTCL VARCHAR(10) null,CGTC_MPWZ VARCHAR(12) null,"+&
+			"CGTC_ZXFS VARCHAR(12) null,CGTC_PTYS VARCHAR(10) null,CGTC_CJHM VARCHAR(20) null,CGTC_CZ_MARK VARCHAR(1) null,"+&
+			"SBJB VARCHAR(10) null,TYRQ varchar(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLRQ_CGTC_BF_X ON DJYLRQ.DJB_YLRQ_CGTC_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLRQ_CGTC_BF(DWNBBH  VARCHAR(12) null,RQMC VARCHAR(30) null,RQLB VARCHAR(12) null,"+&
+			"RQFL VARCHAR(12) null,RQZZDW VARCHAR(60) null,ZZDQDM VARCHAR(12) null,ZZG VARCHAR(20) null,"+&
+			"CCJJDW VARCHAR(60) null,JJDWDM  VARCHAR(12) null,ZCID  numeric(20) not null,CGTC_CZJZ VARCHAR(12) null,"+&
+			"CGTC_QPS  numeric(3) null,CGTC_PTWJ numeric(5) null,CGTC_PTCD numeric(5) null,CGTC_DPRJ numeric(3) null,"+&
+			"CGTC_KZZL numeric(6) null,CGTC_MZZL numeric(6) null,CGTC_ZDCZL numeric(6) null,CGTC_CZXS numeric(5,3) null,"+&
+			"CGTC_CZYL numeric(5,2) null,CGTC_PTSJYL numeric(5,2) null,CGTC_PTSJWD numeric(4) null,CGTC_SYYL numeric(4) null,"+&
+			"CGTC_ZGGZYL numeric(5,2) null,CGTC_PTSJBH numeric(3) null,CGTC_PTCL VARCHAR(10) null,CGTC_MPWZ VARCHAR(12) null,"+&
+			"CGTC_ZXFS VARCHAR(12) null,CGTC_PTYS VARCHAR(10) null,CGTC_CJHM VARCHAR(20) null,CGTC_CZ_MARK VARCHAR(1) null,"+&
+			"SBJB VARCHAR(10) null,TYRQ varchar(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Ñ¹Á¦¹ÜµÀ»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLGD(DWNBBH  VARCHAR(12) null,CQDW  VARCHAR(60) null,CQDWDM VARCHAR(12) null,"+&
+			"SJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,AZDW  VARCHAR(60) null,AZDWDM VARCHAR(12) null,"+&
+			"JJJG VARCHAR(60) null,JJJGDM  VARCHAR(12) null,JSDW VARCHAR(60) null,JSDWDM  VARCHAR(12) null,"+&
+			"JLDW  VARCHAR(60) null,JLDWDM  VARCHAR(12) null,JCDW VARCHAR(60) null,JCDWDM VARCHAR(12) null,"+&
+			"AZJGRQ varchar(20) null,TYRQ varchar(20) null,SSCJHZZ  VARCHAR(30) null,GDMC VARCHAR(30) null,GDLB VARCHAR(12) null,"+&
+			"GDJB VARCHAR(12) null,GDBH VARCHAR(20) null,GDZD VARCHAR(20) null,DGCD varchar(10) null,"+&
+			"GDCL VARCHAR(20) null,GDPSFS VARCHAR(10) null,HKSL varchar(8) null,TSBL varchar(3) null,"+&
+			"BWJR VARCHAR(10) null,SJYL varchar(10) null,SJWD varchar(4) null,SSJZ VARCHAR(20) null,"+&
+			"ZGGZYL varchar(10) null,ZGGZWD varchar(4) null,FFFS VARCHAR(20) null,BS VARCHAR(20) null,"+&
+			"DXTH VARCHAR(20) null,MC1 VARCHAR(20) null,XHGG1 VARCHAR(20) null,MC2 VARCHAR(20) null,"+&
+			"XHGG2 VARCHAR(20) null,MC3  VARCHAR(20) null,XHGG3 VARCHAR(20) null,MC4 VARCHAR(20) null,"+&
+			"XHGG4 VARCHAR(20) null,MC5  VARCHAR(20) null,XHGG5 VARCHAR(20) null,MC6 VARCHAR(20) null,"+&
+			"XHGG6 VARCHAR(20) null,MC7 VARCHAR(20) null,XHGG7 VARCHAR(20) null,SL1 varchar(8) null,"+&
+			"ZZDWAZDW1 VARCHAR(50) null,JYJG1 VARCHAR(20) null,BGBH1 VARCHAR(20) null,SL2 varchar(8) null,"+&
+			"ZZDWAZDW2 VARCHAR(50) null,JYJG2 VARCHAR(20) null,BGBH2 VARCHAR(20) null,SL3 varchar(8) null,"+&
+			"ZZDWZADW3 VARCHAR(50) null,JYJG3 VARCHAR(20) null,BGBH3 VARCHAR(20) null,SL4 varchar(8) null,"+&
+			"ZZDWAZDW4 VARCHAR(50) null,JYJG4 VARCHAR(20) null,BGBH4 VARCHAR(20) null,SL5 varchar(8) null,"+&
+			"ZZDWAZDW5 VARCHAR(50) null,JYJG5 VARCHAR(20) null,BGBH5 VARCHAR(20) null,SL6 varchar(8) null,"+&
+			"ZZDWAZDW6 VARCHAR(50) null,JYJG6 VARCHAR(20) null,BGBH6 VARCHAR(20) null,SL7 varchar(8) null,"+&
+			"ZZDWAZDW7 VARCHAR(50) null,JYJG7 VARCHAR(20) null,BGBH7 VARCHAR(20) null,BZ VARCHAR(30) null,"+&
+			"ZCID varchar(20) not null,GD_ZDGCZJ varchar(6) null,GD_ZXGCZJ varchar(6) null,GD_ZDBH varchar(4) null,"+&
+			"GD_ZXBH varchar(4) null,GDQD VARCHAR(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLGD_X ON DJYLRQ.DJB_YLGD (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLGD(DWNBBH  VARCHAR(12) null,CQDW  VARCHAR(60) null,CQDWDM VARCHAR(12) null,"+&
+			"SJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,AZDW  VARCHAR(60) null,AZDWDM VARCHAR(12) null,"+&
+			"JJJG VARCHAR(60) null,JJJGDM  VARCHAR(12) null,JSDW VARCHAR(60) null,JSDWDM  VARCHAR(12) null,"+&
+			"JLDW  VARCHAR(60) null,JLDWDM  VARCHAR(12) null,JCDW VARCHAR(60) null,JCDWDM VARCHAR(12) null,"+&
+			"AZJGRQ varchar(20) null,TYRQ varchar(20) null,SSCJHZZ  VARCHAR(30) null,GDMC VARCHAR(30) null,GDLB VARCHAR(12) null,"+&
+			"GDJB VARCHAR(12) null,GDBH VARCHAR(20) null,GDZD VARCHAR(20) null,DGCD varchar(10) null,"+&
+			"GDCL VARCHAR(20) null,GDPSFS VARCHAR(10) null,HKSL varchar(8) null,TSBL varchar(3) null,"+&
+			"BWJR VARCHAR(10) null,SJYL varchar(10) null,SJWD varchar(4) null,SSJZ VARCHAR(20) null,"+&
+			"ZGGZYL varchar(10) null,ZGGZWD varchar(4) null,FFFS VARCHAR(20) null,BS VARCHAR(20) null,"+&
+			"DXTH VARCHAR(20) null,MC1 VARCHAR(20) null,XHGG1 VARCHAR(20) null,MC2 VARCHAR(20) null,"+&
+			"XHGG2 VARCHAR(20) null,MC3  VARCHAR(20) null,XHGG3 VARCHAR(20) null,MC4 VARCHAR(20) null,"+&
+			"XHGG4 VARCHAR(20) null,MC5  VARCHAR(20) null,XHGG5 VARCHAR(20) null,MC6 VARCHAR(20) null,"+&
+			"XHGG6 VARCHAR(20) null,MC7 VARCHAR(20) null,XHGG7 VARCHAR(20) null,SL1 varchar(8) null,"+&
+			"ZZDWAZDW1 VARCHAR(50) null,JYJG1 VARCHAR(20) null,BGBH1 VARCHAR(20) null,SL2 varchar(8) null,"+&
+			"ZZDWAZDW2 VARCHAR(50) null,JYJG2 VARCHAR(20) null,BGBH2 VARCHAR(20) null,SL3 varchar(8) null,"+&
+			"ZZDWZADW3 VARCHAR(50) null,JYJG3 VARCHAR(20) null,BGBH3 VARCHAR(20) null,SL4 varchar(8) null,"+&
+			"ZZDWAZDW4 VARCHAR(50) null,JYJG4 VARCHAR(20) null,BGBH4 VARCHAR(20) null,SL5 varchar(8) null,"+&
+			"ZZDWAZDW5 VARCHAR(50) null,JYJG5 VARCHAR(20) null,BGBH5 VARCHAR(20) null,SL6 varchar(8) null,"+&
+			"ZZDWAZDW6 VARCHAR(50) null,JYJG6 VARCHAR(20) null,BGBH6 VARCHAR(20) null,SL7 varchar(8) null,"+&
+			"ZZDWAZDW7 VARCHAR(50) null,JYJG7 VARCHAR(20) null,BGBH7 VARCHAR(20) null,BZ VARCHAR(30) null,"+&
+			"ZCID varchar(20) not null,GD_ZDGCZJ varchar(6) null,GD_ZXGCZJ varchar(6) null,GD_ZDBH varchar(4) null,"+&
+			"GD_ZXBH varchar(4) null,GDQD VARCHAR(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Ñ¹Á¦¹ÜµÀ±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLGD_BF(DWNBBH  VARCHAR(12) null,CQDW  VARCHAR(60) null,CQDWDM VARCHAR(12) null,"+&
+			"SJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,AZDW  VARCHAR(60) null,AZDWDM VARCHAR(12) null,"+&
+			"JJJG VARCHAR(60) null,JJJGDM  VARCHAR(12) null,JSDW VARCHAR(60) null,JSDWDM  VARCHAR(12) null,"+&
+			"JLDW  VARCHAR(60) null,JLDWDM  VARCHAR(12) null,JCDW VARCHAR(60) null,JCDWDM VARCHAR(12) null,"+&
+			"AZJGRQ varchar(20) null,TYRQ varchar(20) null,SSCJHZZ  VARCHAR(30) null,GDMC VARCHAR(30) null,GDLB VARCHAR(12) null,"+&
+			"GDJB VARCHAR(12) null,GDBH VARCHAR(20) null,GDZD VARCHAR(20) null,DGCD numeric(8,3) null,"+&
+			"GDCL VARCHAR(20) null,GDPSFS VARCHAR(10) null,HKSL numeric(8) null,TSBL numeric(3) null,"+&
+			"BWJR VARCHAR(10) null,SJYL numeric(5,2) null,SJWD numeric(4) null,SSJZ VARCHAR(20) null,"+&
+			"ZGGZYL numeric(5,2) null,ZGGZWD numeric(4) null,FFFS VARCHAR(20) null,BS VARCHAR(20) null,"+&
+			"DXTH VARCHAR(20) null,MC1 VARCHAR(20) null,XHGG1 VARCHAR(20) null,MC2 VARCHAR(20) null,"+&
+			"XHGG2 VARCHAR(20) null,MC3  VARCHAR(20) null,XHGG3 VARCHAR(20) null,MC4 VARCHAR(20) null,"+&
+			"XHGG4 VARCHAR(20) null,MC5  VARCHAR(20) null,XHGG5 VARCHAR(20) null,MC6 VARCHAR(20) null,"+&
+			"XHGG6 VARCHAR(20) null,MC7 VARCHAR(20) null,XHGG7 VARCHAR(20) null,SL1 numeric(8) null,"+&
+			"ZZDWAZDW1 VARCHAR(50) null,JYJG1 VARCHAR(20) null,BGBH1 VARCHAR(20) null,SL2 numeric(8) null,"+&
+			"ZZDWAZDW2 VARCHAR(50) null,JYJG2 VARCHAR(20) null,BGBH2 VARCHAR(20) null,SL3 numeric(8) null,"+&
+			"ZZDWZADW3 VARCHAR(50) null,JYJG3 VARCHAR(20) null,BGBH3 VARCHAR(20) null,SL4 numeric(8) null,"+&
+			"ZZDWAZDW4 VARCHAR(50) null,JYJG4 VARCHAR(20) null,BGBH4 VARCHAR(20) null,SL5 numeric(8) null,"+&
+			"ZZDWAZDW5 VARCHAR(50) null,JYJG5 VARCHAR(20) null,BGBH5 VARCHAR(20) null,SL6 numeric(8) null,"+&
+			"ZZDWAZDW6 VARCHAR(50) null,JYJG6 VARCHAR(20) null,BGBH6 VARCHAR(20) null,SL7 numeric(8) null,"+&
+			"ZZDWAZDW7 VARCHAR(50) null,JYJG7 VARCHAR(20) null,BGBH7 VARCHAR(20) null,BZ VARCHAR(30) null,"+&
+			"ZCID numeric(20) not null,GD_ZDGCZJ numeric(6) null,GD_ZXGCZJ numeric(6) null,GD_ZDBH numeric(4) null,"+&
+			"GD_ZXBH numeric(4) null,GDQD VARCHAR(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLGD_BF_X ON DJYLRQ.DJB_YLGD_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLGD_BF(DWNBBH  VARCHAR(12) null,CQDW  VARCHAR(60) null,CQDWDM VARCHAR(12) null,"+&
+			"SJDW VARCHAR(60) null,SJDWDM VARCHAR(12) null,AZDW  VARCHAR(60) null,AZDWDM VARCHAR(12) null,"+&
+			"JJJG VARCHAR(60) null,JJJGDM  VARCHAR(12) null,JSDW VARCHAR(60) null,JSDWDM  VARCHAR(12) null,"+&
+			"JLDW  VARCHAR(60) null,JLDWDM  VARCHAR(12) null,JCDW VARCHAR(60) null,JCDWDM VARCHAR(12) null,"+&
+			"AZJGRQ varchar(20) null,TYRQ varchar(20) null,SSCJHZZ  VARCHAR(30) null,GDMC VARCHAR(30) null,GDLB VARCHAR(12) null,"+&
+			"GDJB VARCHAR(12) null,GDBH VARCHAR(20) null,GDZD VARCHAR(20) null,DGCD numeric(8,3) null,"+&
+			"GDCL VARCHAR(20) null,GDPSFS VARCHAR(10) null,HKSL numeric(8) null,TSBL numeric(3) null,"+&
+			"BWJR VARCHAR(10) null,SJYL numeric(5,2) null,SJWD numeric(4) null,SSJZ VARCHAR(20) null,"+&
+			"ZGGZYL numeric(5,2) null,ZGGZWD numeric(4) null,FFFS VARCHAR(20) null,BS VARCHAR(20) null,"+&
+			"DXTH VARCHAR(20) null,MC1 VARCHAR(20) null,XHGG1 VARCHAR(20) null,MC2 VARCHAR(20) null,"+&
+			"XHGG2 VARCHAR(20) null,MC3  VARCHAR(20) null,XHGG3 VARCHAR(20) null,MC4 VARCHAR(20) null,"+&
+			"XHGG4 VARCHAR(20) null,MC5  VARCHAR(20) null,XHGG5 VARCHAR(20) null,MC6 VARCHAR(20) null,"+&
+			"XHGG6 VARCHAR(20) null,MC7 VARCHAR(20) null,XHGG7 VARCHAR(20) null,SL1 numeric(8) null,"+&
+			"ZZDWAZDW1 VARCHAR(50) null,JYJG1 VARCHAR(20) null,BGBH1 VARCHAR(20) null,SL2 numeric(8) null,"+&
+			"ZZDWAZDW2 VARCHAR(50) null,JYJG2 VARCHAR(20) null,BGBH2 VARCHAR(20) null,SL3 numeric(8) null,"+&
+			"ZZDWZADW3 VARCHAR(50) null,JYJG3 VARCHAR(20) null,BGBH3 VARCHAR(20) null,SL4 numeric(8) null,"+&
+			"ZZDWAZDW4 VARCHAR(50) null,JYJG4 VARCHAR(20) null,BGBH4 VARCHAR(20) null,SL5 numeric(8) null,"+&
+			"ZZDWAZDW5 VARCHAR(50) null,JYJG5 VARCHAR(20) null,BGBH5 VARCHAR(20) null,SL6 numeric(8) null,"+&
+			"ZZDWAZDW6 VARCHAR(50) null,JYJG6 VARCHAR(20) null,BGBH6 VARCHAR(20) null,SL7 numeric(8) null,"+&
+			"ZZDWAZDW7 VARCHAR(50) null,JYJG7 VARCHAR(20) null,BGBH7 VARCHAR(20) null,BZ VARCHAR(30) null,"+&
+			"ZCID numeric(20) not null,GD_ZDGCZJ numeric(6) null,GD_ZXGCZJ numeric(6) null,GD_ZDBH numeric(4) null,"+&
+			"GD_ZXBH numeric(4) null,GDQD VARCHAR(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ ÆøÆ¿»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_QP(ZCID numeric(20) not null,QYNBQPBH VARCHAR(20) null,CQSYR VARCHAR(80) null,"+&
+				"ZZDW VARCHAR(60) null,ZZRQ varchar(20) null,CQGX VARCHAR(20) null,CCBH VARCHAR(20) null,QPXH VARCHAR(30) null,"+&
+				"CZ VARCHAR(20) null,RJ VARCHAR(20) null,SJBH VARCHAR(20) null,ZL VARCHAR(20) null,SYSYYL VARCHAR(20) null,"+&
+				"XDCZYL VARCHAR(20) null,TLKXL VARCHAR(20) null,BZBTCZL VARCHAR(20) null,XDYQCZL VARCHAR(20) null,"+&
+				"GCGZYL VARCHAR(20) null,SYGZYL VARCHAR(20) null,BZ VARCHAR(60) null,SBDM  VARCHAR(30) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_QP_X ON DJYLRQ.DJB_QP (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_QP(ZCID numeric(20) not null,QYNBQPBH VARCHAR(20) null,CQSYR VARCHAR(80) null,"+&
+				"ZZDW VARCHAR(60) null,ZZRQ varchar(20) null,CQGX VARCHAR(20) null,CCBH VARCHAR(20) null,QPXH VARCHAR(30) null,"+&
+				"CZ VARCHAR(20) null,RJ VARCHAR(20) null,SJBH VARCHAR(20) null,ZL VARCHAR(20) null,SYSYYL VARCHAR(20) null,"+&
+				"XDCZYL VARCHAR(20) null,TLKXL VARCHAR(20) null,BZBTCZL VARCHAR(20) null,XDYQCZL VARCHAR(20) null,"+&
+				"GCGZYL VARCHAR(20) null,SYGZYL VARCHAR(20) null,BZ VARCHAR(60) null,SBDM  VARCHAR(30) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ ÆøÆ¿±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_QP_BF(ZCID numeric(20) not null,QYNBQPBH VARCHAR(20) null,CQSYR VARCHAR(80) null,"+&
+				"ZZDW VARCHAR(60) null,ZZRQ varchar(20) null,CQGX VARCHAR(20) null,CCBH VARCHAR(20) null,QPXH VARCHAR(30) null,"+&
+				"CZ VARCHAR(20) null,RJ numeric(20) null,SJBH numeric(8,2) null,ZL numeric(8,2) null,SYSYYL numeric(8,2) null,"+&
+				"XDCZYL numeric(8,2) null,TLKXL numeric(8,2) null,BZBTCZL numeric(8,2) null,XDYQCZL numeric(8,2) null,"+&
+				"GCGZYL numeric(8,2) null,SYGZYL numeric(8,2) null,BZ VARCHAR(60) null,SBDM  VARCHAR(30) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_QP_BF_X ON DJYLRQ.DJB_QP_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_QP_BF(ZCID numeric(20) not null,QYNBQPBH VARCHAR(20) null,CQSYR VARCHAR(80) null,"+&
+				"ZZDW VARCHAR(60) null,ZZRQ varchar(20) null,CQGX VARCHAR(20) null,CCBH VARCHAR(20) null,QPXH VARCHAR(30) null,"+&
+				"CZ VARCHAR(20) null,RJ numeric(20) null,SJBH numeric(8,2) null,ZL numeric(8,2) null,SYSYYL numeric(8,2) null,"+&
+				"XDCZYL numeric(8,2) null,TLKXL numeric(8,2) null,BZBTCZL numeric(8,2) null,XDYQCZL numeric(8,2) null,"+&
+				"GCGZYL numeric(8,2) null,SYGZYL numeric(8,2) null,BZ VARCHAR(60) null,SBDM  VARCHAR(30) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Ñ¹Á¦¹ÜµÀ»ã×Ü±í»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLGD_HZB(ZCID numeric(20) not null,GCZZMC VARCHAR(30) null,DJBH VARCHAR(20) null,"+&
+			"SBSYDW VARCHAR(60) null,SBSFDM VARCHAR(6) null,SBDSDM VARCHAR(6) null,SBQXDM VARCHAR(6) null,"+&
+			"SBSF VARCHAR(20) null,SBDS VARCHAR(20) null,SBQX VARCHAR(20) null,SYDWDZ VARCHAR(50) null,"+&
+			"AQGLBM VARCHAR(20) null,AQGLRY VARCHAR(10) null,HY VARCHAR(30) null,JBR VARCHAR(12) null,"+&
+			"ZGBMLXDH VARCHAR(20) null,AQGLRYDH VARCHAR(20) null,JBRDH VARCHAR(20) null,EMAIL VARCHAR(30) null,"+&
+			"SYDWYB VARCHAR(6) null,ZZJGDM VARCHAR(10) null,DWID numeric(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLGD_HZB_X ON DJYLRQ.DJB_YLGD_HZB (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLGD_HZB(ZCID numeric(20) not null,GCZZMC VARCHAR(30) null,DJBH VARCHAR(20) null,"+&
+			"SBSYDW VARCHAR(60) null,SBSFDM VARCHAR(6) null,SBDSDM VARCHAR(6) null,SBQXDM VARCHAR(6) null,"+&
+			"SBSF VARCHAR(20) null,SBDS VARCHAR(20) null,SBQX VARCHAR(20) null,SYDWDZ VARCHAR(50) null,"+&
+			"AQGLBM VARCHAR(20) null,AQGLRY VARCHAR(10) null,HY VARCHAR(30) null,JBR VARCHAR(12) null,"+&
+			"ZGBMLXDH VARCHAR(20) null,AQGLRYDH VARCHAR(20) null,JBRDH VARCHAR(20) null,EMAIL VARCHAR(30) null,"+&
+			"SYDWYB VARCHAR(6) null,ZZJGDM VARCHAR(10) null,DWID numeric(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Ñ¹Á¦¹ÜµÀ»ã×Ü±í±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.DJB_YLGD_HZB_BF(ZCID numeric(20) not null,GCZZMC VARCHAR(30) null,DJBH VARCHAR(20) null,"+&
+			"SBSYDW VARCHAR(60) null,SBSFDM VARCHAR(6) null,SBDSDM VARCHAR(6) null,SBQXDM VARCHAR(6) null,"+&
+			"SBSF VARCHAR(20) null,SBDS VARCHAR(20) null,SBQX VARCHAR(20) null,SYDWDZ VARCHAR(50) null,"+&
+			"AQGLBM VARCHAR(20) null,AQGLRY VARCHAR(10) null,HY VARCHAR(30) null,JBR VARCHAR(12) null,"+&
+			"ZGBMLXDH VARCHAR(20) null,AQGLRYDH VARCHAR(20) null,JBRDH VARCHAR(20) null,EMAIL VARCHAR(30) null,"+&
+			"SYDWYB VARCHAR(6) null,ZZJGDM VARCHAR(10) null,DWID numeric(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX DJB_YLGD_HZB_BF_X ON DJYLRQ.DJB_YLGD_HZB_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE DJB_YLGD_HZB_BF(ZCID numeric(20) not null,GCZZMC VARCHAR(30) null,DJBH VARCHAR(20) null,"+&
+			"SBSYDW VARCHAR(60) null,SBSFDM VARCHAR(6) null,SBDSDM VARCHAR(6) null,SBQXDM VARCHAR(6) null,"+&
+			"SBSF VARCHAR(20) null,SBDS VARCHAR(20) null,SBQX VARCHAR(20) null,SYDWDZ VARCHAR(50) null,"+&
+			"AQGLBM VARCHAR(20) null,AQGLRY VARCHAR(10) null,HY VARCHAR(30) null,JBR VARCHAR(12) null,"+&
+			"ZGBMLXDH VARCHAR(20) null,AQGLRYDH VARCHAR(20) null,JBRDH VARCHAR(20) null,EMAIL VARCHAR(30) null,"+&
+			"SYDWYB VARCHAR(6) null,ZZJGDM VARCHAR(10) null,DWID numeric(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_TOTAL(ZCID numeric(20) not null,SBZCDM VARCHAR(30) null,SBMC VARCHAR(30) null,"+&
+			"SBLB VARCHAR(4) null,SBZL VARCHAR(4) null,SBJB VARCHAR(20) null,SYDW VARCHAR(60) null,"+&
+			"DWID numeric(10) null,SBSYZT VARCHAR(10) null,YH CHAR null,DC CHAR null,JK CHAR null,JD numeric(9,6) null,"+&
+			"WD numeric(9,6) null,mapnumber VARCHAR(20) null,VXJB VARCHAR(10) null,SBPZ VARCHAR(4) null,"+&
+			"JYDW VARCHAR(60) null,JYDWID numeric(10) null,SBXH VARCHAR(30) null,CCBH VARCHAR(30) null,"+&
+			"ZZDW VARCHAR(60) null,DWNBBH VARCHAR(20) null,SBGZZT VARCHAR(10) null,QYDM VARCHAR(6) null,"+&
+			"SBDM VARCHAR(30) null,LSSBZCDM VARCHAR(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_TOTAL_X ON DJYLRQ.SB_TOTAL (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_TOTAL(ZCID numeric(20) not null,SBZCDM VARCHAR(30) null,SBMC VARCHAR(30) null,"+&
+			"SBLB VARCHAR(4) null,SBZL VARCHAR(4) null,SBJB VARCHAR(20) null,SYDW VARCHAR(60) null,"+&
+			"DWID numeric(10) null,SBSYZT VARCHAR(10) null,YH CHAR null,DC CHAR null,JK CHAR null,JD numeric(9,6) null,"+&
+			"WD numeric(9,6) null,mapnumber VARCHAR(20) null,VXJB VARCHAR(10) null,SBPZ VARCHAR(4) null,"+&
+			"JYDW VARCHAR(60) null,JYDWID numeric(10) null,SBXH VARCHAR(30) null,CCBH VARCHAR(30) null,"+&
+			"ZZDW VARCHAR(60) null,DWNBBH VARCHAR(20) null,SBGZZT VARCHAR(10) null,QYDM VARCHAR(6) null,"+&
+			"SBDM VARCHAR(30) null,LSSBZCDM VARCHAR(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_TOTAL_BF(ZCID numeric(20) not null,SBZCDM VARCHAR(20) null,SBMC VARCHAR(30) null,"+&
+				"SBLB VARCHAR(4) null,SBZL VARCHAR(4) null,SBJB VARCHAR(20) null,SYDW VARCHAR(60) null,DWID numeric(10) null,"+&
+				"JD numeric(9,6) null,WD numeric(9,6) null,MAPNUMBER VARCHAR(20) null,VXJB VARCHAR(10) null,"+&
+				"SBPZ VARCHAR(4) null,JYDW VARCHAR(60) null,JYDWID numeric(10) null,SBXH VARCHAR(20) null,"+&
+				"CCBH VARCHAR(20) null,ZZDW VARCHAR(60) null,DWNBBH VARCHAR(20) null,QYDM VARCHAR(6) null,"+&
+				"DC CHAR null,JK CHAR null,YH CHAR null,SBDM VARCHAR(30) null,GZZT VARCHAR(10) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_TOTAL_BF_X ON DJYLRQ.SB_TOTAL_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_TOTAL_BF(ZCID numeric(20) not null,SBZCDM VARCHAR(20) null,SBMC VARCHAR(30) null,"+&
+				"SBLB VARCHAR(4) null,SBZL VARCHAR(4) null,SBJB VARCHAR(20) null,SYDW VARCHAR(60) null,DWID numeric(10) null,"+&
+				"JD numeric(9,6) null,WD numeric(9,6) null,MAPNUMBER VARCHAR(20) null,VXJB VARCHAR(10) null,"+&
+				"SBPZ VARCHAR(4) null,JYDW VARCHAR(60) null,JYDWID numeric(10) null,SBXH VARCHAR(20) null,"+&
+				"CCBH VARCHAR(20) null,ZZDW VARCHAR(60) null,DWNBBH VARCHAR(20) null,QYDM VARCHAR(6) null,"+&
+				"DC CHAR null,JK CHAR null,YH CHAR null,SBDM VARCHAR(30) null,GZZT VARCHAR(10) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸¸½¼þÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_FJ(ZCID numeric(20) not null,XH numeric(4) not null,FJSBMC VARCHAR(20) null,"+&
+			"FJSBXH VARCHAR(20) null,FJSBGG VARCHAR(20) null,FJSBSJ numeric(3) null,FJSBZZC VARCHAR(60) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_FJ_X ON DJYLRQ.SB_FJ (zcid,xh)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_FJ(ZCID numeric(20) not null,XH numeric(4) not null,FJSBMC VARCHAR(20) null,"+&
+			"FJSBXH VARCHAR(20) null,FJSBGG VARCHAR(20) null,FJSBSJ numeric(3) null,FJSBZZC VARCHAR(60) null,PRIMARY KEY (zcid,xh));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸¸½¼þ±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_FJ_BF(ZCID numeric(20) not null,XH numeric(4) not null,FJSBMC VARCHAR(20) null,"+&
+			"FJSBXH VARCHAR(20) null,FJSBGG VARCHAR(20) null,FJSBSJ numeric(3) null,FJSBZZC VARCHAR(60) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_FJ_BF_X ON DJYLRQ.SB_FJ_BF (zcid,xh)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_FJ_BF(ZCID numeric(20) not null,XH numeric(4) not null,FJSBMC VARCHAR(20) null,"+&
+			"FJSBXH VARCHAR(20) null,FJSBGG VARCHAR(20) null,FJSBSJ numeric(3) null,FJSBZZC VARCHAR(60) null,PRIMARY KEY (zcid,xh));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸Ê¹ÓÃµ¥Î»»ù±¾ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_SYDW(ZCID  numeric(20) not null,SBSYDW VARCHAR(60) null,ZZJGDM VARCHAR(9) null,"+&
+			"SYDWDZ VARCHAR(60) null,DWYZBM  VARCHAR(10) null,SBSF VARCHAR(20) null,SBDS VARCHAR(20) null,"+&
+			"SBQX VARCHAR(20) null,FRDB1 VARCHAR(16) null,SYDWLXDH VARCHAR(20) null,EMAIL VARCHAR(30) null,"+&
+			"FAX VARCHAR(20) null,ZGFZR VARCHAR(16) null,FZRDH VARCHAR(20) null,JBR VARCHAR(16) null,"+&
+			"JBRDH VARCHAR(20) null,JBRSJCH VARCHAR(20) null,AQGLBM VARCHAR(30) null,AQGLRY VARCHAR(16) null,"+&
+			"AQGLBMDH VARCHAR(20) null,DWID numeric(10) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_SYDW_X ON DJYLRQ.SB_SYDW (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_SYDW(ZCID  numeric(20) not null,SBSYDW VARCHAR(60) null,ZZJGDM VARCHAR(9) null,"+&
+			"SYDWDZ VARCHAR(60) null,DWYZBM  VARCHAR(10) null,SBSF VARCHAR(20) null,SBDS VARCHAR(20) null,"+&
+			"SBQX VARCHAR(20) null,FRDB1 VARCHAR(16) null,SYDWLXDH VARCHAR(20) null,EMAIL VARCHAR(30) null,"+&
+			"FAX VARCHAR(20) null,ZGFZR VARCHAR(16) null,FZRDH VARCHAR(20) null,JBR VARCHAR(16) null,"+&
+			"JBRDH VARCHAR(20) null,JBRSJCH VARCHAR(20) null,AQGLBM VARCHAR(30) null,AQGLRY VARCHAR(16) null,"+&
+			"AQGLBMDH VARCHAR(20) null,DWID numeric(10) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸Ê¹ÓÃµ¥Î»»ù±¾ÐÅÏ¢±í±¨·Ï
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_SYDW_BF(ZCID  numeric(20) not null,SBSYDW VARCHAR(60) null,ZZJGDM VARCHAR(9) null,"+&
+			"SYDWDZ VARCHAR(60) null,DWYZBM  CHAR(6) null,SBSF VARCHAR(20) null,SBDS VARCHAR(20) null,"+&
+			"SBQX VARCHAR(20) null,FRDB1 VARCHAR(16) null,SYDWLXDH VARCHAR(20) null,EMAIL VARCHAR(30) null,"+&
+			"FAX VARCHAR(20) null,ZGFZR VARCHAR(16) null,FZRDH VARCHAR(20) null,JBR VARCHAR(16) null,"+&
+			"JBRDH VARCHAR(20) null,JBRSJCH VARCHAR(20) null,AQGLBM VARCHAR(30) null,AQGLRY VARCHAR(16) null,"+&
+			"AQGLBMDH VARCHAR(20) null,DWID numeric(10) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_SYDW_BF_X ON DJYLRQ.SB_SYDW_BF (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_SYDW_BF(ZCID  numeric(20) not null,SBSYDW VARCHAR(60) null,ZZJGDM VARCHAR(9) null,"+&
+			"SYDWDZ VARCHAR(60) null,DWYZBM  CHAR(6) null,SBSF VARCHAR(20) null,SBDS VARCHAR(20) null,"+&
+			"SBQX VARCHAR(20) null,FRDB1 VARCHAR(16) null,SYDWLXDH VARCHAR(20) null,EMAIL VARCHAR(30) null,"+&
+			"FAX VARCHAR(20) null,ZGFZR VARCHAR(16) null,FZRDH VARCHAR(20) null,JBR VARCHAR(16) null,"+&
+			"JBRDH VARCHAR(20) null,JBRSJCH VARCHAR(20) null,AQGLBM VARCHAR(30) null,AQGLRY VARCHAR(16) null,"+&
+			"AQGLBMDH VARCHAR(20) null,DWID numeric(10) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸´ý²éÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_DCXX(ZCID numeric(20) not null,YY1 VARCHAR(1) null,YY2 VARCHAR(1) null,"+&
+			"YY3 VARCHAR(1) null,YY4 VARCHAR(1) null,SCRQ varchar(20) null,CMRY VARCHAR(200) null,CMDW VARCHAR(60) null,"+&
+			"CMDWID numeric(20) null,SPRY VARCHAR(20) null,ZT VARCHAR(2) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_DCXX_X ON DJYLRQ.SB_DCXX (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_DCXX(ZCID numeric(20) not null,YY1 VARCHAR(1) null,YY2 VARCHAR(1) null,"+&
+			"YY3 VARCHAR(1) null,YY4 VARCHAR(1) null,SCRQ varchar(20) null,CMRY VARCHAR(200) null,CMDW VARCHAR(60) null,"+&
+			"CMDWID numeric(20) null,SPRY VARCHAR(20) null,ZT VARCHAR(2) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸×¢²áÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_ZC(ZCID numeric(20)  not null,SBPZ  VARCHAR(4) null,SBZCDM VARCHAR(30) null,"+&
+			"ZCDJJG VARCHAR(60) null,ZCDJRY VARCHAR(12) null,ZCDJRQ varchar(20) null,GXRQ  varchar(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_ZC_X ON DJYLRQ.SB_ZC (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_ZC(ZCID numeric(20)  not null,SBPZ  VARCHAR(4) null,SBZCDM VARCHAR(30) null,"+&
+			"ZCDJJG VARCHAR(60) null,ZCDJRY VARCHAR(12) null,ZCDJRQ varchar(20) null,GXRQ  varchar(20) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸¼ìÑéÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_JY(ZCID numeric(20) not null,xh numeric(2) null,XH1 numeric(20,0) identity(1,1) not null,JYDW VARCHAR(60) null,"+&
+			"ZZJGDM VARCHAR(9) null,JYRQ varchar(20) null,JYLB VARCHAR(20) null,ZYWT VARCHAR(20) null,JYJL VARCHAR(20) null,"+&
+			"BGBH  VARCHAR(30) null,XCJYRQ varchar(20) null,JYID VARCHAR(20) null,YQID numeric(20) null,ZGQX VARCHAR(3) null,SC VARCHAR(1) null,scsj VARCHAR(20) null,jyry varchar(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_JY_X ON DJYLRQ.SB_JY (XH1)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_JY(ZCID numeric(20) not null,xh numeric(2) null,XH1 numeric(20,0) identity(1,1) not null,JYDW VARCHAR(60) null,"+&
+			"ZZJGDM VARCHAR(9) null,JYRQ varchar(20) null,JYLB VARCHAR(20) null,ZYWT VARCHAR(20) null,JYJL VARCHAR(20) null,"+&
+			"BGBH  VARCHAR(30) null,XCJYRQ varchar(20) null,JYID VARCHAR(20) null,YQID numeric(20) null,ZGQX VARCHAR(3) null,SC VARCHAR(1) null,scsj VARCHAR(20) null,jyry varchar(20) null,PRIMARY KEY (XH1));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸Ê¹ÓÃÖ¤ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_SYZ(ZCID numeric(20) not null,SYZH VARCHAR(20) null,FZDW VARCHAR(60) null,"+&
+			"FZRQ varchar(20) null,SBFL VARCHAR(4) null,SYDW VARCHAR(60) null,SBZCDM VARCHAR(30) null,DWNBH VARCHAR(20) null,"+&
+			"SBLB VARCHAR(20) null,ZZDW VARCHAR(60) null,SBMCXH VARCHAR(30) null,ZZXKZH VARCHAR(20) null,"+&
+			"QYRQ varchar(20) null,CZJZ VARCHAR(20) null,YLJGDJH VARCHAR(20) null,SYZZT VARCHAR(10) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_SYZ_X ON DJYLRQ.SB_SYZ (zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_SYZ(ZCID numeric(20) not null,SYZH VARCHAR(20) null,FZDW VARCHAR(60) null,"+&
+			"FZRQ varchar(20) null,SBFL VARCHAR(4) null,SYDW VARCHAR(60) null,SBZCDM VARCHAR(30) null,DWNBH VARCHAR(20) null,"+&
+			"SBLB VARCHAR(20) null,ZZDW VARCHAR(60) null,SBMCXH VARCHAR(30) null,ZZXKZH VARCHAR(20) null,"+&
+			"QYRQ varchar(20) null,CZJZ VARCHAR(20) null,YLJGDJH VARCHAR(20) null,SYZZT VARCHAR(10) null,PRIMARY KEY (zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸ÕÕÆ¬ÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_PHOTO(ZCID numeric(20) not null,XH  numeric(2) not null,MC  VARCHAR(30) null,"+&
+             "LEIXING  VARCHAR(4) null,PICTURE  image);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_PHOTO_X ON DJYLRQ.SB_PHOTO (zcid,xh)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_PHOTO(ZCID numeric(20) not null,XH  numeric(2) not null,MC  VARCHAR(30) null,"+&
+             "LEIXING  VARCHAR(4) null,PICTURE  long binary,PRIMARY KEY (zcid,xh));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ Éè±¸ÕÕÆ¬±¨·ÏÐÅÏ¢±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.SB_PHOTO_BF(ZCID numeric(20) not null,XH  numeric(2) not null,MC  VARCHAR(30) null,"+&
+             "LEIXING  VARCHAR(4) null,PICTURE  image);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX SB_PHOTO_BF_X ON DJYLRQ.SB_PHOTO_BF (zcid,xh)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE SB_PHOTO_BF(ZCID numeric(20) not null,XH  numeric(2) not null,MC  VARCHAR(30) null,"+&
+             "LEIXING  VARCHAR(4) null,PICTURE  long binary,PRIMARY KEY (zcid,xh));"
+		execute immediate :mysql using sqlca ;		
+END IF
+// ´´½¨ ÁÙÊ±±í
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.glc_lsb(djid varchar(30) not null,ls_zcid numeric(20,0) identity(1,1) not null,zcid numeric(20) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX glc_lsb_X ON DJYLRQ.glc_lsb (ls_zcid)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE glc_lsb(djid varchar(30) not null,ls_zcid numeric(20,0) identity(1,1) not null,zcid numeric(20) null,PRIMARY KEY (ls_zcid));"
+		execute immediate :mysql using sqlca ;		
+END IF
+
+
+//µØÇø¼Ó¾­Î³¶È
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.z_xzdm add jd varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.z_xzdm add wd varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+else 
+	modsql = "alter table z_xzdm add jd varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table z_xzdm add wd varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.djb_ylgd_dxt(ZCID numeric(20) not null,xh numeric(2) not null,blob_ocx image null,mc VARCHAR(30) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX djb_ylgd_dxt_X ON DJYLRQ.djb_ylgd_dxt (zcid,xh)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE djb_ylgd_dxt(ZCID numeric(20) not null,xh numeric(2) not null,blob_ocx long binary null,mc VARCHAR(30) null,PRIMARY KEY (zcid,xh));"
+		execute immediate :mysql using sqlca ;		
+END IF
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.djb_ylgd_dxt_bf(ZCID numeric(20) not null,xh numeric(2) not null,blob_ocx image null,mc VARCHAR(30) null);"
+		execute immediate :mysql using sqlca ;		
+		myindex = "CREATE UNIQUE INDEX djb_ylgd_dxt_bf_X ON DJYLRQ.djb_ylgd_dxt_bf (zcid,xh)"
+	   execute immediate :myindex using sqlca;
+ELSE
+		mysql="CREATE TABLE djb_ylgd_dxt_bf(ZCID numeric(20) not null,xh numeric(2) not null,blob_ocx long binary null,mc VARCHAR(30) null,PRIMARY KEY (zcid,xh));"
+		execute immediate :mysql using sqlca ;		
+END IF
+end subroutine
+

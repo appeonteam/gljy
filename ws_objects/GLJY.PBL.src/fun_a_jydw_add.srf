@@ -1,0 +1,104 @@
+﻿$PBExportHeader$fun_a_jydw_add.srf
+global type fun_a_jydw_add from function_object
+end type
+
+forward prototypes
+global subroutine fun_a_jydw_add ()
+end prototypes
+
+global subroutine fun_a_jydw_add ();long ls_count = 0
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+string flagmark3
+select flagmark3 into :flagmark3 from a_jydw;
+if flagmark3 = '1' then
+else
+	IF mark='sqlserver' THEN
+		modsql = "alter table djylrq.a_jydw add flagmark1 varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add flagmark2 varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add flagmark3 varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add sjshmark varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add qzjmark varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add djbhmark varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		mysql = "alter table djylrq.a_jydw add qzj_format varchar(10) NULL;"
+		execute immediate :mysql using sqlca;
+		 modsql = "Alter Table djylrq.a_jydw add qzjorder varchar(10) null"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter Table djylrq.a_jydw add qzjrwid  varchar(20) null"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add jyjlmark varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add rw text null;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add sfbz varchar(1) null;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add yhbbmark varchar(1) null;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add gzsdmark varchar(1) null;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw add bgwcbz varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw alter column jydwdm varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw alter column sjshmark varchar(50) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.a_jydw alter column qzjmark varchar(50) NULL;"
+		execute immediate :modsql using sqlca;
+	ELSE
+		modsql = "alter table a_jydw add flagmark1 varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add flagmark2 varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add flagmark3 varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add sjshmark varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add qzjmark varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add djbhmark varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		mysql = "alter table a_jydw add qzj_format varchar(10) NULL;"
+		execute immediate :mysql using sqlca;
+		 modsql = "Alter Table a_jydw add qzjorder varchar(10) null"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter Table a_jydw add qzjrwid  varchar(20) null"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add jyjlmark varchar(1) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add rw text null;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add sfbz varchar(1) null;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add yhbbmark varchar(1) null;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add gzsdmark varchar(1) null;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw add bgwcbz varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw modify  jydwdm varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw modify  sjshmark varchar(50) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table a_jydw modify  qzjmark varchar(50) NULL;"
+		execute immediate :modsql using sqlca;	
+	END IF
+end if
+
+////a_jydwÀï¼Ó×Ö¶ÎÅÐ¶ÏÏÈÊÕ·ÑºóÊÕ·Ñ
+//IF mark='sqlserver' THEN
+//	modsql = "alter table djylrq.a_jydw add sfbz varchar(1) null;"
+//	execute immediate :modsql using sqlca;
+//ELSE
+//   modsql = "alter table a_jydw add sfbz varchar(1) null;"
+//	execute immediate :modsql using sqlca;
+//END IF
+end subroutine
+

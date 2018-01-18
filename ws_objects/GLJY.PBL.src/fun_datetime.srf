@@ -1,0 +1,48 @@
+﻿$PBExportHeader$fun_datetime.srf
+global type fun_datetime from function_object
+end type
+
+forward prototypes
+global function string fun_datetime (string akind)
+end prototypes
+
+global function string fun_datetime (string akind);string yearstr,monthstr,daystr,datestr,year_monthstr,timestr,datetimestr,itemstr
+datetime currdate
+
+select getdate() into :currdate from a_rycode where ryid = '1111' ;
+
+yearstr  = string(year(date(currdate)))
+monthstr = string(month(date(currdate)))
+if len(monthstr) = 1 then monthstr = '0' + monthstr
+
+daystr   = string(day(date(currdate)))
+if len(daystr) = 1 then daystr = '0' + daystr
+
+year_monthstr = yearstr + '-' +  monthstr
+datestr = string(date(currdate),"yyyy-mm-dd")
+timestr = string(time(currdate),"hh:mm:ss")
+datetimestr = datestr + space(2) + timestr
+
+choose case akind
+	case 'year'
+		   itemstr = yearstr
+   case 'month'
+		   itemstr = monthstr
+	case 'day'
+		   itemstr = daystr	
+	case 'year_month'
+		   itemstr = year_monthstr
+	case 'date'
+		   itemstr = datestr
+	case 'time'
+		   itemstr = timestr
+	case 'datetime'
+		   itemstr = datetimestr
+	case else
+			itemstr = ""
+end choose
+
+return itemstr
+			
+end function
+

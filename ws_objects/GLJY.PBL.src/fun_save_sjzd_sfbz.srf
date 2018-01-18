@@ -1,0 +1,231 @@
+﻿$PBExportHeader$fun_save_sjzd_sfbz.srf
+global type fun_save_sjzd_sfbz from function_object
+end type
+
+forward prototypes
+global subroutine fun_save_sjzd_sfbz (string cs1)
+end prototypes
+
+global subroutine fun_save_sjzd_sfbz (string cs1);if cs1 <> 'OK' then return
+long ll_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+boolean lb_insert
+
+if mark = 'sqlserver' then
+	mysql="CREATE TABLE djylrq.sjzdn_sf_bglb(id integer NOT NULL,mc varchar(80) NULL);"
+	execute immediate :mysql using sqlca ;
+	myindex="CREATE UNIQUE INDEX sjzdn_sf_bglb ON djylrq.sjzdn_sf_bglb(id);"
+	execute immediate :myindex using sqlca ;
+	commit using sqlca;
+else
+	mysql="CREATE TABLE sjzdn_sf_bglb(id integer NOT NULL,mc varchar(80) NULL);"
+	execute immediate :mysql using sqlca ;
+end if
+
+if mark = 'sqlserver' then
+	select count(*) into :ll_Count from sjzd_sf_sfmc;
+	if sqlca.sqlcode = -1 or ll_Count=0 then
+	   lb_Insert = true
+		delsql = "drop table djylrq.sjzd_sf_sfmc"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.sjzd_sf_sfmc(bglb_id integer NOT NULL,id integer NOT NULL,nr varchar(40) NULL);"
+		execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX sjzd_sf_sfmc ON djylrq.sjzd_bg_bgmc(bglb_id,id);"
+		execute immediate :myindex using sqlca ;
+		commit using sqlca;
+	end if
+else
+	select count(*) into :ll_Count from sjzd_sf_sfmc;
+	if sqlca.sqlcode = -1 or ll_Count=0 then
+	   lb_Insert = true
+		mysql="CREATE TABLE sjzd_sf_sfmc(bglb_id integer NOT NULL,id integer NOT NULL,nr varchar(40) NULL);"
+		execute immediate :mysql using sqlca ;
+	end if
+end if
+
+if mark = 'sqlserver' then
+	mysql="CREATE TABLE djylrq.sjzd_sf_sfzd(bglb_id integer NOT NULL,bg_id integer not null,id integer not null,nr varchar(80) NULL);"
+	execute immediate :mysql using sqlca ;
+	myindex="CREATE UNIQUE INDEX sjzd_sf_sfzd ON djylrq.sjzd_sf_sfzd(bglb_id,bg_id,id);"
+	execute immediate :myindex using sqlca ;
+	commit using sqlca;
+else
+	mysql="CREATE TABLE sjzd_sf_sfzd(bglb_id integer NOT NULL,bg_id integer not null,id integer not null,nr varchar(80) NULL);"
+	execute immediate :mysql using sqlca ;
+end if
+
+if mark = 'sqlserver' then
+	mysql="CREATE TABLE djylrq.sjzd_sf_sfmc_nr(bglb_id integer NOT NULL,bg_id integer not null,xh_id integer not null,xh integer not null,nr varchar(80) NULL,tj varchar(80) NULL,tjnr varchar(80) NULL,tj1 varchar(80) NULL,tjnr1 varchar(80) NULL,sfbz varchar(80) NULL,bz varchar(80) NULL,jymk varchar(2) NULL,mark varchar(1) NULL);"
+	execute immediate :mysql using sqlca ;
+	myindex="CREATE UNIQUE INDEX sjzd_sf_sfmc_nr ON djylrq.sjzd_sf_sfmc_nr(bglb_id,bg_id,xh_id,xh);"
+	execute immediate :myindex using sqlca ;
+	commit using sqlca;
+else
+	mysql="CREATE TABLE sjzd_sf_sfmc_nr(bglb_id integer NOT NULL,bg_id integer not null,xh_id integer not null,xh integer not null,nr varchar(80) NULL,tj varchar(80) NULL,tjnr varchar(80) NULL,tj1 varchar(80) NULL,tjnr1 varchar(80) NULL,sfbz varchar(80) NULL,bz varchar(80) NULL,jymk varchar(2) NULL,mark varchar(1) NULL);"
+	execute immediate :mysql using sqlca ;
+end if
+
+if lb_Insert then   
+   //**ÌØÖÖÉè±¸**//
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (4,1,'µçÌÝ¼ìÑéÊÕ·Ñ±ê×¼');
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (4,2,'ÇÅ¡¢ÃÅ¡¢ÃÅ×ùÊÕ·Ñ±ê×¼');
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (4,3,'ËþÊ½ÊÕ·Ñ±ê×¼');
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (4,4,'Éý½µ»ú¡¢²Á´°»ú¡¢¸ß¿Õ×÷ÒµÊÕ·Ñ±ê×¼');
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (4,5,'Á÷¶¯Ê½ÊÕ·Ñ±ê×¼');
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (4,6,'³§ÄÚ»ú¶¯³µÊÕ·Ñ±ê×¼');
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (4,7,'ÓÎÀÖÉèÊ©ÊÕ·Ñ±ê×¼');
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (4,8,'ÌØÖÖÉè±¸ÐÍÊ½ÊÔÑé¡¢¼à¶½¡¢ÑéÊÕ¡¢µ¥Ïî¼ìÑéÊÕ·Ñ±ê×¼');
+	////**¹¤Òµ¹øÂ¯ÄÚÍâ¼ìÑé****///
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (5,1,'¹øÂ¯Õô·¢Á¿(t/h)');
+	insert into sjzd_sf_sfmc (bglb_id,id,nr) values (6,1,'¹øÂ¯Õô·¢Á¿(t/h)');
+end if
+
+lb_Insert = false
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,1,1,'ÊÕ·Ñ±ê×¼');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,1,2,'¿ØÖÆ·½Ê½');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,1,3,'Õ¾');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,1,4,'¹áÍ¨ÃÅ');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,1,5,'¸ß¶È');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,1,6,'³¤¶È');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,1,7,'ÌØÖÖµçÌÝ');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,2,1,'ÊÕ·Ñ±ê×¼');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,2,2,'¶ÖÎ»');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,2,3,'¿ç¶È');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,2,4,'ÌØÊâÐÍÆðÖØ»ú');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,2,5,'µç¶¯ºùÂ«');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,2,6,'ÌØÊâÆ·ÖÖÆðÖØ»ú');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,3,1,'ÊÕ·Ñ±ê×¼');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,3,2,'¸ß¶È');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,3,3,'ÐÐ×ßÊ½');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,4,1,'ÊÕ·Ñ±ê×¼');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,4,2,'¸ß¶È');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,4,3,'·ÖÀàÉý½µ»ú');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,5,1,'ÊÕ·Ñ±ê×¼');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,5,2,'¶ÖÎ»');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,5,3,'ÌØÊâÆ·ÖÖÁ÷¶¯Ê½ÆðÖØ»ú');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,6,1,'ÊÕ·Ñ±ê×¼');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,6,2,'ÔØÖØÁ¿');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,6,3,'ÌØÊâ³§³µ');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,7,1,'Éè±¸Ôì¼Û');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,7,2,'ÊÕ·Ñ±ê×¼');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,7,3,'´óÐÍ»¬ÐÐ³µ');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,7,4,'µõÏä');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,7,5,'³Ë×ù²¿Î»');
+insert into sjzd_sf_sfzd (bglb_id,bg_id,id,nr) values (4,7,6,'Ë®ÉÏÓÎÀÖÉèÊ©');
+
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,1,1,'¿ÍÌÝ','=','','','',560,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,1,2,'·öÌÝ','=','','','',560,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,1,3,'»õÌÝ','=','','','',520,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,1,4,'¿ÍÌÝ','=','','','',1120,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,1,5,'·öÌÝ','=','','','',1120,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,1,6,'»õÌÝ','=','','','',1040,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,2,1,'¼¯Ñ¡','¼ÓÊÕ','35','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,2,2,'Î¢»ú','¼ÓÊÕ','40','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,2,3,'ÌÝÈº','¼ÓÊÕ','45','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,3,1,'1','¼ÓÊÕ','10','','',0,'5','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,4,1,'1','¼ÓÊÕ','10','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,5,1,'','¼ÓÊÕ','20','','',0,'4','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,6,1,'2','¼ÓÊÕ','10','<=','50',0,'8','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,1,7,1,'ÌØÖÖµçÌÝ','=','2','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,1,1,'ÇÅÊ½ÆðÖØ»ú','=','','','',560,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,1,2,'ÃÅÊ½ÆðÖØ»ú','=','','','',600,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,1,3,'ÃÅ×ùÊ½ÆðÖØ»ú','=','','','',850,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,1,4,'ÇÅÊ½ÆðÖØ»ú','=','','','',1120,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,1,5,'ÃÅÊ½ÆðÖØ»ú','=','','','',1200,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,1,6,'ÃÅ×ùÊ½ÆðÖØ»ú','=','','','',1700,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,2,1,'5','¼ÓÊÕ','10','','',0,'10','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,3,1,'3','¼ÓÊÕ','10','','',0,'16.5','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,4,1,'·À±¬ÐÍ','¼ÓÊÕ','100','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,4,2,'Ò±½ðÀà','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,4,3,'·Ç±ê×¼','¼ÓÊÕ','40','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,5,1,'µç¶¯ºùÂ«','=','0.8','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,6,1,'¸±¹³','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,6,2,'Ë«Ð¡³µ','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,6,3,'Ë«Ë¾»úÊÒ','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,6,4,'×¥¶·','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,6,5,'µç´ÅÎüÅÌ','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,6,6,'¼ÐÇ¯','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,2,6,7,'ÁÏ°Ð','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,3,1,1,'ËþÊ½','<','40','','',800,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,3,1,2,'ËþÊ½','>=','40','','',1000,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,3,1,3,'ËþÊ½','<','40','','',1600,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,3,1,4,'ËþÊ½','>=','40','','',2000,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,3,2,1,'10','¼ÓÊÕ','10','<=','50',0,'20','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,3,3,1,'ÐÐ×ßÊ½','¼ÓÊÕ','20','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,1,1,'²Á³µ»ú','=','','','',1000,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,1,2,'Ê©¹¤Éý½µ»ú','=','','','',500,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,1,3,'¸ß¿Õ×÷Òµ³µ','=','','','',450,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,1,4,'²Á³µ»ú','=','','','',2000,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,1,5,'Ê©¹¤Éý½µ»ú','=','','','',1000,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,1,6,'¸ß¿Õ×÷Òµ³µ','=','','','',900,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,2,1,'1','¼ÓÊÕ','10','','',0,'20','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,3,1,'¼òÒ×Éý½µ»ú','¼ÓÊÕ','80','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,3,2,'Æû³µÐÞÀíÓÃ¾ÙÉý»ú','¼ÓÊÕ','70','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,4,3,3,'Ë«ÁúÉý½µ»ú','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,5,1,1,'Á÷¶¯Ê½ÆðÖØ»ú','=','','','',500,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,5,1,2,'Á÷¶¯Ê½ÆðÖØ»ú','=','','','',1000,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,5,2,1,'5','¼ÓÊÕ','20','','',0,'16','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,5,3,1,'¸±¸Ë','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,5,3,2,'¸±¹³','¼ÓÊÕ','20','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,6,1,1,'³§ÄÚ»ú¶¯³µ','=','','','',120,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,6,1,2,'³§ÄÚ»ú¶¯³µ','=','','','',240,'','aj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,6,2,1,'10','¼ÓÊÕ','30','','',0,'10','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,6,3,1,'ÓÐÆðÖØ»ú¹³','¼ÓÊÕ','50','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,6,3,2,'ÍÚ¾ò»ú','¼ÓÊÕ','30','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,6,3,3,'¸Ä×°³µ','¼ÓÊÕ','50','','',0,'','');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,1,'×ªÂíÀà','=','','','',350,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,2,'»¬ÐÐÀà','=','','','',600,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,3,'ÍÓÂÝÀà','=','','','',450,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,4,'Èü³µÀà','=','','','',50,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,5,'·ÉÐÐËþÀà','=','','','',450,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,6,'¹ÛÀÀ³µÀà','=','','','',500,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,7,'Ð¡»ð³µÀà','=','','','',350,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,8,'µç³Ø³µÀà','=','','','',50,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,9,'ÅöÅö³µÀà','=','','','',50,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,10,'×Ô¿Ø·É»úÀà','=','','','',400,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,11,'¼Ü¿ÕÓÎÀÀ³µÀà','=','','','',80,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,12,'Ë®ÉÏÓÎÀÖÉèÊ©','=','','','',350,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,13,'×éºÏÓÎÀÖÉèÊ©·­¶·ÀÖ¿¨Í¨³ÇÌÔÆø±¤º£ÑóÇòµÈ','=','','','',380,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,14,'ÆøÅÝÉä¼ý','=','','','',380,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,15,'ÅÊÑÒ','=','','','',620,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,16,'±Ä¼«¡¢Ì«¿Õ±Ä¼«¡¢·ÉÐÐÉ¡','=','','','','','','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,17,'Ê±¿Õ´©Ëó»ú','=','','','',620,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,18,'·ÉÐý³µ','=','','','',160,'','dj');
+insert into sjzd_sf_sfmc_nr (bglb_id,bg_id,xh_id,xh,nr,tj,tjnr,tj1,tjnr1,sfbz,bz,jymk) values (4,7,2,19,'ÁïË÷','=','','','',320,'','dj');
+
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_sjzd_sfmc_nr_ts"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW djylrq.view_sjzd_sfmc_nr_ts as select bglb_id, bg_id, xh_id, xh, " + &
+	"(nr + tj + tjnr + '¶Ö¡¤Ã×') as tjnr, sfbz, jymk FROM sjzd_sf_sfmc_nr WHERE (bglb_id = 4) AND (bg_id = 3) AND (xh_id = '1')" 
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view view_sjzd_sfmc_nr_ts"
+	execute immediate :delsql using sqlca;
+	mysql = "CREATE VIEW view_sjzd_sfmc_nr_ts as select bglb_id, bg_id, xh_id, xh, " + &
+	"(nr + tj + tjnr + '¶Ö¡¤Ã×') as tjnr, sfbz, jymk FROM sjzd_sf_sfmc_nr WHERE (bglb_id = 4) AND (bg_id = 3) AND (xh_id = '1')" 
+	execute immediate :mysql using sqlca;
+end if	
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.view_sjzdn_bglb_sf"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.view_sjzdn_bglb_sf as select a.id as id,a.mc as mc," + &
+		     "b.lbid as lbid,b.sh as sh " + &
+		     "from djylrq.sjzdn_bglb as a,djylrq.view_bgml_total as b where a.mc = b.typename and (mark = '' or mark is null)"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view view_sjzdn_bglb_sf"
+	execute immediate :delsql using sqlca;
+	mysql = "create View view_sjzdn_bglb_sf as select a.id as id,a.mc as mc," + &
+		     "b.lbid as lbid,b.sh as sh " + &
+		     "from sjzdn_bglb as a,djylrq.view_bgml_total as b where a.mc = b.typename and (mark = '' or mark is null)"
+	execute immediate :mysql using sqlca;
+end if
+
+commit;
+
+end subroutine
+

@@ -1,0 +1,18 @@
+﻿$PBExportHeader$fun_getcurrentdirectory.srf
+global type fun_getcurrentdirectory from function_object
+end type
+
+forward prototypes
+global function string fun_getcurrentdirectory (string temp)
+end prototypes
+
+global function string fun_getcurrentdirectory (string temp);temp = space(60)
+if GetCurrentDirectoryA(60,temp) > 0 then
+	temp = temp + '\'
+else
+	temp = 'C:\jyoa\'
+end if
+
+return temp
+end function
+

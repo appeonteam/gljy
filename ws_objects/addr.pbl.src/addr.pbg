@@ -1,0 +1,36 @@
+﻿Save Format v3.0(19990112)
+@begin Libraries
+ "addr.pbl" "";
+@end;
+@begin Objects 
+ "dat_addrid_select.srd" "addr.pbl";
+ "dat_bginfo.srd" "addr.pbl";
+ "dat_ry_addr_staff.srd" "addr.pbl";
+ "dat_ryinfo.srd" "addr.pbl";
+ "dat_xzdm.srd" "addr.pbl";
+ "dat_z_xzdm.srd" "addr.pbl";
+ "dw_add_dqm.srd" "addr.pbl";
+ "dw_add_dqm_dj.srd" "addr.pbl";
+ "dw_dqm_init.srd" "addr.pbl";
+ "fun_add_dqm.srf" "addr.pbl";
+ "fun_addr_0909.srf" "addr.pbl";
+ "fun_addr_0913.srf" "addr.pbl";
+ "fun_addr_0915.srf" "addr.pbl";
+ "fun_view_dqm.srf" "addr.pbl";
+ "us_bg.srs" "addr.pbl";
+ "us_ry.srs" "addr.pbl";
+ "us_select.srs" "addr.pbl";
+ "uo_bg.sru" "addr.pbl";
+ "uo_checkedbox_xzdm.sru" "addr.pbl";
+ "uo_commandbutton.sru" "addr.pbl";
+ "uo_datawindow.sru" "addr.pbl";
+ "uo_dropdownlistbox_xzdm.sru" "addr.pbl";
+ "uo_groupbox_xzdm.sru" "addr.pbl";
+ "uo_main.sru" "addr.pbl";
+ "uo_ry.sru" "addr.pbl";
+ "uo_statictext.sru" "addr.pbl";
+ "uo_winaddr_add.srw" "addr.pbl";
+ "win_dqm_init.srw" "addr.pbl";
+ "win_jykeyset_dqm.srw" "addr.pbl";
+ "win_main.srw" "addr.pbl";
+@end;

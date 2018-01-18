@@ -1,0 +1,1263 @@
+﻿$PBExportHeader$fun_a_sz_nr_ln_sdtable.srf
+global type fun_a_sz_nr_ln_sdtable from function_object
+end type
+
+forward prototypes
+global subroutine fun_a_sz_nr_ln_sdtable ()
+end prototypes
+
+global subroutine fun_a_sz_nr_ln_sdtable ();long ls_count = 0
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+string typename,lbid,sh
+string ll_jymlid,ll_jylbid,jytype_temp
+///////////////////////////////////////////¸üÐÂ±¨¸æ±àºÅ///////////////////////////////////////////
+messagebox('','¿ªÊ¼ÇåÀíÊý¾Ý£¬ÇëÄÍÐÄµÈ´ý')
+long ll_num
+string jytype,ryid
+string id_bgml,jytype_bgml
+string ryid_str,l_id
+
+DECLARE temp_bgbh CURSOR FOR
+SELECT jymlid,jylbid
+FROM a_bgbh ORDER BY jymlid; 
+OPEN temp_bgbh;
+FETCH temp_bgbh INTO :ll_jymlid,:ll_jylbid;
+do while sqlca.sqlcode = 0
+	if isnull(ll_jymlid) then ll_jymlid = ''
+	if isnull(ll_jylbid) then ll_jylbid = ''
+	jytype_temp = ll_jymlid + ll_jylbid
+	select typename,lbid,sh into :typename,:lbid,:sh from view_bgml_total where jytype like :jytype_temp;
+	update a_bgbh set typename = :typename,lbid = :lbid,sh = :sh where jymlid = :ll_jymlid and jylbid = :ll_jylbid;
+	choose case jytype_temp
+		case '6c'
+			update a_bgbh set jymlid = '6',jylbid = 's' where jymlid = '6' and jylbid = 'c';
+		case 'Ic'
+			select count(*) into :ll_num from a_bgbh where jymlid = '6' and jylbid = 'c';
+			if ll_num = 0 then
+				update a_bgbh set jymlid = '6',jylbid = 's' where jymlid = 'I' and jylbid = 'c';
+			else
+				update a_bgbh set jymlid = '6',jylbid = 's' where jymlid = '6' and jylbid = 'c';
+				delete a_bgbh where jymlid = 'I' and jylbid = 'c';
+			end if
+		case 'Kc'
+			update a_bgbh set jymlid = 'K',jylbid = 's' where jymlid = 'K' and jylbid = 'c';
+		case 'Jc'
+			update a_bgbh set jymlid = 'J',jylbid = 's' where jymlid = 'J' and jylbid = 'c';
+		case 'Id'
+			update a_bgbh set jymlid = '6',jylbid = 'd' where jymlid = 'I' and jylbid = 'd';
+		case 'Ip'
+			update a_bgbh set jymlid = '6',jylbid = 'p' where jymlid = 'I' and jylbid = 'p';
+		case 'Iu'
+			select count(*) into :ll_num from a_bgbh where jymlid = '6' and jylbid = 'u';
+			if ll_num = 0 then
+				update a_bgbh set jymlid = '6',jylbid = 'u' where jymlid = 'I' and jylbid = 'u';
+			else
+				delete a_bgbh where jymlid = 'I' and jylbid = 'u';
+			end if
+		case 'Iv'
+			update a_bgbh set jymlid = '6',jylbid = 'v' where jymlid = 'I' and jylbid = 'v';
+		case 'Iw'
+			update a_bgbh set jymlid = '6',jylbid = 'w' where jymlid = 'I' and jylbid = 'w';
+		case '+c'
+			update a_bgbh set jymlid = '+',jylbid = 's' where jymlid = '+' and jylbid = 'c';
+		case '0c'
+			update a_bgbh set jymlid = '6',jylbid = ']' where jymlid = '0' and jylbid = 'c';
+		case ')d'
+			update a_bgbh set jymlid = 'D',jylbid = '8' where jymlid = ')' and jylbid = 'd';
+		case ']d'
+			update a_bgbh set jymlid = 'D',jylbid = '{' where jymlid = ']' and jylbid = 'd';
+		case '.c'
+			update a_bgbh set jymlid = 'D',jylbid = '}' where jymlid = '.' and jylbid = 'c';
+		case '&e'
+			update a_bgbh set jymlid = '&',jylbid = 'd' where jymlid = '&' and jylbid = 'd';
+		case '*w'
+			update a_bgbh set jymlid = '=a',jylbid = 'w' where jymlid = '*' and jylbid = 'w';
+	end choose
+	///////////////////////////////////////////////////////////////////////////////////////
+	if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+		choose case jytype_temp
+			case ')c'
+				update a_bgbh set jymlid = 'I',jylbid = 's' where jymlid = ')' and jylbid = 'c';
+		end choose
+	end if
+	if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+		choose case jytype_temp
+			case ']8'
+				update a_bgbh set jymlid = ']',jylbid = '6' where jymlid = ']' and jylbid = '8';
+		end choose
+	end if
+	if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+		choose case jytype_temp
+			case '+6'
+				update a_bgbh set jymlid = ':a',jylbid = '2' where jymlid = '+' and jylbid = '6';
+			case '*6'
+				update a_bgbh set jymlid = 'Qc',jylbid = '2' where jymlid = '*' and jylbid = '6';
+			case '<e'
+				update a_bgbh set jymlid = '*',jylbid = 'd' where jymlid = '<' and jylbid = 'e';
+			case '^e'
+				update a_bgbh set jymlid = '$',jylbid = 'd' where jymlid = '^' and jylbid = 'e';
+			case '#e'
+				update a_bgbh set jymlid = '\',jylbid = 'd' where jymlid = '#' and jylbid = 'e';
+			case '/e'
+				update a_bgbh set jymlid = '/',jylbid = 'd' where jymlid = '/' and jylbid = 'e';
+			case 'Z@'
+				update a_bgbh set jymlid = 'Z',jylbid = '$' where jymlid = 'Z' and jylbid = '@';	
+			case '0w'
+				update a_bgbh set jymlid = ':',jylbid = 'w' where jymlid = '0' and jylbid = 'w';	
+		end choose
+	end if
+FETCH temp_bgbh INTO :ll_jymlid,:ll_jylbid;
+LOOP
+CLOSE temp_bgbh;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','±¨¸æ±àºÅ¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','±¨¸æ±àºÅÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+///////////////////////////////////////////¸üÐÂ¼ìÑé°¸Àý±àºÅ///////////////////////////////////////////
+DECLARE temp_jyalbh CURSOR FOR
+SELECT jymlid,jylbid
+FROM a_jyalbh ORDER BY jymlid; 
+OPEN temp_jyalbh;
+FETCH temp_jyalbh INTO :ll_jymlid,:ll_jylbid;
+do while sqlca.sqlcode = 0
+	if isnull(ll_jymlid) then ll_jymlid = ''
+	if isnull(ll_jylbid) then ll_jylbid = ''
+	jytype_temp = ll_jymlid + ll_jylbid
+	select typename,lbid,sh into :typename,:lbid,:sh from view_bgml_total where jytype like :jytype_temp;
+	update a_jyalbh set typename = :typename,lbid = :lbid,sh = :sh where jymlid = :ll_jymlid and jylbid = :ll_jylbid;
+	choose case jytype_temp
+		case '6c'
+			update a_jyalbh set jymlid = '6',jylbid = 's' where jymlid = '6' and jylbid = 'c';
+		case 'Ic'
+			select count(*) into :ll_num from a_jyalbh where jymlid = '6' and jylbid = 'c';
+			if ll_num = 0 then
+				update a_jyalbh set jymlid = '6',jylbid = 's' where jymlid = 'I' and jylbid = 'c';
+			else
+				update a_jyalbh set jymlid = '6',jylbid = 's' where jymlid = '6' and jylbid = 'c';
+				delete a_jyalbh where jymlid = 'I' and jylbid = 'c';
+			end if
+		case 'Kc'
+			update a_jyalbh set jymlid = 'K',jylbid = 's' where jymlid = 'K' and jylbid = 'c';
+		case 'Jc'
+			update a_jyalbh set jymlid = 'J',jylbid = 's' where jymlid = 'J' and jylbid = 'c';
+		case 'Id'
+			update a_jyalbh set jymlid = '6',jylbid = 'd' where jymlid = 'I' and jylbid = 'd';
+		case 'Ip'
+			update a_jyalbh set jymlid = '6',jylbid = 'p' where jymlid = 'I' and jylbid = 'p';
+		case 'Iu'
+			select count(*) into :ll_num from a_jyalbh where jymlid = '6' and jylbid = 'u';
+			if ll_num = 0 then
+				update a_jyalbh set jymlid = '6',jylbid = 'u' where jymlid = 'I' and jylbid = 'u';
+			else
+				delete a_jyalbh where jymlid = 'I' and jylbid = 'u';
+			end if
+		case 'Iv'
+			update a_jyalbh set jymlid = '6',jylbid = 'v' where jymlid = 'I' and jylbid = 'v';
+		case 'Iw'
+			update a_jyalbh set jymlid = '6',jylbid = 'w' where jymlid = 'I' and jylbid = 'w';
+		case '+c'
+			update a_jyalbh set jymlid = '+',jylbid = 's' where jymlid = '+' and jylbid = 'c';
+		case '0c'
+			update a_jyalbh set jymlid = '6',jylbid = ']' where jymlid = '0' and jylbid = 'c';
+		case ')d'
+			update a_jyalbh set jymlid = 'D',jylbid = '8' where jymlid = ')' and jylbid = 'd';
+		case ']d'
+			update a_jyalbh set jymlid = 'D',jylbid = '{' where jymlid = ']' and jylbid = 'd';
+		case '.c'
+			update a_jyalbh set jymlid = 'D',jylbid = '}' where jymlid = '.' and jylbid = 'c';
+		case '&e'
+			update a_jyalbh set jymlid = '&',jylbid = 'd' where jymlid = '&' and jylbid = 'd';
+		case '*w'
+			update a_jyalbh set jymlid = '=a',jylbid = 'w' where jymlid = '*' and jylbid = 'w';
+	end choose
+	///////////////////////////////////////////////////////////////////////////////////////
+	if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+		choose case jytype_temp
+			case ')c'
+				update a_jyalbh set jymlid = 'I',jylbid = 's' where jymlid = ')' and jylbid = 'c';
+		end choose
+	end if
+	if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+		choose case jytype_temp
+			case ']8'
+				update a_jyalbh set jymlid = ']',jylbid = '6' where jymlid = ']' and jylbid = '8';
+		end choose
+	end if
+	if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+		choose case jytype_temp
+			case '+6'
+				update a_jyalbh set jymlid = ':a',jylbid = '2' where jymlid = '+' and jylbid = '6';
+			case '*6'
+				update a_jyalbh set jymlid = 'Qc',jylbid = '2' where jymlid = '*' and jylbid = '6';
+			case '<e'
+				update a_jyalbh set jymlid = '*',jylbid = 'd' where jymlid = '<' and jylbid = 'e';
+			case '^e'
+				update a_jyalbh set jymlid = '$',jylbid = 'd' where jymlid = '^' and jylbid = 'e';
+			case '#e'
+				update a_jyalbh set jymlid = '\',jylbid = 'd' where jymlid = '#' and jylbid = 'e';
+			case '/e'
+				update a_jyalbh set jymlid = '/',jylbid = 'd' where jymlid = '/' and jylbid = 'e';
+			case 'Z@'
+				update a_jyalbh set jymlid = 'Z',jylbid = '$' where jymlid = 'Z' and jylbid = '@';	
+			case '0w'
+				update a_jyalbh set jymlid = ':',jylbid = 'w' where jymlid = '0' and jylbid = 'w';	
+		end choose
+	end if
+FETCH temp_jyalbh INTO :ll_jymlid,:ll_jylbid;
+LOOP
+CLOSE temp_jyalbh;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','¼ìÑé°¸Àý¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','¼ìÑé°¸ÀýÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+///////////////////////////////////////////¸üÐÂ¼ìÑé½áÂÛ///////////////////////////////////////////
+DECLARE temp_jyjl CURSOR FOR
+SELECT jymlid,jylbid
+FROM a_jyjl ORDER BY jymlid; 
+OPEN temp_jyjl;
+FETCH temp_jyjl INTO :ll_jymlid,:ll_jylbid;
+do while sqlca.sqlcode = 0
+	if isnull(ll_jymlid) then ll_jymlid = ''
+	if isnull(ll_jylbid) then ll_jylbid = ''
+	jytype_temp = ll_jymlid + ll_jylbid
+	choose case jytype_temp
+		case '6c'
+			update a_jyjl set jymlid = '6',jylbid = 's',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jymlid = '6' and jylbid = 'c';
+		case 'Ic'
+			select count(*) into :ll_num from a_jyjl where jymlid = '6' and jylbid = 'c';
+			if ll_num = 0 then
+				update a_jyjl set jymlid = '6',jylbid = 's',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jymlid = 'I' and jylbid = 'c';
+			else
+				delete a_jyjl where jymlid = 'I' and jylbid = 'c';
+				update a_jyjl set jymlid = '6',jylbid = 's',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jymlid = '6' and jylbid = 'c';	
+			end if
+		case 'Kc'
+			update a_jyjl set jymlid = 'K',jylbid = 's',jyml = 'Æû³µ¹Þ³µ',jylb = 'È«Ãæ¼ìÑé' where jymlid = 'K' and jylbid = 'c';
+		case 'Jc'
+			update a_jyjl set jymlid = 'J',jylbid = 's' where jymlid = 'J' and jylbid = 'c';
+		case 'Id'
+			update a_jyjl set jymlid = '6',jylbid = 'd' where jymlid = 'I' and jylbid = 'd';
+		case 'Ip'
+			update a_jyjl set jymlid = '6',jylbid = 'p' where jymlid = 'I' and jylbid = 'p';
+		case 'Iu'
+			select count(*) into :ll_num from a_jyjl where jymlid = '6' and jylbid = 'u';
+			if ll_num = 0 then
+				update a_jyjl set jymlid = '6',jylbid = 'u' where jymlid = 'I' and jylbid = 'u';
+			else
+				delete a_jyjl where jymlid = 'I' and jylbid = 'u';
+			end if
+		case 'Iv'
+			update a_jyjl set jymlid = '6',jylbid = 'v' where jymlid = 'I' and jylbid = 'v';
+		case 'Iw'
+			update a_jyjl set jymlid = '6',jylbid = 'w' where jymlid = 'I' and jylbid = 'w';
+		case '+c'
+			update a_jyjl set jymlid = '+',jylbid = 's' where jymlid = '+' and jylbid = 'c';
+		case '0c'
+			update a_jyjl set jymlid = '6',jylbid = ']' where jymlid = '0' and jylbid = 'c';
+		case ')d'
+			update a_jyjl set jymlid = 'D',jylbid = '8' where jymlid = ')' and jylbid = 'd';
+		case ']d'
+			update a_jyjl set jymlid = 'D',jylbid = '{' where jymlid = ']' and jylbid = 'd';
+		case '.c'
+			update a_jyjl set jymlid = 'D',jylbid = '}' where jymlid = '.' and jylbid = 'c';
+		case '&e'
+			update a_jyjl set jymlid = '&',jylbid = 'd' where jymlid = '&' and jylbid = 'd';
+		case '*w'
+			update a_jyjl set jymlid = '=a',jylbid = 'w' where jymlid = '*' and jylbid = 'w';
+	end choose
+	////////////////////////////////////ÒÔÏÂÊÇÎ÷°²///////////////////////////////////////
+	if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+		choose case jytype_temp
+			case ')c'
+				update a_jyjl set jymlid = 'I',jylbid = 's' where jymlid = ')' and jylbid = 'c';
+		end choose
+	end if
+	if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+		choose case jytype_temp
+			case ']8'
+				update a_jyjl set jymlid = ']',jylbid = '6' where jymlid = ']' and jylbid = '8';
+		end choose
+	end if
+	if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+		choose case jytype_temp
+			case '+6'
+				update a_jyjl set jymlid = ':a',jylbid = '2' where jymlid = '+' and jylbid = '6';
+			case '*6'
+				update a_jyjl set jymlid = 'Qc',jylbid = '2' where jymlid = '*' and jylbid = '6';
+			case '<e'
+				update a_jyjl set jymlid = '*',jylbid = 'd' where jymlid = '<' and jylbid = 'e';
+			case '^e'
+				update a_jyjl set jymlid = '$',jylbid = 'd' where jymlid = '^' and jylbid = 'e';
+			case '#e'
+				update a_jyjl set jymlid = '\',jylbid = 'd' where jymlid = '#' and jylbid = 'e';
+			case '/e'
+				update a_jyjl set jymlid = '/',jylbid = 'd' where jymlid = '/' and jylbid = 'e';
+			case 'Z@'
+				update a_jyjl set jymlid = 'Z',jylbid = '$' where jymlid = 'Z' and jylbid = '@';	
+			case '0w'
+				update a_jyjl set jymlid = ':',jylbid = 'w' where jymlid = '0' and jylbid = 'w';	
+		end choose
+	end if
+FETCH temp_jyjl INTO :ll_jymlid,:ll_jylbid;
+LOOP
+CLOSE temp_jyjl;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','¼ìÑé½áÂÛ¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','¼ìÑé½áÂÛÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+///////////////////////////////////////////¸üÐÂ×Ô¶¯ÉóºË/////////////////////////////////////////
+
+DECLARE temp_zdsh CURSOR FOR
+SELECT jytype
+FROM a_zdsh_nr ORDER BY jytype; 
+OPEN temp_zdsh;
+FETCH temp_zdsh INTO :jytype_temp;
+do while sqlca.sqlcode = 0
+	if isnull(jytype_temp) then jytype_temp = ''
+	choose case jytype_temp
+		case '6c'
+			update a_zdsh_nr set jytype = '6s' where jytype = :jytype_temp;
+		case 'Ic'
+			select count(*) into :ll_num from a_zdsh_nr where jytype = '6c';
+			if ll_num = 0 then
+				update a_zdsh_nr set jytype = '6s' where jytype = 'Ic';
+			else
+				delete a_zdsh_nr where jytype = 'Ic';
+				update a_zdsh_nr set jytype = '6s' where jytype = '6c';	
+			end if
+		case 'Kc'
+			update a_zdsh_nr set jytype = 'Ks' where jytype = :jytype_temp;
+		case 'Jc'
+			update a_zdsh_nr set jytype = 'Js' where jytype = :jytype_temp;
+		case 'Id'
+			update a_zdsh_nr set jytype = '6d' where jytype = :jytype_temp;
+		case 'Ip'
+			update a_zdsh_nr set jytype = '6p' where jytype = :jytype_temp;
+		case 'Iu'
+			delete a_zdsh_nr where jytype = 'Iu';
+		case 'Iv'
+			update a_zdsh_nr set jytype = '6v' where jytype = :jytype_temp;
+		case 'Iw'
+			update a_zdsh_nr set jytype = '6w' where jytype = :jytype_temp;
+		case '+c'
+			update a_zdsh_nr set jytype = '+s' where jytype = :jytype_temp;
+		case '0c'
+			update a_zdsh_nr set jytype = '6]' where jytype = :jytype_temp;
+		case ')d'
+			update a_zdsh_nr set jytype = 'D8' where jytype = :jytype_temp;
+		case ']d'
+			update a_zdsh_nr set jytype = 'D{' where jytype = :jytype_temp;
+		case '.c'
+			update a_zdsh_nr set jytype = 'D}' where jytype = :jytype_temp;
+		case '&e'
+			update a_zdsh_nr set jytype = '&d' where jytype = :jytype_temp;
+		case '*w'
+			update a_zdsh_nr set jytype = '=aw' where jytype = :jytype_temp;
+	end choose
+	///////////////////////////////////////////////////////////////////////////////////////
+	if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+		choose case jytype_temp
+			case ')c'
+				update a_zdsh_nr set jytype = 'Is' where jytype = :jytype_temp;
+		end choose
+	end if
+	if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+		choose case jytype_temp
+			case ']8'
+				update a_zdsh_nr set jytype = ']6' where jytype = :jytype_temp;
+		end choose
+	end if
+	if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+		choose case jytype_temp
+			case '+6'
+				update a_zdsh_nr set jytype = ':a2' where jytype = :jytype_temp;
+			case '*6'
+				update a_zdsh_nr set jytype = 'Qc2' where jytype = :jytype_temp;
+			case '<e'
+				update a_zdsh_nr set jytype = '*d' where jytype = :jytype_temp;
+			case '^e'
+				update a_zdsh_nr set jytype = '$d' where jytype = :jytype_temp;
+			case '#e'
+				update a_zdsh_nr set jytype = '\d' where jytype = :jytype_temp;
+			case '/e'
+				update a_zdsh_nr set jytype = '/d' where jytype = :jytype_temp;
+			case 'Z@'
+				update a_zdsh_nr set jytype = 'Z$' where jytype = :jytype_temp;	
+			case '0w'
+				update a_zdsh_nr set jytype = ':w' where jytype = :jytype_temp;	
+		end choose
+	end if
+FETCH temp_zdsh INTO :jytype_temp;
+LOOP
+CLOSE temp_zdsh;
+
+DECLARE temp_zdshmc CURSOR FOR
+SELECT jytype
+FROM a_zdsh_zdmc ORDER BY jytype; 
+OPEN temp_zdshmc;
+FETCH temp_zdshmc INTO :jytype_temp;
+do while sqlca.sqlcode = 0
+	if isnull(jytype_temp) then jytype_temp = ''
+	choose case jytype_temp	
+		case '6c'
+			update a_zdsh_zdmc set jytype = '6s' where jytype = '6c';
+		case 'Ic'
+			select count(*) into :ll_num from a_zdsh_zdmc where jytype = '6c';
+			if ll_num = 0 then
+				update a_zdsh_zdmc set jytype = '6s' where jytype = 'Ic';
+			else
+				delete a_zdsh_zdmc where jytype = 'Ic';
+				update a_zdsh_zdmc set jytype = '6s' where jytype = '6c';	
+			end if
+		case 'Kc'
+			update a_zdsh_zdmc set jytype = 'Ks' where jytype = :jytype_temp;
+		case 'Jc'
+			update a_zdsh_zdmc set jytype = 'Js' where jytype = :jytype_temp;
+		case 'Id'
+			update a_zdsh_zdmc set jytype = '6d' where jytype = :jytype_temp;
+		case 'Ip'
+			update a_zdsh_zdmc set jytype = '6p' where jytype = :jytype_temp;
+		case 'Iu'
+			delete a_zdsh_zdmc where jytype = 'Iu';
+		case 'Iv'
+			update a_zdsh_zdmc set jytype = '6v' where jytype = :jytype_temp;
+		case 'Iw'
+			update a_zdsh_zdmc set jytype = '6w' where jytype = :jytype_temp;
+		case '+c'
+			update a_zdsh_zdmc set jytype = '+s' where jytype = :jytype_temp;
+		case '0c'
+			update a_zdsh_zdmc set jytype = '6]' where jytype = :jytype_temp;
+		case ')d'
+			update a_zdsh_zdmc set jytype = 'D8' where jytype = :jytype_temp;
+		case ']d'
+			update a_zdsh_zdmc set jytype = 'D{' where jytype = :jytype_temp;
+		case '.c'
+			update a_zdsh_zdmc set jytype = 'D}' where jytype = :jytype_temp;
+		case '&e'
+			update a_zdsh_zdmc set jytype = '&d' where jytype = :jytype_temp;
+		case '*w'
+			update a_zdsh_zdmc set jytype = '=aw' where jytype = :jytype_temp;
+	end choose
+	///////////////////////////////////////////////////////////////////////////////////////
+	if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+		choose case jytype_temp
+			case ')c'
+				update a_zdsh_zdmc set jytype = 'Is' where jytype = :jytype_temp;
+		end choose
+	end if
+	if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+		choose case jytype_temp
+			case ']8'
+				update a_zdsh_zdmc set jytype = ']6' where jytype = :jytype_temp;
+		end choose
+	end if
+	if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+		choose case jytype_temp
+			case '+6'
+				update a_zdsh_zdmc set jytype = ':a2' where jytype = :jytype_temp;
+			case '*6'
+				update a_zdsh_zdmc set jytype = 'Qc2' where jytype = :jytype_temp;
+			case '<e'
+				update a_zdsh_zdmc set jytype = '*d' where jytype = :jytype_temp;
+			case '^e'
+				update a_zdsh_zdmc set jytype = '$d' where jytype = :jytype_temp;
+			case '#e'
+				update a_zdsh_zdmc set jytype = '\d' where jytype = :jytype_temp;
+			case '/e'
+				update a_zdsh_zdmc set jytype = '/d' where jytype = :jytype_temp;
+			case 'Z@'
+				update a_zdsh_zdmc set jytype = 'Z$' where jytype = :jytype_temp;	
+			case '0w'
+				update a_zdsh_zdmc set jytype = ':w' where jytype = :jytype_temp;	
+		end choose
+	end if
+FETCH temp_zdshmc INTO :jytype_temp;
+LOOP
+CLOSE temp_zdshmc;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','×Ô¶¯ÉóºË¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','×Ô¶¯ÉóºËÍê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+//////////////////////////////////¸üÐÂa_djbh////////////////////////////////////////
+string temp 
+temp = 'I,6,A,D,5,3,B,C,M,V,T,S,W,U,<,{,$,/,&,>,R,},^,*,\,H,E,N,X,Y'
+DECLARE temp_djbh CURSOR FOR
+SELECT jymlid
+FROM a_djbh ORDER BY jymlid; 
+OPEN temp_djbh;
+FETCH temp_djbh INTO :ll_jymlid;
+do while sqlca.sqlcode = 0
+	if pos(temp,ll_jymlid) > 0 then
+		choose case ll_jymlid
+			case 'I'
+				select count(*) into :ll_num from a_djbh where jymlid = '6';
+				if ll_num = 0 then
+					update a_djbh set jymlid = '6' where jymlid = 'I';
+				else
+					delete a_djbh where jymlid = 'I';
+				end if	
+		end choose
+	else
+		delete a_djbh where jymlid like :ll_jymlid;
+	end if
+FETCH temp_djbh INTO :ll_jymlid;
+LOOP
+CLOSE temp_djbh;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','µÇ¼ÇºÅ¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','µÇ¼ÇºÅÉý¼¶±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+/////////////////////////////////////////±¨¸æÓÃÓï/////////////////////////////////////
+DECLARE temp_bgyy CURSOR FOR
+SELECT jymlid,jylbid
+FROM a_cz_bgyy ORDER BY jymlid; 
+OPEN temp_bgyy;
+FETCH temp_bgyy INTO :ll_jymlid,:ll_jylbid;
+do while sqlca.sqlcode = 0
+	if isnull(ll_jymlid) or ll_jymlid = '' then
+	else
+		jytype_temp = ll_jymlid + ll_jylbid
+		choose case jytype_temp
+			case '6c'
+				update a_cz_bgyy set jymlid = '6',jylbid = 's',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jymlid = '6' and jylbid = 'c';
+			case 'Ic'
+				select count(*) into :ll_num from a_cz_bgyy where jymlid = '6' and jylbid = 'c';
+				if ll_num = 0 then
+					update a_cz_bgyy set jymlid = '6',jylbid = 's',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jymlid = 'I' and jylbid = 'c';
+				else
+					update a_cz_bgyy set jymlid = '6',jylbid = 's',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jymlid = '6' and jylbid = 'c';
+					delete a_cz_bgyy where jymlid = 'I' and jylbid = 'c';
+				end if
+			case 'Kc'
+				update a_cz_bgyy set jymlid = 'K',jylbid = 's',jylb = 'È«Ãæ¼ìÑé' where jymlid = 'K' and jylbid = 'c';
+			case 'Jc'
+				update a_cz_bgyy set jymlid = 'J',jylbid = 's',jylb = 'È«Ãæ¼ìÑé' where jymlid = 'J' and jylbid = 'c';
+			case 'Id'
+				update a_cz_bgyy set jymlid = '6',jylbid = 'd',jyml = 'Ñ¹Á¦ÈÝÆ÷' where jymlid = 'I' and jylbid = 'd';
+			case 'Ip'
+				update a_cz_bgyy set jymlid = '6',jylbid = 'p',jyml = 'Ñ¹Á¦ÈÝÆ÷' where jymlid = 'I' and jylbid = 'p';
+			case 'Iu'
+				select count(*) into :ll_num from a_cz_bgyy where jymlid = '6' and jylbid = 'u';
+				if ll_num = 0 then
+					update a_cz_bgyy set jymlid = '6',jylbid = 'u',jyml = 'Ñ¹Á¦ÈÝÆ÷' where jymlid = 'I' and jylbid = 'u';
+				else
+					delete a_cz_bgyy where jymlid = 'I' and jylbid = 'u';
+				end if
+			case 'Iv'
+				update a_cz_bgyy set jymlid = '6',jylbid = 'v',jyml = 'Ñ¹Á¦ÈÝÆ÷' where jymlid = 'I' and jylbid = 'v';
+			case 'Iw'
+				update a_cz_bgyy set jymlid = '6',jylbid = 'w',jyml = 'Ñ¹Á¦ÈÝÆ÷' where jymlid = 'I' and jylbid = 'w';	
+			case '+c'
+				update a_cz_bgyy set jymlid = '+',jylbid = 's',jylb = 'È«Ãæ¼ìÑé' where jymlid = '+' and jylbid = 'c';
+			case '0c'
+				update a_cz_bgyy set jymlid = '6',jylbid = ']',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'ÄÍÑ¹ÊÔÑé' where jymlid = '0' and jylbid = 'c';
+			case ')d'
+				update a_cz_bgyy set jymlid = 'D',jylbid = '8',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Ë®´¦Àí¼ìÑé' where jymlid = ')' and jylbid = 'd';
+			case ']d'
+				update a_cz_bgyy set jymlid = 'D',jylbid = '{',jyml = '¹¤Òµ¹øÂ¯',jylb = 'ÔËÐÐË®´¦Àí¼ìÑé' where jymlid = ']' and jylbid = 'd';
+			case '.c'
+				update a_cz_bgyy set jymlid = 'D',jylbid = '}',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Í£Â¯Ë®´¦Àí¼ìÑé' where jymlid = '.' and jylbid = 'c';
+			case '&e'
+				update a_cz_bgyy set jymlid = '&',jylbid = 'd',jylb = '°²×°¼à¼ì' where jymlid = '&' and jylbid = 'd';
+			case '*w'
+				update a_cz_bgyy set jymlid = '=a',jylbid = 'w' where jymlid = '*' and jylbid = 'w';
+		end choose
+		///////////////////////////////////////////////////////////////////////////////////////
+		if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+			choose case jytype_temp
+				case ')c'
+					update a_cz_bgyy set jymlid = 'I',jylbid = 's',jyml = 'Ñ¹Á¦ÈÝÆ÷(1)',jylb = 'È«Ãæ¼ìÑé' where jymlid = ')' and jylbid = 'c';
+			end choose
+		end if
+		if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+			choose case jytype_temp
+				case ']8'
+					update a_cz_bgyy set jymlid = ']',jylbid = '6' where jymlid = ']' and jylbid = '8';
+			end choose
+		end if
+		if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+			choose case jytype_temp
+				case '+6'
+					update a_cz_bgyy set jymlid = ':a',jylbid = '2',jylb = '¼ìÑé±¨¸æ' where jymlid = '+' and jylbid = '6';
+				case '*6'
+					update a_cz_bgyy set jymlid = 'Qc',jylbid = '2',jylb = '¼ìÑé±¨¸æ' where jymlid = '*' and jylbid = '6';
+				case '<e'
+					update a_cz_bgyy set jymlid = '*',jylbid = 'd',jylb = '°²×°¼à¼ì' where jymlid = '<' and jylbid = 'e';
+				case '^e'
+					update a_cz_bgyy set jymlid = '$',jylbid = 'd',jylb = '°²×°¼à¼ì' where jymlid = '^' and jylbid = 'e';
+				case '#e'
+					update a_cz_bgyy set jymlid = '\',jylbid = 'd',jylb = '°²×°¼à¼ì' where jymlid = '#' and jylbid = 'e';
+				case '/e'
+					update a_cz_bgyy set jymlid = '/',jylbid = 'd',jylb = '°²×°¼à¼ì' where jymlid = '/' and jylbid = 'e';
+				case 'Z@'
+					update a_cz_bgyy set jymlid = 'Z',jylbid = '$' where jymlid = 'Z' and jylbid = '@';	
+				case '0w'
+					update a_cz_bgyy set jymlid = ':',jylbid = 'w' where jymlid = '0' and jylbid = 'w';	
+			end choose
+		end if
+	end if
+FETCH temp_bgyy INTO :ll_jymlid,:ll_jylbid;
+LOOP
+CLOSE temp_bgyy;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','±¨¸æÓÃÓï¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','±¨¸æÓÃÓïÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+
+/////////////////////////////////////////////////////////////////////////////////////
+update sjzdn_bglb set mc = 'Ñ¹Á¦ÈÝÆ÷È«Ãæ¼ìÑé' where mc = 'ÐÂÑ¹Á¦ÈÝÆ÷¶¨ÆÚ¼ìÑé';
+update sjzdn_bglb set mc = 'Ñ¹Á¦ÈÝÆ÷Äê¶È¼ìÑé' where mc = 'ÐÂÑ¹Á¦ÈÝÆ÷Äê¶È¼ìÑé';
+update sjzdn_bglb set mc = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú¶¨ÆÚ¼ìÑé' where mc = 'ÇÅÆðÖØ»ú¶¨ÆÚ¼ìÑé';
+update sjzdn_bglb set mc = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»úÑéÊÕ¼ìÑé' where mc = 'ÇÅÆðÖØ»úÑéÊÕ¼ìÑé';
+update sjzdn_bglb set mc = 'ÃÅ×ùÊ½ÆðÖØ»ú¶¨ÆÚ¼ìÑé' where mc = 'ÃÅÆðÖØ»ú¶¨ÆÚ¼ìÑé';
+update sjzdn_bglb set mc = 'ÃÅ×ùÊ½ÆðÖØ»ú¶¨ÆÚ¼ìÑé' where mc = 'ÃÅÆðÖØ»ú¶¨ÆÚ¼ìÑé';
+update sjzdn_bglb set mc = 'Æû³µ²Û³µÈ«Ãæ¼ìÑé' where mc = 'Æû³µ²Û³µ¶¨ÆÚ¼ìÑé';
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','Êý¾Ý×Öµä¸üÐÂÊ§°Ü£¡')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','Êý¾Ý×ÖµäÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+/////////////////////////////////////¸üÐÂÈËÔ±////////////////////////////////////////
+DECLARE temp_jykey CURSOR FOR
+SELECT jytype,ryid
+FROM a_jykey where jytype = 'Iu' or jytype = 'Ic';
+OPEN temp_jykey;
+FETCH temp_jykey INTO :jytype,:ryid;
+do while sqlca.sqlcode = 0
+	choose case jytype
+		case 'Iu'
+			select count(*) into :ll_num from a_jykey where ryid like :ryid and jytype = '6u';
+			if ll_num = 0 then
+				update a_jykey set jytype = '6u' where jytype = 'Iu' and ryid like :ryid;
+			else
+				delete a_jykey where ryid like :ryid and jytype = 'Iu' and ryid like :ryid;
+			end if
+		case 'Ic'
+			select count(*) into :ll_num from a_jykey where ryid like :ryid and jytype = '6c';
+			if ll_num = 0 then
+				update a_jykey set jytype = '6s' where jytype = 'Ic' and ryid like :ryid;
+			else
+				update a_jykey set jytype = '6s' where jytype = '6c' and ryid like :ryid;
+				delete a_jykey where ryid like :ryid and jytype = 'Ic' and ryid like :ryid;
+			end if
+	end choose
+FETCH temp_jykey INTO :jytype,:ryid;
+LOOP
+CLOSE temp_jykey;
+update a_jykey set jytype = '6s' where jytype = '6c';
+update a_jykey set jytype = 'Ks' where jytype = 'Kc';
+update a_jykey set jytype = 'Js' where jytype = 'Jc';
+update a_jykey set jytype = '+s' where jytype = '+c';
+update a_jykey set jytype = '6]' where jytype = '0c';
+update a_jykey set jytype = '6d' where jytype = 'Id';
+update a_jykey set jytype = '6p' where jytype = 'Ip';
+update a_jykey set jytype = '6v' where jytype = 'Iv';
+update a_jykey set jytype = '6w' where jytype = 'Iw';
+update a_jykey set jytype = 'D8' where jytype = ')d';
+update a_jykey set jytype = 'D{' where jytype = ']d';
+update a_jykey set jytype = 'D}' where jytype = '.c';
+update a_jykey set jytype = '&d' where jytype = '&e';
+update a_jykey set jytype = '=aw' where jytype = '*w';	
+///////////////////////////////////////////////////////////////////////////////////////
+if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+	update a_jykey set jytype = 'Is' where jytype = ')c';
+end if
+if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+	update a_jykey set jytype = ']6' where jytype = ']8';
+end if
+if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+	update a_jykey set jytype = ':a2' where jytype = '+6';
+	update a_jykey set jytype = 'Qc2' where jytype = '*6';
+	update a_jykey set jytype = '*d' where jytype = '<e';
+	update a_jykey set jytype = '$d' where jytype = '^e';
+	update a_jykey set jytype = '\d' where jytype = '#e';
+	update a_jykey set jytype = '/d' where jytype = '/e';
+	update a_jykey set jytype = 'Z$' where jytype = 'Z@';	
+	update a_jykey set jytype = ':w' where jytype = '0w';	
+end if
+
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','a_jykey¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','a_jykeyÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+/////////////////////////////////////¸üÐÂÈËÔ±////////////////////////////////////////			
+long ll_NowRow = 0
+string ls_TestDj[],ls_NullStr[],ls_TestAj[],ls_TestJj[],ls_TestJk[],ls_TestQj[],jymk,temp_ryid
+string ls_NowDjml,ls_NowDjlb,ls_NowAjml,ls_NowAjlb,ls_NowJjml,ls_NowJjlb,ls_NowJkml,ls_NowJklb,ls_NowQjml,ls_NowQjlb
+DECLARE temp_rycode CURSOR FOR
+SELECT ryid,jytype,jymk
+FROM a_jykey order by ryid;
+OPEN temp_rycode;
+FETCH temp_rycode INTO :ryid,:jytype,:jymk;
+do while sqlca.sqlcode = 0
+	if isnull(temp_ryid) then temp_ryid = ''
+	if temp_ryid <> ryid then
+		if temp_ryid = '' then
+		else
+			ls_NowDjml = fun_getmllb(ls_TestDj,'1')
+			ls_NOwDjlb = fun_getmllb(ls_TestDj,'2')
+			ls_NowAjml = fun_getmllb(ls_TestAj,'1')
+			ls_NowAjlb = fun_getmllb(ls_TestAj,'2')
+			ls_NowJjml = fun_getmllb(ls_TestJj,'1')
+			ls_NowJjlb = fun_getmllb(ls_TestJj,'2')
+			ls_NowJkml = fun_getmllb(ls_TestJk,'1')
+			ls_NowJklb = fun_getmllb(ls_TestJk,'2')
+			ls_NowQjml = fun_getmllb(ls_TestQj,'1')
+			ls_NowQjlb = fun_getmllb(ls_TestQj,'2')
+			update a_rycode set rydjml = :ls_NowDjml,rydjlb = :ls_NowDjlb,
+									  ryajml = :ls_NowAjml,ryajlb = :ls_NowAjlb,
+									  ryjjml = :ls_NowJjml,ryjjlb = :ls_NowJjlb,
+									  ryjkml = :ls_NowJkml,ryjklb = :ls_NowJklb,
+									  ryqjml = :ls_NowQjml,ryqjlb = :ls_NowQjlb
+			where jyid = :temp_ryid;
+			setnull(ls_NowDjml)
+			setnull(ls_NowDjlb)
+			setnull(ls_NowAjml)
+			setnull(ls_NowAjlb)
+			setnull(ls_NowJjml)
+			setnull(ls_NowJjlb)
+			setnull(ls_NowJkml)
+			setnull(ls_NowJklb)
+			setnull(ls_NowQjml)
+			setnull(ls_NowQjlb)
+			ll_NowRow = 0
+		end if
+		temp_ryid = ryid
+	end if
+	ll_NowRow = ll_NowRow + 1
+	choose case jymk
+		case 'dj'
+			ls_TestDj[ll_NowRow] = jytype
+		case 'aj'
+			ls_TestAj[ll_NowRow] = jytype
+		case 'jj'
+			ls_TestJj[ll_NowRow] = jytype
+		case 'jk'
+			ls_TestJk[ll_NowRow] = jytype
+		case 'qj'
+			ls_TestQj[ll_NowRow] = jytype		
+	end choose
+FETCH temp_rycode INTO :ryid,:jytype,:jymk;
+LOOP
+CLOSE temp_rycode;	
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','a_rycode¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','a_rycodeÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+///////////////////////////////////////////////////////////////////////////////////////////////////
+////ÒÔÏÂÊÇµØÇøÂë±íÌî³ä
+///////////////////////////////////////////¸üÐÂ²¿ÃÅ///////////////////////////////////
+string sbsfdm,sbdsdm,ls_addrid
+string ls_sheng,ls_shi,ls_quxian
+string bmid_max,bmid_min
+long bmid_minid,bmid_maxid,i
+
+select sbsfdm,sbdsdm into :sbsfdm,:sbdsdm from a_jydw;
+ls_sheng = left(sbsfdm,2)
+ls_shi = mid(sbdsdm,3,2)
+ls_quxian = '01'
+ls_addrid = ls_sheng + ls_shi + ls_quxian
+
+select max(bmid),min(bmid) into :bmid_max,:bmid_min from a_bmcode;
+bmid_minid = long(bmid_min)
+bmid_maxid = long(bmid_max)
+for i = bmid_minid to bmid_maxid
+	 update a_bmcode set addrid = :ls_addrid,addrbg = '0';
+next
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','µØÇøÂë²¿ÃÅ¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','µØÇøÂë²¿ÃÅÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+/////////////////////////////////u_addr_staff,a_dqm_init///////////////////////////////////
+string ls_addrname
+string sbsf,sbds
+string ryjyjb
+select sbsf,sbds into :sbsf,:sbds from a_jydw;
+ls_addrname = sbsf + sbds + 'ÊÐÏ½Çø'
+DECLARE u_addr_staff CURSOR FOR
+SELECT ryid,ryjyjb
+FROM a_rycode where ryid <> '1111' ORDER BY ryid; 
+OPEN u_addr_staff;
+FETCH u_addr_staff INTO :ryid,:ryjyjb;
+do while sqlca.sqlcode = 0
+	insert into u_addr_staff values (:ryid,:ls_addrid,:ls_addrname);
+	if ryjyjb > '2' then
+		insert into a_dqm_init values (:ryid,:ls_addrid,:ls_addrname,'3');
+	end if
+	FETCH u_addr_staff INTO :ryid,:ryjyjb;
+LOOP
+CLOSE u_addr_staff;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','µØÇøÂëÈËÔ±u_addr_staff¼°a_dqm_init¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','µØÇøÂëÈËÔ±u_addr_staff¼°a_dqm_initÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+////////////////////////////////////////////////////////////////////////////////////////////
+
+DECLARE a_ry_dqm CURSOR FOR
+SELECT ryid,jytype
+FROM a_jykey order by ryid;
+OPEN a_ry_dqm;
+FETCH a_ry_dqm INTO :ryid,:jytype;
+do while sqlca.sqlcode = 0
+select ryid into :ryid_str from a_rycode where jyid like :ryid and ryjyjb > '2';
+if isnull(ryid_str) or ryid_str = '' then
+else
+	select max(id) into :l_id from a_ry_dqm;
+	if isnull(l_id) or l_id = '' then
+		l_id = '1000000001'
+	else
+		l_id = string(dec(l_id) + 1)
+	end if
+	select typename into :typename from a_bgml where jytype like :jytype;
+	insert into a_ry_dqm values (:l_id,:ryid_str,:jytype,:typename,:ryid,:ls_addrid,:ls_addrname,'3');
+end if
+FETCH a_ry_dqm INTO :ryid,:jytype;
+LOOP
+CLOSE a_ry_dqm;		
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','µØÇøÂëÉóºË±¨¸æÀà±ða_ry_dqm¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','µØÇøÂëÉóºË±¨¸æÀà±ða_ry_dqmÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+//////////////////////////////////////¸üÐÂu_addr_bg///////////////////////////////////////
+/////////////////////////////////////////////////¸üÐÂ¼¸¸ötotal///////////////////////////////////
+string jyid
+////////////////////////////////////////////////////////////////
+update b_jyz_total set jyml = 'Ñ¹Á¦ÈÝÆ÷' where jytype = '6u';
+update b_jyz_total set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Ic';
+update b_jyz_total set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = '6c';
+update b_jyz_total set jytype = 'Ks',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Kc';
+update b_jyz_total set jytype = 'Js',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Jc';
+update b_jyz_total set jytype = '+s',jylb = 'È«Ãæ¼ìÑé' where jytype = '+c';
+update b_jyz_total set jytype = '6]',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'ÄÍÑ¹ÊÔÑé±¨¸æ' where jytype = '0c';
+update b_jyz_total set jyml = 'Ñ¹Á¦ÈÝÆ÷' where jytype = '6n';
+update b_jyz_total set jyml = 'ÓÐ»úÈÈÔØÌåÂ¯' where jytype = 'Fa';
+update b_jyz_total set jyml = 'ÓÐ»úÈÈÔØÌåÂ¯' where jytype = 'Fb';
+update b_jyz_total set jyml = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jytype = 'Vc';
+update b_jyz_total set jyml = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jytype = 'Wc';
+update b_jyz_total set jyml = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jytype = 'Vo';
+update b_jyz_total set jyml = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jytype = 'Wo';
+update b_jyz_total set jytype = 'D{',jyml = '¹¤Òµ¹øÂ¯',jylb = 'ÔËÐÐË®´¦Àí¼ìÑé' where jytype = ']d';
+update b_jyz_total set jytype = 'D}',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Í£Â¯Ë®´¦Àí¼ìÑé' where jytype = '.c';
+update b_jyz_total set jytype = 'D8',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Ë®´¦Àí¼ìÑé' where jytype = ')d';
+update b_jyz_total set jytype = '&d',jyml = '»úÐµÊ½Í£³µÉè±¸',jylb = '°²×°¼à¼ì' where jytype = '&e';
+update b_jyz_total set jyml = '»úÐµÊ½Í£³µÉè±¸' where jytype = '&c';
+update b_jyz_total set jyml = '¸ß¿Õ×÷Òµ³µ' where jytype = '{e';
+update b_jyz_total set jytype = '6d' where jytype = 'Id';
+update b_jyz_total set jytype = '6p' where jytype = 'Ip';
+update b_jyz_total set jytype = '6u' where jytype = 'Iu';
+update b_jyz_total set jytype = '6v' where jytype = 'Iv';
+update b_jyz_total set jytype = '6w' where jytype = 'Iw';
+update b_jyz_total set jytype = '=aw' where jytype = '*w';
+if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+	update b_jyz_total set jytype = 'Is',jyml = 'Ñ¹Á¦ÈÝÆ÷(1)',jylb = 'È«Ãæ¼ìÑé' where jytype = ')c';
+end if
+if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+	update b_jyz_total set jytype = ']6' where jytype = ']8';
+end if
+if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+	update b_jyz_total set jytype = ':a2',jyml = '¸ÖÖÊÎÞ·ìÆøÆ¿',jylb = '¼ìÑé±¨¸æ' where jytype = '+6';
+	update b_jyz_total set jytype = 'Qc2',jylb = '¼ìÑé±¨¸æ' where jytype = '*6';
+	update b_jyz_total set jytype = '*d',jylb = '°²×°¼à¼ì' where jytype = '<e';
+	update b_jyz_total set jytype = '$d',jylb = '°²×°¼à¼ì' where jytype = '^e';
+	update b_jyz_total set jytype = '\d',jylb = '°²×°¼à¼ì' where jytype = '#e';
+	update b_jyz_total set jytype = '/d',jylb = '°²×°¼à¼ì' where jytype = '/e';
+	update b_jyz_total set jytype = 'Z$' where jytype = 'Z@';	
+	update b_jyz_total set jytype = ':w' where jytype = '0w';	
+end if
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','ºÏ×÷-¶à¼ìÑéÔ±total±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','ºÏ×÷-¶à¼ìÑéÔ±total±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+///////////////////////////////////////////////////////////////////////////////////////
+//////·Ö³öÒ³
+update b_sz_total set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Ic';
+update b_sz_total set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = '6c';
+update b_sz_total set jytype = 'Ks',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Kc';
+update b_sz_total set jytype = 'Js',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Jc';
+update b_sz_total set jytype = '+s',jylb = 'È«Ãæ¼ìÑé' where jytype = '+c';
+update b_sz_total set jytype = '6]',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'ÄÍÑ¹ÊÔÑé±¨¸æ' where jytype = '0c';
+update b_sz_total set jyml = 'Ñ¹Á¦ÈÝÆ÷' where jytype = '6n';
+update b_sz_total set jytype = 'D{',jyml = '¹¤Òµ¹øÂ¯',jylb = 'ÔËÐÐË®´¦Àí¼ìÑé' where jytype = ']d';
+update b_sz_total set jytype = 'D}',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Í£Â¯Ë®´¦Àí¼ìÑé' where jytype = '.c';
+update b_sz_total set jytype = '6d' where jytype = 'Id';
+update b_sz_total set jytype = 'D8',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Ë®´¦Àí¼ìÑé' where jytype = ')d';
+if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+	update b_sz_total set jytype = 'Is',jyml = 'Ñ¹Á¦ÈÝÆ÷(1)',jylb = 'È«Ãæ¼ìÑé' where jytype = ')c';
+end if
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','ºÏ×÷-·Ö³öÒ³total±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','ºÏ×÷-·Ö³öÒ³total±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+///////////////////////////////////////¸üÐÂa_fy///////////////////////////////
+update a_fy set jyml = 'Ñ¹Á¦ÈÝÆ÷' where jytype = '6u';
+update a_fy set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Ic';
+update a_fy set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = '6c';
+update a_fy set jytype = 'Ks',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Kc';
+update a_fy set jytype = 'Js',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Jc';
+update a_fy set jytype = '+s',jylb = 'È«Ãæ¼ìÑé' where jytype = '+c';
+update a_fy set jytype = '6]',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'ÄÍÑ¹ÊÔÑé±¨¸æ' where jytype = '0c';
+update a_fy set jyml = 'Ñ¹Á¦ÈÝÆ÷' where jytype = '6n';
+update a_fy set jyml = 'ÓÐ»úÈÈÔØÌåÂ¯' where jytype = 'Fa';
+update a_fy set jyml = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jytype = 'Vc';
+update a_fy set jyml = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jytype = 'Wc';
+update a_fy set jyml = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jytype = 'Vo';
+update a_fy set jyml = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jytype = 'Wo';
+update a_fy set jytype = 'D{',jyml = '¹¤Òµ¹øÂ¯',jylb = 'ÔËÐÐË®´¦Àí¼ìÑé' where jytype = ']d';
+update a_fy set jytype = 'D}',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Í£Â¯Ë®´¦Àí¼ìÑé' where jytype = '.c';
+update a_fy set jytype = 'D8',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Ë®´¦Àí¼ìÑé' where jytype = ')d';
+update a_fy set jytype = '&d',jyml = '»úÐµÊ½Í£³µÉè±¸',jylb = '°²×°¼à¼ì' where jytype = '&e';
+update a_fy set jyml = '»úÐµÊ½Í£³µÉè±¸' where jytype = '&c';
+update a_fy set jyml = '¸ß¿Õ×÷Òµ³µ' where jytype = '{e';
+update a_fy set jytype = '6d' where jytype = 'Id';
+update a_fy set jytype = '6p' where jytype = 'Ip';
+update a_fy set jytype = '6u' where jytype = 'Iu';
+update a_fy set jytype = '6v' where jytype = 'Iv';
+update a_fy set jytype = '6w' where jytype = 'Iw';
+update a_fy set jytype = '=aw' where jytype = '*w';
+if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+	update a_fy set jytype = 'Is',jyml = 'Ñ¹Á¦ÈÝÆ÷(1)',jylb = 'È«Ãæ¼ìÑé' where jytype = ')c';
+end if
+if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+	update a_fy set jytype = ']6' where jytype = ']8';
+end if
+if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+	update a_fy set jytype = ':a2',jyml = '¸ÖÖÊÎÞ·ìÆøÆ¿',jylb = '¼ìÑé±¨¸æ' where jytype = '+6';
+	update a_fy set jytype = 'Qc2',jylb = '¼ìÑé±¨¸æ' where jytype = '*6';
+	update a_fy set jytype = '*d',jylb = '°²×°¼à¼ì' where jytype = '<e';
+	update a_fy set jytype = '$d',jylb = '°²×°¼à¼ì' where jytype = '^e';
+	update a_fy set jytype = '\d',jylb = '°²×°¼à¼ì' where jytype = '#e';
+	update a_fy set jytype = '/d',jylb = '°²×°¼à¼ì' where jytype = '/e';
+	update a_fy set jytype = 'Z$' where jytype = 'Z@';	
+	update a_fy set jytype = ':w' where jytype = '0w';	
+end if
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','¸½Ò³total±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','¸½Ò³total±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+////////////////////////////////////////////¸üÐÂa_ft////////////////////////////////////
+update a_ft set jyml = 'Ñ¹Á¦ÈÝÆ÷' where jytype = '6u';
+update a_ft set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Ic';
+update a_ft set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = '6c';
+update a_ft set jytype = 'Ks',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Kc';
+update a_ft set jytype = 'Js',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Jc';
+update a_ft set jytype = '+s',jylb = 'È«Ãæ¼ìÑé' where jytype = '+c';
+update a_ft set jytype = '6]',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'ÄÍÑ¹ÊÔÑé±¨¸æ' where jytype = '0c';
+update a_ft set jyml = 'Ñ¹Á¦ÈÝÆ÷' where jytype = '6n';
+update a_ft set jyml = 'ÓÐ»úÈÈÔØÌåÂ¯' where jytype = 'Fa';
+update a_ft set jyml = 'ÓÐ»úÈÈÔØÌåÂ¯' where jytype = 'Fb';
+update a_ft set jyml = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jytype = 'Vc';
+update a_ft set jyml = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jytype = 'Wc';
+update a_ft set jyml = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jytype = 'Vo';
+update a_ft set jyml = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jytype = 'Wo';
+update a_ft set jytype = 'D{',jyml = '¹¤Òµ¹øÂ¯',jylb = 'ÔËÐÐË®´¦Àí¼ìÑé' where jytype = ']d';
+update a_ft set jytype = 'D}',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Í£Â¯Ë®´¦Àí¼ìÑé' where jytype = '.c';
+update a_ft set jytype = 'D8',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Ë®´¦Àí¼ìÑé' where jytype = ')d';
+update a_ft set jytype = '&d',jyml = '»úÐµÊ½Í£³µÉè±¸',jylb = '°²×°¼à¼ì' where jytype = '&e';
+update a_fy set jyml = '»úÐµÊ½Í£³µÉè±¸' where jytype = '&c';
+update a_fy set jyml = '¸ß¿Õ×÷Òµ³µ' where jytype = '{e';
+update a_ft set jytype = '6d' where jytype = 'Id';
+update a_ft set jytype = '6p' where jytype = 'Ip';
+update a_ft set jytype = '6u' where jytype = 'Iu';
+update a_ft set jytype = '6v' where jytype = 'Iv';
+update a_ft set jytype = '6w' where jytype = 'Iw';
+update a_ft set jytype = '=aw' where jytype = '*w';
+if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+	update a_ft set jytype = 'Is',jyml = 'Ñ¹Á¦ÈÝÆ÷(1)',jylb = 'È«Ãæ¼ìÑé' where jytype = ')c';
+end if
+if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+	update a_ft set jytype = ']6' where jytype = ']8';
+end if
+if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+	update a_ft set jytype = ':a2',jyml = '¸ÖÖÊÎÞ·ìÆøÆ¿',jylb = '¼ìÑé±¨¸æ' where jytype = '+6';
+	update a_ft set jytype = 'Qc2',jylb = '¼ìÑé±¨¸æ' where jytype = '*6';
+	update a_ft set jytype = '*d',jylb = '°²×°¼à¼ì' where jytype = '<e';
+	update a_ft set jytype = '$d',jylb = '°²×°¼à¼ì' where jytype = '^e';
+	update a_ft set jytype = '\d',jylb = '°²×°¼à¼ì' where jytype = '#e';
+	update a_ft set jytype = '/d',jylb = '°²×°¼à¼ì' where jytype = '/e';
+	update a_ft set jytype = 'Z$' where jytype = 'Z@';	
+	update a_ft set jytype = ':w' where jytype = '0w';	
+end if
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','¸½Í¼total±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','¸½Í¼total±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+/////////////////////////////////////////////////////////////////////////////////////////
+string add1mark
+select add1mark into :add1mark from a_jydw;  
+if add1mark = '1' then
+	update z_rw_sb set jymlid = '6',jylbid = 's' where jymlid = 'I' and jylbid = 'c';
+	update z_rw_sb set jymlid = '6',jylbid = 's' where jymlid = '6' and jylbid = 'c';	
+	update z_rw_sb set jymlid = 'K',jylbid = 's' where jymlid = 'K' and jylbid = 'c';
+	update z_rw_sb set jymlid = 'J',jylbid = 's' where jymlid = 'J' and jylbid = 'c';
+	update z_rw_sb set jymlid = '6',jylbid = 'd' where jymlid = 'I' and jylbid = 'd';
+	update z_rw_sb set jymlid = '6',jylbid = 'p' where jymlid = 'I' and jylbid = 'p';
+	update z_rw_sb set jymlid = '6',jylbid = 'u' where jymlid = 'I' and jylbid = 'u';
+	update z_rw_sb set jymlid = '6',jylbid = 'v' where jymlid = 'I' and jylbid = 'v';
+	update z_rw_sb set jymlid = '6',jylbid = 'w' where jymlid = 'I' and jylbid = 'w';
+	update z_rw_sb set jymlid = '+',jylbid = 's' where jymlid = '+' and jylbid = 'c';
+	update z_rw_sb set jymlid = '6',jylbid = ']' where jymlid = '0' and jylbid = 'c';
+	update z_rw_sb set jymlid = 'D',jylbid = '8' where jymlid = ')' and jylbid = 'd';
+	update z_rw_sb set jymlid = 'D',jylbid = '{' where jymlid = ']' and jylbid = 'd';
+	update z_rw_sb set jymlid = 'D',jylbid = '}' where jymlid = '.' and jylbid = 'c';
+	update z_rw_sb set jymlid = '&',jylbid = 'd' where jymlid = '&' and jylbid = 'd';
+	update z_rw_sb set jymlid = '=a',jylbid = 'w' where jymlid = '*' and jylbid = 'w';
+	////////////////////////////////////ÒÔÏÂÊÇÎ÷°²///////////////////////////////////////
+	if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+		choose case jytype_temp
+			case ')c'
+				update z_rw_sb set jymlid = 'I',jylbid = 's' where jymlid = ')' and jylbid = 'c';
+		end choose
+	end if
+	if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+		choose case jytype_temp
+			case ']8'
+				update z_rw_sb set jymlid = ']',jylbid = '6' where jymlid = ']' and jylbid = '8';
+		end choose
+	end if
+	if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+				update z_rw_sb set jymlid = ':a',jylbid = '2' where jymlid = '+' and jylbid = '6';
+				update z_rw_sb set jymlid = 'Qc',jylbid = '2' where jymlid = '*' and jylbid = '6';
+				update z_rw_sb set jymlid = '*',jylbid = 'd' where jymlid = '<' and jylbid = 'e';
+				update z_rw_sb set jymlid = '$',jylbid = 'd' where jymlid = '^' and jylbid = 'e';
+				update z_rw_sb set jymlid = '\',jylbid = 'd' where jymlid = '#' and jylbid = 'e';
+				update z_rw_sb set jymlid = '/',jylbid = 'd' where jymlid = '/' and jylbid = 'e';
+				update z_rw_sb set jymlid = 'Z',jylbid = '$' where jymlid = 'Z' and jylbid = '@';	
+				update z_rw_sb set jymlid = ':',jylbid = 'w' where jymlid = '0' and jylbid = 'w';	
+	end if
+	IF sqlca.sqlcode <>0 THEN
+		MessageBox ('','µÇ¼ÇÈÎÎñtotal±í¸üÐÂÊ§°Ü')
+		return
+	else
+		messagebox('ÏµÍ³ÌáÊ¾','µÇ¼ÇÈÎÎñtotal±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+	END IF
+end if
+/////////////////////////////////////¸üÐÂglc_tzsb////////////////////////////////////
+if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+	update glc_tzsb set qcml = '*d' where qcml = '<';
+	update glc_tzsb set qcml = '$' where qcml = '^';
+	update glc_tzsb set qcml = '\' where qcml = '#';
+	IF sqlca.sqlcode <>0 THEN
+		MessageBox ('','»úµçÀàÉè±¸±í¸üÐÂÊ§°Ü')
+		return
+	else
+		messagebox('ÏµÍ³ÌáÊ¾','»úµçÀàÉè±¸±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+	END IF
+end if
+////////////////////////////////////////////////////////////////////////////
+update b_jy_total set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Ic';
+update b_jy_total set jytype = '6s',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'È«Ãæ¼ìÑé' where jytype = '6c';
+update b_jy_total set jytype = 'Ks',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Kc';
+update b_jy_total set jytype = 'Js',jylb = 'È«Ãæ¼ìÑé' where jytype = 'Jc';
+update b_jy_total set jytype = '+s',jylb = 'È«Ãæ¼ìÑé' where jytype = '+c';
+update b_jy_total set jytype = '6]',jyml = 'Ñ¹Á¦ÈÝÆ÷',jylb = 'ÄÍÑ¹ÊÔÑé±¨¸æ' where jytype = '0c';
+update b_jy_total set jyml = 'Ñ¹Á¦ÈÝÆ÷' where jytype = '6n';
+update b_jy_total set jyml = 'ÓÐ»úÈÈÔØÌåÂ¯' where jytype = 'Fa';
+update b_jy_total set jyml = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jytype = 'Vc';
+update b_jy_total set jyml = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jytype = 'Wc';
+update b_jy_total set jyml = '»úÐµÊ½Í£³µÉè±¸' where jytype = '&c';
+update b_jy_total set jyml = '¸ß¿Õ×÷Òµ³µ' where jytype = '{e';
+update b_jy_total set jytype = 'D{',jyml = '¹¤Òµ¹øÂ¯',jylb = 'ÔËÐÐË®´¦Àí¼ìÑé' where jytype = ')d';
+update b_jy_total set jytype = 'D}',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Í£Â¯Ë®´¦Àí¼ìÑé' where jytype = '.c';
+if gs_jydw = '°°É½¸ÖÌú¼¯ÍÅ¹«Ë¾Éú²ú¼à²âÖÐÐÄ' then
+	update b_jy_total set jytype = 'Is',jyml = 'Ñ¹Á¦ÈÝÆ÷(1)',jylb = 'È«Ãæ¼ìÑé' where jytype = ')c';
+end if
+if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+	update b_jy_total set jytype = ':a2',jyml = '¸ÖÖÊÎÞ·ìÆøÆ¿',jylb = '¼ìÑé±¨¸æ' where jytype = '+6';
+	update b_jy_total set jytype = 'Qc2',jylb = '¼ìÑé±¨¸æ' where jytype = '*6';
+end if		
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','¶¨ÆÚ¼ìÑétotal±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','¶¨ÆÚ¼ìÑétotalÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+update b_aj_total set jytype = '6d' where jytype = 'Id';
+update b_aj_total set jyml = 'ÓÐ»úÈÈÔØÌåÂ¯' where jytype = 'Fd';
+update b_aj_total set jyml = 'ÇÅ(ÃÅ)Ê½ÆðÖØ»ú' where jytype = 'Vo';
+update b_aj_total set jyml = 'ÃÅ×ùÊ½ÆðÖØ»ú' where jytype = 'Wo';
+update b_aj_total set jytype = 'D8',jyml = '¹¤Òµ¹øÂ¯',jylb = 'Ë®´¦Àí¼ìÑé' where jytype = ')d';
+update b_aj_total set jytype = '&d',jyml = '»úÐµÊ½Í£³µÉè±¸',jylb = '°²×°¼à¼ì' where jytype = '&e';
+if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+	update b_aj_total set jytype = '*d',jylb = '°²×°¼à¼ì' where jytype = '<e';
+	update b_aj_total set jytype = '$d',jylb = '°²×°¼à¼ì' where jytype = '^e';
+	update b_aj_total set jytype = '\d',jylb = '°²×°¼à¼ì' where jytype = '#e';
+	update b_aj_total set jytype = '/d',jylb = '°²×°¼à¼ì' where jytype = '/e';
+end if	
+
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','°²×°¼ìÑétotal±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','°²×°¼ìÑétotal±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+update b_jj_total set jyml = 'Ñ¹Á¦ÈÝÆ÷' where jytype = '6u';
+update b_jj_total set jytype = '6p' where jytype = 'Ip';
+update b_jj_total set jytype = '6u' where jytype = 'Iu';
+update b_jj_total set jytype = '6v' where jytype = 'Iv';
+update b_jj_total set jytype = '6w' where jytype = 'Iw';
+update b_jj_total set jytype = '=aw' where jytype = '*w';
+
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','ÖÆÔì¼à¼ìtotal±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','ÖÆÔì¼à¼ìtotal±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+
+if gs_jydw = 'ÁÉÑôÊ¯»¯·Ö¹«Ë¾Éú²ú¼à²â²¿ÈÝÆ÷¼ìÑéËù' then
+	update b_qj_total set jytype = ']6' where jytype = ']8';
+end if
+if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+	update b_qj_total set jytype = 'Z$' where jytype = 'Z@';	
+	update b_qj_total set jytype = ':w' where jytype = '0w';	
+end if		
+
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','ÆäËü¼ìÑétotal±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','ÆäËü¼ìÑétotal±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+
+////////////////////////////////////////////////////////////////////////////////////////
+string jydate,jyyear,jymonth,jyday,ls_jydate
+DECLARE temp_rydj CURSOR FOR
+SELECT jyid,jytype,jyyear,jymonth,jyday
+FROM b_jy_total ORDER BY jyid; 
+OPEN temp_rydj;
+FETCH temp_rydj INTO :jyid,:jytype,:jyyear,:jymonth,:jyday;
+do while sqlca.sqlcode = 0
+	if isnull(jydate) then jydate = ''
+	if isnull(jyyear) then jyyear = ''
+	if isnull(jymonth) then jymonth = ''
+	if isnull(jyday) then jyday = ''
+	jydate = jyyear + jymonth + jyday
+	insert into u_addr_bg (bg_id,bg_jytype,bg_qc_addrid,bg_rq,fl) values (:jyid,:jytype,:ls_addrid,:jydate,'dj');
+FETCH temp_rydj INTO :jyid,:jytype,:jyyear,:jymonth,:jyday;
+LOOP
+CLOSE temp_rydj;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','µØÇøÂë¶¨ÆÚ¼ìÑé±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','µØÇøÂë¶¨ÆÚ¼ìÑé±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+DECLARE temp_ryaj CURSOR FOR
+SELECT jyid,jytype,jyyear,jymonth,jyday
+FROM b_aj_total ORDER BY jyid; 
+OPEN temp_ryaj;
+FETCH temp_ryaj INTO :jyid,:jytype,:jyyear,:jymonth,:jyday;
+do while sqlca.sqlcode = 0
+	if isnull(jydate) then jydate = ''
+	if isnull(jyyear) then jyyear = ''
+	if isnull(jymonth) then jymonth = ''
+	if isnull(jyday) then jyday = ''
+	jydate = jyyear + jymonth + jyday
+	insert into u_addr_bg (bg_id,bg_jytype,bg_qc_addrid,bg_rq,fl) values (:jyid,:jytype,:ls_addrid,:jydate,'aj');
+FETCH temp_ryaj INTO :jyid,:jytype,:jyyear,:jymonth,:jyday;
+LOOP
+CLOSE temp_ryaj;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','µØÇøÂë°²×°¼ìÑé±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','µØÇøÂë°²×°¼ìÑé±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+DECLARE temp_ryjj CURSOR FOR
+SELECT jyid,jytype,jydate
+FROM b_jj_total ORDER BY jyid; 
+OPEN temp_ryjj;
+FETCH temp_ryjj INTO :jyid,:jytype,:ls_jydate;
+do while sqlca.sqlcode = 0
+	if isnull(jydate) then jydate = ''
+	if isnull(ls_jydate) then ls_jydate = ''
+	jydate = mid(ls_jydate,1,4) + mid(ls_jydate,6,2) + mid(ls_jydate,9,2)
+	insert into u_addr_bg (bg_id,bg_jytype,bg_qc_addrid,bg_rq,fl) values (:jyid,:jytype,:ls_addrid,:jydate,'jj');
+FETCH temp_ryjj INTO :jyid,:jytype,:ls_jydate;
+LOOP
+CLOSE temp_ryjj;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','µØÇøÂëÖÆÔì¼à¼ì±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','µØÇøÂëÖÆÔì¼à¼ì±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+DECLARE temp_ryqj CURSOR FOR
+SELECT jyid,jytype,jydate
+FROM b_qj_total ORDER BY jyid; 
+OPEN temp_ryqj;
+FETCH temp_ryqj INTO :jyid,:jytype,:ls_jydate;
+do while sqlca.sqlcode = 0
+	if isnull(jydate) then jydate = ''
+	if isnull(jyyear) then jyyear = ''
+	if isnull(jymonth) then jymonth = ''
+	if isnull(jyday) then jyday = ''
+	jydate = mid(ls_jydate,1,4) + mid(ls_jydate,6,2) + mid(ls_jydate,9,2)
+	insert into u_addr_bg (bg_id,bg_jytype,bg_qc_addrid,bg_rq,fl) values (:jyid,:jytype,:ls_addrid,:jydate,'qj');
+FETCH temp_ryqj INTO :jyid,:jytype,:ls_jydate;
+LOOP
+CLOSE temp_ryqj;
+IF sqlca.sqlcode <>0 THEN
+	MessageBox ('','µØÇøÂëÆäËü¼ìÑé±í¸üÐÂÊ§°Ü')
+	return
+else
+	messagebox('ÏµÍ³ÌáÊ¾','µØÇøÂëÆäËü¼ìÑé±íÉý¼¶Íê±Ï£¡¸üÐÂ³ÌÐòÈÔÔÚ½øÐÐ£¬ÇëÄÍÐÄµÈ´ý£¡')
+END IF
+////////////////////////////////////////////////////////////////////////////////////////////////
+string l_jytype
+DECLARE a_bgml CURSOR FOR
+SELECT id,jytype,lbid
+FROM a_bgml;   
+OPEN a_bgml;
+FETCH a_bgml INTO :id_bgml,:jytype_bgml,:lbid;
+do while sqlca.sqlcode = 0
+	select count(*) into :ll_num from a_jykey where jytype like :jytype_bgml;
+	if ll_num = 0 then
+		update a_bgml set mark = :lbid,lbid = '' where id like :id_bgml and jytype like :jytype_bgml;
+	else
+		if add1mark = '1' then
+			if isnull(l_jytype) then l_jytype = ''
+			l_jytype = l_jytype + ','
+		end if
+	end if
+FETCH a_bgml INTO :id_bgml,:jytype_bgml,:lbid;
+LOOP
+CLOSE a_bgml;
+update a_jydw set rw = :l_jytype;
+
+end subroutine
+

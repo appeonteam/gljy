@@ -1,0 +1,13 @@
+﻿$PBExportHeader$dw_zdsh_zdmc.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=85 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=id dbname="a_zdsh_zdmc.id" )
+ column=(type=char(4) update=yes updatewhereclause=yes name=jytype dbname="a_zdsh_zdmc.jytype" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=zddm dbname="a_zdsh_zdmc.zddm" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=zdmc dbname="a_zdsh_zdmc.zdmc" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"a_zdsh_zdmc~" ) COLUMN(NAME=~"a_zdsh_zdmc.id~") COLUMN(NAME=~"a_zdsh_zdmc.jytype~") COLUMN(NAME=~"a_zdsh_zdmc.zddm~") COLUMN(NAME=~"a_zdsh_zdmc.zdmc~")WHERE(    EXP1 =~"~~~"a_zdsh_zdmc~~~".~~~"jytype~~~"~"   OP =~"=~"    EXP2 =~":ls_NowJytype~" ) ) ARG(NAME = ~"ls_NowJytype~" TYPE = string) " update="a_zdsh_zdmc" updatewhere=1 updatekeyinplace=no arguments=(("ls_NowJytype", string)) )
+column(band=detail id=4 alignment="0" tabsequence=10 border="0" color="0" x="10" y="4" height="77" width="746" format="[general]"  name=zdmc edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="ËÎÌå" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )

@@ -1,0 +1,259 @@
+﻿$PBExportHeader$fun_save_ylgdtable.srf
+$PBExportComments$Ð¤Óê
+global type fun_save_ylgdtable from function_object
+end type
+
+forward prototypes
+global subroutine fun_save_ylgdtable (string cs1)
+end prototypes
+
+global subroutine fun_save_ylgdtable (string cs1);if cs1 <> 'OK' then return
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//select count(*) into :ls_count from djylrq.a_rycode;
+//if ls_count > 0 and sqlca.sqlcode = 0 then mark = 'sqlserver'
+// END
+
+ls_count = 0
+// ´´½¨ Ñ¹Á¦¹ÜµÀ½áÂÛ±¨¸æ
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_ylgd_jlbg;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_ylgd_jlbg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_ylgd_jlbg(jyid varchar(20) NOT NULL ,bgbh varchar(20) NULL,"+&
+            "gcmc varchar(30) NULL,gcdz varchar(20) NULL,gcgm varchar(20) NULL,ylgdjb varchar(20) NULL,"+&
+            "sjyl varchar(20) NULL,ssjz varchar(20) NULL,kgsj varchar(20) NULL,jgsj varchar(20) NULL,"+&
+            "jsdw varchar(30) NULL,ggxkh varchar(20) NULL,sjdw varchar(30) NULL,sjzbh varchar(20) NULL,"+&
+            "azdw varchar(30) NULL,axzbh varchar(20) NULL,ffdw varchar(30) NULL,fzzbh varchar(20) NULL,"+&
+            "jldw varchar(30) NULL,jzzbh varchar(20) NULL,jcdw varchar(30) NULL,zgzbh varchar(20) NULL,"+&
+            "sjjwh varchar(20) NULL,jjqzrq varchar(20) NULL,yj varchar(20) NULL,jl varchar(20) NULL,"+&
+            "jjrq varchar(20) NULL,jjrzh varchar(20) NULL,jjrrq varchar(20) NULL,fzrq varchar(20) NULL,"+&
+            "fzrrq varchar(20) NULL,shq varchar(20) NULL,shrq varchar(20) NULL,pzq varchar(20) NULL,"+&
+            "pzrq varchar(20) NULL,jjdwn varchar(10) NULL,jjdwy varchar(10) NULL,jjdwr varchar(10) NULL,"+&
+            "jjsj varchar(20) NULL,jjdw varchar(30) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_ylgd_jlbg_x "&
+		        +"ON djylrq.b_jj_ylgd_jlbg"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_ylgd_jlbg;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_ylgd_jlbg"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_ylgd_jlbg(jyid varchar(20) NOT NULL ,bgbh varchar(20) NULL,"+&
+            "gcmc varchar(30) NULL,gcdz varchar(20) NULL,gcgm varchar(20) NULL,ylgdjb varchar(20) NULL,"+&
+            "sjyl varchar(20) NULL,ssjz varchar(20) NULL,kgsj varchar(20) NULL,jgsj varchar(20) NULL,"+&
+            "jsdw varchar(30) NULL,ggxkh varchar(20) NULL,sjdw varchar(30) NULL,sjzbh varchar(20) NULL,"+&
+            "azdw varchar(30) NULL,axzbh varchar(20) NULL,ffdw varchar(30) NULL,fzzbh varchar(20) NULL,"+&
+            "jldw varchar(30) NULL,jzzbh varchar(20) NULL,jcdw varchar(30) NULL,zgzbh varchar(20) NULL,"+&
+            "sjjwh varchar(20) NULL,jjqzrq varchar(20) NULL,yj varchar(20) NULL,jl varchar(20) NULL,"+&
+            "jjrq varchar(20) NULL,jjrzh varchar(20) NULL,jjrrq varchar(20) NULL,fzrq varchar(20) NULL,"+&
+            "fzrrq varchar(20) NULL,shq varchar(20) NULL,shrq varchar(20) NULL,pzq varchar(20) NULL,"+&
+            "pzrq varchar(20) NULL,jjdwn varchar(10) NULL,jjdwy varchar(10) NULL,jjdwr varchar(10) NULL,"+&
+            "jjsj varchar(20) NULL,jjdw varchar(30) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ñ¹Á¦¹ÜµÀÉê±¨Êé
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_ylgd_sbs;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_ylgd_sbs"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_ylgd_sbs(jyid varchar(20) NOT NULL ,gcxmmc varchar(30) NULL,"+&
+            "gcdz varchar(30) NULL,jsxz varchar(20) NULL,gdzjfw varchar(20) NULL,gdcd varchar(20) NULL,"+&
+            "yszj varchar(20) NULL,tzly varchar(20) NULL,gcpzwh varchar(20) NULL,sgxkzh varchar(20) NULL,"+&
+            "jhkgrq varchar(20) NULL,jhjgrq varchar(20) NULL,jsdwmc varchar(30) NULL,jsdwdh varchar(20) NULL,"+&
+            "jsdwfzr varchar(20) NULL,jsdwxc varchar(20) NULL,sjdwmc varchar(30) NULL,sjdwdh varchar(20) NULL,"+&
+            "sjdwszbh varchar(20) NULL,sjdwpzfw varchar(20) NULL,sjdwfzr varchar(20) NULL,sjdwxc varchar(20) NULL,"+&
+            "azdwmc varchar(30) NULL,azdwdh varchar(20) NULL,azdwxkzh varchar(20) NULL,azdwxkdj varchar(20) NULL,"+&
+            "azdwfzr varchar(20) NULL,azdwxc varchar(20) NULL,jldwmc varchar(30) NULL,jldwdh varchar(20) NULL,"+&
+            "jldwzzbh varchar(20) NULL,jldwzzdj varchar(20) NULL,jldwfzr varchar(20) NULL,jldwxc varchar(20) NULL,"+&
+            "jcdwmc varchar(30) NULL,jcdwdh varchar(20) NULL,jcdwzgbh varchar(20) NULL,jcdwzgfw varchar(20) NULL,"+&
+            "jcdwfzr varchar(20) NULL,jcdwxc varchar(20) NULL,kxxy varchar(20) NULL,xmkgbg varchar(20) NULL,"+&
+            "kcsjht varchar(20) NULL,jlht varchar(20) NULL,azht varchar(20) NULL,jcht varchar(20) NULL,"+&
+            "jsdwjbr varchar(20) NULL,acjg varchar(30) NULL,acjgjbr varchar(30) NULL,jsdwn varchar(10) NULL,"+&
+            "jsdwy varchar(10) NULL,jsdwr varchar(10) NULL,acjgn varchar(10) NULL,acjgy varchar(10) NULL,"+&
+            "acjgr varchar(10) NULL,sqrq varchar(10) NULL,ylgdjb varchar(20) NULL,xmbh varchar(20) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_ylgd_sbs_x "&
+		        +"ON djylrq.b_jj_ylgd_sbs"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_ylgd_sbs;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_ylgd_sbs"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_ylgd_sbs(jyid varchar(20) NOT NULL ,gcxmmc varchar(30) NULL,"+&
+            "gcdz varchar(30) NULL,jsxz varchar(20) NULL,gdzjfw varchar(20) NULL,gdcd varchar(20) NULL,"+&
+            "yszj varchar(20) NULL,tzly varchar(20) NULL,gcpzwh varchar(20) NULL,sgxkzh varchar(20) NULL,"+&
+            "jhkgrq varchar(20) NULL,jhjgrq varchar(20) NULL,jsdwmc varchar(30) NULL,jsdwdh varchar(20) NULL,"+&
+            "jsdwfzr varchar(20) NULL,jsdwxc varchar(20) NULL,sjdwmc varchar(30) NULL,sjdwdh varchar(20) NULL,"+&
+            "sjdwszbh varchar(20) NULL,sjdwpzfw varchar(20) NULL,sjdwfzr varchar(20) NULL,sjdwxc varchar(20) NULL,"+&
+            "azdwmc varchar(30) NULL,azdwdh varchar(20) NULL,azdwxkzh varchar(20) NULL,azdwxkdj varchar(20) NULL,"+&
+            "azdwfzr varchar(20) NULL,azdwxc varchar(20) NULL,jldwmc varchar(30) NULL,jldwdh varchar(20) NULL,"+&
+            "jldwzzbh varchar(20) NULL,jldwzzdj varchar(20) NULL,jldwfzr varchar(20) NULL,jldwxc varchar(20) NULL,"+&
+            "jcdwmc varchar(30) NULL,jcdwdh varchar(20) NULL,jcdwzgbh varchar(20) NULL,jcdwzgfw varchar(20) NULL,"+&
+            "jcdwfzr varchar(20) NULL,jcdwxc varchar(20) NULL,kxxy varchar(20) NULL,xmkgbg varchar(20) NULL,"+&
+            "kcsjht varchar(20) NULL,jlht varchar(20) NULL,azht varchar(20) NULL,jcht varchar(20) NULL,"+&
+            "jsdwjbr varchar(20) NULL,acjg varchar(30) NULL,acjgjbr varchar(30) NULL,jsdwn varchar(10) NULL,"+&
+            "jsdwy varchar(10) NULL,jsdwr varchar(10) NULL,acjgn varchar(10) NULL,acjgy varchar(10) NULL,"+&
+            "acjgr varchar(10) NULL,sqrq varchar(10) NULL,ylgdjb varchar(20) NULL,xmbh varchar(20) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ñ¹Á¦¹ÜµÀÏîÄ¿Ä¿Â¼
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_ylgd_xmml;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_ylgd_xmml"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_ylgd_xmml(jyid varchar(20) NOT NULL ,bgbh varchar(20) NULL,"+&
+            "ys1 varchar(10) NULL,ys2 varchar(10) NULL,ys3 varchar(10) NULL,ys4 varchar(10) NULL,"+&
+            "ys5 varchar(10) NULL,ys6 varchar(10) NULL,ys7 varchar(10) NULL,ys8 varchar(10) NULL,"+&
+            "ys9 varchar(10) NULL,ys10 varchar(10) NULL,ys11 varchar(10) NULL,ys12 varchar(10) NULL,"+&
+            "ys13 varchar(10) NULL,ys14 varchar(10) NULL,ys15 varchar(10) NULL,ys16 varchar(10) NULL,"+&
+            "ys17 varchar(10) NULL,ys18 varchar(10) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_ylgd_xmml_x "&
+		        +"ON djylrq.b_jj_ylgd_xmml"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_ylgd_xmml;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_ylgd_xmml"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_ylgd_xmml(jyid varchar(20) NOT NULL ,bgbh varchar(20) NULL,"+&
+            "ys1 varchar(10) NULL,ys2 varchar(10) NULL,ys3 varchar(10) NULL,ys4 varchar(10) NULL,"+&
+            "ys5 varchar(10) NULL,ys6 varchar(10) NULL,ys7 varchar(10) NULL,ys8 varchar(10) NULL,"+&
+            "ys9 varchar(10) NULL,ys10 varchar(10) NULL,ys11 varchar(10) NULL,ys12 varchar(10) NULL,"+&
+            "ys13 varchar(10) NULL,ys14 varchar(10) NULL,ys15 varchar(10) NULL,ys16 varchar(10) NULL,"+&
+            "ys17 varchar(10) NULL,ys18 varchar(10) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ñ¹Á¦¹ÜµÀÒâ¼ûÍ¨ÖªÊé
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_ylgd_yjtz;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_ylgd_yjtz"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_ylgd_yjtz(jyid varchar(20) NOT NULL ,bh varchar(20) NULL,"+&
+            "jsdw varchar(30) NULL,sjn varchar(10) NULL,sjy varchar(10) NULL,sjr varchar(10) NULL,"+&
+            "jjxm varchar(60) NULL,jjsj varchar(20) NULL,xmjjfzr varchar(20) NULL,wthyj varchar(50) NULL,"+&
+            "jjdwqfr varchar(20) NULL,sjjdwjsr varchar(20) NULL,jjn varchar(10) NULL,jjy varchar(10) NULL,"+&
+            "jjr varchar(10) NULL,sjjn varchar(10) NULL,sjjy varchar(10) NULL,sjjr varchar(10) NULL,"+&
+            "cljg varchar(50) NULL,sjjfzr varchar(20) NULL,cljgn varchar(10) NULL,cljgy varchar(10) NULL,"+&
+            "cljgr varchar(10) NULL,zgjg varchar(50) NULL,qrjjr varchar(20) NULL,zgjgn varchar(10) NULL,"+&
+            "zgjgy varchar(10) NULL,zgjgr varchar(10) NULL,wthyj2 varchar(50) NULL,cljg2 varchar(50) NULL,"+&
+            "zgjg2 varchar(50) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_ylgd_yjtz_x "&
+		        +"ON djylrq.b_jj_ylgd_yjtz"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_ylgd_yjtz;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_ylgd_yjtz"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_ylgd_yjtz(jyid varchar(20) NOT NULL ,bh varchar(20) NULL,"+&
+            "jsdw varchar(30) NULL,sjn varchar(10) NULL,sjy varchar(10) NULL,sjr varchar(10) NULL,"+&
+            "jjxm varchar(60) NULL,jjsj varchar(20) NULL,xmjjfzr varchar(20) NULL,wthyj varchar(50) NULL,"+&
+            "jjdwqfr varchar(20) NULL,sjjdwjsr varchar(20) NULL,jjn varchar(10) NULL,jjy varchar(10) NULL,"+&
+            "jjr varchar(10) NULL,sjjn varchar(10) NULL,sjjy varchar(10) NULL,sjjr varchar(10) NULL,"+&
+            "cljg varchar(50) NULL,sjjfzr varchar(20) NULL,cljgn varchar(10) NULL,cljgy varchar(10) NULL,"+&
+            "cljgr varchar(10) NULL,zgjg varchar(50) NULL,qrjjr varchar(20) NULL,zgjgn varchar(10) NULL,"+&
+            "zgjgy varchar(10) NULL,zgjgr varchar(10) NULL,wthyj2 varchar(50) NULL,cljg2 varchar(50) NULL,"+&
+            "zgjg2 varchar(50) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ Ñ¹Á¦¹ÜµÀ×¢ÒâÊÂÏî
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_jj_ylgd_zysx;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_jj_ylgd_zysx"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.b_jj_ylgd_zysx(jyid varchar(20) NOT NULL ,xkzbh varchar(20) NULL,"+&
+            "jyzgj varchar(20) NULL,zfs varchar(10) NULL,azfs varchar(10) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX b_jj_ylgd_zysx_x "&
+		        +"ON djylrq.b_jj_ylgd_zysx"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from b_jj_ylgd_zysx;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_jj_ylgd_zysx"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE b_jj_ylgd_zysx(jyid varchar(20) NOT NULL ,xkzbh varchar(20) NULL,"+&
+            "jyzgj varchar(20) NULL,zfs varchar(10) NULL,azfs varchar(10) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+	end if	
+END IF
+ls_count = 0
+if mark = 'sqlserver' then
+	Select count(*) into :ls_Count from b_jj_ylgd_jjzs;
+	if sqlca.sqlcode = -1 then
+		delsql = "Drop table djylrq.b_jj_ylgd_jjzs"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE djylrq.b_jj_ylgd_jjzs (jyid char(20) NOT NULL,jjzsbh char(20) NULL,gcmc char(50) NULL,"+&
+              "jsdw char(50) NULL,azdw char(50) NULL,kgrq char(20) NULL,jgrq char(20) NULL,jyname char(10) NULL,"+&
+              "jyy char(4) NULL,jym char(2) NULL,jyd char(2) NULL,shname char(10) NULL,shy char(4) NULL,"+&
+              "shm char(2) NULL,shd char(2) NULL,pzname char(10) NULL,pzy char(4) NULL,pzm char(2) NULL,"+&
+              "pzd char(2) NULL,jydw char(50) NULL,dwy char(4) NULL,dwm char(2) NULL,dwd char(2) NULL,"+&
+              "a1 char(60) NULL,a2 char(60) NULL,a3 char(60) NULL,a4 char(60) NULL,a5 char(60) NULL,PRIMARY KEY (jyid));"
+		execute immediate :mysql using sqlca;
+	end if
+else
+	select count(*) into :ls_Count from b_jj_ylgd_jjzs;
+	if sqlca.sqlcode = -1 then
+		delsql = "Drop table b_jj_ylgd_jjzs"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE b_jj_ylgd_jjzs (jyid char(20) NOT NULL,jjzsbh char(20) NULL,gcmc char(50) NULL,"+&
+              "jsdw char(50) NULL,azdw char(50) NULL,kgrq char(20) NULL,jgrq char(20) NULL,jyname char(10) NULL,"+&
+              "jyy char(4) NULL,jym char(2) NULL,jyd char(2) NULL,shname char(10) NULL,shy char(4) NULL,"+&
+              "shm char(2) NULL,shd char(2) NULL,pzname char(10) NULL,pzy char(4) NULL,pzm char(2) NULL,"+&
+              "pzd char(2) NULL,jydw char(50) NULL,dwy char(4) NULL,dwm char(2) NULL,dwd char(2) NULL,"+&
+              "a1 char(60) NULL,a2 char(60) NULL,a3 char(60) NULL,a4 char(60) NULL,a5 char(60) NULL,PRIMARY KEY (jyid));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode <> -1 then
+		mysql = "insert into djylrq.a_sz_nr (jytype,xh,nr,dw) values ('8w','01','¼à¼ìÖ¤Êé','dat_ylgd_jjzs');"
+		execute immediate :mysql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode <> -1 then
+		mysql = "insert into a_sz_nr (jytype,xh,nr,dw) values ('8w','01','¼à¼ìÖ¤Êé','dat_ylgd_jjzs');"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+end subroutine
+

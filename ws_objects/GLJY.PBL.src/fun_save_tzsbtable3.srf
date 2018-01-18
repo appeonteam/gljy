@@ -1,0 +1,289 @@
+﻿$PBExportHeader$fun_save_tzsbtable3.srf
+$PBExportComments$³Âê»
+global type fun_save_tzsbtable3 from function_object
+end type
+
+forward prototypes
+global subroutine fun_save_tzsbtable3 (string cs1)
+end prototypes
+
+global subroutine fun_save_tzsbtable3 (string cs1);if cs1 <> 'OK' then return
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//select count(*) into :ls_count from djylrq.a_rycode;
+//if ls_count > 0 and sqlca.sqlcode = 0 then mark = 'sqlserver'
+// END
+
+ls_count = 0
+// ´´½¨ 
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from t_tzsb_zdfthrxd_dj2;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.t_tzsb_zdfthrxd_dj2"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.t_tzsb_zdfthrxd_dj2(jyid varchar(20) NOT NULL ,bgsbh varchar(20) NULL,"+&
+            "jyjg1 varchar(20) NULL,jyjg2 varchar(20) NULL,jyjg3 varchar(20) NULL,jyjg4 varchar(20) NULL,"+&
+            "jyjg5 varchar(20) NULL,jyjg6 varchar(20) NULL,jyjg7 varchar(20) NULL,jyjg8 varchar(20) NULL,"+&
+            "jyjg9 varchar(20) NULL,jyjg10 varchar(20) NULL,jyjg11 varchar(20) NULL,jyjg12 varchar(20) NULL,"+&
+            "jyjg13 varchar(20) NULL,jyjg14 varchar(20) NULL,jyjg15 varchar(20) NULL,jyjg16 varchar(20) NULL,"+&
+            "jyjg17 varchar(20) NULL,jyjg18 varchar(20) NULL,jyjg19 varchar(20) NULL,jyjg20 varchar(20) NULL,"+&
+            "jyjg21 varchar(20) NULL,jyjg22 varchar(20) NULL,jyjg23 varchar(20) NULL,jyjg24 varchar(20) NULL,"+&
+            "jyjg25 varchar(20) NULL,jyjg26 varchar(20) NULL,jyjg27 varchar(20) NULL,jyjg28 varchar(20) NULL,"+&
+            "jyjg29 varchar(20) NULL,jyjg30 varchar(20) NULL,jyjg31 varchar(20) NULL,jyjg32 varchar(20) NULL,"+&
+            "jyjg33 varchar(20) NULL,jyjg34 varchar(20) NULL,jyjg35 varchar(20) NULL,jyjg36 varchar(20) NULL,"+&
+            "jyjg37 varchar(20) NULL,jyjg38 varchar(20) NULL,jyjg39 varchar(20) NULL,jyjg40 varchar(20) NULL,"+&
+            "jyjg41 varchar(20) NULL,jyjg42 varchar(20) NULL,jyjg43 varchar(20) NULL,jyjg44 varchar(20) NULL,"+&
+            "jyjg45 varchar(20) NULL,jyjg46 varchar(20) NULL,jyjg47 varchar(20) NULL,jyjg48 varchar(20) NULL,"+&
+            "jyjg49 varchar(20) NULL,jyjg50 varchar(20) NULL,jyjg51 varchar(20) NULL,jyjg52 varchar(20) NULL,"+&
+            "jl1 varchar(20) NULL,jl2 varchar(20) NULL,jl3 varchar(20) NULL,jl4 varchar(20) NULL,"+&
+            "jl5 varchar(20) NULL,jl6 varchar(20) NULL,jl7 varchar(20) NULL,jl8 varchar(20) NULL,"+&
+            "jl9 varchar(20) NULL,jl10 varchar(20) NULL,jl11 varchar(20) NULL,jl12 varchar(20) NULL,"+&
+            "jl13 varchar(20) NULL,jl14 varchar(20) NULL,jl15 varchar(20) NULL,jl16 varchar(20) NULL,"+&
+            "jl17 varchar(20) NULL,jl18 varchar(20) NULL,jl19 varchar(20) NULL,jl20 varchar(20) NULL,"+&
+            "jl21 varchar(20) NULL,jl22 varchar(20) NULL,jl23 varchar(20) NULL,jl24 varchar(20) NULL,"+&
+            "jl25 varchar(20) NULL,jl26 varchar(20) NULL,jl27 varchar(20) NULL,jl28 varchar(20) NULL,"+&
+            "jl29 varchar(20) NULL,jl30 varchar(20) NULL,jl31 varchar(20) NULL,jl32 varchar(20) NULL,"+&
+            "jl33 varchar(20) NULL,jl34 varchar(20) NULL,jl35 varchar(20) NULL,jl36 varchar(20) NULL,"+&
+            "jl37 varchar(20) NULL,jl38 varchar(20) NULL,jl39 varchar(20) NULL,jl40 varchar(20) NULL,"+&
+            "jl41 varchar(20) NULL,jl42 varchar(20) NULL,jl43 varchar(20) NULL,jl44 varchar(20) NULL,"+&
+            "jl45 varchar(20) NULL,jl46 varchar(20) NULL,jl47 varchar(20) NULL,jl48 varchar(20) NULL,"+&
+            "jl49 varchar(20) NULL,jl50 varchar(20) NULL,jl51 varchar(20) NULL,jl52 varchar(20) NULL,"+&
+            "xh53 varchar(20) NULL,xh54 varchar(20) NULL,xh55 varchar(20) NULL,xh56 varchar(20) NULL,"+&
+            "xh57 varchar(20) NULL,xh58 varchar(20) NULL,xh59 varchar(20) NULL,xh60 varchar(20) NULL,"+&
+            "xmbh53 varchar(20) NULL,xmbh54 varchar(20) NULL,xmbh55 varchar(20) NULL,xmbh56 varchar(20) NULL,"+&
+            "xmbh57 varchar(20) NULL,xmbh58 varchar(20) NULL,xmbh59 varchar(20) NULL,xmbh60 varchar(20) NULL,"+&
+            "jyxm53 varchar(20) NULL,jyxm54 varchar(20) NULL,jyxm55 varchar(20) NULL,jyxm56 varchar(20) NULL,"+&
+            "jyxm57 varchar(20) NULL,jyxm58 varchar(20) NULL,jyxm59 varchar(20) NULL,jyxm60 varchar(20) NULL,"+&
+            "jyjg53 varchar(20) NULL,jyjg54 varchar(20) NULL,jyjg55 varchar(20) NULL,jyjg56 varchar(20) NULL,"+&
+            "jyjg57 varchar(20) NULL,jyjg58 varchar(20) NULL,jyjg59 varchar(20) NULL,jyjg60 varchar(20) NULL,"+&
+            "jl53 varchar(20) NULL,jl54 varchar(20) NULL,jl55 varchar(20) NULL,jl56 varchar(20) NULL,"+&
+            "jl57 varchar(20) NULL,jl58 varchar(20) NULL,jl59 varchar(20) NULL,jl60 varchar(20) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX t_tzsb_zdfthrxd_dj2_x "&
+		        +"ON djylrq.t_tzsb_zdfthrxd_dj2"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from t_tzsb_zdfthrxd_dj2;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table t_tzsb_zdfthrxd_dj2"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE t_tzsb_zdfthrxd_dj2(jyid varchar(20) NOT NULL ,bgsbh varchar(20) NULL,"+&
+            "jyjg1 varchar(20) NULL,jyjg2 varchar(20) NULL,jyjg3 varchar(20) NULL,jyjg4 varchar(20) NULL,"+&
+            "jyjg5 varchar(20) NULL,jyjg6 varchar(20) NULL,jyjg7 varchar(20) NULL,jyjg8 varchar(20) NULL,"+&
+            "jyjg9 varchar(20) NULL,jyjg10 varchar(20) NULL,jyjg11 varchar(20) NULL,jyjg12 varchar(20) NULL,"+&
+            "jyjg13 varchar(20) NULL,jyjg14 varchar(20) NULL,jyjg15 varchar(20) NULL,jyjg16 varchar(20) NULL,"+&
+            "jyjg17 varchar(20) NULL,jyjg18 varchar(20) NULL,jyjg19 varchar(20) NULL,jyjg20 varchar(20) NULL,"+&
+            "jyjg21 varchar(20) NULL,jyjg22 varchar(20) NULL,jyjg23 varchar(20) NULL,jyjg24 varchar(20) NULL,"+&
+            "jyjg25 varchar(20) NULL,jyjg26 varchar(20) NULL,jyjg27 varchar(20) NULL,jyjg28 varchar(20) NULL,"+&
+            "jyjg29 varchar(20) NULL,jyjg30 varchar(20) NULL,jyjg31 varchar(20) NULL,jyjg32 varchar(20) NULL,"+&
+            "jyjg33 varchar(20) NULL,jyjg34 varchar(20) NULL,jyjg35 varchar(20) NULL,jyjg36 varchar(20) NULL,"+&
+            "jyjg37 varchar(20) NULL,jyjg38 varchar(20) NULL,jyjg39 varchar(20) NULL,jyjg40 varchar(20) NULL,"+&
+            "jyjg41 varchar(20) NULL,jyjg42 varchar(20) NULL,jyjg43 varchar(20) NULL,jyjg44 varchar(20) NULL,"+&
+            "jyjg45 varchar(20) NULL,jyjg46 varchar(20) NULL,jyjg47 varchar(20) NULL,jyjg48 varchar(20) NULL,"+&
+            "jyjg49 varchar(20) NULL,jyjg50 varchar(20) NULL,jyjg51 varchar(20) NULL,jyjg52 varchar(20) NULL,"+&
+            "jl1 varchar(20) NULL,jl2 varchar(20) NULL,jl3 varchar(20) NULL,jl4 varchar(20) NULL,"+&
+            "jl5 varchar(20) NULL,jl6 varchar(20) NULL,jl7 varchar(20) NULL,jl8 varchar(20) NULL,"+&
+            "jl9 varchar(20) NULL,jl10 varchar(20) NULL,jl11 varchar(20) NULL,jl12 varchar(20) NULL,"+&
+            "jl13 varchar(20) NULL,jl14 varchar(20) NULL,jl15 varchar(20) NULL,jl16 varchar(20) NULL,"+&
+            "jl17 varchar(20) NULL,jl18 varchar(20) NULL,jl19 varchar(20) NULL,jl20 varchar(20) NULL,"+&
+            "jl21 varchar(20) NULL,jl22 varchar(20) NULL,jl23 varchar(20) NULL,jl24 varchar(20) NULL,"+&
+            "jl25 varchar(20) NULL,jl26 varchar(20) NULL,jl27 varchar(20) NULL,jl28 varchar(20) NULL,"+&
+            "jl29 varchar(20) NULL,jl30 varchar(20) NULL,jl31 varchar(20) NULL,jl32 varchar(20) NULL,"+&
+            "jl33 varchar(20) NULL,jl34 varchar(20) NULL,jl35 varchar(20) NULL,jl36 varchar(20) NULL,"+&
+            "jl37 varchar(20) NULL,jl38 varchar(20) NULL,jl39 varchar(20) NULL,jl40 varchar(20) NULL,"+&
+            "jl41 varchar(20) NULL,jl42 varchar(20) NULL,jl43 varchar(20) NULL,jl44 varchar(20) NULL,"+&
+            "jl45 varchar(20) NULL,jl46 varchar(20) NULL,jl47 varchar(20) NULL,jl48 varchar(20) NULL,"+&
+            "jl49 varchar(20) NULL,jl50 varchar(20) NULL,jl51 varchar(20) NULL,jl52 varchar(20) NULL,"+&
+            "xh53 varchar(20) NULL,xh54 varchar(20) NULL,xh55 varchar(20) NULL,xh56 varchar(20) NULL,"+&
+            "xh57 varchar(20) NULL,xh58 varchar(20) NULL,xh59 varchar(20) NULL,xh60 varchar(20) NULL,"+&
+            "xmbh53 varchar(20) NULL,xmbh54 varchar(20) NULL,xmbh55 varchar(20) NULL,xmbh56 varchar(20) NULL,"+&
+            "xmbh57 varchar(20) NULL,xmbh58 varchar(20) NULL,xmbh59 varchar(20) NULL,xmbh60 varchar(20) NULL,"+&
+            "jyxm53 varchar(20) NULL,jyxm54 varchar(20) NULL,jyxm55 varchar(20) NULL,jyxm56 varchar(20) NULL,"+&
+            "jyxm57 varchar(20) NULL,jyxm58 varchar(20) NULL,jyxm59 varchar(20) NULL,jyxm60 varchar(20) NULL,"+&
+            "jyjg53 varchar(20) NULL,jyjg54 varchar(20) NULL,jyjg55 varchar(20) NULL,jyjg56 varchar(20) NULL,"+&
+            "jyjg57 varchar(20) NULL,jyjg58 varchar(20) NULL,jyjg59 varchar(20) NULL,jyjg60 varchar(20) NULL,"+&
+            "jl53 varchar(20) NULL,jl54 varchar(20) NULL,jl55 varchar(20) NULL,jl56 varchar(20) NULL,"+&
+            "jl57 varchar(20) NULL,jl58 varchar(20) NULL,jl59 varchar(20) NULL,jl60 varchar(20) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ 
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from t_tzsb_zdfthrxd_ys1;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.t_tzsb_zdfthrxd_ys1"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.t_tzsb_zdfthrxd_ys1(jyid varchar(20) NOT NULL ,bgsbh varchar(20) NULL,"+&
+            "sbdm varchar(20) NULL,sbsydw varchar(60) NULL,jyjg varchar(60) NULL,jyrq varchar(20) NULL,"+&
+            "azdw varchar(60) NULL,sydd varchar(60) NULL,sbbh varchar(20) NULL,zzdw varchar(60) NULL,"+&
+            "ccbh varchar(20) NULL,tz varchar(20) NULL,sbxh varchar(20) NULL,djgl varchar(20) NULL,"+&
+            "edsd varchar(20) NULL,ssnl varchar(20) NULL,qxj varchar(20) NULL,tjkd varchar(20) NULL,"+&
+            "tsgd varchar(20) NULL,syqdcd varchar(20) NULL,zyyqsb varchar(60) NULL,jyjl varchar(60) NULL,"+&
+            "qfyear varchar(20) NULL,qfmonth varchar(20) NULL,qfday varchar(20) NULL,bz varchar(20) NULL,"+&
+            "pz varchar(20) NULL,sh varchar(20) NULL,jy varchar(20) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX t_tzsb_zdfthrxd_ys1_x "&
+		        +"ON djylrq.t_tzsb_zdfthrxd_ys1"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from t_tzsb_zdfthrxd_ys1;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table t_tzsb_zdfthrxd_ys1"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE t_tzsb_zdfthrxd_ys1(jyid varchar(20) NOT NULL ,bgsbh varchar(20) NULL,"+&
+            "sbdm varchar(20) NULL,sbsydw varchar(60) NULL,jyjg varchar(60) NULL,jyrq varchar(20) NULL,"+&
+            "azdw varchar(60) NULL,sydd varchar(60) NULL,sbbh varchar(20) NULL,zzdw varchar(60) NULL,"+&
+            "ccbh varchar(20) NULL,tz varchar(20) NULL,sbxh varchar(20) NULL,djgl varchar(20) NULL,"+&
+            "edsd varchar(20) NULL,ssnl varchar(20) NULL,qxj varchar(20) NULL,tjkd varchar(20) NULL,"+&
+            "tsgd varchar(20) NULL,syqdcd varchar(20) NULL,zyyqsb varchar(60) NULL,jyjl varchar(60) NULL,"+&
+            "qfyear varchar(20) NULL,qfmonth varchar(20) NULL,qfday varchar(20) NULL,bz varchar(20) NULL,"+&
+            "pz varchar(20) NULL,sh varchar(20) NULL,jy varchar(20) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+ls_count = 0
+// ´´½¨ 
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from t_tzsb_zdfthrxd_ys2;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.t_tzsb_zdfthrxd_ys2"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE djylrq.t_tzsb_zdfthrxd_ys2(jyid varchar(20) NOT NULL ,bgsbh varchar(20) NULL,"+&
+            "jyjg1 varchar(20) NULL,jyjg2 varchar(20) NULL,jyjg3 varchar(20) NULL,jyjg4 varchar(20) NULL,"+&
+            "jyjg5 varchar(20) NULL,jyjg6 varchar(20) NULL,jyjg7 varchar(20) NULL,jyjg8 varchar(20) NULL,"+&
+            "jyjg9 varchar(20) NULL,jyjg10 varchar(20) NULL,jyjg11 varchar(20) NULL,jyjg12 varchar(20) NULL,"+&
+            "jyjg13 varchar(20) NULL,jyjg14 varchar(20) NULL,jyjg15 varchar(20) NULL,jyjg16 varchar(20) NULL,"+&
+            "jyjg17 varchar(20) NULL,jyjg18 varchar(20) NULL,jyjg19 varchar(20) NULL,jyjg20 varchar(20) NULL,"+&
+            "jyjg21 varchar(20) NULL,jyjg22 varchar(20) NULL,jyjg23 varchar(20) NULL,jyjg24 varchar(20) NULL,"+&
+            "jyjg25 varchar(20) NULL,jyjg26 varchar(20) NULL,jyjg27 varchar(20) NULL,jyjg28 varchar(20) NULL,"+&
+            "jyjg29 varchar(20) NULL,jyjg30 varchar(20) NULL,jyjg31 varchar(20) NULL,jyjg32 varchar(20) NULL,"+&
+            "jyjg33 varchar(20) NULL,jyjg34 varchar(20) NULL,jyjg35 varchar(20) NULL,jyjg36 varchar(20) NULL,"+&
+            "jyjg37 varchar(20) NULL,jyjg38 varchar(20) NULL,jyjg39 varchar(20) NULL,jyjg40 varchar(20) NULL,"+&
+            "jyjg41 varchar(20) NULL,jyjg42 varchar(20) NULL,jyjg43 varchar(20) NULL,jyjg44 varchar(20) NULL,"+&
+            "jyjg45 varchar(20) NULL,jyjg46 varchar(20) NULL,jyjg47 varchar(20) NULL,jyjg48 varchar(20) NULL,"+&
+            "jyjg49 varchar(20) NULL,jyjg50 varchar(20) NULL,jyjg51 varchar(20) NULL,jyjg52 varchar(20) NULL,"+&
+            "jyjg53 varchar(20) NULL,jyjg54 varchar(20) NULL,jyjg55 varchar(20) NULL,jyjg56 varchar(20) NULL,"+&
+            "jyjg57 varchar(20) NULL,jyjg58 varchar(20) NULL,jyjg59 varchar(20) NULL,jyjg60 varchar(20) NULL,"+&
+            "jyjg61 varchar(20) NULL,jyjg62 varchar(20) NULL,jyjg63 varchar(20) NULL,jyjg64 varchar(20) NULL,"+&
+            "jyjg65 varchar(20) NULL,jyjg66 varchar(20) NULL,jyjg67 varchar(20) NULL,jyjg68 varchar(20) NULL,"+&
+            "jyjg69 varchar(20) NULL,jyjg70 varchar(20) NULL,jyjg71 varchar(20) NULL,jyjg72 varchar(20) NULL,"+&
+            "jyjg73 varchar(20) NULL,jyjg74 varchar(20) NULL,jyjg75 varchar(20) NULL,jyjg76 varchar(20) NULL,"+&
+            "jyjg77 varchar(20) NULL,jl1 varchar(20) NULL,jl2 varchar(20) NULL,jl3 varchar(20) NULL,"+&
+            "jl4 varchar(20) NULL,jl5 varchar(20) NULL,jl6 varchar(20) NULL,jl7 varchar(20) NULL,"+&
+            "jl8 varchar(20) NULL,jl9 varchar(20) NULL,jl10 varchar(20) NULL,jl11 varchar(20) NULL,"+&
+            "jl12 varchar(20) NULL,jl13 varchar(20) NULL,jl14 varchar(20) NULL,jl15 varchar(20) NULL,"+&
+            "jl16 varchar(20) NULL,jl17 varchar(20) NULL,jl18 varchar(20) NULL,jl19 varchar(20) NULL,"+&
+            "jl20 varchar(20) NULL,jl21 varchar(20) NULL,jl22 varchar(20) NULL,jl23 varchar(20) NULL,"+&
+            "jl24 varchar(20) NULL,jl25 varchar(20) NULL,jl26 varchar(20) NULL,jl27 varchar(20) NULL,"+&
+            "jl28 varchar(20) NULL,jl29 varchar(20) NULL,jl30 varchar(20) NULL,jl31 varchar(20) NULL,"+&
+            "jl32 varchar(20) NULL,jl33 varchar(20) NULL,jl34 varchar(20) NULL,jl35 varchar(20) NULL,"+&
+            "jl36 varchar(20) NULL,jl37 varchar(20) NULL,jl38 varchar(20) NULL,jl39 varchar(20) NULL,"+&
+            "jl40 varchar(20) NULL,jl41 varchar(20) NULL,jl42 varchar(20) NULL,jl43 varchar(20) NULL,"+&
+            "jl44 varchar(20) NULL,jl45 varchar(20) NULL,jl46 varchar(20) NULL,jl47 varchar(20) NULL,"+&
+            "jl48 varchar(20) NULL,jl49 varchar(20) NULL,jl50 varchar(20) NULL,jl51 varchar(20) NULL,"+&
+            "jl52 varchar(20) NULL,jl53 varchar(20) NULL,jl54 varchar(20) NULL,jl55 varchar(20) NULL,"+&
+            "jl56 varchar(20) NULL,jl57 varchar(20) NULL,jl58 varchar(20) NULL,jl59 varchar(20) NULL,"+&
+            "jl60 varchar(20) NULL,jl61 varchar(20) NULL,jl62 varchar(20) NULL,jl63 varchar(20) NULL,"+&
+            "jl64 varchar(20) NULL,jl65 varchar(20) NULL,jl66 varchar(20) NULL,jl67 varchar(20) NULL,"+&
+            "jl68 varchar(20) NULL,jl69 varchar(20) NULL,jl70 varchar(20) NULL,jl71 varchar(20) NULL,"+&
+            "jl72 varchar(20) NULL,jl73 varchar(20) NULL,jl74 varchar(20) NULL,jl75 varchar(20) NULL,"+&
+            "jl76 varchar(20) NULL,jl77 varchar(20) NULL,xh78 varchar(20) NULL,xh79 varchar(20) NULL,"+&
+            "xh80 varchar(20) NULL,xh81 varchar(20) NULL,xh82 varchar(20) NULL,xh83 varchar(20) NULL,"+&
+            "xh84 varchar(20) NULL,xh85 varchar(20) NULL,xh86 varchar(20) NULL,xh87 varchar(20) NULL,"+&
+            "xh88 varchar(20) NULL,xh89 varchar(20) NULL,xh90 varchar(20) NULL,xmbh78 varchar(20) NULL,"+&
+            "xmbh79 varchar(20) NULL,xmbh80 varchar(20) NULL,xmbh81 varchar(20) NULL,xmbh82 varchar(20) NULL,"+&
+            "xmbh83 varchar(20) NULL,xmbh84 varchar(20) NULL,xmbh85 varchar(20) NULL,xmbh86 varchar(20) NULL,"+&
+            "xmbh87 varchar(20) NULL,xmbh88 varchar(20) NULL,xmbh89 varchar(20) NULL,xmbh90 varchar(20) NULL,"+&
+            "jyxm78 varchar(20) NULL,jyxm79 varchar(20) NULL,jyxm80 varchar(20) NULL,jyxm81 varchar(20) NULL,"+&
+            "jyxm82 varchar(20) NULL,jyxm83 varchar(20) NULL,jyxm84 varchar(20) NULL,jyxm85 varchar(20) NULL,"+&
+            "jyxm86 varchar(20) NULL,jyxm87 varchar(20) NULL,jyxm88 varchar(20) NULL,jyxm89 varchar(20) NULL,"+&
+            "jyxm90 varchar(20) NULL,jyjg78 varchar(20) NULL,jyjg79 varchar(20) NULL,jyjg80 varchar(20) NULL,"+&
+            "jyjg81 varchar(20) NULL,jyjg82 varchar(20) NULL,jyjg83 varchar(20) NULL,jyjg84 varchar(20) NULL,"+&
+            "jyjg85 varchar(20) NULL,jyjg86 varchar(20) NULL,jyjg87 varchar(20) NULL,jyjg88 varchar(20) NULL,"+&
+            "jyjg89 varchar(20) NULL,jyjg90 varchar(20) NULL,jl78 varchar(20) NULL,jl79 varchar(20) NULL,"+&
+            "jl80 varchar(20) NULL,jl81 varchar(20) NULL,jl82 varchar(20) NULL,jl83 varchar(20) NULL,"+&
+            "jl84 varchar(20) NULL,jl85 varchar(20) NULL,jl86 varchar(20) NULL,jl87 varchar(20) NULL,"+&
+            "jl88 varchar(20) NULL,jl89 varchar(20) NULL,jl90 varchar(20) NULL );"
+      execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX t_tzsb_zdfthrxd_ys2_x "&
+		        +"ON djylrq.t_tzsb_zdfthrxd_ys2"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+	end if
+ELSE
+	select count(*) into :ls_count from t_tzsb_zdfthrxd_ys2;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table t_tzsb_zdfthrxd_ys2"
+		execute immediate :delsql using sqlca ;
+		mysql="CREATE TABLE t_tzsb_zdfthrxd_ys2(jyid varchar(20) NOT NULL ,bgsbh varchar(20) NULL,"+&
+            "jyjg1 varchar(20) NULL,jyjg2 varchar(20) NULL,jyjg3 varchar(20) NULL,jyjg4 varchar(20) NULL,"+&
+            "jyjg5 varchar(20) NULL,jyjg6 varchar(20) NULL,jyjg7 varchar(20) NULL,jyjg8 varchar(20) NULL,"+&
+            "jyjg9 varchar(20) NULL,jyjg10 varchar(20) NULL,jyjg11 varchar(20) NULL,jyjg12 varchar(20) NULL,"+&
+            "jyjg13 varchar(20) NULL,jyjg14 varchar(20) NULL,jyjg15 varchar(20) NULL,jyjg16 varchar(20) NULL,"+&
+            "jyjg17 varchar(20) NULL,jyjg18 varchar(20) NULL,jyjg19 varchar(20) NULL,jyjg20 varchar(20) NULL,"+&
+            "jyjg21 varchar(20) NULL,jyjg22 varchar(20) NULL,jyjg23 varchar(20) NULL,jyjg24 varchar(20) NULL,"+&
+            "jyjg25 varchar(20) NULL,jyjg26 varchar(20) NULL,jyjg27 varchar(20) NULL,jyjg28 varchar(20) NULL,"+&
+            "jyjg29 varchar(20) NULL,jyjg30 varchar(20) NULL,jyjg31 varchar(20) NULL,jyjg32 varchar(20) NULL,"+&
+            "jyjg33 varchar(20) NULL,jyjg34 varchar(20) NULL,jyjg35 varchar(20) NULL,jyjg36 varchar(20) NULL,"+&
+            "jyjg37 varchar(20) NULL,jyjg38 varchar(20) NULL,jyjg39 varchar(20) NULL,jyjg40 varchar(20) NULL,"+&
+            "jyjg41 varchar(20) NULL,jyjg42 varchar(20) NULL,jyjg43 varchar(20) NULL,jyjg44 varchar(20) NULL,"+&
+            "jyjg45 varchar(20) NULL,jyjg46 varchar(20) NULL,jyjg47 varchar(20) NULL,jyjg48 varchar(20) NULL,"+&
+            "jyjg49 varchar(20) NULL,jyjg50 varchar(20) NULL,jyjg51 varchar(20) NULL,jyjg52 varchar(20) NULL,"+&
+            "jyjg53 varchar(20) NULL,jyjg54 varchar(20) NULL,jyjg55 varchar(20) NULL,jyjg56 varchar(20) NULL,"+&
+            "jyjg57 varchar(20) NULL,jyjg58 varchar(20) NULL,jyjg59 varchar(20) NULL,jyjg60 varchar(20) NULL,"+&
+            "jyjg61 varchar(20) NULL,jyjg62 varchar(20) NULL,jyjg63 varchar(20) NULL,jyjg64 varchar(20) NULL,"+&
+            "jyjg65 varchar(20) NULL,jyjg66 varchar(20) NULL,jyjg67 varchar(20) NULL,jyjg68 varchar(20) NULL,"+&
+            "jyjg69 varchar(20) NULL,jyjg70 varchar(20) NULL,jyjg71 varchar(20) NULL,jyjg72 varchar(20) NULL,"+&
+            "jyjg73 varchar(20) NULL,jyjg74 varchar(20) NULL,jyjg75 varchar(20) NULL,jyjg76 varchar(20) NULL,"+&
+            "jyjg77 varchar(20) NULL,jl1 varchar(20) NULL,jl2 varchar(20) NULL,jl3 varchar(20) NULL,"+&
+            "jl4 varchar(20) NULL,jl5 varchar(20) NULL,jl6 varchar(20) NULL,jl7 varchar(20) NULL,"+&
+            "jl8 varchar(20) NULL,jl9 varchar(20) NULL,jl10 varchar(20) NULL,jl11 varchar(20) NULL,"+&
+            "jl12 varchar(20) NULL,jl13 varchar(20) NULL,jl14 varchar(20) NULL,jl15 varchar(20) NULL,"+&
+            "jl16 varchar(20) NULL,jl17 varchar(20) NULL,jl18 varchar(20) NULL,jl19 varchar(20) NULL,"+&
+            "jl20 varchar(20) NULL,jl21 varchar(20) NULL,jl22 varchar(20) NULL,jl23 varchar(20) NULL,"+&
+            "jl24 varchar(20) NULL,jl25 varchar(20) NULL,jl26 varchar(20) NULL,jl27 varchar(20) NULL,"+&
+            "jl28 varchar(20) NULL,jl29 varchar(20) NULL,jl30 varchar(20) NULL,jl31 varchar(20) NULL,"+&
+            "jl32 varchar(20) NULL,jl33 varchar(20) NULL,jl34 varchar(20) NULL,jl35 varchar(20) NULL,"+&
+            "jl36 varchar(20) NULL,jl37 varchar(20) NULL,jl38 varchar(20) NULL,jl39 varchar(20) NULL,"+&
+            "jl40 varchar(20) NULL,jl41 varchar(20) NULL,jl42 varchar(20) NULL,jl43 varchar(20) NULL,"+&
+            "jl44 varchar(20) NULL,jl45 varchar(20) NULL,jl46 varchar(20) NULL,jl47 varchar(20) NULL,"+&
+            "jl48 varchar(20) NULL,jl49 varchar(20) NULL,jl50 varchar(20) NULL,jl51 varchar(20) NULL,"+&
+            "jl52 varchar(20) NULL,jl53 varchar(20) NULL,jl54 varchar(20) NULL,jl55 varchar(20) NULL,"+&
+            "jl56 varchar(20) NULL,jl57 varchar(20) NULL,jl58 varchar(20) NULL,jl59 varchar(20) NULL,"+&
+            "jl60 varchar(20) NULL,jl61 varchar(20) NULL,jl62 varchar(20) NULL,jl63 varchar(20) NULL,"+&
+            "jl64 varchar(20) NULL,jl65 varchar(20) NULL,jl66 varchar(20) NULL,jl67 varchar(20) NULL,"+&
+            "jl68 varchar(20) NULL,jl69 varchar(20) NULL,jl70 varchar(20) NULL,jl71 varchar(20) NULL,"+&
+            "jl72 varchar(20) NULL,jl73 varchar(20) NULL,jl74 varchar(20) NULL,jl75 varchar(20) NULL,"+&
+            "jl76 varchar(20) NULL,jl77 varchar(20) NULL,xh78 varchar(20) NULL,xh79 varchar(20) NULL,"+&
+            "xh80 varchar(20) NULL,xh81 varchar(20) NULL,xh82 varchar(20) NULL,xh83 varchar(20) NULL,"+&
+            "xh84 varchar(20) NULL,xh85 varchar(20) NULL,xh86 varchar(20) NULL,xh87 varchar(20) NULL,"+&
+            "xh88 varchar(20) NULL,xh89 varchar(20) NULL,xh90 varchar(20) NULL,xmbh78 varchar(20) NULL,"+&
+            "xmbh79 varchar(20) NULL,xmbh80 varchar(20) NULL,xmbh81 varchar(20) NULL,xmbh82 varchar(20) NULL,"+&
+            "xmbh83 varchar(20) NULL,xmbh84 varchar(20) NULL,xmbh85 varchar(20) NULL,xmbh86 varchar(20) NULL,"+&
+            "xmbh87 varchar(20) NULL,xmbh88 varchar(20) NULL,xmbh89 varchar(20) NULL,xmbh90 varchar(20) NULL,"+&
+            "jyxm78 varchar(20) NULL,jyxm79 varchar(20) NULL,jyxm80 varchar(20) NULL,jyxm81 varchar(20) NULL,"+&
+            "jyxm82 varchar(20) NULL,jyxm83 varchar(20) NULL,jyxm84 varchar(20) NULL,jyxm85 varchar(20) NULL,"+&
+            "jyxm86 varchar(20) NULL,jyxm87 varchar(20) NULL,jyxm88 varchar(20) NULL,jyxm89 varchar(20) NULL,"+&
+            "jyxm90 varchar(20) NULL,jyjg78 varchar(20) NULL,jyjg79 varchar(20) NULL,jyjg80 varchar(20) NULL,"+&
+            "jyjg81 varchar(20) NULL,jyjg82 varchar(20) NULL,jyjg83 varchar(20) NULL,jyjg84 varchar(20) NULL,"+&
+            "jyjg85 varchar(20) NULL,jyjg86 varchar(20) NULL,jyjg87 varchar(20) NULL,jyjg88 varchar(20) NULL,"+&
+            "jyjg89 varchar(20) NULL,jyjg90 varchar(20) NULL,jl78 varchar(20) NULL,jl79 varchar(20) NULL,"+&
+            "jl80 varchar(20) NULL,jl81 varchar(20) NULL,jl82 varchar(20) NULL,jl83 varchar(20) NULL,"+&
+            "jl84 varchar(20) NULL,jl85 varchar(20) NULL,jl86 varchar(20) NULL,jl87 varchar(20) NULL,"+&
+            "jl88 varchar(20) NULL,jl89 varchar(20) NULL,jl90 varchar(20) NULL, PRIMARY KEY (jyid));"
+      execute immediate :mysql using sqlca ;
+	end if	
+END IF
+
+end subroutine
+

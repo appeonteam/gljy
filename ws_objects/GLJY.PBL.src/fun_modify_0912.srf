@@ -1,0 +1,1426 @@
+﻿$PBExportHeader$fun_modify_0912.srf
+global type fun_modify_0912 from function_object
+end type
+
+forward prototypes
+global subroutine fun_modify_0912 ()
+end prototypes
+
+global subroutine fun_modify_0912 ();long ls_count = 0,i
+string mysql,delsql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.t_tzsb_wg_dq1 " + &
+              "(jyid  varchar(20) NOT NULL," + &
+              "sbsydw  varchar(60)  null," + &
+              "jyjg  varchar(60)  null," + &
+              "sbdm  varchar(20)  null," + &
+              "jyrq  varchar(10)  null," + &
+              "bgsbh  varchar(20)  null," + &
+              "zzdw  varchar(50)  null," + &
+              "yhsbbh  varchar(20)  null," + &
+              "sbxh  varchar(20)  null," + &
+              "ccbh  varchar(20)  null," + &
+              "qfri  varchar(4)  null," + &
+              "moon  varchar(2)  null," + &
+              "day  varchar(2)  null," + &
+              "zyjyyqsb  varchar(60)  null," + &
+              "z1  varchar(60)  null," + &
+              "z2  varchar(60)  null," + &
+              "jyjl  varchar(20)  null," + &
+              "bz  varchar(60)  null," + &
+              "bz1  varchar(60)  null," + &
+              "pz  varchar(10)  null," + &
+              "sh  varchar(10)  null," + &
+              "jy  varchar(20)  null," + &
+              "jgysrq  varchar(4)  null," + &
+              "ysm  varchar(2)  null," + &
+              "ysd  varchar(2)  null," + &
+              "sbmc  varchar(20)  null," + &
+              "qzjxzh  varchar(10)  null," + &
+              "qzjxtslj  varchar(10)  null," + &
+              "qzjxtsgd  varchar(5)  null," + &
+              "wxbydw  varchar(60)  null," + &
+              "sbsydd  varchar(50)  null," + &
+              "cpid  varchar(20)  null);"
+		execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX t_tzsb_wg_dq1_x "&
+		        +"ON djylrq.t_tzsb_wg_dq1"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+ELSE
+		mysql="CREATE TABLE t_tzsb_wg_dq1 " + &
+              "(jyid  varchar(20) NOT NULL," + &
+              "sbsydw  varchar(60)  null," + &
+              "jyjg  varchar(60)  null," + &
+              "sbdm  varchar(20)  null," + &
+              "jyrq  varchar(10)  null," + &
+              "bgsbh  varchar(20)  null," + &
+              "zzdw  varchar(50)  null," + &
+              "yhsbbh  varchar(20)  null," + &
+              "sbxh  varchar(20)  null," + &
+              "ccbh  varchar(20)  null," + &
+              "qfri  varchar(4)  null," + &
+              "moon  varchar(2)  null," + &
+              "day  varchar(2)  null," + &
+              "zyjyyqsb  varchar(60)  null," + &
+              "z1  varchar(60)  null," + &
+              "z2  varchar(60)  null," + &
+              "jyjl  varchar(20)  null," + &
+              "bz  varchar(60)  null," + &
+              "bz1  varchar(60)  null," + &
+              "pz  varchar(10)  null," + &
+              "sh  varchar(10)  null," + &
+              "jy  varchar(20)  null," + &
+              "jgysrq  varchar(4)  null," + &
+              "ysm  varchar(2)  null," + &
+              "ysd  varchar(2)  null," + &
+              "sbmc  varchar(20)  null," + &
+              "qzjxzh  varchar(10)  null," + &
+              "qzjxtslj  varchar(10)  null," + &
+              "qzjxtsgd  varchar(5)  null," + &
+              "wxbydw  varchar(60)  null," + &
+              "sbsydd  varchar(50)  null," + &
+              "cpid  varchar(20)  null,Primary Key (jyid) ) ;"
+		execute immediate :mysql using sqlca ;	
+END IF
+
+
+// ´´½¨ µçÌÝ(1Æª1·§±¨¸æ¸ñÊ½)
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.t_tzsb_wg_dq2 " + &
+              "(jyid  varchar(20) NOT NULL," + &
+              "jyjl1  varchar(20)  null," + &
+              "jyjl2  varchar(20)  null," + &
+              "jyjl3  varchar(20)  null," + &
+              "jyjl4  varchar(20)  null," + &
+              "jyjl5  varchar(20)  null," + &
+              "jyjl6  varchar(20)  null," + &
+              "jyjl7  varchar(20)  null," + &
+              "jyjl8  varchar(20)  null," + &
+              "jyjl9  varchar(20)  null," + &
+              "jyjl10  varchar(20)  null," + &
+              "jyjl11  varchar(20)  null," + &
+              "jyjl12  varchar(20)  null," + &
+              "jyjl13  varchar(20)  null," + &
+              "jyjl14  varchar(20)  null," + &
+              "jyjl15  varchar(20)  null," + &
+              "jyjl16  varchar(20)  null," + &
+              "jyjl17  varchar(20)  null," + &
+              "jyjl18  varchar(20)  null," + &
+              "jyjl19  varchar(20)  null," + &
+              "jyjl20  varchar(20)  null," + &
+              "jyjl21  varchar(20)  null," + &
+              "jyjl22  varchar(20)  null," + &
+              "jyjl23  varchar(20)  null," + &
+              "jyjl24  varchar(20)  null," + &
+              "jyjl25  varchar(20)  null," + &
+              "jyjl26  varchar(20)  null," + &
+              "jyjl27  varchar(20)  null," + &
+              "jyjl28  varchar(20)  null," + &
+              "jyjl29  varchar(20)  null," + &
+              "jyjl30  varchar(20)  null," + &
+              "jyjl31  varchar(20)  null," + &
+              "jyjl32  varchar(20)  null," + &
+              "jyjl33  varchar(20)  null," + &
+              "jyjl34  varchar(20)  null," + &
+              "jyjl35  varchar(20)  null," + &
+              "jyjl36  varchar(20)  null," + &
+              "jyjl37  varchar(20)  null," + &
+              "jyjl38  varchar(20)  null," + &
+              "jyjl39  varchar(20)  null," + &
+              "jyjl40  varchar(20)  null," + &
+              "jyjl41  varchar(20)  null," + &
+              "jyjl42  varchar(20)  null," + &
+              "jyjl43  varchar(20)  null," + &
+              "jyjl44  varchar(20)  null," + &
+              "jyjl45  varchar(20)  null," + &
+              "jyjl46  varchar(20)  null," + &
+              "jyjl47  varchar(20)  null," + &
+              "jyjl48  varchar(20)  null," + &
+              "jyjl49  varchar(20)  null," + &
+              "jyjl50  varchar(20)  null," + &
+              "jyjl51  varchar(20)  null," + &
+              "jyjl52  varchar(20)  null," + &
+              "jyjl53  varchar(20)  null," + &
+              "jyjl54  varchar(20)  null," + &
+              "jyjl55  varchar(20)  null," + &
+              "jyjl56  varchar(20)  null," + &
+              "jyjl57  varchar(20)  null," + &
+              "jyjl58  varchar(20)  null," + &
+              "jyjl59  varchar(20)  null," + &
+              "jyjl60  varchar(20)  null," + &
+              "jyjl61  varchar(20)  null," + &
+              "jyjl62  varchar(20)  null," + &
+              "jyjl63  varchar(20)  null," + &
+              "jyjl64  varchar(20)  null," + &
+              "jyjl65  varchar(20)  null," + &
+              "jyjl66  varchar(20)  null," + &
+              "jyjl67  varchar(20)  null," + &
+              "jyjl68  varchar(20)  null," + &
+              "jyjl69  varchar(20)  null," + &
+              "jyjl70  varchar(20)  null," + &
+              "jyjl71  varchar(20)  null," + &
+              "jyjl72  varchar(20)  null," + &
+              "jyjl73  varchar(20)  null," + &
+              "jyjl74  varchar(20)  null," + &
+              "jyjl75  varchar(20)  null," + &
+              "jyjl76  varchar(20)  null," + &
+              "jyjl77  varchar(20)  null," + &
+              "jyjl78  varchar(20)  null," + &
+              "jyjl79  varchar(20)  null," + &
+              "jyjl80  varchar(20)  null," + &
+              "jyjl81  varchar(20)  null," + &
+              "jyjl82  varchar(20)  null," + &
+              "jyjl83  varchar(20)  null," + &
+              "jyjl84  varchar(20)  null," + &
+              "jyjl85  varchar(20)  null," + &
+              "jyjl86  varchar(20)  null," + &
+              "jyjl87  varchar(20)  null," + &
+              "jyjl88  varchar(20)  null," + &
+              "jyjl89  varchar(20)  null," + &
+              "jyjl90  varchar(20)  null," + &
+              "jyjl91  varchar(20)  null," + &
+              "jyjl92  varchar(20)  null," + &
+              "jyjl93  varchar(20)  null," + &
+              "jyjl94  varchar(20)  null," + &
+              "jyjl95  varchar(20)  null," + &
+              "jyjl96  varchar(20)  null," + &
+              "jyjl97  varchar(20)  null," + &
+              "jyjl98  varchar(20)  null," + &
+              "jyjl99  varchar(20)  null," + &
+              "jyjl100  varchar(20)  null," + &
+              "jyjl101  varchar(20)  null," + &
+              "jyjl102  varchar(20)  null," + &
+              "xmbh79  varchar(7)  null," + &
+              "xmbh80  varchar(7)  null," + &
+              "xmbh81  varchar(7)  null," + &
+              "xmbh82  varchar(7)  null," + &
+              "xmbh83  varchar(7)  null," + &
+              "xmbh84  varchar(7)  null," + &
+              "xmbh85  varchar(7)  null," + &
+              "xmbh86  varchar(7)  null," + &
+              "xmbh87  varchar(7)  null," + &
+              "xmbh88  varchar(7)  null," + &
+              "xmbh89  varchar(7)  null," + &
+              "xmbh90  varchar(7)  null," + &
+              "xmbh91  varchar(7)  null," + &
+              "xmbh92  varchar(7)  null," + &
+              "xmbh93  varchar(7)  null," + &
+              "xmbh94  varchar(7)  null," + &
+              "xmbh95  varchar(7)  null," + &
+              "xmbh96  varchar(7)  null," + &
+              "xmbh97  varchar(7)  null," + &
+              "xmbh98  varchar(7)  null," + &
+              "xmbh99  varchar(7)  null," + &
+              "xmbh100  varchar(7)  null," + &
+              "xmbh101  varchar(7)  null," + &
+              "xmbh102  varchar(7)  null);"
+		execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX t_tzsb_wg_dq2_x "&
+		        +"ON djylrq.t_tzsb_wg_dq2"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+ELSE
+		mysql="CREATE TABLE t_tzsb_wg_dq2 " + &
+              "(jyid  varchar(20) NOT NULL," + &
+              "jyjl1  varchar(20)  null," + &
+              "jyjl2  varchar(20)  null," + &
+              "jyjl3  varchar(20)  null," + &
+              "jyjl4  varchar(20)  null," + &
+              "jyjl5  varchar(20)  null," + &
+              "jyjl6  varchar(20)  null," + &
+              "jyjl7  varchar(20)  null," + &
+              "jyjl8  varchar(20)  null," + &
+              "jyjl9  varchar(20)  null," + &
+              "jyjl10  varchar(20)  null," + &
+              "jyjl11  varchar(20)  null," + &
+              "jyjl12  varchar(20)  null," + &
+              "jyjl13  varchar(20)  null," + &
+              "jyjl14  varchar(20)  null," + &
+              "jyjl15  varchar(20)  null," + &
+              "jyjl16  varchar(20)  null," + &
+              "jyjl17  varchar(20)  null," + &
+              "jyjl18  varchar(20)  null," + &
+              "jyjl19  varchar(20)  null," + &
+              "jyjl20  varchar(20)  null," + &
+              "jyjl21  varchar(20)  null," + &
+              "jyjl22  varchar(20)  null," + &
+              "jyjl23  varchar(20)  null," + &
+              "jyjl24  varchar(20)  null," + &
+              "jyjl25  varchar(20)  null," + &
+              "jyjl26  varchar(20)  null," + &
+              "jyjl27  varchar(20)  null," + &
+              "jyjl28  varchar(20)  null," + &
+              "jyjl29  varchar(20)  null," + &
+              "jyjl30  varchar(20)  null," + &
+              "jyjl31  varchar(20)  null," + &
+              "jyjl32  varchar(20)  null," + &
+              "jyjl33  varchar(20)  null," + &
+              "jyjl34  varchar(20)  null," + &
+              "jyjl35  varchar(20)  null," + &
+              "jyjl36  varchar(20)  null," + &
+              "jyjl37  varchar(20)  null," + &
+              "jyjl38  varchar(20)  null," + &
+              "jyjl39  varchar(20)  null," + &
+              "jyjl40  varchar(20)  null," + &
+              "jyjl41  varchar(20)  null," + &
+              "jyjl42  varchar(20)  null," + &
+              "jyjl43  varchar(20)  null," + &
+              "jyjl44  varchar(20)  null," + &
+              "jyjl45  varchar(20)  null," + &
+              "jyjl46  varchar(20)  null," + &
+              "jyjl47  varchar(20)  null," + &
+              "jyjl48  varchar(20)  null," + &
+              "jyjl49  varchar(20)  null," + &
+              "jyjl50  varchar(20)  null," + &
+              "jyjl51  varchar(20)  null," + &
+              "jyjl52  varchar(20)  null," + &
+              "jyjl53  varchar(20)  null," + &
+              "jyjl54  varchar(20)  null," + &
+              "jyjl55  varchar(20)  null," + &
+              "jyjl56  varchar(20)  null," + &
+              "jyjl57  varchar(20)  null," + &
+              "jyjl58  varchar(20)  null," + &
+              "jyjl59  varchar(20)  null," + &
+              "jyjl60  varchar(20)  null," + &
+              "jyjl61  varchar(20)  null," + &
+              "jyjl62  varchar(20)  null," + &
+              "jyjl63  varchar(20)  null," + &
+              "jyjl64  varchar(20)  null," + &
+              "jyjl65  varchar(20)  null," + &
+              "jyjl66  varchar(20)  null," + &
+              "jyjl67  varchar(20)  null," + &
+              "jyjl68  varchar(20)  null," + &
+              "jyjl69  varchar(20)  null," + &
+              "jyjl70  varchar(20)  null," + &
+              "jyjl71  varchar(20)  null," + &
+              "jyjl72  varchar(20)  null," + &
+              "jyjl73  varchar(20)  null," + &
+              "jyjl74  varchar(20)  null," + &
+              "jyjl75  varchar(20)  null," + &
+              "jyjl76  varchar(20)  null," + &
+              "jyjl77  varchar(20)  null," + &
+              "jyjl78  varchar(20)  null," + &
+              "jyjl79  varchar(20)  null," + &
+              "jyjl80  varchar(20)  null," + &
+              "jyjl81  varchar(20)  null," + &
+              "jyjl82  varchar(20)  null," + &
+              "jyjl83  varchar(20)  null," + &
+              "jyjl84  varchar(20)  null," + &
+              "jyjl85  varchar(20)  null," + &
+              "jyjl86  varchar(20)  null," + &
+              "jyjl87  varchar(20)  null," + &
+              "jyjl88  varchar(20)  null," + &
+              "jyjl89  varchar(20)  null," + &
+              "jyjl90  varchar(20)  null," + &
+              "jyjl91  varchar(20)  null," + &
+              "jyjl92  varchar(20)  null," + &
+              "jyjl93  varchar(20)  null," + &
+              "jyjl94  varchar(20)  null," + &
+              "jyjl95  varchar(20)  null," + &
+              "jyjl96  varchar(20)  null," + &
+              "jyjl97  varchar(20)  null," + &
+              "jyjl98  varchar(20)  null," + &
+              "jyjl99  varchar(20)  null," + &
+              "jyjl100  varchar(20)  null," + &
+              "jyjl101  varchar(20)  null," + &
+              "jyjl102  varchar(20)  null," + &
+              "xmbh79  varchar(7)  null," + &
+              "xmbh80  varchar(7)  null," + &
+              "xmbh81  varchar(7)  null," + &
+              "xmbh82  varchar(7)  null," + &
+              "xmbh83  varchar(7)  null," + &
+              "xmbh84  varchar(7)  null," + &
+              "xmbh85  varchar(7)  null," + &
+              "xmbh86  varchar(7)  null," + &
+              "xmbh87  varchar(7)  null," + &
+              "xmbh88  varchar(7)  null," + &
+              "xmbh89  varchar(7)  null," + &
+              "xmbh90  varchar(7)  null," + &
+              "xmbh91  varchar(7)  null," + &
+              "xmbh92  varchar(7)  null," + &
+              "xmbh93  varchar(7)  null," + &
+              "xmbh94  varchar(7)  null," + &
+              "xmbh95  varchar(7)  null," + &
+              "xmbh96  varchar(7)  null," + &
+              "xmbh97  varchar(7)  null," + &
+              "xmbh98  varchar(7)  null," + &
+              "xmbh99  varchar(7)  null," + &
+              "xmbh100  varchar(7)  null," + &
+              "xmbh101  varchar(7)  null," + &
+              "xmbh102  varchar(7)  null,Primary Key (jyid) ) ;"
+		execute immediate :mysql using sqlca ;
+END IF
+
+ls_count = 0
+// ´´½¨ µçÌÝ(1Æª1·§±¨¸æ¸ñÊ½)
+IF mark = 'sqlserver' THEN
+		mysql="CREATE TABLE djylrq.t_tzsb_wg_dq3 " + &
+              "(jyid  varchar(20) NOT NULL," + &
+              "jyjg1  varchar(70)  null," + &
+              "jyjg2  varchar(70)  null," + &
+              "jyjg3  varchar(70)  null," + &
+              "jyjg4  varchar(70)  null," + &
+              "jyjg5  varchar(70)  null," + &
+              "jyjg6  varchar(70)  null," + &
+              "jyjg7  varchar(70)  null," + &
+              "jyjg8  varchar(70)  null," + &
+              "jyjg9  varchar(70)  null," + &
+              "jyjg10  varchar(70)  null," + &
+              "jyjg11  varchar(70)  null," + &
+              "jyjg12  varchar(70)  null," + &
+              "jyjg13  varchar(70)  null," + &
+              "jyjg14  varchar(70)  null," + &
+              "jyjg15  varchar(70)  null," + &
+              "jyjg16  varchar(70)  null," + &
+              "jyjg17  varchar(70)  null," + &
+              "jyjg18  varchar(70)  null," + &
+              "jyjg19  varchar(70)  null," + &
+              "jyjg20  varchar(70)  null," + &
+              "jyjg21  varchar(70)  null," + &
+              "jyjg22  varchar(70)  null," + &
+              "jyjg23  varchar(70)  null," + &
+              "jyjg24  varchar(70)  null," + &
+              "jyjg25  varchar(70)  null," + &
+              "jyjg26  varchar(70)  null," + &
+              "jyjg27  varchar(70)  null," + &
+              "jyjg28  varchar(70)  null," + &
+              "jyjg29  varchar(70)  null," + &
+              "jyjg30  varchar(70)  null," + &
+              "jyjg31  varchar(70)  null," + &
+              "jyjg32  varchar(70)  null," + &
+              "jyjg33  varchar(70)  null," + &
+              "jyjg34  varchar(70)  null," + &
+              "jyjg35  varchar(70)  null," + &
+              "jyjg36  varchar(70)  null," + &
+              "jyjg37  varchar(70)  null," + &
+              "jyjg38  varchar(70)  null," + &
+              "jyjg39  varchar(70)  null," + &
+              "jyjg40  varchar(70)  null," + &
+              "jyjg41  varchar(70)  null," + &
+              "jyjg42  varchar(70)  null," + &
+              "jyjg43  varchar(70)  null," + &
+              "jyjg44  varchar(70)  null," + &
+              "jyjg45  varchar(70)  null," + &
+              "jyjg46  varchar(70)  null," + &
+              "jyjg47  varchar(70)  null," + &
+              "jyjg48  varchar(70)  null," + &
+              "jyjg49  varchar(70)  null," + &
+              "jyjg50  varchar(70)  null," + &
+              "jyjg51  varchar(70)  null," + &
+              "jyjg52  varchar(70)  null," + &
+              "jyjg53  varchar(70)  null," + &
+              "jyjg54  varchar(70)  null," + &
+              "jyjg55  varchar(70)  null," + &
+              "jyjg56  varchar(70)  null," + &
+              "jyjg57  varchar(70)  null," + &
+              "jyjg58  varchar(70)  null," + &
+              "jyjg59  varchar(70)  null," + &
+              "jyjg60  varchar(70)  null," + &
+              "jyjg61  varchar(70)  null," + &
+              "jyjg62  varchar(70)  null," + &
+              "jyjg63  varchar(70)  null," + &
+              "jyjg64  varchar(70)  null," + &
+              "jyjg65  varchar(70)  null," + &
+              "jyjg66  varchar(70)  null," + &
+              "jyjg67  varchar(70)  null," + &
+              "jyjg68  varchar(70)  null," + &
+              "jyjg69  varchar(70)  null," + &
+              "jyjg70  varchar(70)  null," + &
+              "jyjg71  varchar(70)  null," + &
+              "jyjg72  varchar(70)  null," + &
+              "jyjg73  varchar(70)  null," + &
+              "jyjg74  varchar(70)  null," + &
+              "jyjg75  varchar(70)  null," + &
+              "jyjg76  varchar(70)  null," + &
+              "jyjg77  varchar(70)  null," + &
+              "jyjg78  varchar(70)  null," + &				  
+              "jyjg79  varchar(70)  null," + &
+              "jyjg80  varchar(70)  null," + &
+              "jyjg81  varchar(70)  null," + &
+              "jyjg82  varchar(70)  null," + &
+              "jyjg83  varchar(70)  null," + &
+              "jyjg84  varchar(70)  null," + &
+              "jyjg85  varchar(70)  null," + &
+              "jyjg86  varchar(70)  null," + &
+              "jyjg87  varchar(70)  null," + &
+              "jyjg88  varchar(70)  null," + &
+              "jyjg89  varchar(70)  null," + &
+              "jyjg90  varchar(70)  null," + &
+              "jyjg91  varchar(70)  null," + &
+              "jyjg92  varchar(70)  null," + &
+              "jyjg93  varchar(70)  null," + &
+              "jyjg94  varchar(70)  null," + &
+              "jyjg95  varchar(70)  null," + &
+              "jyjg96  varchar(70)  null," + &
+              "jyjg97  varchar(70)  null," + &
+              "jyjg98  varchar(70)  null," + &
+              "jyjg99  varchar(70)  null," + &
+              "jyjg100  varchar(70)  null," + &
+              "jyjl101  varchar(70)  null," + &
+              "jyjl102  varchar(70)  null," + &
+              "zyxm79  varchar(28)  null," + &
+              "zyxm80  varchar(28)  null," + &
+              "zyxm81  varchar(28)  null," + &
+              "zyxm82  varchar(28)  null," + &
+              "zyxm83  varchar(28)  null," + &
+              "zyxm84  varchar(28)  null," + &
+              "zyxm85  varchar(28)  null," + &
+              "zyxm86  varchar(28)  null," + &
+              "zyxm87  varchar(28)  null," + &
+              "zyxm88  varchar(28)  null," + &
+              "zyxm89  varchar(28)  null," + &
+              "zyxm90  varchar(28)  null," + &
+              "zyxm91  varchar(28)  null," + &
+              "zyxm92  varchar(28)  null," + &
+              "zyxm93  varchar(28)  null," + &
+              "zyxm94  varchar(28)  null," + &
+              "zyxm95  varchar(28)  null," + &
+              "zyxm96  varchar(28)  null," + &
+              "zyxm97  varchar(28)  null," + &
+              "zyxm98  varchar(28)  null," + &
+              "zyxm99  varchar(28)  null," + &
+              "zyxm100  varchar(28)  null," + &
+              "zyxm101  varchar(28)  null," + &
+              "zyxm102  varchar(28)   null);"
+
+		execute immediate :mysql using sqlca ;
+		myindex="CREATE UNIQUE INDEX t_tzsb_wg_dq3_x "&
+		        +"ON djylrq.t_tzsb_wg_dq3"&
+		        +"(jyid) ;"
+		execute immediate :myindex using sqlca ;		
+ELSE
+		mysql="CREATE TABLE t_tzsb_wg_dq3 " + &
+              "(jyid  varchar(20) NOT NULL," + &
+              "jyjg1  varchar(70)  null," + &
+              "jyjg2  varchar(70)  null," + &
+              "jyjg3  varchar(70)  null," + &
+              "jyjg4  varchar(70)  null," + &
+              "jyjg5  varchar(70)  null," + &
+              "jyjg6  varchar(70)  null," + &
+              "jyjg7  varchar(70)  null," + &
+              "jyjg8  varchar(70)  null," + &
+              "jyjg9  varchar(70)  null," + &
+              "jyjg10  varchar(70)  null," + &
+              "jyjg11  varchar(70)  null," + &
+              "jyjg12  varchar(70)  null," + &
+              "jyjg13  varchar(70)  null," + &
+              "jyjg14  varchar(70)  null," + &
+              "jyjg15  varchar(70)  null," + &
+              "jyjg16  varchar(70)  null," + &
+              "jyjg17  varchar(70)  null," + &
+              "jyjg18  varchar(70)  null," + &
+              "jyjg19  varchar(70)  null," + &
+              "jyjg20  varchar(70)  null," + &
+              "jyjg21  varchar(70)  null," + &
+              "jyjg22  varchar(70)  null," + &
+              "jyjg23  varchar(70)  null," + &
+              "jyjg24  varchar(70)  null," + &
+              "jyjg25  varchar(70)  null," + &
+              "jyjg26  varchar(70)  null," + &
+              "jyjg27  varchar(70)  null," + &
+              "jyjg28  varchar(70)  null," + &
+              "jyjg29  varchar(70)  null," + &
+              "jyjg30  varchar(70)  null," + &
+              "jyjg31  varchar(70)  null," + &
+              "jyjg32  varchar(70)  null," + &
+              "jyjg33  varchar(70)  null," + &
+              "jyjg34  varchar(70)  null," + &
+              "jyjg35  varchar(70)  null," + &
+              "jyjg36  varchar(70)  null," + &
+              "jyjg37  varchar(70)  null," + &
+              "jyjg38  varchar(70)  null," + &
+              "jyjg39  varchar(70)  null," + &
+              "jyjg40  varchar(70)  null," + &
+              "jyjg41  varchar(70)  null," + &
+              "jyjg42  varchar(70)  null," + &
+              "jyjg43  varchar(70)  null," + &
+              "jyjg44  varchar(70)  null," + &
+              "jyjg45  varchar(70)  null," + &
+              "jyjg46  varchar(70)  null," + &
+              "jyjg47  varchar(70)  null," + &
+              "jyjg48  varchar(70)  null," + &
+              "jyjg49  varchar(70)  null," + &
+              "jyjg50  varchar(70)  null," + &
+              "jyjg51  varchar(70)  null," + &
+              "jyjg52  varchar(70)  null," + &
+              "jyjg53  varchar(70)  null," + &
+              "jyjg54  varchar(70)  null," + &
+              "jyjg55  varchar(70)  null," + &
+              "jyjg56  varchar(70)  null," + &
+              "jyjg57  varchar(70)  null," + &
+              "jyjg58  varchar(70)  null," + &
+              "jyjg59  varchar(70)  null," + &
+              "jyjg60  varchar(70)  null," + &
+              "jyjg61  varchar(70)  null," + &
+              "jyjg62  varchar(70)  null," + &
+              "jyjg63  varchar(70)  null," + &
+              "jyjg64  varchar(70)  null," + &
+              "jyjg65  varchar(70)  null," + &
+              "jyjg66  varchar(70)  null," + &
+              "jyjg67  varchar(70)  null," + &
+              "jyjg68  varchar(70)  null," + &
+              "jyjg69  varchar(70)  null," + &
+              "jyjg70  varchar(70)  null," + &
+              "jyjg71  varchar(70)  null," + &
+              "jyjg72  varchar(70)  null," + &
+              "jyjg73  varchar(70)  null," + &
+              "jyjg74  varchar(70)  null," + &
+              "jyjg75  varchar(70)  null," + &
+              "jyjg76  varchar(70)  null," + &
+              "jyjg77  varchar(70)  null," + &
+              "jyjg78  varchar(70)  null," + &				  
+              "jyjg79  varchar(70)  null," + &
+              "jyjg80  varchar(70)  null," + &
+              "jyjg81  varchar(70)  null," + &
+              "jyjg82  varchar(70)  null," + &
+              "jyjg83  varchar(70)  null," + &
+              "jyjg84  varchar(70)  null," + &
+              "jyjg85  varchar(70)  null," + &
+              "jyjg86  varchar(70)  null," + &
+              "jyjg87  varchar(70)  null," + &
+              "jyjg88  varchar(70)  null," + &
+              "jyjg89  varchar(70)  null," + &
+              "jyjg90  varchar(70)  null," + &
+              "jyjg91  varchar(70)  null," + &
+              "jyjg92  varchar(70)  null," + &
+              "jyjg93  varchar(70)  null," + &
+              "jyjg94  varchar(70)  null," + &
+              "jyjg95  varchar(70)  null," + &
+              "jyjg96  varchar(70)  null," + &
+              "jyjg97  varchar(70)  null," + &
+              "jyjg98  varchar(70)  null," + &
+              "jyjg99  varchar(70)  null," + &
+              "jyjg100  varchar(70)  null," + &
+              "jyjl101  varchar(70)  null," + &
+              "jyjl102  varchar(70)  null," + &
+              "zyxm79  varchar(28)  null," + &
+              "zyxm80  varchar(28)  null," + &
+              "zyxm81  varchar(28)  null," + &
+              "zyxm82  varchar(28)  null," + &
+              "zyxm83  varchar(28)  null," + &
+              "zyxm84  varchar(28)  null," + &
+              "zyxm85  varchar(28)  null," + &
+              "zyxm86  varchar(28)  null," + &
+              "zyxm87  varchar(28)  null," + &
+              "zyxm88  varchar(28)  null," + &
+              "zyxm89  varchar(28)  null," + &
+              "zyxm90  varchar(28)  null," + &
+              "zyxm91  varchar(28)  null," + &
+              "zyxm92  varchar(28)  null," + &
+              "zyxm93  varchar(28)  null," + &
+              "zyxm94  varchar(28)  null," + &
+              "zyxm95  varchar(28)  null," + &
+              "zyxm96  varchar(28)  null," + &
+              "zyxm97  varchar(28)  null," + &
+              "zyxm98  varchar(28)  null," + &
+              "zyxm99  varchar(28)  null," + &
+              "zyxm100  varchar(28)  null," + &
+              "zyxm101  varchar(28)  null," + &
+              "zyxm102  varchar(28)   null,Primary Key (jyid) ) ;"
+		execute immediate :mysql using sqlca ;	
+END IF
+//IF mark = 'sqlserver' THEN
+//		mysql="CREATE TABLE djylrq.t_tzsb_wg_dq4(jyid varchar(20) NOT NULL,"+&
+//				 "bz1 varchar(20) NULL,bz2 varchar(20) NULL,bz3 varchar(20) NULL,bz4 varchar(20) NULL,bz5 varchar(20) NULL,"+&
+//				 "bz6 varchar(20) NULL,bz7 varchar(20) NULL,bz8 varchar(20) NULL,bz9 varchar(20) NULL,bz10 varchar(20) NULL,"+&
+//				 "bz11 varchar(20) NULL,bz12 varchar(20) NULL,bz13 varchar(20) NULL,bz14 varchar(20) NULL,bz15 varchar(20) NULL,"+&
+//				 "bz16 varchar(20) NULL,bz17 varchar(20) NULL,bz18 varchar(20) NULL,bz19 varchar(20) NULL,bz20 varchar(20) NULL,"+&
+//				 "bz21 varchar(20) NULL,bz22 varchar(20) NULL,bz23 varchar(20) NULL,bz24 varchar(20) NULL,bz25 varchar(20) NULL,"+&
+//				 "bz26 varchar(20) NULL,bz27 varchar(20) NULL,bz28 varchar(20) NULL,bz29 varchar(20) NULL,bz30 varchar(20) NULL,"+&
+//				 "bz31 varchar(20) NULL,bz32 varchar(20) NULL,bz33 varchar(20) NULL,bz34 varchar(20) NULL,bz35 varchar(20) NULL,"+&
+//				 "bz36 varchar(20) NULL,bz37 varchar(20) NULL,bz38 varchar(20) NULL,bz39 varchar(20) NULL,bz40 varchar(20) NULL,"+&
+//				 "bz41 varchar(20) NULL,bz42 varchar(20) NULL,bz43 varchar(20) NULL,bz44 varchar(20) NULL,bz45 varchar(20) NULL,"+&
+//				 "bz46 varchar(20) NULL,bz47 varchar(20) NULL,bz48 varchar(20) NULL,bz49 varchar(20) NULL,bz50 varchar(20) NULL,"+&
+//			 	 "bz51 varchar(20) NULL,bz52 varchar(20) NULL,bz53 varchar(20) NULL,bz54 varchar(20) NULL,bz55 varchar(20) NULL,"+&
+//				 "bz56 varchar(20) NULL,bz57 varchar(20) NULL,bz58 varchar(20) NULL,bz59 varchar(20) NULL,bz60 varchar(20) NULL,"+&
+//				 "bz61 varchar(20) NULL,bz62 varchar(20) NULL,bz63 varchar(20) NULL,bz64 varchar(20) NULL,bz65 varchar(20) NULL,"+&
+//				 "bz66 varchar(20) NULL,bz67 varchar(20) NULL,bz68 varchar(20) NULL,bz69 varchar(20) NULL,bz70 varchar(20) NULL,"+&
+//				 "bz71 varchar(20) NULL,bz72 varchar(20) NULL,bz73 varchar(20) NULL,bz74 varchar(20) NULL,bz75 varchar(20) NULL,"+&
+//				 "bz76 varchar(20) NULL,bz77 varchar(20) NULL,bz78 varchar(20) NULL,bz79 varchar(20) NULL,bz80 varchar(20) NULL,"+&
+//				 "bz81 varchar(20) NULL,bz82 varchar(20) NULL,bz83 varchar(20) NULL,bz84 varchar(20) NULL,bz85 varchar(20) NULL,"+&
+//				 "bz86 varchar(20) NULL,bz87 varchar(20) NULL,bz88 varchar(20) NULL,bz89 varchar(20) NULL,bz90 varchar(20) NULL,"+&
+//				 "bz91 varchar(20) NULL,bz92 varchar(20) NULL,bz93 varchar(20) NULL,bz94 varchar(20) NULL,bz95 varchar(20) NULL,"+&
+//				 "bz96 varchar(20) NULL,bz97 varchar(20) NULL,bz98 varchar(20) NULL,bz99 varchar(20) NULL,bz100 varchar(20) NULL,bz241 varchar(20) NULL);"
+//				
+//      execute immediate :mysql using sqlca ;
+//		myindex="CREATE UNIQUE INDEX t_tzsb_wg_dq4_x "&
+//		        +"ON djylrq.t_tzsb_wg_dq4"&
+//		        +"(jyid) ;"
+//		execute immediate :myindex using sqlca ;		
+//ELSE
+//			mysql="CREATE TABLE t_tzsb_wg_dq4(jyid varchar(20) NOT NULL,"+&
+//				 "bz1 varchar(20) NULL,bz2 varchar(20) NULL,bz3 varchar(20) NULL,bz4 varchar(20) NULL,bz5 varchar(20) NULL,"+&
+//				 "bz6 varchar(20) NULL,bz7 varchar(20) NULL,bz8 varchar(20) NULL,bz9 varchar(20) NULL,bz10 varchar(20) NULL,"+&
+//				 "bz11 varchar(20) NULL,bz12 varchar(20) NULL,bz13 varchar(20) NULL,bz14 varchar(20) NULL,bz15 varchar(20) NULL,"+&
+//				 "bz16 varchar(20) NULL,bz17 varchar(20) NULL,bz18 varchar(20) NULL,bz19 varchar(20) NULL,bz20 varchar(20) NULL,"+&
+//				 "bz21 varchar(20) NULL,bz22 varchar(20) NULL,bz23 varchar(20) NULL,bz24 varchar(20) NULL,bz25 varchar(20) NULL,"+&
+//				 "bz26 varchar(20) NULL,bz27 varchar(20) NULL,bz28 varchar(20) NULL,bz29 varchar(20) NULL,bz30 varchar(20) NULL,"+&
+//				 "bz31 varchar(20) NULL,bz32 varchar(20) NULL,bz33 varchar(20) NULL,bz34 varchar(20) NULL,bz35 varchar(20) NULL,"+&
+//				 "bz36 varchar(20) NULL,bz37 varchar(20) NULL,bz38 varchar(20) NULL,bz39 varchar(20) NULL,bz40 varchar(20) NULL,"+&
+//				 "bz41 varchar(20) NULL,bz42 varchar(20) NULL,bz43 varchar(20) NULL,bz44 varchar(20) NULL,bz45 varchar(20) NULL,"+&
+//				 "bz46 varchar(20) NULL,bz47 varchar(20) NULL,bz48 varchar(20) NULL,bz49 varchar(20) NULL,bz50 varchar(20) NULL,"+&
+//			 	 "bz51 varchar(20) NULL,bz52 varchar(20) NULL,bz53 varchar(20) NULL,bz54 varchar(20) NULL,bz55 varchar(20) NULL,"+&
+//				 "bz56 varchar(20) NULL,bz57 varchar(20) NULL,bz58 varchar(20) NULL,bz59 varchar(20) NULL,bz60 varchar(20) NULL,"+&
+//				 "bz61 varchar(20) NULL,bz62 varchar(20) NULL,bz63 varchar(20) NULL,bz64 varchar(20) NULL,bz65 varchar(20) NULL,"+&
+//				 "bz66 varchar(20) NULL,bz67 varchar(20) NULL,bz68 varchar(20) NULL,bz69 varchar(20) NULL,bz70 varchar(20) NULL,"+&
+//				 "bz71 varchar(20) NULL,bz72 varchar(20) NULL,bz73 varchar(20) NULL,bz74 varchar(20) NULL,bz75 varchar(20) NULL,"+&
+//				 "bz76 varchar(20) NULL,bz77 varchar(20) NULL,bz78 varchar(20) NULL,bz79 varchar(20) NULL,bz80 varchar(20) NULL,"+&
+//				 "bz81 varchar(20) NULL,bz82 varchar(20) NULL,bz83 varchar(20) NULL,bz84 varchar(20) NULL,bz85 varchar(20) NULL,"+&
+//				 "bz86 varchar(20) NULL,bz87 varchar(20) NULL,bz88 varchar(20) NULL,bz89 varchar(20) NULL,bz90 varchar(20) NULL,"+&
+//				 "bz91 varchar(20) NULL,bz92 varchar(20) NULL,bz93 varchar(20) NULL,bz94 varchar(20) NULL,bz95 varchar(20) NULL,"+&
+//				 "bz96 varchar(20) NULL,bz97 varchar(20) NULL,bz98 varchar(20) NULL,bz99 varchar(20) NULL,bz100 varchar(20) NULL,bz351 varchar(20) NULL, PRIMARY KEY (jyid));"
+//      execute immediate :mysql using sqlca ;
+//END IF
+if mark = 'sqlserver' then
+	for i = 1 to 100
+		modsql = "alter table djylrq.t_tzsb_wg_dq2 add bz" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	for i = 1 to 100
+		modsql = "alter table t_tzsb_wg_dq2 add bz" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh79 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh80 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh81 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh82 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh83 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh84 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh85 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh86 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh87 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add xcjyy varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add xcjym varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add xcjyd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table t_tzsb_wg_dq3 add xh79 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh80 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh81 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh82 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh83 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh84 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh85 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh86 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh87 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh88 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh89 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh90 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh91 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh92 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh93 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh94 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh95 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh96 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh97 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh98 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh99 varchar(2) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh100 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh101 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add xh102 varchar(3) null;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add xcjyy varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add xcjym varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add xcjyd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add jyjg58_1 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add jyjg23_1 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add sblb varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add sbpz varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add sydjzbh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add jyjgdz varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add jyjgyb varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add jyjgdh varchar(12) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add sydwdz varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add zzjgdm varchar(25) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add aqglry varchar(25) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add lxdh varchar(26) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add dwnbh varchar(26) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add zzckzbh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add zzrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add ggxh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add gzjb varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add edqzl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add zdqzlj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add qsgd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add qssd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add dcyxsd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add xcyxsd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add bz2 varchar(72) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add bz3 varchar(72) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add bz4 varchar(72) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add jyday varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add shday varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add pzday varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add jyjghzzh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add jyjg241 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq2 add jyjl241 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add djid varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add bbxx varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 add jyjg242 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq2 add jyjl242 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq4 add bz242 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add zdqzl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1  alter column sbmc varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table t_tzsb_wg_dq1 add gzjb varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add sblb varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add sbpz varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add sydjzbh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add jyjgdz varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add jyjgyb varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add jyjgdh varchar(12) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add sydwdz varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add zzjgdm varchar(25) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add aqglry varchar(25) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add lxdh varchar(26) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add dwnbh varchar(26) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add zzckzbh varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add zzrq varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add ggxh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add gzjb varchar(10) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add edqzl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add zdqzlj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add qsgd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add qssd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add dcyxsd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add xcyxsd varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add bz2 varchar(72) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add bz3 varchar(72) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add bz4 varchar(72) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add jyday varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add shday varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add pzday varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add jyjghzzh varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add jyjg241 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq2 add jyjl241 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add djid varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add bbxx varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 add jyjg242 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq2 add jyjl242 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq4 add bz242 varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add zdqzl varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1  modify sbmc varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add z3 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add z4 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add z5 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+else 
+	modsql = "alter table t_tzsb_wg_dq1 add z3 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add z4 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq1 add z5 varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_wg_dq1 add bgbhfj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_wg_dq1 add dm_bz varchar(12) null,sb_zcdm varchar(30) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_wg_dq1 Alter Column sbdm varchar(30) null"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table t_tzsb_wg_dq1 add bgbhfj varchar(20) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_wg_dq1 add dm_bz varchar(12) null,add sb_zcdm varchar(30) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_wg_dq1 Modify sbdm varchar(30) null"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_wg_dq4 alter column xmnr98 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq4 alter column xmnr99 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 alter column zyxm99 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 alter column zyxm100 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_wg_dq3 alter column zyxm101 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table t_tzsb_wg_dq4 modify xmnr98 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq4 modify xmnr99 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 modify zyxm99 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 modify zyxm100 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_wg_dq3 modify zyxm101 varchar(70) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+   modsql = "Alter Table djylrq.t_tzsb_wg_dq1 add jyz1 varchar(10) null,jyz2 varchar(10) null,jyz3 varchar(10) null,jyz4 varchar(10) null,jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table djylrq.t_tzsb_wg_dq1 add jyyj1 varchar(60) null,jyyj2 varchar(60) null,jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+else
+   modsql = "Alter Table t_tzsb_wg_dq1 add jyz1 varchar(10) null,add jyz2 varchar(10) null,add jyz3 varchar(10) null,add jyz4 varchar(10) null,add jyz5 varchar(10) null"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter Table t_tzsb_wg_dq1 add jyyj1 varchar(60) null,add jyyj2 varchar(60) null,add jyyj3 varchar(60) null"
+	execute immediate :modsql using sqlca;
+end if
+////////////ÎªÇú¾¸¸Ä
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.t_tzsb_ddhl_bg_new add  kd varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.t_tzsb_ddhl_bg_new alter column sydd varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table t_tzsb_ddhl_bg_new add  kd varchar(40) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table t_tzsb_ddhl_bg_new modify sydd varchar(60) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+////////////¹óÑôÐÞ¸Ä
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.f_ylrq_aqxn_jj alter column c7 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table f_ylrq_aqxn_jj modify c7 varchar(30) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+///////////////////¹óÑôºó¸ÄµÄÔª¼þÖ¤Êé
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jdjyzs add ccrqy varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jdjyzs add ccrqm varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_jdjyzs add ccrqd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_jdjyzs add ccrqy varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jdjyzs add ccrqm varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_jdjyzs add ccrqd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	mysql = "alter table djylrq.f_dj_wfqp alter column jydw varchar(80) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jy_qwcrqp alter column jydw varchar(80) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table djylrq.b_jy_wfqp alter column jydw varchar(80) NULL;"
+	execute immediate :mysql using sqlca;
+	modsql = "alter table djylrq.b_xzgl_azjdjyxmb_bg alter column jjdw varchar(80);"
+   execute immediate :modsql using sqlca;
+else
+	mysql = "alter table f_dj_wfqp modify jydw varchar(80) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jy_qwcrqp modify jydw varchar(80) NULL;"
+	execute immediate :mysql using sqlca;
+	mysql = "alter table b_jy_wfqp modify jydw varchar(80) NULL;"
+	execute immediate :mysql using sqlca;
+	modsql = "alter table b_xzgl_azjdjyxmb_bg modify jjdw varchar(80);"
+   execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jdjyzs alter Column jjjg varchar(80) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_jdjyzs modify jjjg varchar(80) null;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.f_jkgl_04sjwj alter Column jjjg varchar(80) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table f_jkgl_04sjwj modify jjjg varchar(80) null;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.c_gl_azjdjyzs alter Column jjjg varchar(80) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table c_gl_azjdjyzs modify jjjg varchar(80) null;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_lsytxyg_total_dj alter Column jydw varchar(80) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_lsytxyg_total_dj modify jydw varchar(80) null;"
+	execute immediate :modsql using sqlca;
+end if
+ 
+if mark = 'sqlserver' then  
+     modsql = "alter table djylrq.b_xsqcs add jydw varchar(80) NULL;"
+        execute immediate :modsql using sqlca;        
+else
+        modsql = "alter table b_xsqcs add jydw varchar(80) NULL;"
+        execute immediate :modsql using sqlca;        
+end if
+
+
+if mark = 'sqlserver' then      
+                modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('92','01','·âÆ¤','','','dat_tzsb_fp','','') ; "
+                execute immediate :modsql using sqlca ;
+                 modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('92','02','Ö¤Êé','','','dat_tzsb_jlbg','','') ; "
+                execute immediate :modsql using sqlca ;
+else
+                modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('92','01','·âÆ¤','','','dat_tzsb_fp','','') ; "
+                execute immediate :modsql using sqlca ;
+                  modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('92','02','Ö¤Êé','','','dat_tzsb_jlbg','','') ; "
+                execute immediate :modsql using sqlca ;
+end if
+////////////////////////////////¹¤Òµ¹øÂ¯ÄÚ²¿¼ìÑé
+if gs_jydw = 'Î÷°²ÌØÖÖÉè±¸¼ìÑé¼ì²âÔº' then
+	delete from a_sz_nr where jytype ='Da';
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','01','±¨¸æ·âÆ¤','','','dat_bg_gga_fp_xa');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','02','±¨¸æÄ¿Â¼','','','dat_bg_ml_new_xa');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','03','±¨¸æÖ÷Ò³','','','dat_bg_gga_zy_new_xa');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','04','±¨¸æ¸½Ò³','','','dat_bg_gga_fy_xa');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','05','±Úºñ²â¶¨','¸½Ò³','·Ö³öÒ³','dat_bg_bhcd_new_xa');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','06','´Å·Û¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_cfjc_new_xa');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','07','ÉøÍ¸¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_stjc_new_xa');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','08','³¬Éù²¨¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_csbjc_new_xa');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','09','ÉäÏß¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_sxjc_new_xa');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','10','Ó²¶È¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_ydjc_new_xa');
+else
+	delete from a_sz_nr where jytype ='Da';
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','01','±¨¸æ·âÆ¤','','','dat_bg_gga_fp');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','02','±¨¸æÖ÷Ò³','','','dat_bg_gga_zy');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','03','±¨¸æ¸½Ò³','','','dat_bg_gga_fy');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','04','±¨¸æ¸½Ò³','','','dat_bg_gga_fy');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','05','±Úºñ²â¶¨','¸½Ò³','·Ö³öÒ³','dat_bg_bhcd_new');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','06','ÉäÏß¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_sxjc_new');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','07','³¬Éù²¨¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_csbjc_new');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','08','´Å·Û¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_cfjc_new');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','09','ÉøÍ¸¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_stjc_new');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','10','²ÄÁÏ³É·Ö','¸½Ò³','·Ö³öÒ³','dat_bg_clcffx_new');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','11','Ó²¶È¼ì²â','¸½Ò³','·Ö³öÒ³','dat_bg_ydjc_new');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','12','½ðÏà·ÖÎö','¸½Ò³','·Ö³öÒ³','dat_bg_jxfx_new');
+	insert into a_sz_nr (jytype,xh,nr,fy,fcy,dw) values ('Da','13','ÄÚ¿ú¾µ¼ì²é','¸½Ò³','·Ö³öÒ³','dat_glnj_bg_nkj_zy');
+end if
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_jy_gg_info alter Column sydwbh varchar(30) null;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "alter table b_jy_gg_info modify sydwbh varchar(30) null;"
+	execute immediate :modsql using sqlca;
+end if
+////////////////////////////
+if mark = 'sqlserver' then
+	modsql = "alter table djylrq.b_szq_qmjybg_fp add spname varchar(12) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_szq_qmjybg_fp add spy varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_szq_qmjybg_fp add spn varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table djylrq.b_szq_qmjybg_fp add spd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	for i = 1 to 20
+		modsql = "alter table djylrq.b_aj_ylgd_jbqk add spjl" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_aj_ylgd_jbqk add syrq" + string(i) + " varchar(12) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_aj_ylgd_jbqk add ssth" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_sx add hfdh" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 1 to 25
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add chbh" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 8 to 20
+		modsql = "alter table djylrq.b_szq_qmjybg_sx add dpbh" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_sx add qxwz" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_sx add qxcc" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_sx add pd" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_sx add bz" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next	
+	for i = 1 to 20
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add a" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add c" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add e" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add g" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add i" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 14 to 20
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add b" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add d" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add f" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add h" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_bhcd add j" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 49 to 85
+		modsql = "alter table djylrq.b_szq_qmjybg_ydjc add id" + string(i) + " varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.b_szq_qmjybg_ydjc add yd" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 29 to 100
+		modsql = "alter table djylrq.b_aj_ylgd_xy add c" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 39 to 100
+		modsql = "alter table djylrq.b_jrl_qmjybg_xy add c" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+	for i = 1 to 50
+		modsql = "alter table djylrq.b_jrl_qmjybg_xy add h" + string(i) + " varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+else
+	modsql = "alter table b_szq_qmjybg_fp add spname varchar(12) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_szq_qmjybg_fp add spy varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_szq_qmjybg_fp add spn varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "alter table b_szq_qmjybg_fp add spd varchar(2) NULL;"
+	execute immediate :modsql using sqlca;	
+//	for i = 1 to 20
+//		modsql = "alter table b_aj_ylgd_jbqk add spjl" + string(i) + " varchar(20) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_aj_ylgd_jbqk add syrq" + string(i) + " varchar(12) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_aj_ylgd_jbqk add ssth" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_szq_qmjybg_sx add hfdh" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+
+//	for i = 1 to 25
+//		modsql = "alter table b_szq_qmjybg_bhcd add chbh" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+	for i = 8 to 20
+		modsql = "alter table b_szq_qmjybg_sx add dpbh" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_szq_qmjybg_sx add qxwz" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_szq_qmjybg_sx add qxcc" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_szq_qmjybg_sx add pd" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_szq_qmjybg_sx add bz" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+//	for i = 1 to 20
+//		modsql = "alter table b_szq_qmjybg_bhcd add a" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_szq_qmjybg_bhcd add c" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_szq_qmjybg_bhcd add e" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_szq_qmjybg_bhcd add g" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_szq_qmjybg_bhcd add i" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+//	for i = 14 to 20
+//		modsql = "alter table b_szq_qmjybg_bhcd add b" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_szq_qmjybg_bhcd add d" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_szq_qmjybg_bhcd add f" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_szq_qmjybg_bhcd add h" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//		modsql = "alter table b_szq_qmjybg_bhcd add j" + string(i) + " varchar(10) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+	for i = 49 to 85
+		modsql = "alter table b_szq_qmjybg_ydjc add id" + string(i) + " varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table b_szq_qmjybg_ydjc add yd" + string(i) + " varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	next
+//	for i = 29 to 100
+//		modsql = "alter table b_aj_ylgd_xy add c" + string(i) + " varchar(20) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+//	for i = 39 to 100
+//		modsql = "alter table b_jrl_qmjybg_xy add c" + string(i) + " varchar(20) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+//	for i = 1 to 50
+//		modsql = "alter table b_jrl_qmjybg_xy add h" + string(i) + " varchar(20) NULL;"
+//		execute immediate :modsql using sqlca;
+//	next
+end if
+if  mark = 'sqlserver' then
+		modsql = "Alter table djylrq.b_aj_ylrq_fy1 alter column a2 varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+else
+		modsql = "Alter table b_aj_ylrq_fy1 modify a2 varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+end if
+if  mark = 'sqlserver' then
+		modsql = "Alter table djylrq.b_aj_ylgd_jybg_total add jjsj1 varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+else
+		modsql = "Alter table b_aj_ylgd_jybg_total add jjsj1 varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+end if
+if  mark = 'sqlserver' then
+		modsql = "Alter table djylrq.b_aj_ylrq_fy1 alter column a4 varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.tzsb_dtjd1 add kzfs1 varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+else
+		modsql = "Alter table tzsb_dtjd1 add kzfs1 varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table b_aj_ylrq_fy1 modify a4 varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_ypgsb_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ypgsb_nrcx as select a.jyid as jyid,a.djid as djid,a.cqdw as cqdw," + &
+      "a.sydwmc as sydwmc,a.sbsydd as sbsydd,a.zzdw as zzdw,a.typename as typename,a.sglb as sglb,a.sbmc as sbmc,a.bm as bm," + &
+		"a.yqmc as yqmc,a.rymc as rymc,a.second_rymc as second_rymc," + &
+		"a.yjrq as yjrq,a.jyjzrq as jyjzrq," + &
+		"b.bcjyrq as bcjyrq,b.scjyrq as scjyrq,b.wxbydw as wxbydw,b.dh as dh,b.lxr as lxr,b.ccbh as ccbh,b.dtyxsd as dtyxsd," + &
+		"b.dtcz as dtcz,b.zhan as zhan,b.dtedzh as dtedzh,b.sblb as sblb,b.zgbmid as zgbmid,b.sb_zcdm as sb_zcdm," + &
+      "b.nextyear + b.nextmonth + b.nextday AS nextdate " + &
+		"from djylrq.z_rw_sb as a,djylrq.glc_tzsb as b where a.djid = b.djid AND a.sb_zcdm = b.sb_zcdm "
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_ypgsb_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ypgsb_nrcx as select a.jyid as jyid,a.djid as djid,a.cqdw as cqdw," + &
+      "a.sydwmc as sydwmc,a.sbsydd as sbsydd,a.zzdw as zzdw,a.typename as typename,a.sglb as sglb,a.sbmc as sbmc,a.bm as bm," + &
+		"a.yqmc as yqmc,a.rymc as rymc,a.second_rymc as second_rymc," + &
+		"a.yjrq as yjrq,a.jyjzrq as jyjzrq," + &
+		"b.bcjyrq as bcjyrq,b.scjyrq as scjyrq,b.wxbydw as wxbydw,b.dh as dh,b.lxr as lxr,b.ccbh as ccbh,b.dtyxsd as dtyxsd," + &
+		"b.dtcz as dtcz,b.zhan as zhan,b.dtedzh as dtedzh,b.sblb as sblb,b.zgbmid as zgbmid,b.sb_zcdm as sb_zcdm," + &
+      "b.nextyear + b.nextmonth + b.nextday AS nextdate " + &
+		"from z_rw_sb as a,glc_tzsb as b where a.djid = b.djid AND a.sb_zcdm = b.sb_zcdm "
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then
+	modsql = "Alter table djylrq.glc_tzsb add nextyear varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.glc_tzsb add nextmonth varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table djylrq.glc_tzsb add nextday varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+else
+	modsql = "Alter table glc_tzsb add nextyear varchar(4) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table glc_tzsb add nextmonth varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+	modsql = "Alter table glc_tzsb add nextday varchar(2) NULL;"
+	execute immediate :modsql using sqlca;
+end if
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_ypgsb_sblbmc_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ypgsb_sblbmc_nrcx as select b.zgbmmc as zgbmmc,a.sblb as sblb," + &
+      "a.sbmc as sbmc,COUNT(a.sblb) AS [sum] " + &
+		"from djylrq.glc_tzsb as a,djylrq.a_zgbm as b where a.zgbmid = b.zgbmid " + &
+		"GROUP BY a.sblb, a.sbmc, b.zgbmmc"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_ypgsb_sblbmc_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ypgsb_sblbmc_nrcx as select b.zgbmmc as zgbmmc,a.sblb as sblb," + &
+      "a.sbmc as sbmc,COUNT(a.sblb) AS [sum] " + &
+		"from djylrq.glc_tzsb as a,djylrq.a_zgbm as b where a.zgbmid = b.zgbmid " + &
+		"GROUP BY a.sblb, a.sbmc, b.zgbmmc"
+	execute immediate :mysql using sqlca;
+end if
+if mark = 'sqlserver' then
+	delsql = "drop view djylrq.View_ypgsb_sydwmc_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ypgsb_sydwmc_nrcx as select a.sydwmc as sydwmc," + &
+      "COUNT(a.sydwmc) AS [sum],b.sblb as sblb,a.sbmc as sbmc,a.zzdw as zzdw,b.wxbydw as wxbydw," + &
+		"b.dh as dh,b.lxr as lxr,a.yqmc as yqmc,a.rymc as rymc,a.second_rymc as second_rymc,a.yjrq as yjrq," + &
+		"a.jyjzrq as jyjzrq,b.bcjyrq as bcjyrq,b.scjyrq as scjyrq " + &
+		"from djylrq.z_rw_sb as a,djylrq.glc_tzsb as b where a.sydwmc = b.sydw " + &
+		"GROUP BY a.sydwmc, b.sblb, a.sbmc, a.zzdw, b.wxbydw, b.dh, b.lxr, a.yqmc, a.rymc," + & 
+      "a.second_rymc, a.yjrq, a.jyjzrq, b.bcjyrq,b.scjyrq"
+	execute immediate :mysql using sqlca;
+else
+	delsql = "drop view View_ypgsb_sydwmc_nrcx"
+	execute immediate :delsql using sqlca;
+	mysql = "create View djylrq.View_ypgsb_sydwmc_nrcx as select a.sydwmc as sydwmc," + &
+      "COUNT(a.sydwmc) AS [sum],b.sblb as sblb,a.sbmc as sbmc,a.zzdw as zzdw,b.wxbydw as wxbydw," + &
+		"b.dh as dh,b.lxr as lxr,a.yqmc as yqmc,a.rymc as rymc,a.second_rymc as second_rymc,a.yjrq as yjrq," + &
+		"a.jyjzrq as jyjzrq,b.bcjyrq as bcjyrq,b.scjyrq as scjyrq " + &
+		"from djylrq.z_rw_sb as a,djylrq.glc_tzsb as b where a.sydwmc = b.sydw " + &
+		"GROUP BY a.sydwmc, b.sblb, a.sbmc, a.zzdw, b.wxbydw, b.dh, b.lxr, a.yqmc, a.rymc," + & 
+      "a.second_rymc, a.yjrq, a.jyjzrq, b.bcjyrq,b.scjyrq"
+	execute immediate :mysql using sqlca;
+end if
+end subroutine
+

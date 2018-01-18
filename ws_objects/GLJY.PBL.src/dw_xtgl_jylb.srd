@@ -1,0 +1,21 @@
+﻿$PBExportHeader$dw_xtgl_jylb.srd
+$PBExportComments$¼ìÑéÀà±ð
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 grid.columnmove=no selected.mouse=no )
+header(height=89 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=85 color="536870912" )
+table(column=(type=char(3) update=yes updatewhereclause=yes key=yes name=jylbid dbname="a_jylb.jylbid" initial="empty" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=jylbdh dbname="a_jylb.jylbdh" initial="empty" )
+ column=(type=char(10) update=yes updatewhereclause=yes key=yes name=jymk dbname="a_jylb.jymk" initial="empty" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=jylbmc dbname="a_jylb.jylbmc" initial="empty" )
+ retrieve="PBSELECT(TABLE(NAME=~"a_jylb~") COLUMN(NAME=~"a_jylb.jylbid~")COLUMN(NAME=~"a_jylb.jylbdh~")COLUMN(NAME=~"a_jylb.jymk~")COLUMN(NAME=~"a_jylb.jylbmc~"))" update="a_jylb" updatewhere=1 updatekeyinplace=no )
+text(band=header alignment="2" text="¼ìÑéÀà±ð±àºÅ"border="6" color="0" x="10" y="8" height="73" width="476"  name=jylbid_t  font.face="ËÎÌå" font.height="-12" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="´úºÅ"border="6" color="0" x="494" y="8" height="73" width="631"  name=jylbdh_t  font.face="ËÎÌå" font.height="-12" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="¼ìÑéÄ£¿é"border="6" color="0" x="1134" y="8" height="73" width="471"  name=jymk_t  font.face="ËÎÌå" font.height="-12" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="¼ìÑéÀà±ðÃû³Æ"border="6" color="0" x="1614" y="8" height="73" width="1454"  name=jylbmc_t  font.face="ËÎÌå" font.height="-12" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="2" background.color="79741120" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="10" y="8" height="73" width="476" format="[general]"  name=jylbid  tag=" " edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="ËÎÌå" font.height="-12" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="494" y="8" height="73" width="631" format="[general]"  name=jylbdh  tag=" " edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="ËÎÌå" font.height="-12" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1134" y="8" height="73" width="471" format="[general]"  name=jymk  tag=" " edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="ËÎÌå" font.height="-12" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1614" y="8" height="73" width="1454" format="[general]"  name=jylbmc  tag=" " edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="ËÎÌå" font.height="-12" font.weight="400"  font.family="0" font.pitch="2" font.charset="-122" background.mode="1" background.color="536870912" )

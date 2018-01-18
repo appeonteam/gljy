@@ -1,0 +1,27 @@
+﻿$PBExportHeader$fun_lld_fyft.srf
+global type fun_lld_fyft from function_object
+end type
+
+forward prototypes
+global subroutine fun_lld_fyft ()
+end prototypes
+
+global subroutine fun_lld_fyft ();string fy='¸½Ò³'
+update a_sz_nr
+ set   fy =:fy where jytype = 'Dm';
+update a_sz_nr
+ set    fy =:fy where jytype = 'Lu';
+update a_sz_nr
+ set   fy =:fy where jytype = 'Du'; 
+ update a_sz_nr
+ set    fy =:fy where jytype = 'Qu'; 
+ update a_sz_nr
+ set    fy =:fy where jytype = 'Au'; 
+ update a_sz_nr
+ set    fy =:fy where jytype = 'Ou'; 
+ update a_sz_nr
+ set    fy =:fy where jytype = '9u'; 
+ update a_sz_nr
+ set    fy =:fy where jytype = 'Iu'; 
+end subroutine
+

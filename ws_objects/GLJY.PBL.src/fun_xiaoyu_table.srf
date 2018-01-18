@@ -1,0 +1,860 @@
+﻿$PBExportHeader$fun_xiaoyu_table.srf
+global type fun_xiaoyu_table from function_object
+end type
+
+forward prototypes
+global subroutine fun_xiaoyu_table (string cs1)
+end prototypes
+
+global subroutine fun_xiaoyu_table (string cs1);if cs1 <> 'OK' then return
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+
+ls_count = 0
+//////////////////////´´½¨ÌØÖÖÉè±¸Òâ¼ûÍ¨ÖªÊé1//////////////////
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from t_tzsb_yjtzs1;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		delsql = "drop table djylrq.t_tzsb_yjtzs1"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE djylrq.t_tzsb_yjtzs1 (jyid varchar(20) NOT NULL,bgbh varchar(20) NULL,"+&
+              "sbzl varchar(20) NULL,sblb varchar(20) NULL,sbmc varchar(20) NULL,"+&
+              "sbpz varchar(20) NULL,sbdm varchar(20) NULL,sbnbbh varchar(20) NULL,"+&
+              "sjdw varchar(60) NULL,jyrq varchar(20) NULL,jyxm varchar(20) NULL,"+&
+              "jyyj1 varchar(60) NULL,jyyj2 varchar(60) NULL,jyyj3 varchar(60) NULL,"+&
+              "jyyj4 varchar(60) NULL,jyyj5 varchar(60) NULL,jyyj6 varchar(60) NULL,"+&
+              "jyyj7 varchar(60) NULL,jyyj8 varchar(60) NULL,jyyj9 varchar(60) NULL,"+&
+              "jyyj10 varchar(60) NULL,jyjl1 varchar(60) NULL,jyjl2 varchar(60) NULL,"+&
+              "jyjl3 varchar(60) NULL,jyjl4 varchar(60) NULL,jyjl5 varchar(60) NULL,"+&
+              "jyname varchar(10) NULL,jyy varchar(4) NULL,jym varchar(2) NULL,"+&
+              "jyd varchar(2) NULL,yxqy varchar(4) NULL,yxqm varchar(2) NULL,"+&
+              "yxqd varchar(2) NULL,dwdb varchar(10) NULL,dby varchar(4) NULL,"+&
+              "dbm varchar(2) NULL,dbd varchar(2) NULL);"
+		execute immediate :mysql using sqlca;
+		myindex = "CREATE UNIQUE INDEX T_TZSB_YJTZS1_X ON DJYLRQ.T_TZSB_YJTZS1 (JYID);"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ls_count from t_tzsb_yjtzs1;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		delsql = "drop table t_tzsb_yjtzs1"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE t_tzsb_yjtzs1 (jyid varchar(20) NOT NULL,bgbh varchar(20) NULL,"+&
+              "sbzl varchar(20) NULL,sblb varchar(20) NULL,sbmc varchar(20) NULL,"+&
+              "sbpz varchar(20) NULL,sbdm varchar(20) NULL,sbnbbh varchar(20) NULL,"+&
+              "sjdw varchar(60) NULL,jyrq varchar(20) NULL,jyxm varchar(20) NULL,"+&
+              "jyyj1 varchar(60) NULL,jyyj2 varchar(60) NULL,jyyj3 varchar(60) NULL,"+&
+              "jyyj4 varchar(60) NULL,jyyj5 varchar(60) NULL,jyyj6 varchar(60) NULL,"+&
+              "jyyj7 varchar(60) NULL,jyyj8 varchar(60) NULL,jyyj9 varchar(60) NULL,"+&
+              "jyyj10 varchar(60) NULL,jyjl1 varchar(60) NULL,jyjl2 varchar(60) NULL,"+&
+              "jyjl3 varchar(60) NULL,jyjl4 varchar(60) NULL,jyjl5 varchar(60) NULL,"+&
+              "jyname varchar(10) NULL,jyy varchar(4) NULL,jym varchar(2) NULL,"+&
+              "jyd varchar(2) NULL,yxqy varchar(4) NULL,yxqm varchar(2) NULL,"+&
+              "yxqd varchar(2) NULL,dwdb varchar(10) NULL,dby varchar(4) NULL,"+&
+              "dbm varchar(2) NULL,dbd varchar(2) NULL, PRIMARY KEY (jyid));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+ls_count = 0
+/////////////////////´´½¨ÌØÖÖÉè±¸Òâ¼ûÍ¨ÖªÊé2////////////////////
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from t_tzsb_yjtzs2;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		delsql = "drop table djylrq.t_tzsb_yjtzs2"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE djylrq.t_tzsb_yjtzs2 (jyid varchar(20) NOT NULL,bgbh varchar(20) NULL,"+&
+              "sjdw varchar(60) NULL,sbzl varchar(20) NULL,sbmc varchar(20) NULL,"+&
+              "sbmz varchar(20) NULL,sbnbbh varchar(20) NULL,xzy varchar(4) NULL,"+&
+              "xzm varchar(2) NULL,xzd varchar(2) NULL,wthyj1 varchar(60) NULL,"+&
+              "wthyj2 varchar(60) NULL,wthyj3 varchar(60) NULL,wthyj4 varchar(60) NULL,"+&
+              "wthyj5 varchar(60) NULL,wthyj6 varchar(60) NULL,wthyj7 varchar(60) NULL,"+&
+              "wthyj8 varchar(60) NULL,jyname varchar(10) NULL,jyy varchar(4) NULL,"+&
+              "jym varchar(2) NULL,jyd varchar(2) NULL,fzrname varchar(10) NULL,"+&
+              "fzry varchar(4) NULL,fzrm varchar(2) NULL,fzrd varchar(2) NULL,"+&
+              "sjdwjsr varchar(10) NULL,jsry varchar(4) NULL,jsrm varchar(2) NULL,"+&
+              "jsrd varchar(2) NULL,cljg1 varchar(60) NULL,cljg2 varchar(60) NULL,"+&
+              "cljg3 varchar(60) NULL,cljg4 varchar(60) NULL,cljg5 varchar(60) NULL,"+&
+              "zgfzr varchar(10) NULL,zgy varchar(4) NULL,zgm varchar(2) NULL,"+&
+              "zgd varchar(2) NULL,jydwy varchar(4) NULL,jydwm varchar(2) NULL,"+&
+              "jydwd varchar(2) NULL,sjdwy varchar(4) NULL,sjdwm varchar(2) NULL,"+&
+              "sjdwd varchar(2) NULL);"
+		execute immediate :mysql using sqlca;
+		myindex = "CREATE UNIQUE INDEX T_TZSB_YJTZS2_X ON DJYLRQ.T_TZSB_YJTZS2 (JYID);"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ls_count from t_tzsb_yjtzs2;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		delsql = "drop table t_tzsb_yjtzs2"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE t_tzsb_yjtzs2 (jyid varchar(20) NOT NULL ,bgbh varchar(20) NULL,"+&
+              "sjdw varchar(60) NULL,sbzl varchar(20) NULL,sbmc varchar(20) NULL,"+&
+              "sbmz varchar(20) NULL,sbnbbh varchar(20) NULL,xzy varchar(4) NULL,"+&
+              "xzm varchar(2) NULL,xzd varchar(2) NULL,wthyj1 varchar(60) NULL,"+&
+              "wthyj2 varchar(60) NULL,wthyj3 varchar(60) NULL,wthyj4 varchar(60) NULL,"+&
+              "wthyj5 varchar(60) NULL,wthyj6 varchar(60) NULL,wthyj7 varchar(60) NULL,"+&
+              "wthyj8 varchar(60) NULL,jyname varchar(10) NULL,jyy varchar(4) NULL,"+&
+              "jym varchar(2) NULL,jyd varchar(2) NULL,fzrname varchar(10) NULL,"+&
+              "fzry varchar(4) NULL,fzrm varchar(2) NULL,fzrd varchar(2) NULL,"+&
+              "sjdwjsr varchar(10) NULL,jsry varchar(4) NULL,jsrm varchar(2) NULL,"+&
+              "jsrd varchar(2) NULL,cljg1 varchar(60) NULL,cljg2 varchar(60) NULL,"+&
+              "cljg3 varchar(60) NULL,cljg4 varchar(60) NULL,cljg5 varchar(60) NULL,"+&
+              "zgfzr varchar(10) NULL,zgy varchar(4) NULL,zgm varchar(2) NULL,"+&
+              "zgd varchar(2) NULL,jydwy varchar(4) NULL,jydwm varchar(2) NULL,"+&
+              "jydwd varchar(2) NULL,sjdwy varchar(4) NULL,sjdwm varchar(2) NULL,"+&
+              "sjdwd varchar(2) NULL, PRIMARY KEY (jyid));"
+	  execute immediate :mysql using sqlca;
+   end if
+end if
+
+ls_count = 0
+////////////////´´½¨³ö¿ÚÈÝÆ÷¼à¼ìÖ¤Êé////////////////////
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ckrq_jjzs;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		delsql = "drop table djylrq.y_ckrq_jjzs"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE djylrq.y_ckrq_jjzs (jyid varchar(20) NOT NULL,user1 varchar(80) NULL,"+&
+              "user2 varchar(80) NULL,hyno1 varchar(40) NULL,hyno2 varchar(40) NULL,"+&
+              "zzg1 varchar(40) NULL,zzg2 varchar(40) NULL,cpmc1 varchar(40) NULL,"+&
+              "cpmc2 varchar(40) NULL,cpbh1 varchar(30) NULL,cpbh2 varchar(30) NULL,"+&
+              "lb1 varchar(10) NULL,lb2 varchar(10) NULL,zzdw1 varchar(60) NULL,"+&
+              "zzdw2 varchar(25) NULL,zzdw3 varchar(30) NULL,zzrq1 varchar(16) NULL,"+&
+              "zzrq2 varchar(16) NULL,jjbh1 varchar(30) NULL,jjbh2 varchar(30) NULL,"+&
+              "hgtj1 varchar(50) NULL,hgtj2 varchar(50) NULL,jyname varchar(10) NULL,"+&
+              "jynam1 varchar(20) NULL,shname varchar(10) NULL,shname1 varchar(20) NULL,"+&
+              "qfname varchar(10) NULL,qfname1 varchar(20) NULL,dwy varchar(4) NULL,"+&
+              "dwm varchar(2) NULL,dwd varchar(2) NULL,date2 varchar(16) NULL,"+&
+              "yj1 varchar(120) NULL,yj2 varchar(120) NULL,yj3 varchar(120) NULL,"+&
+              "yj4 varchar(120) NULL,jcy1 varchar(10) NULL,jcy2 varchar(20) NULL,"+&
+              "shr1 varchar(10) NULL,shr2 varchar(20) NULL,dwy1 varchar(4) NULL,"+&
+              "dwm1 varchar(2) NULL,dwd1 varchar(2) NULL,date1 varchar(16) NULL,"+&
+              "bgbh varchar(20) NULL,hgtj3 varchar(120) NULL,"+&
+              "bgbh1 varchar(20) NULL);"
+		execute immediate :mysql using sqlca;
+		myindex = "CREATE UNIQUE INDEX Y_CKRQ_JJZS_X ON DJYLRQ.Y_CKRQ_JJZS (JYID);"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ckrq_jjzs;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		delsql = "drop table y_ckrq_jjzs"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE y_ckrq_jjzs (jyid varchar(20) NOT NULL,user1 varchar(80) NULL,"+&
+              "user2 varchar(80) NULL,hyno1 varchar(40) NULL,hyno2 varchar(40) NULL,"+&
+              "zzg1 varchar(40) NULL,zzg2 varchar(40) NULL,cpmc1 varchar(40) NULL,"+&
+              "cpmc2 varchar(40) NULL,cpbh1 varchar(30) NULL,cpbh2 varchar(30) NULL,"+&
+              "lb1 varchar(10) NULL,lb2 varchar(10) NULL,zzdw1 varchar(60) NULL,"+&
+              "zzdw2 varchar(25) NULL,zzdw3 varchar(30) NULL,zzrq1 varchar(16) NULL,"+&
+              "zzrq2 varchar(16) NULL,jjbh1 varchar(30) NULL,jjbh2 varchar(30) NULL,"+&
+              "hgtj1 varchar(50) NULL,hgtj2 varchar(50) NULL,jyname varchar(10) NULL,"+&
+              "jynam1 varchar(20) NULL,shname varchar(10) NULL,shname1 varchar(20) NULL,"+&
+              "qfname varchar(10) NULL,qfname1 varchar(20) NULL,dwy varchar(4) NULL,"+&
+              "dwm varchar(2) NULL,dwd varchar(2) NULL,date2 varchar(16) NULL,"+&
+              "yj1 varchar(120) NULL,yj2 varchar(120) NULL,yj3 varchar(120) NULL,"+&
+              "yj4 varchar(120) NULL,jcy1 varchar(10) NULL,jcy2 varchar(20) NULL,"+&
+              "shr1 varchar(10) NULL,shr2 varchar(20) NULL,dwy1 varchar(4) NULL,"+&
+              "dwm1 varchar(2) NULL,dwd1 varchar(2) NULL,date1 varchar(16) NULL,"+&
+              "bgbh varchar(20) NULL,hgtj3 varchar(120) NULL,"+&
+              "bgbh1 varchar(20) NULL, PRIMARY KEY (jyid));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+ls_count = 0
+/////////////////////´´½¨ÐÂÑ¹Á¦ÈÝÆ÷¹¤×÷ÁªÂçµ¥////////////////////
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_nylrq_gzlnd;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		delsql = "drop table djylrq.y_nylrq_gzlnd"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE djylrq.y_nylrq_gzlnd (jyid varchar(20) NOT NULL,bgbh varchar(20) NULL,"+&
+              "gldw varchar(80) NULL,qkfy varchar(80) NULL,qkfy1 varchar(80) NULL,"+&
+              "qkfy2 varchar(80) NULL,qkfy3 varchar(80) NULL,qkfy4 varchar(80) NULL,"+&
+              "qkfy5 varchar(80) NULL,qkfy6 varchar(80) NULL,qkfy7 varchar(80) NULL,"+&
+              "qkfy8 varchar(80) NULL,qkfy9 varchar(80) NULL,qkfy10 varchar(80) NULL,"+&
+              "qkfy11 varchar(80) NULL,qkfy12 varchar(80) NULL,qkfy13 varchar(80) NULL,"+&
+              "qkfy14 varchar(80) NULL,qkfy15 varchar(80) NULL,qkfy16 varchar(80) NULL,"+&
+              "qkfy17 varchar(80) NULL,jyname varchar(10) NULL,shname varchar(10) NULL,"+&
+              "jydw varchar(80) NULL,dwy varchar(4) NULL,dwm varchar(2) NULL,"+&
+              "dwd varchar(2) NULL,jydw1 varchar(80) NULL,hfyj1 varchar(80) NULL,"+&
+              "hfyj2 varchar(80) NULL,hfyj3 varchar(80) NULL,hfyj4 varchar(80) NULL,"+&
+              "hfyj5 varchar(80) NULL,hfyj6 varchar(80) NULL,jbr varchar(10) NULL,"+&
+              "spr varchar(10) NULL,gldw1 varchar(80) NULL,dwy1 varchar(4) NULL,"+&
+              "dwm1 varchar(2) NULL,dwd1 varchar(2) NULL);"
+		execute immediate :mysql using sqlca;
+		myindex = "CREATE UNIQUE INDEX Y_NYLRQ_GZLND_X ON DJYLRQ.Y_NYLRQ_GZLND (JYID);"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_nylrq_gzlnd;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		delsql = "drop table y_nylrq_gzlnd"
+		execute immediate :delsql using sqlca;
+		mysql = "CREATE TABLE y_nylrq_gzlnd (jyid varchar(20) NOT NULL,bgbh varchar(20) NULL,"+&
+              "gldw varchar(80) NULL,qkfy varchar(80) NULL,qkfy1 varchar(80) NULL,"+&
+              "qkfy2 varchar(80) NULL,qkfy3 varchar(80) NULL,qkfy4 varchar(80) NULL,"+&
+              "qkfy5 varchar(80) NULL,qkfy6 varchar(80) NULL,qkfy7 varchar(80) NULL,"+&
+              "qkfy8 varchar(80) NULL,qkfy9 varchar(80) NULL,qkfy10 varchar(80) NULL,"+&
+              "qkfy11 varchar(80) NULL,qkfy12 varchar(80) NULL,qkfy13 varchar(80) NULL,"+&
+              "qkfy14 varchar(80) NULL,qkfy15 varchar(80) NULL,qkfy16 varchar(80) NULL,"+&
+              "qkfy17 varchar(80) NULL,jyname varchar(10) NULL,shname varchar(10) NULL,"+&
+              "jydw varchar(80) NULL,dwy varchar(4) NULL,dwm varchar(2) NULL,"+&
+              "dwd varchar(2) NULL,jydw1 varchar(80) NULL,hfyj1 varchar(80) NULL,"+&
+              "hfyj2 varchar(80) NULL,hfyj3 varchar(80) NULL,hfyj4 varchar(80) NULL,"+&
+              "hfyj5 varchar(80) NULL,hfyj6 varchar(80) NULL,jbr varchar(10) NULL,"+&
+              "spr varchar(10) NULL,gldw1 varchar(80) NULL,dwy1 varchar(4) NULL,"+&
+              "dwm1 varchar(2) NULL,dwd1 varchar(2) NULL,PRIMARY KEY (jyid));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from c_ylrq_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.c_ylrq_total alter column list_mc varchar(200) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from c_ylrq_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table c_ylrq_total modify list_mc varchar(200) NULL ; "
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_total add jyjghzzh varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_total add jyjghzzh varchar(30) NULL ; "
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_sxjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_sxjc add gdy varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_sxjc add ppname varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_sxjc add ppy varchar(4) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_sxjc add ppm varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_sxjc add ppd varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_sxjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_sxjc add gdy varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_sxjc add ppname varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_sxjc add ppy varchar(4) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_sxjc add ppm varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_sxjc add ppd varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_ydjc;
+
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_ydjc add ztcz varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_ydjc add rclzt varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_ydjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_ydjc add ztcz varchar(30) NULL ; "
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_ydjc add rclzt varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_jxfx;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_jxfx add ztcz varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_jxfx add rclzt varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_ydjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_jxfx add ztcz varchar(30) NULL ; "
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_jxfx add rclzt varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('9v','01','µÚÒ»Ò³','','¸½Ò³','dat_tzsb_yjtzs_01','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('9v','02','µÚ¶þÒ³','','','dat_tzsb_yjtzs_02','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('6u','01','±¨¸æÖ÷Ò³','','¸½Ò³','dat_nylrq_gzlnd','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('4w','01','±¨¸æÖ÷Ò³','','','dat_ckrq_jjsz','','') ; "
+		execute immediate :modsql using sqlca ;
+	end if
+else
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('9v','01','µÚÒ»Ò³','','¸½Ò³','dat_tzsb_yjtzs_01','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('9v','02','µÚ¶þÒ³','','','dat_tzsb_yjtzs_02','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('6u','01','±¨¸æÖ÷Ò³','','¸½Ò³','dat_nylrq_gzlnd','','') ; "
+		execute immediate :modsql using sqlca ;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fcy,fy,dw,ct,add1) values ('4w','01','±¨¸æÖ÷Ò³','','','dat_ckrq_jjsz','','') ; "
+		execute immediate :modsql using sqlca ;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_total add dm_bz1 varchar(12) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_total add dm_bz varchar(12) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_total add sb_zcdm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_total add dm_bz1 varchar(12) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_total add dm_bz varchar(12) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_total add sb_zcdm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_ndjy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_ndjy add dm_bz1 varchar(12) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_ndjy add dm_bz varchar(12) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_ndjy add sb_zcdm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_ndjy add djid varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_ndjy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_ndjy add dm_bz1 varchar(12) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_ndjy add dm_bz varchar(12) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_ndjy add sb_zcdm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_ndjy add djid varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from b_jy_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.b_jy_total add sb_zcdm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from b_jy_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table b_jy_total add sb_zcdm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_zlsc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_zlsc add czzlxs varchar(10);"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_zlsc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_zlsc add czzlxs varchar(10);"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_sxjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_sxjc alter column jbzs1 varchar(60);"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_sxjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_sxjc modify jbzs1 varchar(60);"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_csbjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_csbjc alter column qy1 varchar(80);"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_csbjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_csbjc modify qy1 varchar(80);"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_cfjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_cfjc alter column qy1 varchar(80);"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_cfjc add jcbldw varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_cfjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_cfjc modify qy1 varchar(80);"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_cfjc add jcbldw varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_stjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_stjc alter column qy1 varchar(80);"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_stjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_stjc modify qy1 varchar(80);"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_ndjy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_ndjy add list_id varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_ndjy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_ndjy add list_id varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0 
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_nysy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_nysy add nextjyyear varchar(4) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_nysy add nextjymonth varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_nysy add nextjyday varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_nysy add dwyear varchar(4) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_nysy add dwmonth varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_nysy add dwday varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_nysy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_nysy add nextjyyear varchar(4) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_nysy add nextjymonth varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_nysy add nextjyday varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_nysy add dwyear varchar(4) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_nysy add dwmonth varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_nysy add dwday varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from glc_ylrq;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.glc_ylrq add sfdm varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add sfmc varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add dsdm varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add dsmc varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add qxdm varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add qxmc varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add zdsb varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add sdsbyy varchar(60) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add sbfldm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add sbflmc varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.glc_ylrq add sb_zcdm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from glc_ylrq;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table glc_ylrq add sbfldm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add sbflmc varchar(80) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add sb_zcdm varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add sfdm varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add sfmc varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add dsdm varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add dsmc varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add qxdm varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add qxmc varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add zdsb varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table glc_ylrq add sdsbyy varchar(60) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from sjzd_tzsb;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		mysql = "CREATE TABLE djylrq.sjzd_tzsb (id integer NOT NULL,mc varchar(30) NULL;"
+		execute immediate :mysql using sqlca;
+		myindex = "CREATE UNIQUE INDEX sjzd_tzsb_x ON DJYLRQ.sjzd_tzsb (id);"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ls_count from sjzd_tzsb;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		mysql = "CREATE TABLE sjzd_tzsb (id integer NOT NULL,mc varchar(30) NULL, PRIMARY KEY (id));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from sjzd_tzsb_data;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		mysql = "CREATE TABLE djylrq.sjzd_tzsb_data (tzsb_id integer NOT NULL ,xh integer NOT NULL,dm varchar(30) NULL,"+&
+              "mc varchar(80) NULL,sm varchar(40) NULL,mark varchar(4) NULL;"
+		execute immediate :mysql using sqlca;
+		myindex = "CREATE INDEX sjzd_tzsb_data_x ON djylrq.sjzd_tzsb_data (tzsb_id,xh);"
+		execute immediate :myindex using sqlca;
+	end if
+else
+	select count(*) into :ls_count from sjzd_tzsb_data;
+	if sqlca.sqlcode = -1 or ls_count = 0 then
+		mysql = "CREATE TABLE sjzd_tzsb_data (tzsb_id integer NOT NULL ,xh integer NOT NULL,dm varchar(30) NULL,"+&
+              "mc varchar(80) NULL,sm varchar(40) NULL,mark varchar(4) NULL,PRIMARY KEY (tzsb_id,xh));"
+		execute immediate :mysql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_bg_ml;
+	if sqlca.sqlcode = 0 then
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add id19 varchar(2);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add id20 varchar(2);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add id21 varchar(2);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add yh19 varchar(3);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add yh20 varchar(3);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add yh21 varchar(3);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add xm19 varchar(36);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add xm20 varchar(36);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add xm21 varchar(36);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add ff19 varchar(20);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add ff20 varchar(20);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table djylrq.y_ylrq_bg_ml Add ff21 varchar(20);"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_bg_ml;
+	if sqlca.sqlcode = 0 then
+		modsql = "Alter table y_ylrq_bg_ml Add id19 varchar(2);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add id20 varchar(2);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add id21 varchar(2);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add yh19 varchar(3);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add yh20 varchar(3);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add yh21 varchar(3);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add xm19 varchar(36);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add xm20 varchar(36);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add xm21 varchar(36);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add ff19 varchar(20);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add ff20 varchar(20);"
+		execute immediate :modsql using sqlca;
+		modsql = "Alter table y_ylrq_bg_ml Add ff21 varchar(20);"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "Alter table djylrq.y_ylrq_total alter column list_mc varchar(240);"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_total;
+	if sqlca.sqlcode = 0 then
+		modsql = "Alter table y_ylrq_total Modify list_mc varchar(240);"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode = 0 then
+		modsql = "Insert into djylrq.a_sz_nr (jytype,xh,nr,dw,ct) values ('6c','22','¼ìÑé·½°¸Ò»','dat_ylrq_jyfa_fp','');"
+		execute immediate :modsql using sqlca;
+		modsql = "Insert into djylrq.a_sz_nr (jytype,xh,nr,dw,ct) values ('6c','23','¼ìÑé·½°¸¶þ','dat_ylrq_jyfa_nr','²åÍ¼');"
+		execute immediate :modsql using sqlca;
+		modsql = "Insert into djylrq.a_sz_nr (jytype,xh,nr,dw,ct) values ('6c','24','Òâ¼ûÍ¨ÖªÊé','dat_ylrq_jyyjtzs','²åÍ¼');"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode = 0 then
+		modsql = "Insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('6c','22','¼ìÑé·½°¸Ò»','dat_ylrq_jyfa_fp','');"
+		execute immediate :modsql using sqlca;
+		modsql = "Insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('6c','23','¼ìÑé·½°¸¶þ','dat_ylrq_jyfa_nr','²åÍ¼');"
+		execute immediate :modsql using sqlca;
+		modsql = "Insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('6c','24','Òâ¼ûÍ¨ÖªÊé','dat_ylrq_jyyjtzs','²åÍ¼');"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode = 0 then
+		delsql = "delete from djylrq.a_sz_nr where jytype like 'Ic' and xh = '18';"
+		execute immediate :delsql using sqlca;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,dw) values ('Ic','18','¼ìÑé·½°¸Ò»','dat_ylrq_jyfa_fp');"
+		execute immediate :modsql using sqlca;
+		delsql = "delete from djylrq.a_sz_nr where jytype like 'Ic' and xh = '19';"
+		execute immediate :delsql using sqlca;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,dw,ct) values ('Ic','19','¼ìÑé·½°¸¶þ','dat_ylrq_jyfa_nr','²åÍ¼');"
+		execute immediate :modsql using sqlca;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,dw,ct) values ('Ic','20','Òâ¼ûÍ¨ÖªÊé','dat_ylrq_jyyjtzs','²åÍ¼');"
+		execute immediate :modsql using sqlca;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,fy,dw) values ('6n','01','½áÂÛ±¨¸æ','¸½Ò³','ylrq_ndbg2');"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode = 0 then
+		delsql = "delete from a_sz_nr where jytype like 'Ic' and xh like '18';"
+		execute immediate :delsql using sqlca;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,dw) values ('Ic','18','¼ìÑé·½°¸Ò»','dat_ylrq_jyfa_fp');"
+		execute immediate :modsql using sqlca;
+		delsql = "delete from a_sz_nr where jytype like 'Ic' and xh like '19';"
+		execute immediate :delsql using sqlca;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Ic','19','¼ìÑé·½°¸¶þ','dat_ylrq_jyfa_nr','²åÍ¼');"
+		execute immediate :modsql using sqlca;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,dw,ct) values ('Ic','20','Òâ¼ûÍ¨ÖªÊé','dat_ylrq_jyyjtzs','²åÍ¼');"
+		execute immediate :modsql using sqlca;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,fy,dw) values ('6n','01','½áÂÛ±¨¸æ','¸½Ò³','ylrq_ndbg2');"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_ndjy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_ndjy add gaochang varchar(14) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_ndjy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_ndjy add gaochang varchar(14) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_zlsc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_zlsc add gaochang varchar(14) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_zlsc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_zlsc add gaochang varchar(14) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_nysy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_nysy add bfb varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_nysy;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_nysy add bfb varchar(6) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from y_ylrq_fjjcjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add bz1 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add bz2 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add bz3 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add bz4 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add bz5 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add yqxh varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add yqjd varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add csyjz varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add gdyq varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add scsj varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table djylrq.y_ylrq_fjjcjc add jgpd varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from y_ylrq_fjjcjc;
+	if sqlca.sqlcode = 0 then
+		modsql = "alter table y_ylrq_fjjcjc add bz1 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add bz2 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add bz3 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add bz4 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add bz5 varchar(2) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add yqxh varchar(30) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add yqjd varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add csyjz varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add gdyq varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add scsj varchar(20) NULL;"
+		execute immediate :modsql using sqlca;
+		modsql = "alter table y_ylrq_fjjcjc add jgpd varchar(10) NULL;"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+end subroutine
+

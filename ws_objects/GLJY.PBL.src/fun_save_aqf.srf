@@ -1,0 +1,141 @@
+﻿$PBExportHeader$fun_save_aqf.srf
+global type fun_save_aqf from function_object
+end type
+
+forward prototypes
+global subroutine fun_save_aqf (string cs1)
+end prototypes
+
+global subroutine fun_save_aqf (string cs1);if cs1 <> 'OK' then return
+long ls_count = 0
+string delsql,mysql,myindex,modsql
+// Ê×ÏÈÅÐ¶ÏÏµÍ³Îªsqlserver°æ»¹ÊÇsybase°æ
+string mark = 'sybase'
+if sqlca.dbms="MSS (Msoft) SQL Server 6.0" then mark = 'sqlserver'
+//select count(*) into :ls_count from djylrq.a_rycode;
+//if ls_count > 0 and sqlca.sqlcode = 0 then mark = 'sqlserver'
+// END
+
+ls_count = 0
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_qj_aqf_new;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_qj_aqf_new"
+		execute immediate :delsql using sqlca ;
+		mysql = "CREATE TABLE djylrq.b_qj_aqf_new(jyid varchar(20) NOT NULL ,bgbh varchar(20) NULL,sydw varchar(80) NULL,"+&
+              "dwdz varchar(80) NULL,lxr varchar(20) NULL,lxdh varchar(20) NULL,sbdm varchar(20) NULL,"+&
+              "azwz varchar(80) NULL,aqflx1 varchar(10) NULL,aqflx2 varchar(10) NULL,aqflx3 varchar(10) NULL,"+&
+              "aqfxh varchar(40) NULL,gzyl varchar(40) NULL,gzjz varchar(40) NULL,yqzdyl varchar(40) NULL,"+&
+              "zxbz varchar(40) NULL,jyfs varchar(40) NULL,jyjz varchar(40) NULL,zdyl varchar(40) NULL,"+&
+              "mfsyyl varchar(40) NULL,jyjg varchar(80) NULL,sm1 varchar(80) NULL,sm2 varchar(80) NULL,"+&
+              "sm3 varchar(80) NULL,sm4 varchar(80) NULL,sm5 varchar(80) NULL,sm6 varchar(80) NULL,"+&
+              "sm7 varchar(80) NULL,sm8 varchar(80) NULL,sm9 varchar(80) NULL,sm10 varchar(80) NULL,"+&
+              "sm11 varchar(80) NULL,sm12 varchar(80) NULL,sm13 varchar(80) NULL,sm14 varchar(80) NULL,"+&
+              "sm15 varchar(80) NULL,jyrq varchar(20) NULL,nextrq varchar(20) NULL,jyname varchar(10) NULL,"+&
+              "jyrq1 varchar(20) NULL,spname varchar(10) NULL,sprq varchar(20) NULL,jyjghzbh varchar(40) NULL,"+&
+              "jyjgrq varchar(20) NULL, PRIMARY KEY (jyid));"
+		 execute immediate :mysql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from b_qj_aqf_new;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_qj_aqf_new"
+		execute immediate :delsql using sqlca ;
+		mysql = "CREATE TABLE b_qj_aqf_new(jyid varchar(20) NOT NULL ,bgbh varchar(20) NULL,sydw varchar(80) NULL,"+&
+              "dwdz varchar(80) NULL,lxr varchar(20) NULL,lxdh varchar(20) NULL,sbdm varchar(20) NULL,"+&
+              "azwz varchar(80) NULL,aqflx1 varchar(10) NULL,aqflx2 varchar(10) NULL,aqflx3 varchar(10) NULL,"+&
+              "aqfxh varchar(40) NULL,gzyl varchar(40) NULL,gzjz varchar(40) NULL,yqzdyl varchar(40) NULL,"+&
+              "zxbz varchar(40) NULL,jyfs varchar(40) NULL,jyjz varchar(40) NULL,zdyl varchar(40) NULL,"+&
+              "mfsyyl varchar(40) NULL,jyjg varchar(80) NULL,sm1 varchar(80) NULL,sm2 varchar(80) NULL,"+&
+              "sm3 varchar(80) NULL,sm4 varchar(80) NULL,sm5 varchar(80) NULL,sm6 varchar(80) NULL,"+&
+              "sm7 varchar(80) NULL,sm8 varchar(80) NULL,sm9 varchar(80) NULL,sm10 varchar(80) NULL,"+&
+              "sm11 varchar(80) NULL,sm12 varchar(80) NULL,sm13 varchar(80) NULL,sm14 varchar(80) NULL,"+&
+              "sm15 varchar(80) NULL,jyrq varchar(20) NULL,nextrq varchar(20) NULL,jyname varchar(10) NULL,"+&
+              "jyrq1 varchar(20) NULL,spname varchar(10) NULL,sprq varchar(20) NULL,jyjghzbh varchar(40) NULL,"+&
+              "jyjgrq varchar(20) NULL, PRIMARY KEY (jyid));"
+		 execute immediate :mysql using sqlca;
+	end if
+end if
+
+ls_count = 0
+IF mark = 'sqlserver' THEN
+	select count(*) into :ls_count from b_qj_aqf_yszl;
+	if sqlca.sqlcode = -1 or ls_count=0 then // Ðè´´½¨	
+		delsql = "drop table djylrq.b_qj_aqf_yszl"
+		execute immediate :delsql using sqlca ;
+		mysql = "CREATE TABLE djylrq.b_qj_aqf_yszl (jyid varchar(20) NOT NULL ,bgbh varchar(20) NULL,sydw varchar(80) NULL,"+&
+              "sbdm varchar(40) NULL,yqzdyl varchar(40) NULL,gzjz varchar(40) NULL,aqfxh varchar(40) NULL,"+&
+              "gctj varchar(40) NULL,fzkj varchar(40) NULL,zzdw varchar(80) NULL,zzxkzbh varchar(40) NULL,"+&
+              "yljbfw1 varchar(10) NULL,yljbfw2 varchar(10) NULL,ccbh varchar(40) NULL,ccrq varchar(40) NULL,"+&
+              "jyfs varchar(40) NULL,jybh varchar(40) NULL,jyjz varchar(40) NULL,jyjzwd varchar(40) NULL,"+&
+              "wgjc1 varchar(80) NULL,wgjc2 varchar(80) NULL,wgjc3 varchar(80) NULL,wgjc4 varchar(80) NULL,"+&
+              "wgjc5 varchar(80) NULL,wgjc6 varchar(80) NULL,wgjc7 varchar(80) NULL,wgjc8 varchar(80) NULL,"+&
+              "cxjc1 varchar(80) NULL,cxjc2 varchar(80) NULL,cxjc3 varchar(80) NULL,cxjc4 varchar(80) NULL,"+&
+              "cxjc5 varchar(80) NULL,cxjc6 varchar(80) NULL,cxjc7 varchar(80) NULL,cxjc8 varchar(80) NULL,"+&
+              "sjzdyl1 varchar(10) NULL,sjzdyl2 varchar(10) NULL,sjzdyl3 varchar(10) NULL,"+&
+	           "mfsyyl1 varchar(10) NULL,mfsyyl2 varchar(10) NULL,mfsyyl3 varchar(10) NULL,"+&
+              "jyjl varchar(20) NULL,jyyxq varchar(20) NULL,bz1 varchar(80) NULL,bz2 varchar(80) NULL,"+&
+              "bz3 varchar(80) NULL,jyname varchar(10) NULL,jyrq varchar(20) NULL,"+&
+              "jybgbh varchar(20) NULL,PRIMARY KEY (jyid));"
+
+		 execute immediate :mysql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from b_qj_aqf_yszl;
+	if sqlca.sqlcode = -1 then // Ðè´´½¨	
+		delsql = "drop table b_qj_aqf_yszl"
+		execute immediate :delsql using sqlca ;
+		mysql = "CREATE TABLE b_qj_aqf_yszl (jyid varchar(20) NOT NULL ,bgbh varchar(20) NULL,sydw varchar(80) NULL,"+&
+              "sbdm varchar(40) NULL,yqzdyl varchar(40) NULL,gzjz varchar(40) NULL,aqfxh varchar(40) NULL,"+&
+              "gctj varchar(40) NULL,fzkj varchar(40) NULL,zzdw varchar(80) NULL,zzxkzbh varchar(40) NULL,"+&
+              "yljbfw1 varchar(10) NULL,yljbfw2 varchar(10) NULL,ccbh varchar(40) NULL,ccrq varchar(40) NULL,"+&
+              "jyfs varchar(40) NULL,jybh varchar(40) NULL,jyjz varchar(40) NULL,jyjzwd varchar(40) NULL,"+&
+              "wgjc1 varchar(80) NULL,wgjc2 varchar(80) NULL,wgjc3 varchar(80) NULL,wgjc4 varchar(80) NULL,"+&
+              "wgjc5 varchar(80) NULL,wgjc6 varchar(80) NULL,wgjc7 varchar(80) NULL,wgjc8 varchar(80) NULL,"+&
+              "cxjc1 varchar(80) NULL,cxjc2 varchar(80) NULL,cxjc3 varchar(80) NULL,cxjc4 varchar(80) NULL,"+&
+              "cxjc5 varchar(80) NULL,cxjc6 varchar(80) NULL,cxjc7 varchar(80) NULL,cxjc8 varchar(80) NULL,"+&
+              "sjzdyl1 varchar(10) NULL,sjzdyl2 varchar(10) NULL,sjzdyl3 varchar(10) NULL,"+&
+	           "mfsyyl1 varchar(10) NULL,mfsyyl2 varchar(10) NULL,mfsyyl3 varchar(10) NULL,"+&
+              "jyjl varchar(20) NULL,jyyxq varchar(20) NULL,bz1 varchar(80) NULL,bz2 varchar(80) NULL,"+&
+              "bz3 varchar(80) NULL,jyname varchar(10) NULL,jyrq varchar(20) NULL,"+&
+              "jybgbh varchar(20) NULL,PRIMARY KEY (jyid));"
+
+		 execute immediate :mysql using sqlca;
+	end if
+end if
+
+ls_count = 0
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,dw) values ('Z9','01','Ô­Ê¼×ÊÁÏ','qj_aqf_yszl');"
+		execute immediate :modsql using sqlca;
+		modsql = "insert into djylrq.a_sz_nr (jytype,xh,nr,dw) values ('Z9','02','±¨¸æÄÚÈÝ','qj_aqf_new');"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from a_sz_nr;
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into a_sz_nr (jytype,xh,nr,dw) values ('Z9','01','Ô­Ê¼×ÊÁÏ','qj_aqf_yszl');"
+		execute immediate :modsql using sqlca;
+		modsql = "insert into a_sz_nr (jytype,xh,nr,dw) values ('Z9','02','±¨¸æÄÚÈÝ','qj_aqf_new');"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+
+ls_count = 0 
+if mark = 'sqlserver' then
+	select count(*) into :ls_count from a_jylb;
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into djylrq.a_jylb_id (id,mc) values ('9','ÐÂ°²È«·§Ð£Ñé');"
+		execute immediate :modsql using sqlca;
+	end if
+else
+	select count(*) into :ls_count from a_jylb;
+	if sqlca.sqlcode = 0 then
+		modsql = "insert into a_jylb_id (id,mc) values ('9','ÐÂ°²È«·§Ð£Ñé');"
+		execute immediate :modsql using sqlca;
+	end if
+end if
+end subroutine
+

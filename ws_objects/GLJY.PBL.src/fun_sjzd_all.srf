@@ -1,0 +1,38 @@
+﻿$PBExportHeader$fun_sjzd_all.srf
+global type fun_sjzd_all from function_object
+end type
+
+forward prototypes
+global subroutine fun_sjzd_all ()
+end prototypes
+
+global subroutine fun_sjzd_all ();long ls_num
+boolean lb_true = true
+transaction sql_sjzd
+
+select count(*) into :ls_num from sjzd_bg_bgzd_nr;
+if sqlca.sqlcode <> -1 then lb_true = false
+/**************************ÒÔÏÂÊÇÊý¾Ý×Öµä±íµ¼ÈëÇ°µÄÅäÖÃ*****************************************/	
+sql_sjzd = create transaction
+string startupfile = 'c:\jyoa\install.ini'
+sql_sjzd.dbms        = ProfileString (startupfile, "sjzd", "dbms",       "")
+sql_sjzd.userid      = ProfileString (startupfile, "sjzd", "userid",     "")
+sql_sjzd.dbpass      = ProfileString (startupfile, "sjzd", "dbpass",     "")
+sql_sjzd.database    = ProfileString (startupfile, "sjzd", "database",   "")
+sql_sjzd.servername  = ProfileString (startupfile, "sjzd", "servername", "")
+sql_sjzd.logid       = ProfileString (startupfile, "sjzd", "logid", "")
+sql_sjzd.logpass     = ProfileString (startupfile, "sjzd", "logpass",      "")
+sql_sjzd.dbparm      = ProfileString (startupfile, "sjzd", "dbparm",     "")					
+//////////////////////////////////////////////////////////////////
+connect using sql_sjzd;
+if sql_sjzd.sqlcode <> 0 then
+	messagebox('ÏµÍ³ÌáÊ¾','Ô´Êý¾Ý¿â:' + sql_sjzd.database + 'Á¬½ÓÊ§°Ü,ÇëÖØÐÂÅäÖÃ£¡')
+	return
+end if
+fun_sjzd(sql_sjzd,sqlca)
+if lb_true = true then
+	fun_sjzd_bgnr(sql_sjzd,sqlca)
+end if
+disconnect using sql_sjzd;
+end subroutine
+
